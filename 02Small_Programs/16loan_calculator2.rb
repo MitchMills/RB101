@@ -17,32 +17,33 @@ def float?(input)
   input.to_f.to_s == input
 end
 
+def non_negative?(input)
+  input.to_f >= 0
+end
+
 def valid_number?(input)
-  integer?(input) || float?(input)
+  integer?(input) || float?(input) && non_negative?(input)
 end
 
-# account for zero and negative inputs
-
-def valid_name?(name)
-  foo
+def valid_integer?(input)
+  integer?(input) && non_negative?(input)
 end
 
-name = nil
 def get_name
   loop do
     prompt(:get_name)
     name = gets.chomp
-    if valid_name?
-      return name
-    else
+    if name.empty?
       prompt(:invalid_name)
+    else
+      return name
     end
   end
 end
 
 def welcome
   prompt(:welcome)
-  get_name
+  name = get_name
   prompt(:instructions, name)
 end
 
@@ -51,10 +52,10 @@ def welcome_back
   prompt(:instructions_again)
 end
 
+times = 1
 def intro
   system 'clear'
-  times = 1
-  if times < 2
+  if times == 1
     welcome
     times += 1
   else
@@ -62,75 +63,104 @@ def intro
   end
 end
 
-loan_amount = nil
 def get_loan_amount
   loop do
     prompt(:loan_amount)
     loan_amount = gets.chomp
     if valid_number?(loan_amount)
-      return loan_amount
+      return loan_amount.to_f
     else
       prompt(:invalid_loan_amount)
     end
   end
 end
 
-apr = nil
 def get_apr
   loop do
     prompt(:apr)
     apr = gets.chomp
     if valid_number?(apr)
-      return apr
+      return apr.to_f
     else
       prompt(:invalid_apr)
     end
   end
 end
 
-loan_years = nil
+def calculate_mpr(apr)
+  (apr / 12) / 100
+end
+
+
 def get_loan_years
   loop do
     prompt(:loan_years)
     loan_years = gets.chomp
-    if valid_number?(loan_years)
-      return loan_years
+    if valid_integer?(loan_years)
+      return loan_years.to_i
     else
       prompt(:invalid_years)
     end
   end
 end
 
-loan_months = nil
 def get_loan_months
   loop do
     prompt(:loan_months)
     loan_months = gets.chomp
-    if valid_number?(loan_months)
-      return loan_months
+    if valid_integer?(loan_months)
+      return loan_months.to_i
     else
       prompt(:invalid_months)
     end
   end
 end
 
-loan_duration = nil
-def calculate_loan_duration
-  loan_duration = (loan_years * 12) + loan_months
+def calculate_loan_duration_months(loan_years, loan_months)
+  (loan_years * 12) + loan_months
+end
+
+def calculate_monthly_payment(loan_amount, mpr, loan_duration)
+  loan_amount *
+  (mpr /
+  (1 - (1 + mpr)**(-loan_duration)))
+end
+
+def calculate_total_interest(monthly_payment, loan_duration, loan_amount)
+  (monthly_payment * loan_duration) - loan_amount
+end
+
+def show_results(loan_duration_months, monthly_payment, total_interest)
+  prompt(:number_of_payments)
+  prompt(:monthly_payment)
+  prompt(:total_interest)
+end
+
+def another_calculation?
+  loop do
+    prompt(:another_calculation?, name)
+    answer = gets.chomp
+    
+  end
 end
 
 
-
-
-
-
-# loop do
-#   intro
-#   get_loan_amount
-#   get_apr
-#   get_loan_years
-#   get_loan_months
-#   calculate_monthly_payment
-#   show_results
-#   break unless another_calculation?
-# end
+# Main Loop
+loop do
+  intro
+  loan_amount = get_loan_amount
+  apr = get_apr
+  mpr = calculate_mpr
+  loan_years = get_loan_years
+  loan_months = get_loan_months
+  loan_duration_months = calculate_loan_duration_months
+  monthly_payment = calculate_monthly_payment
+  total_interest = calculate_total_interest
+  show_results  
+  if another_calculation?
+    break
+  else
+    prompt(:goodbye, name)
+    exit
+  end
+end
