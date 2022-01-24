@@ -29,12 +29,13 @@ def valid_integer?(input)
   integer?(input) && non_negative?(input)
 end
 
+name = ''
 def get_name
   loop do
-    prompt(:get_name)
+    prompt('get_name')
     name = gets.chomp
     if name.empty?
-      prompt(:invalid_name)
+      prompt('invalid_name')
     else
       return name
     end
@@ -42,14 +43,14 @@ def get_name
 end
 
 def welcome
-  prompt(:welcome)
+  prompt('welcome')
   name = get_name
-  prompt(:instructions, name)
+  prompt('instructions', name)
 end
 
 def welcome_back
-  prompt(:welcome_back, name)
-  prompt(:instructions_again)
+  prompt('welcome_back', name)
+  prompt('instructions_again')
 end
 
 times = 1
@@ -65,24 +66,24 @@ end
 
 def get_loan_amount
   loop do
-    prompt(:loan_amount)
+    prompt('loan_amount')
     loan_amount = gets.chomp
     if valid_number?(loan_amount)
       return loan_amount.to_f
     else
-      prompt(:invalid_loan_amount)
+      prompt('invalid_loan_amount')
     end
   end
 end
 
 def get_apr
   loop do
-    prompt(:apr)
+    prompt('apr')
     apr = gets.chomp
     if valid_number?(apr)
       return apr.to_f
     else
-      prompt(:invalid_apr)
+      prompt('invalid_apr')
     end
   end
 end
@@ -91,27 +92,26 @@ def calculate_mpr(apr)
   (apr / 12) / 100
 end
 
-
 def get_loan_years
   loop do
-    prompt(:loan_years)
+    prompt('loan_years')
     loan_years = gets.chomp
     if valid_integer?(loan_years)
       return loan_years.to_i
     else
-      prompt(:invalid_years)
+      prompt('invalid_years')
     end
   end
 end
 
 def get_loan_months
   loop do
-    prompt(:loan_months)
+    prompt('loan_months')
     loan_months = gets.chomp
     if valid_integer?(loan_months)
       return loan_months.to_i
     else
-      prompt(:invalid_months)
+      prompt('invalid_months')
     end
   end
 end
@@ -131,14 +131,14 @@ def calculate_total_interest(monthly_payment, loan_duration, loan_amount)
 end
 
 def show_results(loan_duration_months, monthly_payment, total_interest)
-  prompt(:number_of_payments)
-  prompt(:monthly_payment)
-  prompt(:total_interest)
+  prompt('number_of_payments', loan_duration_months)
+  prompt('monthly_payment', monthly_payment)
+  prompt('total_interest', total_interest)
 end
 
 def another_calculation?
   loop do
-    prompt(:another_calculation?, name)
+    prompt('another_calculation'?, name)
     answer = gets.chomp
     
   end
@@ -160,7 +160,7 @@ loop do
   if another_calculation?
     break
   else
-    prompt(:goodbye, name)
+    prompt('goodbye', name)
     exit
   end
 end
