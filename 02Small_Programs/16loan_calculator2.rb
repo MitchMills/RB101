@@ -29,7 +29,6 @@ def valid_integer?(input)
   integer?(input) && non_negative?(input)
 end
 
-name = ''
 def get_name
   loop do
     prompt('get_name')
@@ -130,7 +129,7 @@ def calculate_total_interest(monthly_payment, loan_duration, loan_amount)
   (monthly_payment * loan_duration) - loan_amount
 end
 
-def show_results(loan_duration_months, monthly_payment, total_interest)
+def display_results(loan_duration_months, monthly_payment, total_interest)
   prompt('number_of_payments', loan_duration_months)
   prompt('monthly_payment', monthly_payment)
   prompt('total_interest', total_interest)
@@ -138,7 +137,7 @@ end
 
 def another_calculation?
   loop do
-    prompt('another_calculation'?, name)
+    prompt('another_calculation?', name)
     answer = gets.chomp
     
   end
@@ -156,7 +155,7 @@ loop do
   loan_duration_months = calculate_loan_duration_months
   monthly_payment = calculate_monthly_payment
   total_interest = calculate_total_interest
-  show_results  
+  display_results  
   if another_calculation?
     break
   else
