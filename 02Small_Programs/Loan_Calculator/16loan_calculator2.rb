@@ -64,10 +64,13 @@ def intro
 end
 
 def get_loan_amount
+  loan_amount = nil
   loop do
     prompt('loan_amount')
     loan_amount = gets.chomp
     if valid_number?(loan_amount)
+      format_loan_amount(loan_amount)
+      confirm_input(formatted_loan_amount)
       return loan_amount.to_f
     else
       prompt('invalid_loan_amount')

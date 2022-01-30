@@ -13,6 +13,10 @@ years_in_loan: "Third, please enter the number of years in the loan."
 invalid_years: "invalid years"
 months_in_loan: "loan months"
 invalid_months: "invalid months"
+
+confirm_input: "confirm input %{data} yes or no."
+enter_yes_or_no: "Please enter yes or no."
+
 number_of_payments: "number of payments"
 monthly_payment: "monthly payment"
 total_interest: "total interest"

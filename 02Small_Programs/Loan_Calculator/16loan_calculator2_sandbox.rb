@@ -27,39 +27,49 @@ def valid_integer?(input)
 end
 
 ##################
-YES_OR_NO = ['y', 'n', 'yes', 'no']
+
 YES = ['y', 'yes']
 NO = ['n', 'no']
 
-def yes_or_no?(answer)
-  YES_OR_NO.include?(answer)  
+def format_loan_amount(loan_amount)
+  loan_amount
 end
 
-def confirm_loan_amount(loan_amount)
+# def format_apr(apr)
+# end
+
+# def format_loan_duration_months(loan_duration_months)
+# end
+
+
+def confirm_input(input)
   loop do
-    prompt('confirm_loan_amount')
-    answer = gets.chomp
+    prompt('confirm_input', input)
+    answer = gets.chomp.downcase
     if YES.include?(answer)
-
+      return
     elsif NO.include?(answer)
-
+      break get_loan_amount
     else
-      prompt()
+      prompt('enter_yes_or_no')
     end
-
   end
 end
-###################
 
 def get_loan_amount
+  loan_amount = nil
+  formatted_loan_amount = nil
   loop do
     prompt('loan_amount')
     loan_amount = gets.chomp
     if valid_number?(loan_amount)
-      
+      formatted_loan_amount = format_loan_amount(loan_amount)
+      confirm_input(formatted_loan_amount)
       return loan_amount.to_f
     else
       prompt('invalid_loan_amount')
     end
   end
 end
+
+get_loan_amount
