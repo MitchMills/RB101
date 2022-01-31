@@ -63,14 +63,12 @@ def intro
   end
 end
 
+loan_amount = ''
 def get_loan_amount
-  loan_amount = nil
   loop do
     prompt('loan_amount')
     loan_amount = gets.chomp
     if valid_number?(loan_amount)
-      format_loan_amount(loan_amount)
-      confirm_input(formatted_loan_amount)
       return loan_amount.to_f
     else
       prompt('invalid_loan_amount')
@@ -85,7 +83,7 @@ def get_apr
     if valid_number?(apr)
       return apr.to_f
     else
-      prompt('invalid_apr')
+      prompt('invalid_entry')
     end
   end
 end
@@ -101,7 +99,7 @@ def get_years_in_loan
     if valid_integer?(years_in_loan)
       return years_in_loan.to_i
     else
-      prompt('invalid_years')
+      prompt('invalid_entry')
     end
   end
 end
@@ -113,7 +111,7 @@ def get_months_in_loan
     if valid_integer?(months_in_loan)
       return months_in_loan.to_i
     else
-      prompt('invalid_months')
+      prompt('invalid_entry')
     end
   end
 end

@@ -41,33 +41,35 @@ end
 # def format_loan_duration_months(loan_duration_months)
 # end
 
-def confirm_input(input)
-  loop do
-    prompt('confirm_input', input)
-    answer = gets.chomp.downcase
-    if YES.include?(answer)
-      return
-    elsif NO.include?(answer)
-      loan_amount = get_loan_amount
-      puts "c. " + loan_amount.to_s
-      return
-    else
-      prompt('enter_yes_or_no')
-    end
-  end
+# def confirm_input(loan_amount)
+#   loop do
+#     formatted_loan_amount = format_loan_amount(loan_amount)
+#     prompt('confirm_input', formatted_loan_amount)
+#     answer = gets.chomp.downcase
+#     if YES.include?(answer)
+#       return
+#     elsif NO.include?(answer)
+#       get_loan_amount
+#     else
+#       prompt('enter_yes_or_no')
+#     end
+#   end
+# end
+
+def correct_input?(loan_amount)
+  formatted_loan_amount = format_loan_amount(loan_amount)
+  prompt('confirm_input', formatted_loan_amount)
+  answer = gets.chomp.downcase
+  YES.include?(answer)
 end
 
+loan_amount = ''
 def get_loan_amount
-  loan_amount = ''
-  formatted_loan_amount = ''
   loop do
     prompt('loan_amount')
     loan_amount = gets.chomp
-    puts "a. " + loan_amount.to_s
     if valid_number?(loan_amount)
-      # formatted_loan_amount = format_loan_amount(loan_amount)
       confirm_input(loan_amount)
-      puts "b. " + loan_amount.to_s
       return loan_amount.to_f
     else
       prompt('invalid_loan_amount')
