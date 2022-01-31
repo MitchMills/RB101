@@ -53,7 +53,7 @@ def welcome_back(name)
 end
 
 times = 1
-def intro
+def intro(times)
   system 'clear'
   if times == 1
     welcome
@@ -63,7 +63,7 @@ def intro
   end
 end
 
-loan_amount = ''
+# loan_amount = ''
 def get_loan_amount
   loop do
     prompt('loan_amount')
