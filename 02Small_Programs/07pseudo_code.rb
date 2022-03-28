@@ -65,12 +65,12 @@ END
 5) a method that takes two arrays of numbers and returns the result of merging the arrays. The elements of the first array should become the elements at the even indexes of the returned array, while the elements of the second array should become the elements at the odd indexes. You may assume that both array arguments have the same number of elements.
 
 START
-Given two arrays, array1 and array 2
+Given two arrays, array1 and array2
 
 SET iterator = 0
 SET new_array = []
 
-WHILE iterator < length or array1
+WHILE iterator < length of array1
   IF iterator is even
     - remove the first element of array1 and add it to new_array
     - iterator = iterator + 1
