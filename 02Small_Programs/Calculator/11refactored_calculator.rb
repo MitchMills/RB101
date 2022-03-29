@@ -75,7 +75,7 @@ loop do # main loop
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt("Must choose 1, 2, 3, or 4.")
+      prompt("You must enter 1, 2, 3, or 4.")
     end
   end
 
