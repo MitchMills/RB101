@@ -1,5 +1,5 @@
 en:
-  welcome: "Welcome to Calculator! Enter your name: "
+  welcome: "Welcome to Calculator! Please enter your name: "
   valid_name: "Make sure to enter a valid name."
   first_number: "What's the first number?"
   valid_number: "Hmm... that doesn't look like a valid number"
