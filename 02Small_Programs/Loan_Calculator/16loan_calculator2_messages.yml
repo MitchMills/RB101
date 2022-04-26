@@ -7,9 +7,9 @@ instructions_again: "We'll need the same three pieces of information as before."
 loan_amount: "Please enter the loan amount. Enter the number without any currency signs or commas. For example, if the loan were for $2,000.75, you would enter 2000.75."
 invalid_entry: "That's not a valid entry."
 apr: "Please enter the annual percentage rate for the loan. Enter the number without the percent sign. For example, if the rate were 6.3 percent, you would enter 6.3."
-years_in_loan: "Please enter the number of years in the loan."
+whole_years_in_loan: "Please enter the number of whole years in the loan. For example, if the loan duration is seven and a half years, only enter '7' here. You'll enter any additional months or partial years later."
 
-months_in_loan: "loan months"
+additional_months_in_loan: "Please enter the number of additional months in the loan beyond the number of whole years you just entered. For example, if the loan duration is seven and a half years, you should have entered '7' above for years, and you will now enter '6' here for additional months."
 
 confirm_input: "confirm input %{data} yes or no."
 enter_yes_or_no: "Please enter yes or no."

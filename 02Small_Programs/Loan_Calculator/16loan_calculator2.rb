@@ -29,6 +29,7 @@ def valid_integer?(input)
   integer?(input) && non_negative?(input)
 end
 
+name = ''
 def get_name
   loop do
     prompt('get_name')
@@ -52,12 +53,12 @@ def welcome_back(name)
   prompt('instructions_again')
 end
 
-times = 1
-def intro(times)
+first_time? = true
+def intro(first_time?)
   system 'clear'
-  if times == 1
+  if first_time?
     welcome
-    times += 1
+    first_time? = false
   else
     welcome_back
   end
@@ -94,7 +95,7 @@ end
 
 def get_years_in_loan
   loop do
-    prompt('years_in_loan')
+    prompt('whole_years_in_loan')
     years_in_loan = gets.chomp
     if valid_integer?(years_in_loan)
       return years_in_loan.to_i
@@ -106,7 +107,7 @@ end
 
 def get_months_in_loan
   loop do
-    prompt('months_in_loan')
+    prompt('additional_months_in_loan')
     months_in_loan = gets.chomp
     if valid_integer?(months_in_loan)
       return months_in_loan.to_i
@@ -147,7 +148,7 @@ end
 
 # Main Loop
 loop do
-  intro(times)
+  intro(first_time?)
   loan_amount = get_loan_amount
   apr = get_apr
   mpr = calculate_mpr(apr)
