@@ -77,6 +77,7 @@ def get_loan_amount
   end
 end
 
+# apr = ''
 def get_apr
   loop do
     prompt('apr')
@@ -93,6 +94,7 @@ def calculate_mpr(apr)
   (apr / 12) / 100
 end
 
+# years_in_loan = ''
 def get_years_in_loan
   loop do
     prompt('whole_years_in_loan')
@@ -105,6 +107,7 @@ def get_years_in_loan
   end
 end
 
+# months_in_loan = ''
 def get_months_in_loan
   loop do
     prompt('additional_months_in_loan')
@@ -118,7 +121,7 @@ def get_months_in_loan
 end
 
 def calculate_loan_duration_months(loan_years, loan_months)
-  (loan_years * 12) + loan_months
+  (years_in_loan * 12) + months_in_loan
 end
 
 def calculate_monthly_payment(loan_amount, mpr, loan_duration_months)
