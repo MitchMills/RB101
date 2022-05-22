@@ -29,7 +29,6 @@ def valid_integer?(input)
   integer?(input) && non_negative?(input)
 end
 
-name = ''
 def get_name
   loop do
     prompt('get_name')

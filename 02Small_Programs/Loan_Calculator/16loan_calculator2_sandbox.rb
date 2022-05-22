@@ -47,17 +47,17 @@ def welcome
   prompt('instructions', name)
 end
 
-def welcome_back(name)
+def welcome_back
   prompt('welcome_back', name)
   prompt('instructions_again')
 end
 
-first_time? = true
-def intro(first_time?)
+first_time = true
+def intro(first_time)
   system 'clear'
-  if first_time?
+  if first_time
     welcome
-    first_time? = false
+    first_time = false
   else
     welcome_back
   end
