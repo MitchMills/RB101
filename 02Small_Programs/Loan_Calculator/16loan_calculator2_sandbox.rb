@@ -29,7 +29,6 @@ def valid_integer?(input)
   integer?(input) && non_negative?(input)
 end
 
-# name = ''
 def get_name
   loop do
     prompt('get_name')
@@ -64,7 +63,6 @@ def intro(first_time?)
   end
 end
 
-# loan_amount = ''
 def get_loan_amount
   loop do
     prompt('loan_amount')
