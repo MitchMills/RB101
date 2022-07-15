@@ -70,7 +70,7 @@ Given two arrays, array1 and array2
 SET iterator = 0
 SET new_array = []
 
-WHILE iterator <= length of array1
+WHILE iterator < length of array1
   Add array1[iterator] to new_array
   Add array2[iterator] to new_array
   iterator += 1
