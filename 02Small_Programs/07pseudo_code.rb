@@ -70,12 +70,29 @@ Given two arrays, array1 and array2
 SET iterator = 0
 SET new_array = []
 
-WHILE iterator < length of array1
-  IF iterator is even
-    - remove the first element of array1 and add it to new_array
-    - iterator = iterator + 1
-  ELSE
-    - remove the first element of array2 and add it to new_array
-    - iterator = iterator + 1
+WHILE iterator <= length of array1
+  Add array1[iterator] to new_array
+  Add array2[iterator] to new_array
+  iterator += 1
 
 RETURN new_array
+=end
+
+
+def merge_arrays(array1, array2)
+  iterator = 0
+  merged_array = []
+  while iterator < array1.size
+    merged_array << array1[iterator]
+    merged_array << array2[iterator]
+    iterator += 1
+  end
+  merged_array
+end
+
+array1 = [1, 2, 3, 4]
+array2 = [11, 22, 33, 44]
+
+merged_array = merge_arrays(array1, array2)
+p merged_array
+  
