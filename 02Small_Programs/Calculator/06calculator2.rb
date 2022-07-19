@@ -6,7 +6,7 @@ def valid_number?(num)
   num.to_i != 0
 end
 
-def operation_to_message(operator)
+def operation_text(operator)
   case operator
   when '1'
     'plus'
@@ -32,7 +32,7 @@ end
 
 prompt("Hi #{name}!")
 
-loop do #main loop
+loop do # main loop
   number1 = ''
   loop do
     prompt("What's the first number?")
@@ -64,7 +64,7 @@ loop do #main loop
   MSG
 
   prompt(operator_prompt)
-  
+
   operator = ''
   loop do
     operator = gets.chomp
@@ -86,7 +86,7 @@ loop do #main loop
               number1.to_f / number2.to_f
             end
 
-  prompt("#{number1} #{operation_to_message(operator)} #{number2} is #{result}.")
+  prompt("#{number1} #{operation_text(operator)} #{number2} is #{result}.")
 
   prompt("Do you want to perform another calculation? (Y to calculate again)")
   answer = gets.chomp
