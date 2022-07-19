@@ -9,13 +9,13 @@ end
 def operation_to_message(operator)
   case operator
   when '1'
-    'Adding'
+    'plus'
   when '2'
-    'Subtracting'
+    'minus'
   when '3'
-    'Multiplying'
+    'times'
   when '4'
-    'Dividing'
+    'divided by'
   end
 end
 
@@ -75,8 +75,6 @@ loop do #main loop
     end
   end
 
-  prompt("#{operation_to_message(operator)} the two numbers . . .")
-
   result =  case operator
             when '1'
               number1.to_i + number2.to_i
@@ -88,7 +86,7 @@ loop do #main loop
               number1.to_f / number2.to_f
             end
 
-  prompt("The result is #{result}.")
+  prompt("#{number1} #{operation_to_message(operator)} #{number2} is #{result}.")
 
   prompt("Do you want to perform another calculation? (Y to calculate again)")
   answer = gets.chomp
