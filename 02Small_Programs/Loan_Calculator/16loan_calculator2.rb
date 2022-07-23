@@ -9,6 +9,8 @@ def prompt(key, data = '')
   puts "=> #{message}"
 end
 
+
+# Input Validation methods
 def integer?(input)
   input.to_i.to_s == input
 end
@@ -29,6 +31,8 @@ def valid_integer?(input)
   integer?(input) && non_negative?(input)
 end
 
+
+# Intro methods
 def get_name
   loop do
     prompt('get_name')
@@ -43,7 +47,7 @@ end
 
 def welcome
   prompt('welcome')
-  name = get_name
+  name = get_name()
   prompt('instructions', name)
 end
 
@@ -52,18 +56,19 @@ def welcome_back(name)
   prompt('instructions_again')
 end
 
-first_time? = true
-def intro(first_time?)
+first_time = true
+def intro(first_time)
   system 'clear'
-  if first_time?
-    welcome
-    first_time? = false
+  if first_time
+    welcome()
+    first_time = false
   else
-    welcome_back
+    welcome_back()
   end
 end
 
-# loan_amount = ''
+
+# Get Data methods
 def get_loan_amount
   loop do
     prompt('loan_amount')
@@ -76,7 +81,6 @@ def get_loan_amount
   end
 end
 
-# apr = ''
 def get_apr
   loop do
     prompt('apr')
@@ -93,7 +97,6 @@ def calculate_mpr(apr)
   (apr / 12) / 100
 end
 
-# years_in_loan = ''
 def get_years_in_loan
   loop do
     prompt('whole_years_in_loan')
@@ -106,7 +109,6 @@ def get_years_in_loan
   end
 end
 
-# months_in_loan = ''
 def get_months_in_loan
   loop do
     prompt('additional_months_in_loan')
@@ -119,13 +121,15 @@ def get_months_in_loan
   end
 end
 
+
+# Calculate and Display Results methods
 def calculate_loan_duration_months(loan_years, loan_months)
   (years_in_loan * 12) + months_in_loan
 end
 
 def calculate_monthly_payment(loan_amount, mpr, loan_duration_months)
   loan_amount *
-  (mpr /
+  (mpr / 
   (1 - (1 + mpr)**(-loan_duration)))
 end
 
@@ -139,6 +143,8 @@ def display_results(loan_duration_months, monthly_payment, total_interest)
   prompt('total_interest', total_interest)
 end
 
+
+# Outro methods
 def another_calculation?
   loop do
     prompt('another_calculation?', name)
@@ -150,20 +156,23 @@ end
 
 # Main Loop
 loop do
-  intro(first_time?)
-  loan_amount = get_loan_amount
-  apr = get_apr
+  intro(first_time)
+
+  loan_amount = get_loan_amount()
+  apr = get_apr()
   mpr = calculate_mpr(apr)
-  years_in_loan = get_years_in_loan
-  months_in_loan = get_months_in_loan
-  loan_duration_months = calculate_loan_duration_months
-  monthly_payment = calculate_monthly_payment
-  total_interest = calculate_total_interest
-  display_results  
-  if another_calculation?
+  years_in_loan = get_years_in_loan()
+  months_in_loan = get_months_in_loan()
+
+  loan_duration_months = calculate_loan_duration_months()
+  monthly_payment = calculate_monthly_payment()
+  total_interest = calculate_total_interest()
+  display_results()
+
+  if another_calculation?()
     break
   else
-    prompt('goodbye', name)
+    prompt('goodbye', name) # outro
     exit
   end
 end
