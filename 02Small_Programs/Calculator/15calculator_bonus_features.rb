@@ -34,16 +34,16 @@ end
 #   # Float(input) rescue false # built-in conversion, code smell
 # end
 
-def operation_to_message(operation)
-  word =  case operation
+def operation_text(operator)
+  word =  case operator
           when '1'
-            'Adding'
+            'plus'
           when '2'
-            'Subtracting'
+            'minus'
           when '3'
-            'Multiplying'
+            'times'
           when '4'
-            'Dividing'
+            'divided by'
           end
   x = "foo" # later addition to code
   word
@@ -102,8 +102,6 @@ loop do # main loop
     end
   end
 
-  puts "=> #{operation_to_message(operator)} the numbers... "
-
   result =  case operator
             when '1'
               number1.to_i + number2.to_i
@@ -115,7 +113,7 @@ loop do # main loop
               number1.to_f / number2.to_f
             end
 
-  puts "The result is #{result}."
+  puts "=> #{number1} #{operation_text(operator)} #{number2} equals #{result}."
 
   prompt('again')
   answer = gets.chomp
