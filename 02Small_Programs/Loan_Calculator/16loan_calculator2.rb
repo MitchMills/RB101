@@ -55,7 +55,6 @@ def welcome_back(name)
   prompt('instructions_again')
 end
 
-first_time = true
 def intro(first_time, name)
   if first_time
     welcome(name)
@@ -73,7 +72,7 @@ def get_loan_amount
     if valid_number?(loan_amount, :number)
       return loan_amount.to_f
     else
-      prompt('invalid_loan_amount')
+      prompt('invalid_entry')
     end
   end
 end
@@ -143,18 +142,19 @@ end
 
 # Outro methods
 def another_calculation?(name)
-  loop do
     prompt('another_calculation?', name)
     answer = gets.chomp
-    break unless
-  end
+    return true if answer == 'y'
+    false
 end
 
 
 # Main Loop
+system 'clear'
+first_time = true
+name = get_name()
+
 loop do
-  system 'clear'
-  name = get_name()
   intro(first_time, name)
   first_time = false
   loan_amount = get_loan_amount()
@@ -169,9 +169,9 @@ loop do
   display_results(loan_duration_months, monthly_payment, total_interest)
 
   if another_calculation?(name)
-    break
+    next
   else
-    prompt('goodbye', name) # outro
+    prompt('goodbye', name)
     exit
   end
 end
