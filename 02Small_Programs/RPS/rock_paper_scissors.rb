@@ -39,7 +39,11 @@ loop do # main loop
 
   prompt("Type y to play again, any other letter to quit.")
   play_again = gets.chomp.downcase
-  break unless play_again == 'y'
+  
+  if play_again == 'y'
+    next
+  else
+    prompt("Thank you for playing. Goodbye!")
+    break
+  end
 end
-
-prompt("Thank you for playing. Goodbye!")
