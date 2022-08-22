@@ -4,17 +4,19 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def win?(player1, player2)
+  (player1 == 'rock' && player2 == 'scissors') ||
+    (player1 == 'paper' && player2 == 'rock') ||
+    (player1 == 'scissors' && player2 == 'paper')
+end
+
 def display_results(player_choice, computer_choice)
   prompt("You chose: #{player_choice}")
   prompt("Computer chose: #{computer_choice}")
 
-  if  (player_choice == 'rock' && computer_choice == 'scissors') ||
-      (player_choice == 'paper' && computer_choice == 'rock') ||
-      (player_choice == 'scissors' && computer_choice == 'paper')
+  if win?(player_choice, computer_choice)
     prompt("You won!")
-  elsif (player_choice == 'rock' && computer_choice == 'paper') ||
-        (player_choice == 'paper' && computer_choice == 'scissors') ||
-        (player_choice == 'scissors' && computer_choice == 'rock')
+  elsif win?(computer_choice, player_choice)
     prompt("Computer won!")
   else
     prompt("It's a tie.")
@@ -39,7 +41,6 @@ loop do # main loop
 
   prompt("Type y to play again, any other letter to quit.")
   play_again = gets.chomp.downcase
-  
   if play_again == 'y'
     next
   else
