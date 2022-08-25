@@ -25,6 +25,7 @@ end
 
 loop do # main loop
   player_choice = ''
+
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
     player_choice = gets.chomp
@@ -41,6 +42,7 @@ loop do # main loop
 
   prompt("Type y to play again, any other letter to quit.")
   play_again = gets.chomp.downcase
+  
   if play_again == 'y'
     next
   else
