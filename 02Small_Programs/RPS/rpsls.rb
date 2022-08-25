@@ -1,21 +1,17 @@
 VALID_CHOICES = %w(rock paper scissors spock lizard)
 
-WINNERS = { rock: ['lizard', 'scissors'], 
-            paper: ['rock', 'spock'], 
-            scissors: ['paper', 'lizard'], 
+WINNERS = { rock: ['lizard', 'scissors'],
+            paper: ['rock', 'spock'],
+            scissors: ['paper', 'lizard'],
             spock: ['scissors', 'rock'],
-            lizard: ['spock', 'paper']}
+            lizard: ['spock', 'paper'] }
 
 def prompt(message)
   puts "=> #{message}"
 end
 
 def win?(player1, player2)
-  (player1 == 'rock' && WINNERS[player1.to_sym].include?(player2)) ||
-  (player1 == 'paper' && WINNERS[player1.to_sym].include?(player2)) ||
-  (player1 == 'scissors' && WINNERS[player1.to_sym].include?(player2)) ||
-  (player1 == 'spock' && WINNERS[player1.to_sym].include?(player2)) ||
-  (player1 == 'lizard' && WINNERS[player1.to_sym].include?(player2))
+  WINNERS[player1.to_sym].include?(player2)
 end
 
 def display_results(player_choice, computer_choice)
@@ -50,7 +46,7 @@ loop do # main loop
 
   prompt("Type y to play again, any other letter to quit.")
   play_again = gets.chomp.downcase
-  
+
   if play_again == 'y'
     next
   else
