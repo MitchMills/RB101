@@ -15,9 +15,9 @@ def win?(player1, player2)
 end
 
 def print_outcome(player1, player2)
-  prompt("#{player1.capitalize} #{WINNERS[player1.to_sym].assoc(player2)[1]} #{player2}.")
+  verb = WINNERS[player1.to_sym].assoc(player2)[1]
+  prompt("#{player1.capitalize} #{verb} #{player2}.")
 end
-    
 
 def display_results(player_choice, computer_choice)
   prompt("You chose #{player_choice}, computer chose #{computer_choice}.")
