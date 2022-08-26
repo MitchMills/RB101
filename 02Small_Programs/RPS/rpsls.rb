@@ -33,22 +33,40 @@ def display_results(player_choice, computer_choice)
   end
 end
 
+def update_score(player_choice, computer_choice)
+  if win?(player_choice, computer_choice)
+    player_score +=1
+  elsif win?(computer_choice, player_choice)
+    computer_score +=1
+  end
+end
+
 loop do # main loop
   player_choice = ''
+  player_score = 0
+  computer_score = 0
+
+  prompt("Welcome to Rock Paper Scissors Spock Lizard!")
+  prompt("The first player to win three games will be the grand winner.")
 
   loop do
-    prompt("Choose one: #{VALID_CHOICES.join(', ')}")
-    player_choice = gets.chomp
-    if VALID_CHOICES.include?(player_choice)
-      break
-    else
-      prompt("That's not a valid choice.")
+    loop do
+        prompt("Choose one: #{VALID_CHOICES.join(', ')}")
+        player_choice = gets.chomp
+        if VALID_CHOICES.include?(player_choice)
+          break
+        else
+          prompt("That's not a valid choice.")
+        end
+      end
+
+      computer_choice = VALID_CHOICES.sample
+
+      display_results(player_choice, computer_choice)
+
+      update_score(player_choice, computer_choice)
+
     end
-  end
-
-  computer_choice = VALID_CHOICES.sample
-
-  display_results(player_choice, computer_choice)
 
   prompt("To play again, type y. Type any other letter to quit.")
   play_again = gets.chomp.downcase
