@@ -1,21 +1,31 @@
-VALID_CHOICES = %w(rock paper scissors spock lizard)
+ABBREVIATIONS = {
+  'rock' => 'r',
+  'paper' => 'p',
+  'scissors' => 'sc',
+  'spock' => 'sp',
+  'lizard' => 'l'
+}
 
-WINNERS = { rock: [['lizard', 'crushes'], ['scissors', 'crushes']],
-            paper: [['rock', 'covers'], ['spock', 'disproves']],
-            scissors: [['paper', 'cuts'], ['lizard', 'decapitates']],
-            spock: [['scissors', 'smashes'], ['rock', 'vaporizes']],
-            lizard: [['spock', 'poisons'], ['paper', 'eats']] }
+WINNERS = {
+  'r' => [['lizard', 'crushes'], ['scissors', 'crushes']],
+  'p' => [['rock', 'covers'], ['spock', 'disproves']],
+  'sc' => [['paper', 'cuts'], ['lizard', 'decapitates']],
+  'sp' => [['scissors', 'smashes'], ['rock', 'vaporizes']],
+  'l' => [['spock', 'poisons'], ['paper', 'eats']]
+}
+
+VALID_CHOICES = WINNERS.keys
 
 def prompt(message)
   puts "=> #{message}"
 end
 
 def win?(player1, player2)
-  WINNERS[player1.to_sym].flatten.include?(player2)
+  WINNERS[player1].flatten.include?(player2)
 end
 
 def print_outcome(player1, player2)
-  verb = WINNERS[player1.to_sym].assoc(player2)[1]
+  verb = WINNERS[player1].assoc(player2)[1]
   prompt("#{player1.capitalize} #{verb} #{player2}.")
 end
 

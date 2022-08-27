@@ -1,18 +1,19 @@
-VALID_CHOICES = %w(rock paper scissors spock lizard)
+ABBREVIATIONS = {
+  'rock' => 'r',
+  'paper' => 'p',
+  'scissors' => 'sc',
+  'spock' => 'sp',
+  'lizard' => 'l'
+}
 
-WINNERS = { rock: [['lizard', 'crushes'], ['scissors', 'crushes']],
-            paper: [['rock', 'covers'], ['spock', 'disproves']],
-            scissors: [['paper', 'cuts'], ['lizard', 'decapitates']],
-            spock: [['scissors', 'smashes'], ['rock', 'vaporizes']],
-            lizard: [['spock', 'poisons'], ['paper', 'eats']] }
+WINNERS = {
+  'r' => [['lizard', 'crushes'], ['scissors', 'crushes']],
+  'p' => [['rock', 'covers'], ['spock', 'disproves']],
+  'sc' => [['paper', 'cuts'], ['lizard', 'decapitates']],
+  'sp' => [['scissors', 'smashes'], ['rock', 'vaporizes']],
+  'l' => [['spock', 'poisons'], ['paper', 'eats']]
+}
 
-def prompt(message)
-  puts "=> #{message}"
-end
+VALID_CHOICES = WINNERS.keys
 
-def win?(player1, player2)
-  WINNERS[player1.to_sym].flatten.include?(player2)
-end
-
-puts win?('rock', 'paper')
-puts win?('paper', 'rock')
+puts VALID_CHOICES
