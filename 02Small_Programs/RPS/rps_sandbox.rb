@@ -1,19 +1,38 @@
-ABBREVIATIONS = {
-  'rock' => 'r',
-  'paper' => 'p',
-  'scissors' => 'sc',
-  'spock' => 'sp',
-  'lizard' => 'l'
+CHOICES = {
+  'rock' => {
+    abbreviation: 'r',
+    beats: {'lizard' => 'crushes', 'scissors' => 'crushes'}
+  },
+  'paper' => {
+    abbreviation: 'p',
+    beats: {'rock' => 'covers', 'spock' => 'disproves'}
+  },
+  'scissors' => {
+    abbreviation: 'sc',
+    beats: {'paper' => 'cuts', 'lizard' => 'decapitates'}
+  },
+  'spock' => {
+    abbreviation: 'sp',
+    beats: {'scissors' => 'smashes', 'rock' => 'vaporizes'}
+  },
+  'lizard' => {
+    abbreviation: 'l',
+    beats: {'spock' => 'poisons', 'paper' => 'eats'}
+  }
 }
 
-WINNERS = {
-  'r' => [['lizard', 'crushes'], ['scissors', 'crushes']],
-  'p' => [['rock', 'covers'], ['spock', 'disproves']],
-  'sc' => [['paper', 'cuts'], ['lizard', 'decapitates']],
-  'sp' => [['scissors', 'smashes'], ['rock', 'vaporizes']],
-  'l' => [['spock', 'poisons'], ['paper', 'eats']]
-}
+player1 = "rock"
+p player1
 
-VALID_CHOICES = WINNERS.keys
+player2 = "scissors"
+p player2
 
-puts VALID_CHOICES
+verb = CHOICES[player1][:beats][player2]
+p verb
+
+puts "#{player1.capitalize} #{verb} #{player2}."
+
+p CHOICES[player1][:beats].include?(player2)
+
+VALID_CHOICES = CHOICES.keys.map { |key| CHOICES[key][:abbreviation]}
+p VALID_CHOICES

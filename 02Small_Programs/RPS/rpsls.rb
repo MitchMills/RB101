@@ -1,31 +1,38 @@
-ABBREVIATIONS = {
-  'rock' => 'r',
-  'paper' => 'p',
-  'scissors' => 'sc',
-  'spock' => 'sp',
-  'lizard' => 'l'
+CHOICES = {
+  'rock' => {
+    abbreviation: 'r',
+    beats: {'lizard' => 'crushes', 'scissors' => 'crushes'}
+  },
+  'paper' => {
+    abbreviation: 'p',
+    beats: {'rock' => 'covers', 'spock' => 'disproves'}
+  },
+  'scissors' => {
+    abbreviation: 'sc',
+    beats: {'paper' => 'cuts', 'lizard' => 'decapitates'}
+  },
+  'spock' => {
+    abbreviation: 'sp',
+    beats: {'scissors' => 'smashes', 'rock' => 'vaporizes'}
+  },
+  'lizard' => {
+    abbreviation: 'l',
+    beats: {'spock' => 'poisons', 'paper' => 'eats'}
+  }
 }
 
-WINNERS = {
-  'r' => [['lizard', 'crushes'], ['scissors', 'crushes']],
-  'p' => [['rock', 'covers'], ['spock', 'disproves']],
-  'sc' => [['paper', 'cuts'], ['lizard', 'decapitates']],
-  'sp' => [['scissors', 'smashes'], ['rock', 'vaporizes']],
-  'l' => [['spock', 'poisons'], ['paper', 'eats']]
-}
-
-VALID_CHOICES = WINNERS.keys
+VALID_CHOICES = CHOICES.keys.map { |key| CHOICES[key][:abbreviation]}
 
 def prompt(message)
   puts "=> #{message}"
 end
 
 def win?(player1, player2)
-  WINNERS[player1].flatten.include?(player2)
+  CHOICES[player1][:beats].include?(player2)
 end
 
 def print_outcome(player1, player2)
-  verb = WINNERS[player1].assoc(player2)[1]
+  verb = CHOICES[player1][:beats][player2]
   prompt("#{player1.capitalize} #{verb} #{player2}.")
 end
 
