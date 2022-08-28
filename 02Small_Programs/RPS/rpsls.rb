@@ -21,7 +21,7 @@ CHOICES = {
   }
 }
 
-VALID_CHOICES = CHOICES.keys.map { |key| CHOICES[key][:abbreviation]}
+VALID_CHOICES = CHOICES.keys.map {|key| CHOICES[key][:abbreviation]}
 
 def prompt(message)
   puts "=> #{message}"
@@ -34,6 +34,17 @@ end
 def print_outcome(player1, player2)
   verb = CHOICES[player1][:beats][player2]
   prompt("#{player1.capitalize} #{verb} #{player2}.")
+end
+
+def determine_winner(player_choice, computer_choice)
+  if win?(player_choice, computer_choice)
+    "player"
+  elsif
+    win?(computer_choice, player_choice)
+    "computer"
+  else
+    "tie"
+  end
 end
 
 def display_results(player_choice, computer_choice)
@@ -66,7 +77,7 @@ def computer_score(player_choice, computer_choice, computer_score)
   end
 end
 
-# main game loop
+# main program loop
 loop do
   player_choice = ''
   player_score = 0
