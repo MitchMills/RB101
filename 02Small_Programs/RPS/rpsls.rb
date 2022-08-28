@@ -27,6 +27,10 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def game_intro
+
+end
+
 def abbreviation_to_word(player_choice)
   CHOICES.each do |word, value|
     return word if player_choice == value[:abbreviation]
@@ -85,34 +89,16 @@ loop do
   player_choice = ''
   score = {player_score: 0, computer_score: 0, ties: 0}
 
-  prompt("Welcome to Rock Paper Scissors Spock Lizard!")
-  prompt("The first player to win three games will be the Grand Winner.")
+  game_intro()
 
   loop do
     player_choice = get_player_choice()
-
     computer_choice = CHOICES.keys.sample
 
     winner = determine_winner(player_choice, computer_choice)
 
     display_results(player_choice, computer_choice, winner)
 
-    player_score = player_score(player_choice, computer_choice, player_score)
-    computer_score = computer_score(player_choice, computer_choice, computer_score)
-
-    if player_score == 3
-      prompt("You have won three games.")
-      prompt("You are the Grand Winner!")
-      break
-    elsif computer_score == 3
-      prompt("Computer has won three games.")
-      prompt("Computer is the Grand Winner!")
-      break
-    else
-      prompt("You have won #{player_score} games.")
-      prompt("Computer has won #{computer_score} games.")
-      prompt("Time for another round!")
-    end
   end
 
   prompt("To play again, type y. Type any other letter to quit.")
