@@ -1,3 +1,5 @@
+system('clear')
+
 CHOICES = {
   'rock' => {
     abbreviation: 'r',
@@ -21,18 +23,50 @@ CHOICES = {
   }
 }
 
-player1 = "rock"
-p player1
+VALID_CHOICES = CHOICES.keys.map {|key| CHOICES[key][:abbreviation]}
 
-player2 = "scissors"
-p player2
+def prompt(message)
+  puts "=> #{message}"
+end
 
-verb = CHOICES[player1][:beats][player2]
-p verb
+def abbreviation_to_word(player_choice)
+  CHOICES.each do |word, value|
+    return word if player_choice == value[:abbreviation]
+  end
+end
 
-puts "#{player1.capitalize} #{verb} #{player2}."
+def get_player_choice
+  loop do
+    prompt("Choose one: #{VALID_CHOICES.join(', ')}")
+    player_choice = gets.chomp.strip.downcase
+    if VALID_CHOICES.include?(player_choice)
+      return abbreviation_to_word(player_choice)
+    else
+      prompt("That's not a valid choice.")
+    end
+  end
+end
 
-p CHOICES[player1][:beats].include?(player2)
+def win?(player1, player2)
+  CHOICES[player1][:beats].include?(player2)
+end
 
-VALID_CHOICES = CHOICES.keys.map { |key| CHOICES[key][:abbreviation]}
-p VALID_CHOICES
+def determine_winner(player_choice, computer_choice)
+  if win?(player_choice, computer_choice)
+    'player'
+  elsif win?(computer_choice, player_choice)
+    'computer'
+  else
+    'tie'
+  end
+end
+
+player_choice = ''
+
+player_choice = get_player_choice()
+computer_choice = CHOICES.keys.sample
+puts player_choice
+puts computer_choice
+
+winner = determine_winner(player_choice, computer_choice)
+puts winner
