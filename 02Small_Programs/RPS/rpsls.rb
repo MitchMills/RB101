@@ -27,9 +27,21 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-def game_intro
+      def welcome
+      # foofoofoo
+      end
 
-end
+      def welcome_back
+      # foofoofoo
+      end
+
+      def display_rules
+      # foofoofoo
+      end
+
+      def game_intro
+      # foofoofoo
+      end
 
 def abbreviation_to_word(player_choice)
   CHOICES.each do |word, value|
@@ -78,7 +90,39 @@ def display_results(player_choice, computer_choice, winner)
     prompt("Computer won!")
   else
     prompt("It's a tie.")
+  end
 end
+
+def update_scores(winner, scores)
+  if winner == 'player'
+    scores[:player_score] += 1
+  elsif winner == 'computer'
+    scores[:computer_score] += 1
+  else
+    scores[:ties] += 1
+  end
+  scores
+end
+
+def display_scores(scores)
+  prompt("CURRENT SCORE")
+  prompt("Player: #{scores[:player_score]}")
+  prompt("Computer: #{scores[:computer_score]}")
+  prompt("Ties: #{scores[:ties]}")
+end
+
+def grand_winner?(scores)
+  scores[:player_score] == 3 || scores[:computer_score] == 3
+end
+
+def display_grand_winner(scores)
+  if scores[:player_score] == 3
+    prompt("You have won three games. You are the Grand Winner!")
+  elsif scores[:computer_score] == 3
+    prompt("Computer has won three games. Computer is the Grand Winner!")
+  end
+end
+
 
 # 
 # 
@@ -86,9 +130,9 @@ end
 # 
 # main program loop
 loop do
+  system('clear')
   player_choice = ''
-  score = {player_score: 0, computer_score: 0, ties: 0}
-
+  scores = {player_score: 0, computer_score: 0, ties: 0}
   game_intro()
 
   loop do
@@ -99,6 +143,13 @@ loop do
 
     display_results(player_choice, computer_choice, winner)
 
+    scores = update_scores(winner, scores)
+    display_scores(scores)
+
+    if grand_winner?(scores)
+      display_grand_winner(scores)
+      break    
+    end
   end
 
   prompt("To play again, type y. Type any other letter to quit.")
