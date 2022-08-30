@@ -27,21 +27,67 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-      def welcome
-      # foofoofoo
-      end
 
-      def welcome_back
-      # foofoofoo
-      end
+def get_name
+  loop do
+    print("Please enter your name: ")
+    name = gets.chomp
+    if name.empty?
+      prompt("That's not a valid entry.")
+    else
+      return name
+    end
+  end
+end
 
-      def display_rules
-      # foofoofoo
-      end
+def welcome(name)
+  prompt("Thanks, #{name}. You will play against the computer.")
+  prompt("The first to win three games will be declared the Grand Winner.")
+  prompt("To display the rules, enter y. Enter any other letter to continue.")
+  show_rules = gets.chomp.downcase
+  if show_rules == 'y'
+    display_rules
+    prompt("Okay, let's start playing!")
+  else
+    prompt("Let's get started!")
+  end
+end
 
-      def game_intro
-      # foofoofoo
-      end
+def display_rules
+  rules = <<~RULES
+    Rock defeats: Lizard, Scissors
+       Paper defeats: Rock, Spock
+       Scissors defeats: Paper, Lizard
+       Spock defeats: Scissors, Rock
+       Lizard defeats: Spock, Paper
+
+    RULES
+  prompt(rules)
+  prompt("Press enter to continue")
+  gets
+end
+
+def welcome_back(name)
+  prompt("Welcome back, #{name}! Ready for another match?")
+  prompt("To display the rules again, enter y. Enter any other letter to continue.")
+  show_rules = gets.chomp.downcase
+  if show_rules == 'y'
+    display_rules
+  else
+    prompt("Let's go!")
+  end
+end
+
+first_time = true
+def game_intro(first_time, name)
+  if first_time
+    welcome(name)
+  else
+    welcome_back(name)
+  end
+end
+
+
 
 def abbreviation_to_word(player_choice)
   CHOICES.each do |word, value|
@@ -85,11 +131,14 @@ def display_results(player_choice, computer_choice, winner)
   if winner == 'player'
     print_outcome(player_choice, computer_choice)
     prompt("You won!")
+    puts
   elsif winner == 'computer'
     print_outcome(computer_choice, player_choice)
     prompt("Computer won!")
+    puts
   else
     prompt("It's a tie.")
+    puts
   end
 end
 
@@ -109,6 +158,7 @@ def display_scores(scores)
   prompt("Player: #{scores[:player_score]}")
   prompt("Computer: #{scores[:computer_score]}")
   prompt("Ties: #{scores[:ties]}")
+  puts
 end
 
 def grand_winner?(scores)
@@ -123,6 +173,15 @@ def display_grand_winner(scores)
   end
 end
 
+def play_again
+  prompt("To play another match, enter y. Enter any other letter to quit.")
+  play_again = gets.chomp.downcase
+  unless play_again == 'y'
+    prompt("Thank you for playing. Goodbye!") 
+    exit
+  end
+end
+
 
 # 
 # 
@@ -133,7 +192,14 @@ loop do
   system('clear')
   player_choice = ''
   scores = {player_score: 0, computer_score: 0, ties: 0}
-  game_intro()
+  
+  if first_time
+    prompt("Welcome to Rock Scissors Paper Spock Lizard!")
+    name = get_name
+  end
+
+  game_intro(first_time, name)
+  first_time = false
 
   loop do
     player_choice = get_player_choice()
@@ -152,13 +218,5 @@ loop do
     end
   end
 
-  prompt("To play again, type y. Type any other letter to quit.")
-  play_again = gets.chomp.downcase
-
-  if play_again == 'y'
-    next
-  else
-    prompt("Thank you for playing. Goodbye!")
-    break
-  end
+  play_again()
 end
