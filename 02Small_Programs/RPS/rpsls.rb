@@ -24,8 +24,8 @@ CHOICES = {
 VALID_CHOICES = CHOICES.keys.map { |key| CHOICES[key][:abbreviation] }
 
 RULES = CHOICES.map do |key, value|
-  "#{key.capitalize} (#{value[:abbreviation]}) defeats:\
-  #{value[:beats].keys.join(', ')}"
+  "#{key.capitalize} (#{value[:abbreviation]}) defeats: \
+#{value[:beats].keys.join(', ')}"
 end
 
 def prompt(message)
@@ -39,7 +39,6 @@ def get_name
     if name.empty?
       prompt("That's not a valid entry.")
     else
-      puts
       return name
     end
   end
@@ -48,38 +47,42 @@ end
 def welcome(name)
   prompt("Greetings, #{name}. Your opponent is Computer.")
   prompt("The first of you to win three games will be declared \
-    the Grand Winner.")
+the Grand Winner.")
+
   prompt("To display the rules, enter y. Enter any other letter to continue.")
   show_rules = gets.chomp.downcase
+  display_rules() if show_rules == 'y'
 
-  display_rules if show_rules == 'y'
   prompt("Okay, let's start playing! Your choices are:")
-  CHOICES.each do |key, value|
-    prompt("#{key.capitalize} (#{value[:abbreviation]})")
-  end
-  puts
+  display_choices()
 end
 
 def welcome_back(name)
-  prompt("Welcome back, #{name}! Let's see who'll be \
-    the Grand Winner this time.")
-  prompt("To display the rules again, enter y. Enter \
-    any other letter to continue.")
-  show_rules = gets.chomp.downcase
+  prompt("Welcome back, #{name}! Let's see who'll be the Grand Winner \
+this time!")
 
-  display_rules if show_rules == 'y'
+  prompt("To display the rules again, enter y. Enter any other letter \
+to continue.")
+  show_rules = gets.chomp.downcase
+  display_rules() if show_rules == 'y'
+
   prompt("Time for another match! A quick reminder of your choices:")
-  CHOICES.each do |key, value|
-    prompt("#{key.capitalize} (#{value[:abbreviation]})")
-  end
-  puts
+  display_choices()
 end
 
 def display_rules
+  prompt("THE RULES:")
   RULES.each { |rule| prompt(rule.to_s) }
   puts
   prompt("Press enter to continue")
   gets
+end
+
+def display_choices
+  CHOICES.each do |key, value|
+    prompt("#{key.capitalize} (#{value[:abbreviation]})")
+  end
+  puts
 end
 
 def game_intro(first_time, name)
@@ -175,7 +178,7 @@ def play_again(name)
   prompt("To play another match, enter y. Enter any other letter to quit.")
   play_again = gets.chomp.downcase
   unless play_again == 'y'
-    prompt("Thank you for playing, #{name}. Goodbye!")
+    prompt("Thank you for playing, #{name}. Live long and prosper!")
     exit
   end
 end
@@ -202,7 +205,6 @@ loop do
     computer_choice = CHOICES.keys.sample
 
     winner = determine_winner(player_choice, computer_choice)
-
     display_results(name, player_choice, computer_choice, winner)
 
     scores = update_scores(winner, scores)
