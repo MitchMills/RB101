@@ -76,7 +76,7 @@ def generate_rules
   end
 end
 
-def display_rules()
+def display_rules
   rules = generate_rules()
   prompt("THE RULES:")
   rules.each { |rule| prompt(rule.to_s) }
@@ -111,7 +111,7 @@ def get_player_choice
     prompt("Enter one: #{VALID_CHOICES.join(', ')}")
     player_choice = gets.chomp.strip.downcase
     if VALID_CHOICES.include?(player_choice)
-      system ('clear')
+      system('clear')
       return abbreviation_to_word(player_choice)
     else
       prompt("That's not a valid entry.")
