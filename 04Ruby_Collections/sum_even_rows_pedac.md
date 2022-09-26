@@ -56,3 +56,42 @@ row number: 4 --> sum of integers in row: 68
       4 => [14, 16, 18, 20],
       ...
     }
+
+## ALGORITHM
+
+1. Create an empty 'all_rows' array to contain all the rows
+2. Create a 'row' array and add it to the overall 'rows' array
+    - see Step 2 Sub-Problem below
+3. Repeat step 2 until all the necessary rows have been created
+    - All rows have been created when the length of the 'all_rows' array equals the input integer
+4. Sum the final row
+5. Return the sum 
+
+  **Step 2 Sub-Problem**
+  *Problem: Create a Row*
+    Rules:
+    - Row is an array
+    - Array contains integers
+    - Integers are consecutive even numbers
+    - Integers in each row form part of an overall larger sequence
+    - Rows are of different lengths
+    - INPUT: all the information needed to create the output
+      - the starting integer for that row
+      - the length of the row (the input integer, the row number)
+    - OUTPUT: the row itself: e.g. `[8, 10, 12 ]`
+
+    Examples:
+    starting integer: 2, length: 1 --> `[2]`
+    starting integer: 4, length: 2 --> `[4, 6]`
+    starting integer: 8, length: 3 --> `[8, 10, 12]`
+
+    Data Structures:
+    - An array of integers
+
+    Algorithm:
+    1. Create an empty array 'row' to contain the integers
+    2. Add the starting integer to the 'row' array
+    3. Increment the starting integer by 2 to get the next integer in the sequence
+    4. Repeat steps 2 and 3 until the array has reached the correct length
+        - The correct length of the array is equal to the input integer
+    5. Return the 'row' array
