@@ -47,3 +47,12 @@ row number: 4 --> sum of integers in row: 68
   [14, 16, 18, 20],
   ...
 ]
+
+    - Perhaps could use a hash?:
+    {
+      1 => [2],
+      2 => [4, 6],
+      3 => [8, 10, 12],
+      4 => [14, 16, 18, 20],
+      ...
+    }
