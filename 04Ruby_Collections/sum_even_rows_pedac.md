@@ -95,3 +95,7 @@ row number: 4 --> sum of integers in row: 68
     4. Repeat steps 2 and 3 until the array has reached the correct length
         - The correct length of the array is equal to the input integer
     5. Return the 'row' array
+
+## CODE
+  - See sum_even_rows.rb
+  
