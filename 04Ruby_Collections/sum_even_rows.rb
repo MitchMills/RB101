@@ -20,7 +20,7 @@ def sum_row(row_number)
     start_integer = all_rows.last.last + 2
   end
 
-  all_rows # TODO: sum the final row & return the sum
+  all_rows.last.sum
 end
 
 # ALGORITHM: sum_row
@@ -52,9 +52,9 @@ end
 # row number: 1 --> sum of integers in row: 2
 # row number: 2 --> sum of integers in row: 10
 # row number: 4 --> sum of integers in row: 68
-p sum_row(1) #== 2
-p sum_row(2) #== 10
-p sum_row(4) #== 68
+p sum_row(1) == 2
+p sum_row(2) == 10
+p sum_row(4) == 68
 
 # ALGORITHM: create_row
 # 1. Create an empty array 'row' to contain the integers

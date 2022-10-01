@@ -28,6 +28,7 @@ Row 4: 14, 16, 18, 20
 **Questions**
 - How do we create the structure?
   - Can't hardcode it; need to create it 'on the fly' after given the input integer
+  - Note: we will take a "brute force" approach by building the array of rows up to the given row; we won't seek a mathematical/formula solution
 
 ## EXAMPLES
 row number: 1 --> sum of integers in row: 2
@@ -56,6 +57,7 @@ row number: 4 --> sum of integers in row: 68
       4 => [14, 16, 18, 20],
       ...
     }
+    - May give this a try after thoroughly exploring using nested array
 
 ## ALGORITHM
 
