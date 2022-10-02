@@ -5,12 +5,12 @@ Imagine a sequence of consecutive even integers beginning with 2. The integers a
 ## PROBLEM
 **Rules / Requirements**
 - sequence of integers
-- all integers are even numbers
-- sequence begins with 2
-- sequence increases consecutively (2, 4, 6, 8, ...)
+  - all integers are even numbers
+  - sequence begins with 2
+  - sequence increases consecutively (2, 4, 6, 8, ...)
 - sequence is grouped in rows
-- the 'number' of the row indicates how many integers are in that row
-  - row 1 has one integer, row 2 has two integers, etc
+  - the 'number' of the row indicates how many integers are in that row
+    - row 1 has one integer, row 2 has two integers, etc
 - Input: a single integer
   - identifies a row number
 - Output: a single integer
@@ -37,7 +37,7 @@ row number: 4 --> sum of integers in row: 68
 
 ## DATA STRUCTURES
 - Overall structure represents an ordered sequence of integers
-- Within that structure there are an ordered sequence of rows
+- Within that structure there is an ordered sequence of rows
 - Each row contains an ordered sequence of integers
 
 - Can use a nested array:
@@ -79,7 +79,7 @@ row number: 4 --> sum of integers in row: 68
     - Rows are of different lengths
     - INPUT: all the information needed to create the output
       - the starting integer for that row
-      - the length of the row (the input integer, the row number)
+      - the length of the row
     - OUTPUT: the row itself: e.g. `[8, 10, 12 ]`
 
     Examples:
