@@ -20,15 +20,15 @@ Imagine a sequence of consecutive even integers beginning with 2. The integers a
 - OUTPUT: integer
   - the sum of all the numbers in that row
 
-*Sequence / Structure*
+**Sequence / Structure**
 - 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 . . .
 
-- Row 1: 2
-- Row 2: 4, 6
-- Row 3: 8, 10, 12
-- Row 4: 14, 16, 18, 20
+- Row one:    2
+- Row two:    4, 6
+- Row three:  8, 10, 12
+- Row four:   14, 16, 18, 20
 
-*Questions*
+**Questions**
 - Can the solution be mathematical / use a formula, or should we use "brute force" to create the entire sequence up to the given row? BRUTE FORCE
 - Can't hard code the structure: how to create the sequence / structure "on the fly"?
 
