@@ -1,27 +1,104 @@
 # Selection and Transformation Practice
 
-# Select then transform
-def double_odd_indices(numbers)
-  doubled_numbers = []
+# More Flexible Methods
+def select_letter_count(sentence, character)
+  selected_chars = ''
   counter = 0
 
   loop do
-    break if counter == numbers.size
+    break if counter == sentence.size
+    current_char = sentence[counter]
 
-    current_number = numbers[counter]
-    current_number *= 2 if counter.odd?
-    doubled_numbers << current_number
+    if current_char == character
+      selected_chars << current_char
+    end
 
     counter += 1
   end
 
-  doubled_numbers
+  selected_chars.size
 end
 
-my_numbers = [1, 4, 3, 7, 2, 6]
-p my_numbers
-p double_odd_indices(my_numbers)
-p my_numbers
+question = 'How many times does a particular character appear in this sentence?'
+p "a: #{select_letter_count(question, 'a')}"
+p "t: #{select_letter_count(question, 't')}"
+p "z: #{select_letter_count(question, 'z')}"
+
+# def multiply(number_list, multiplier)
+#   multiplied_list = []
+#   index = 0
+
+#   loop do
+#     break if index == number_list.size
+#     multiplied_list << number_list[index] * multiplier
+#     index += 1
+#   end
+
+#   multiplied_list
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+
+# p my_numbers
+# p multiply(my_numbers, 3)
+# p my_numbers
+
+# def general_select(produce_list, selection_criteria)
+#   produce_keys = produce_list.keys
+#   counter = 0
+#   selected_produce = {}
+
+#   loop do
+#     break if counter == produce_keys.size
+
+#     current_key = produce_keys[counter]
+#     current_value = produce_list[current_key]
+
+#     if current_value == selection_criteria
+#       selected_produce[current_key] = current_value
+#     end
+
+#     counter += 1
+#   end
+
+#   selected_produce
+# end
+
+# produce_list = {
+#   'apple' => 'Fruit',
+#   'carrot' => 'Vegetable',
+#   'pear' => 'Fruit',
+#   'broccoli' => 'Vegetable'
+# }
+
+# p produce_list
+# p general_select(produce_list, 'Fruit')
+# p general_select(produce_list, 'Vegetable')
+# p general_select(produce_list, 'Meat')
+# p produce_list
+
+# Select then transform
+# def double_odd_indices(numbers)
+#   doubled_numbers = []
+#   counter = 0
+
+#   loop do
+#     break if counter == numbers.size
+
+#     current_number = numbers[counter]
+#     current_number *= 2 if counter.odd?
+#     doubled_numbers << current_number
+
+#     counter += 1
+#   end
+
+#   doubled_numbers
+# end
+
+# my_numbers = [1, 4, 3, 7, 2, 6]
+# p my_numbers
+# p double_odd_indices(my_numbers)
+# p my_numbers
 
 # def double_odd_numbers(numbers)
 #   doubled_numbers = []
