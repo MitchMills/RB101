@@ -1,5 +1,12 @@
+long, short = { a: 'ant', b: 'bear', c: 'cat' }.partition do |key, value|
+  value.size > 3
+end
+p long
+p short
+p result
+
 # ARRAYS
-array = [1, 2, 3, 4, 5]
+# array = [1, 2, 3, 4, 5]
 # p "Original array: #{array}"
 
 # array_each_return_value = 
@@ -29,8 +36,8 @@ array = [1, 2, 3, 4, 5]
 
 
 # HASHES
-hash = { a: 1, b: 2, c: 3 }
-p "Original hash: #{hash}"
+# hash = { a: 1, b: 2, c: 3 }
+# p "Original hash: #{hash}"
 
 # hash_each_return_value = 
 # hash.each do |key, value|
@@ -46,10 +53,10 @@ p "Original hash: #{hash}"
 # p "Hash.select returns: #{hash_select_return_value}"
 
 
-hash_map_return_value =
-hash.map do |key, value|
-  # value * 2 # --> [2, 4, 6]
-  # key = 42 # --> [42, 42, 42]
-  puts key # --> [nil, nil, nil]
-end
-p "Hash.map returns: #{hash_map_return_value}"
+# hash_map_return_value =
+# hash.map do |key, value|
+#   # value * 2 # --> [2, 4, 6]
+#   # key = 42 # --> [42, 42, 42]
+#   puts key # --> [nil, nil, nil]
+# end
+# p "Hash.map returns: #{hash_map_return_value}"
