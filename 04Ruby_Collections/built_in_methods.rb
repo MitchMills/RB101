@@ -3,7 +3,6 @@ long, short = { a: 'ant', b: 'bear', c: 'cat' }.partition do |key, value|
 end
 p long
 p short
-p result
 
 # ARRAYS
 # array = [1, 2, 3, 4, 5]
