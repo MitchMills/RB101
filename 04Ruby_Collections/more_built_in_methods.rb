@@ -25,6 +25,18 @@ array = [1, 2, 3, 4, 5]
 # p array_ewo # --> [1, 3, 5]
 # p array
 
+# array_partition = array.partition do |num|
+#                     num.odd?
+#                   end
+# p array_partition # --> [[1, 3, 5], [2, 4]]
+# p array
+
+# odd, even = array.partition do |num|
+#   num.odd?
+# end
+# p odd # --> [1, 3, 5]
+# p even # --> [2, 4]
+# p array
 
 
 # HASHES
@@ -54,8 +66,15 @@ hash = { a: 'ant', b: 'bear', c: 'cat' }
 # p hash_ewo # --> ['ant', 'bear', 'cat']
 # p hash
 
-hash_ewo2 = hash.each_with_object({}) do |(key, value), hash|
-  hash[value] = key
-end
-p hash_ewo2 # --> { "ant" => :a, "bear" => :b, "cat" => :c }
+# hash_ewo2 = hash.each_with_object({}) do |(key, value), hash|
+#   hash[value] = key
+# end
+# p hash_ewo2 # --> { "ant" => :a, "bear" => :b, "cat" => :c }
+# p hash
+
+long, short = hash.partition do |key, value|
+                value.size > 3
+              end
+p long
+p short
 p hash
