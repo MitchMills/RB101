@@ -1,10 +1,29 @@
 
+# PROBLEM 7
+# statement = "The Flintstones Rock"
+# letter_frequency = {}
+
+# statement.gsub(/\s+/, '').each_char do |letter|
+#   letter_frequency[letter] = statement.count(letter)
+# end
+
+# p letter_frequency
+
+
+# PROBLEM 6
+# flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+# fli_sto = flintstones.map { |name| name[0, 3] }
+# p fli_sto
+# p flintstones
+
+
 # PROBLEM 5
-flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
-first_be =  flintstones.find_index do |name|
-              name.start_with?('Be')
-            end
-p first_be
+# flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+# first_be =  flintstones.find_index do |name|
+#               name.start_with?('Be')
+#             end
+# p first_be
+
 
 # PROBLEM 4
 # ages = {  'Herman' => 32,
@@ -14,11 +33,9 @@ p first_be
 #           'Marilyn' => 22,
 #           'Spot' => 237
 #         }
-
 # youngest_age = ages.values.min
 # youngest_person = ages.key(youngest_age)    
 # p youngest_person
-
 
 
 # PROBLEM 3
@@ -41,7 +58,6 @@ p first_be
 #         'Marilyn' => 22, 
 #         'Spot' => 237 
 #       }
-
 # Solution 2.1
 # cumulative_ages = 0
 # ages.each do |name, age|
