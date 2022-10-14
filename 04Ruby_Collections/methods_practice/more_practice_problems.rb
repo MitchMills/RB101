@@ -1,4 +1,25 @@
 
+# PROBLEM 8
+numbers = [1, 2, 3, 4]
+# numbers.each do |number|
+#   p number
+#   numbers.shift(1)
+# end
+
+# numbers.each do |number|
+#   p number
+#   numbers.pop(1)
+# end
+
+numbers.each_with_index do |number, index|
+  p "#{index}, #{numbers.inspect}, #{number}"
+  numbers.shift(1)
+end
+p numbers
+
+
+
+
 # PROBLEM 7
 # statement = "The Flintstones Rock"
 # letter_frequency = {}
