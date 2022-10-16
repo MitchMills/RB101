@@ -1,29 +1,39 @@
-## PRACTICE PROBLEM 7
-Create a hash that expresses the frequency with which each letter occurs in a given string
+- "Modify the hash such that each member of the Munster family has an additional "age_group" key that has one of three values describing the age group the family member is in (kid, adult, or senior)."
+- "Note: a kid is in the age range 0 - 17, an adult is in the range 18 - 64 and a senior is aged 65+."
 
-## Problem
-**Rules / Requirements**
-- INPUT: string
-- OUTPUT: hash
-    - each key is a unique letter in the given string
-    - each associated value is the number of times that letter appears in the string
-- Order of letters in hash is not important (see example)
+# Problem
+- INPUT: nested hash
+- OUTPUT: nested hash
+- ASSUMPTIONS:
+-   Return a new hash; don't mutate the original hash
 
-## Examples
-`{ "F"=>1, "R"=>1, "T"=>1, "c"=>1, "e"=>2, ... }`
+# Examples
+**Original Hash**
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+**Expected Result**
+munsters = { 
+  "Herman" =>   { "age" => 32,  "gender" => "male",   "age_group" => "adult" },
+  "Lily" =>     { "age" => 30,  "gender" => "female", "age_group" => "adult" },
+  "Grandpa" =>  { "age" => 402, "gender" => "male",   "age_group" => "senior" },
+  "Eddie" =>    { "age" => 10,  "gender" => "male",   "age_group" => "kid" },
+  "Marilyn" =>  { "age" => 23,  "gender" => "female", "age_group" => "adult" } 
+  }
 
-## Data Structures
-- string input
-- intermediate array (string broken up into individual letters)
-  - can easily be iterated over to count occurence of each letter
-- hash output
+**Data Structures**
+- nested hashes
 
-## Algorithm
-1. Given a string 'statement'
-2. Create an empty hash 'letter_frequency'
-3. Iterate over each character in 'statement' and add key-value pairs to 'letter_frequency'
-    - current character will be the key
-    - count of that character will be the value
-    - check whether hash already has a key for current letter to avoid duplicate entries.
-4. Return 'letter_frequency'
-
+**Algorithm**
+- 1.  Iterate over each sub-hash in the 'munsters' hash
+- 2.  Assign a new key-value pair to each
+-       a. the key is "age_group"
+        b. the value is based on age
+          i.    0 - 17: kid
+          ii.   18 - 64: adult
+          iii.  65+: senior
+- 3.  Return the new hash

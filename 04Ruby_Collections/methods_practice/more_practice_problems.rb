@@ -1,6 +1,45 @@
 
+# PROBLEM 10
+munsters = {
+  'Herman' =>   { 'age' => 32,  'gender' => 'male' },
+  'Lily' =>     { 'age' => 30,  'gender' => 'female' },
+  'Grandpa' =>  { 'age' => 402, 'gender' => 'male' },
+  'Eddie' =>    { 'age' => 10,  'gender' => 'male' },
+  'Marilyn' =>  { 'age' => 23,  'gender' => 'female' }
+}
+
+def add_age_group(hash)
+  hash.each do |name, info|
+    age_group = case info['age']
+                when (0..17) then 'kid'
+                when (18..64) then 'adult'
+                else 'senior'
+                end
+    hash[name]['age_group'] = age_group
+  end
+end
+
+munsters2 = add_age_group(munsters)
+p munsters2
+
+# PROBLEM 9
+# def titleize(string)
+#   string.split.map { |word| word.capitalize }.join(' ')
+#   # array = string.split
+#   # titleized_array = array.map { |word| word.capitalize }
+#   # titleized_sentence = titleized_array.join(' ')
+# end
+
+# sentence = "the flintstones rock"
+# p titleize(sentence)
+
+# - 1. Given a string, convert it into an array of each separate word
+# - 2. Change the first letter of every word to uppercase
+# - 3. Convert the array back into a string
+# - 4. Return the string
+
 # PROBLEM 8
-numbers = [1, 2, 3, 4]
+# numbers = [1, 2, 3, 4]
 # numbers.each do |number|
 #   p number
 #   numbers.shift(1)
@@ -11,13 +50,11 @@ numbers = [1, 2, 3, 4]
 #   numbers.pop(1)
 # end
 
-numbers.each_with_index do |number, index|
-  p "#{index}, #{numbers.inspect}, #{number}"
-  numbers.shift(1)
-end
-p numbers
-
-
+# numbers.each_with_index do |number, index|
+#   p "#{index}, #{numbers.inspect}, #{number}"
+#   numbers.shift(1)
+# end
+# p numbers
 
 
 # PROBLEM 7
