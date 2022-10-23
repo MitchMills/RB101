@@ -1,5 +1,64 @@
-# 6 ODD NUMBERS
+# 9 STRING ASSIGNMENT
+name = 'Bob'
+save_name = name
+name.upcase!
+puts name, save_name
 
+
+# 8 SUM OR PRODUCT OF CONSECUTIVE INTEGERS
+# def get_number
+#   number = 0
+#   loop do
+#     print "Please enter an integer greater than 0: "
+#     number = gets.to_i
+#     break if number > 0
+#     puts "That's not a valid entry."
+#   end
+#   number
+# end
+
+# def get_choice
+#   choice = ''
+#   loop do
+#     print "Enter 's' to compute the sum, or 'p' to compute the product: "
+#     choice = gets.chomp.downcase
+#     break if ['s', 'p'].include?(choice)
+#     puts "That's not a valid entry."
+#   end
+#   choice
+# end
+
+# def get_answer(number, choice)
+#   answer = 1
+#   2.upto(number) do |num|
+#     if choice == 's'
+#       answer += num
+#     elsif choice == 'p'
+#       answer *= num
+#     end
+#   end
+#   answer
+# end
+
+# def sum_or_product
+#   number = get_number()
+#   choice = get_choice()
+#   answer = get_answer(number, choice)
+#   operation = (choice == 's' ? 'sum' : 'product')
+#   puts "The #{operation} of the integers between 1 and #{number} is #{answer}."
+# end
+
+# sum_or_product()
+
+
+# 7 EVEN NUMBERS
+# 1.upto(99)  {|num| puts num if num.even?}
+
+
+# 6 ODD NUMBERS
+# (1..99)each { |num| puts num if num.odd? }
+# 1.upto(99) { |num| puts num if num.odd? }
+# puts (1..99).to_a.select { |num| num.odd? }
 
 
 # 5 GREETING A USER
