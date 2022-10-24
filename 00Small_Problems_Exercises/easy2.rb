@@ -1,8 +1,22 @@
+# 10 MUTATION
+array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
+
+array2 = []
+array1.each { |name| array2 << name.dup }
+
+p array1[0].object_id
+p array2[0].object_id
+
+array1.each { |name| name.upcase! if name.start_with?('C', 'S') }
+p array1
+p array2
+
+
 # 9 STRING ASSIGNMENT
-name = 'Bob'
-save_name = name
-name.upcase!
-puts name, save_name
+# name = 'Bob'
+# save_name = name
+# name.upcase!
+# puts name, save_name
 
 
 # 8 SUM OR PRODUCT OF CONSECUTIVE INTEGERS
