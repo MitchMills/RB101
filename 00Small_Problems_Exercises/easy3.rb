@@ -1,6 +1,26 @@
+# 4 MULTIPLYING TWO NUMBERS
+
+
+
 # 3 COUNTING THE NUMBER OF CHARACTERS
+# def get_char_count(string)
+#   # char_count = 0
+#   # string.each_char do |char|
+#   #   char_count += 1 if char != ' '
+#   # end
+#   # char_count
 
+#   char_count = string.delete(' ').size
+# end
 
+# def count_characters
+#   print "Please write a word or multiple words: "
+#   string = gets.chomp
+#   char_count = get_char_count(string)
+#   puts "There are #{char_count} characters in \"#{string}\"."
+# end
+
+# count_characters()
 
 # 2 ARITHMETIC INTEGER
 # print "==> Enter the first number: "
