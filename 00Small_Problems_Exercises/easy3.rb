@@ -4,11 +4,13 @@
 
 # 3 COUNTING THE NUMBER OF CHARACTERS
 # def get_char_count(string)
-#   # char_count = 0
-#   # string.each_char do |char|
-#   #   char_count += 1 if char != ' '
-#   # end
-#   # char_count
+# #   # char_count = 0
+# #   # string.each_char do |char|
+# #   #   char_count += 1 if char != ' '
+# #   # end
+# #   # char_count
+
+# # char_count = string.split.join.size
 
 #   char_count = string.delete(' ').size
 # end
