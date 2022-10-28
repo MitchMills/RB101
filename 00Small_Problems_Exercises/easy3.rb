@@ -1,5 +1,27 @@
-# 4 MULTIPLYING TWO NUMBERS
+# 5 SQUARING AN ARGUMENT
+def multiply(num1, num2)
+  num1 * num2
+end
 
+def power(num, to_the_n)
+  result = 0
+  (to_the_n - 1).times do |i|
+    result += multiply(num, num)
+    puts result
+  end
+  result
+end
+
+puts power(5, 3)
+puts power(2, 3)
+
+
+# 4 MULTIPLYING TWO NUMBERS
+# def multiply(num1, num2)
+#   num1 * num2
+# end
+
+# p multiply([1, 2, 3], 3)
 
 
 # 3 COUNTING THE NUMBER OF CHARACTERS
