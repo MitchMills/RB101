@@ -1,19 +1,29 @@
 # 5 SQUARING AN ARGUMENT
-def multiply(num1, num2)
-  num1 * num2
-end
+# def multiply(num1, num2)
+#   num1 * num2
+# end
 
-def power(num, to_the_n)
-  result = 0
-  (to_the_n - 1).times do |i|
-    result += multiply(num, num)
-    puts result
-  end
-  result
-end
+# def power(num, to_the_n)
+#   multiply(num, 1) ** to_the_n
 
-puts power(5, 3)
-puts power(2, 3)
+#   # result = 1
+#   # if to_the_n > 1
+#   #   while to_the_n > 1
+#   #     result = result * multiply(num, result)
+#   #     to_the_n -= 1
+#   #   end
+#   # else
+#   #   result = num
+#   # end
+#   # result
+
+# end
+
+# puts power(5, 3)
+# puts power(2, 4)
+# puts power(5, 1)
+# puts power(4, 3)
+
 
 
 # 4 MULTIPLYING TWO NUMBERS
