@@ -1,3 +1,33 @@
+# 6
+# def xor?(arg1, arg2)
+#   # return true if arg1 && !arg2
+#   # return true if !arg1 && arg2
+#   # false
+#   if (arg1 && !arg2) || (!arg1 && arg2)
+#     true
+#   else
+#     false
+#   end
+# end
+
+# # (true && !false) || (!true && false)
+# # true || false
+
+# # (false && !true) || (!false && true)
+# # false || true
+
+# # (true && !true) || (!true && true)
+# # false || false
+
+# # (false && !false) || (!false && false)
+# # false || false
+
+# puts xor?(5.even?, 4.even?) # (false, true) --> true
+# puts xor?(5.odd?, 4.odd?) #   (true, false) --> true
+# puts xor?(5.odd?, 4.even?) #  (true, true) --> false
+# puts xor?(5.even?, 4.odd?) #  (false, false) --> false
+
+
 # 5 SQUARING AN ARGUMENT
 # def multiply(num1, num2)
 #   num1 * num2
