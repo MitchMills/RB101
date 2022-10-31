@@ -1,4 +1,64 @@
-# 6
+# 10 PALINDROMIC NUMBERS
+def palindromic_integer?(number)
+  # number == number.digits.join.to_i
+  number.to_s == number.to_s.reverse
+end
+
+p palindromic_integer?(34543) == true
+p palindromic_integer?(123210) == false
+p palindromic_integer?(22) == true
+p palindromic_integer?(5) == true
+
+
+# 9 PALINDROMIC STRINGS II
+# def real_palindrome?(string)
+#   clean_string = string.downcase.delete('^a-z0-9')
+#   clean_string == clean_string.reverse
+# end
+
+# p real_palindrome?('madam') == true
+# p real_palindrome?('Madam') == true           # (case does not matter)
+# p real_palindrome?("Madam, I'm Adam") == true # (only alphanumerics matter)
+# p real_palindrome?('356653') == true
+# p real_palindrome?('356a653') == true
+# p real_palindrome?('123ab321') == false
+
+
+# 8 PALINDROMIC STRINGS I
+# def palindrome?(object)
+#   object == object.reverse
+# end
+
+# p palindrome?([1, 2, 3]) == false
+# p palindrome?([1, 2, 3, 2, 1]) == true
+# p palindrome?([]) == true
+# p palindrome?(['a']) == true
+# p palindrome?(['a', 'b', 'a']) == true
+# puts
+
+# # def string_palindrome?(string)
+# #   string == string.reverse
+# # end
+
+# p palindrome?('madam') == true
+# p palindrome?('Madam') == false          # (case matters)
+# p palindrome?("madam i'm adam") == false # (all characters matter)
+# p palindrome?('356653') == true
+
+
+# 7 ODD LISTS
+# def oddities(array)
+#   array.select {|element| array.index(element).even?}
+# end
+
+# p oddities([2, 3, 4, 5, 6]) == [2, 4, 6]
+# p oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
+# p oddities(['abc', 'def']) == ['abc']
+# p oddities([123]) == [123]
+# p oddities([]) == []
+# p oddities([1, 2, 3, 4, 1]) == [1, 3, 1]
+
+# 6 EXCLUSIVE OR
 # def xor?(arg1, arg2)
 #   # return true if arg1 && !arg2
 #   # return true if !arg1 && arg2
