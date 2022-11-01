@@ -1,3 +1,88 @@
+# PROBLEM 10
+
+
+# PROBLEM 9
+# arr = [
+#   ['b', 'c', 'a'], 
+#   [2, 1, 3], 
+#   ['blue', 'black', 'green']
+# ]
+
+# sorted_array =
+# arr.map do |sub_array|
+#   sub_array.sort {|a, b| b <=> a}
+# end
+
+# p sorted_array
+
+
+# PROBLEM 8
+# hsh = {
+#   first: ['the', 'quick'], 
+#   second: ['brown', 'fox'], 
+#   third: ['jumped'], 
+#   fourth: ['over', 'the', 'lazy', 'dog']
+# }
+# vowels = 'aeiouy'
+# hsh.values.each do |words|
+#   words.each do |word|
+#     word.chars.each do |char|
+#       puts char if vowels.include?(char)
+#     end
+#   end
+# end
+
+
+# PROBLEM 7
+# a = 2
+# b = [5, 8]
+# arr = [a, b]
+
+# p a # --> 2
+# p b # --> [5, 8]
+# p arr # --> [2, [5, 8]]
+# puts
+
+# arr[0] += 2
+# arr[1][0] -= a
+
+# p a # --> 2
+# p b # --> [3, 8]
+# p arr # --> [4, [3, 8]]
+
+
+# PROBLEM 6
+# munsters = {
+#   "Herman" => { "age" => 32, "gender" => "male" },
+#   "Lily" => { "age" => 30, "gender" => "female" },
+#   "Grandpa" => { "age" => 402, "gender" => "male" },
+#   "Eddie" => { "age" => 10, "gender" => "male" },
+#   "Marilyn" => { "age" => 23, "gender" => "female"}
+# }
+
+# munsters.each do |name, info|
+#   puts "#{name} is a #{info["age"]}-year-old #{info["gender"]}."
+# end
+
+
+# PROBLEM 5
+# munsters = {
+#   "Herman" =>   { "age" => 32, "gender" => "male" },
+#   "Lily" =>     { "age" => 30, "gender" => "female" },
+#   "Grandpa" =>  { "age" => 402, "gender" => "male" },
+#   "Eddie" =>    { "age" => 10, "gender" => "male" },
+#   "Marilyn" =>  { "age" => 23, "gender" => "female"}
+# }
+
+# total_male_age = 0
+# munsters.each_value do |info|
+#   total_male_age += info['age'] if info['gender'] == 'male'
+# end
+
+# p total_male_age
+
+
+
 # PROBLEM 4
 # arr1 = [1, [2, 3], 4]
 # p arr1
