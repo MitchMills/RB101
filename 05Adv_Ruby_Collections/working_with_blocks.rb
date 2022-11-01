@@ -1,19 +1,18 @@
 # MUTATING COLLECTIONS WHILE ITERATING
-def remove_evens!(arr)
-  cloned_arr = arr.dup
-  cloned_arr.each do |num|
-    if num % 2 == 0
-      arr.delete(num)
-    end
-  end
-  arr
-end
+# def remove_evens!(arr)
+#   cloned_arr = arr.dup
+#   cloned_arr.each do |num|
+#     if num % 2 == 0
+#       arr.delete(num)
+#     end
+#   end
+#   arr
+# end
 
-p array1 = [1, 1, 2, 3, 4, 6, 8, 9]
-array2 = remove_evens!(array1)
-p array1
-p array2
-
+# p array1 = [1, 1, 2, 3, 4, 6, 8, 9]
+# array2 = remove_evens!(array1)
+# p array1
+# p array2
 
 
 # EXAMPLE 10
@@ -108,6 +107,7 @@ p array2
 #             end
 
 # p num_sort # --> [["1", "8", "9"], ["1", "8", "11"], ["2", "6", "13"], ["2", "12", "15"]]
+# p arr
 
 
 # EXAMPLE 6
