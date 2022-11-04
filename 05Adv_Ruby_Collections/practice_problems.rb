@@ -1,21 +1,34 @@
-# PROBLEM 15
-array1 = [
-  {a: [1, 2, 3]}, 
-  {b: [2, 4, 6], c: [3, 6], d: [4]}, 
-  {e: [8], f: [6, 10]}
-]
+# PROBLEM 16
+pattern = [8, 4, 4, 4, 12]
 
-array2 = 
-array1.select do |hash|
-  hash.all? do |_, value|
-    value.all? do |num|
-      num.even?
-    end
+def make_uuid()
+  pattern = [8, 4, 4, 4, 12]
+  uuid = ''
+  pattern.each do |num|
+    num.times {}
   end
 end
 
-p array1
-p array2
+
+
+# PROBLEM 15
+# array1 = [
+#   {a: [1, 2, 3]}, 
+#   {b: [2, 4, 6], c: [3, 6], d: [4]}, 
+#   {e: [8], f: [6, 10]}
+# ]
+
+# array2 = 
+# array1.select do |hash|
+#   hash.all? do |_, value|
+#     value.all? do |num|
+#       num.even?
+#     end
+#   end
+# end
+
+# p array1
+# p array2
 
 
 # PROBLEM 14
