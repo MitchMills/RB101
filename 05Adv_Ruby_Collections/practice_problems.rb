@@ -1,4 +1,135 @@
+# PROBLEM 15
+array1 = [
+  {a: [1, 2, 3]}, 
+  {b: [2, 4, 6], c: [3, 6], d: [4]}, 
+  {e: [8], f: [6, 10]}
+]
+
+array2 = 
+array1.select do |hash|
+  hash.all? do |_, value|
+    value.all? do |num|
+      num.even?
+    end
+  end
+end
+
+p array1
+p array2
+
+
+# PROBLEM 14
+# hsh = {
+#   'grape' => {type: 'fruit', colors: ['red', 'green'], size: 'small'},
+#   'carrot' => {type: 'vegetable', colors: ['orange'], size: 'medium'},
+#   'apple' => {type: 'fruit', colors: ['red', 'green'], size: 'medium'},
+#   'apricot' => {type: 'fruit', colors: ['orange'], size: 'medium'},
+#   'marrow' => {type: 'vegetable', colors: ['green'], size: 'large'},
+# }
+
+# erv = [["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
+
+# array =
+# hsh.map do |_, info|
+#   if info[:type] == 'fruit'
+#     info[:colors].map {|color| color.capitalize}
+#   elsif info[:type] == 'vegetable'
+#     info[:size].upcase
+#   end
+# end
+
+# p array
+# p erv
+
+
+# PROBLEM 13
+# array1 = [[1, 6, 9], [6, 1, 7], [1, 8, 3], [1, 5, 9]]
+# erv = [[1, 8, 3], [1, 5, 9], [6, 1, 7], [1, 6, 9]]
+
+# sorted_array = array1.sort_by do |array| 
+#   array.select {|num| num.odd?}
+# end
+
+# p array1
+# p sorted_array
+# p erv
+
+
+# PROBLEM 12
+# array1 = [
+#   [:a, 1], 
+#   ['b', 'two'], 
+#   ['sea', {c: 3}], 
+#   [{a: 1, b: 2, c: 3, d: 4}, 'D']
+# ]
+
+# hash1 = array1.each_with_object({}) do |array, hash|
+#   hash[array[0]] = array[1]
+# end
+
+# # hash1 = {}
+# # array1.each do |element|
+# #   hash1[element[0]] = element[1]
+# # end
+
+
+# p array1
+# p hash1
+
+# # expected return value: 
+# erv = {
+#   :a=>1, 
+#   "b"=>"two", 
+#   "sea"=>{:c=>3}, 
+#   {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"
+# }
+
+
+# PROBLEM 11
+# array1 = [
+#   [2], 
+#   [3, 5, 7], 
+#   [9], 
+#   [11, 13, 15]
+# ]
+
+# array2 = array1.map do |arr|
+#   arr.select do |num|
+#     num % 3 == 0
+#   end
+# end
+
+# p array1
+# p array2
+
+
 # PROBLEM 10
+# array1 = [
+#   {a: 1},
+#   {b: 2, c: 3},
+#   {d: 4, e: 5, f: 6}
+# ]
+
+# # array2 = array1.map do |hash|
+# #   hash.transform_values {|value| value += 1}
+# # end
+
+# # array2 = array1.map do |hash|
+# #   incremented_hash = {}
+# #   hash.each do |key, value|
+# #     incremented_hash[key] = value + 1
+# #   end
+# #   incremented_hash
+# # end
+
+# array2 = array1.each_with_object([]) do |hash, array|
+#     incremented_hash = {}
+#     hash.each {|key, value| incremented_hash[key] = value + 1}
+#     array << incremented_hash
+# end
+
+# p array1
+# p array2
 
 
 # PROBLEM 9
