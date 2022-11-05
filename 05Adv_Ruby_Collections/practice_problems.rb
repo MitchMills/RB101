@@ -1,13 +1,41 @@
-# PROBLEM 16
-pattern = [8, 4, 4, 4, 12]
+order_data = [
+  {customer_id: 12, customer_name: 'Emma Lopez', order_id: 351, order_date: '12/04/16', order_fulfilled: true, order_value: 135.99},
+  {customer_id: 12, customer_name: 'Emma Lopez', order_id: 383, order_date: '12/04/16', order_fulfilled: true, order_value: 289.49},
+  {customer_id: 12, customer_name: 'Emma Lopez', order_id: 392, order_date: '01/10/17', order_fulfilled: false, order_value: 58.00},
+  {customer_id: 32, customer_name: 'Michael Richards', order_id: 241, order_date: '11/10/16', order_fulfilled: true, order_value: 120.00},
+  {customer_id: 32, customer_name: 'Michael Richards', order_id: 395, order_date: '01/10/17', order_fulfilled: false, order_value: 85.65},
+  # rest of data...
+]
 
-def make_uuid()
-  pattern = [8, 4, 4, 4, 12]
-  uuid = ''
-  pattern.each do |num|
-    num.times {}
-  end
+customer_orders = order_data.map do |row|
+  {
+    customer_id: row[:customer_id],
+    customer_name: row[:customer_name],
+    orders: [
+      {
+        order_fulfilled: row[:order_fulfilled],
+        order_value: row[:order_value]
+      }
+    ]
+  }
 end
+
+p customer_orders
+
+# PROBLEM 16
+# def create_uuid()
+#   pattern = [8, 4, 4, 4, 12]
+#   hex_chars = %w(0 1 2 3 4 5 6 7 8 9 a b c d e f)
+#   uuid = ''
+#   pattern.each_with_index do |num, index|
+#     num.times { uuid << hex_chars.sample }
+#     uuid << '-' unless index >= (pattern.size - 1)
+#   end
+#   uuid
+# end
+
+# uuid = create_uuid()
+# p uuid
 
 
 
