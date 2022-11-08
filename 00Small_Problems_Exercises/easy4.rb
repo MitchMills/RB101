@@ -1,5 +1,71 @@
-# 4 LEAP YEARS II
+# 6 RUNNING TOTALS
+def running_total(array)
+  sum = 0
+  array.map do |num|
+    
+  end
+end
 
+p running_total([2, 5, 13]) #== [2, 7, 20]
+p running_total([14, 11, 7, 15, 20]) #== [14, 25, 32, 47, 67]
+p running_total([3]) #== [3]
+p running_total([]) #== []
+
+
+# 5 MULTIPLES OF 3 AND 5
+# def multisum(number)
+#   multiples = (1..number).select do |num|
+#     num % 3 == 0 || num % 5 == 0
+#   end
+#   multiples.sum
+# end
+
+# # def multisum(num)
+# #   multiples = []
+# #   (1..num).each do |num|
+# #     if num % 3 == 0 || num % 5 == 0
+# #       multiples << num
+# #     end
+# #   end
+# #   multiples.sum
+# # end
+
+# p multisum(3) == 3
+# p multisum(5) == 8
+# p multisum(10) == 33
+# p multisum(1000) == 234168
+
+
+# 4 LEAP YEARS II
+# def leap_year?(year)
+#   if (year % 100 == 0) && (year > 1752)
+#     year % 400 == 0
+#   else
+#     year % 4 == 0
+#   end
+# end
+
+# # def leap_year?(year)
+# #   if year < 1752
+# #     year % 4 == 0
+# #   else
+# #     (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))
+# #   end
+# # end
+
+# p leap_year?(2016) == true
+# p leap_year?(2015) == false
+# p leap_year?(2100) == false
+# p leap_year?(2400) == true
+# p leap_year?(240000) == true
+# p leap_year?(240001) == false
+# p leap_year?(2000) == true
+# p leap_year?(1900) == false
+# p leap_year?(1752) == true
+# p leap_year?(1700) == true
+# p leap_year?(1) == false
+# p leap_year?(100) == true
+# p leap_year?(400) == true
 
 
 # 3 LEAP YEARS I
