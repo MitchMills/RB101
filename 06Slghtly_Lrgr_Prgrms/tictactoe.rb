@@ -3,38 +3,45 @@ require 'pry'
 INITIAL_MARK = ' '
 PLAYER_MARK = 'X'
 COMPUTER_MARK = 'O'
+WINNING_LINES = [
+  [1, 2, 3], [4, 5, 6], [7, 8, 9], # rows
+  [1, 4, 7], [2, 5, 8], [3, 6, 9], # columns
+  [1, 5, 9], [3, 5, 7] # diagonals
+]
 
 def prompt(msg)
- puts "=> #{msg}"
+  puts "=> #{msg}"
 end
 
+# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 def display_board(brd)
   system('clear')
   puts ""
   puts "You're #{PLAYER_MARK}. Computer is #{COMPUTER_MARK}."
   puts ""
-puts "     |     |"
+  puts "  1  |  2  |  3"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]}"
   puts "     |     |"
   puts "-----+-----+-----"
-  puts "     |     |"
+  puts "  4  |  5  |  6"
   puts "  #{brd[4]}  |  #{brd[5]}  |  #{brd[6]}"
   puts "     |     |"
   puts "-----+-----+-----"
-  puts "     |     |"
+  puts "  7  |  8  |  9"
   puts "  #{brd[7]}  |  #{brd[8]}  |  #{brd[9]}"
   puts "     |     |"
   puts ""
 end
+# rubocop:enable Metrics/MethodLength,  Metrics/AbcSize
 
 def initialize_board
   new_board = {}
-  (1..9).each {|num| new_board[num] = INITIAL_MARK}
+  (1..9).each { |num| new_board[num] = INITIAL_MARK }
   new_board
 end
 
 def empty_squares(brd)
-  brd.keys.select{|num| brd[num] == INITIAL_MARK}
+  brd.keys.select { |num| brd[num] == INITIAL_MARK }
 end
 
 def player_picks_square!(brd)
@@ -59,19 +66,11 @@ def winner?(brd)
 end
 
 def detect_winner(brd)
-  winning_lines = [[1, 2, 3], [4, 5, 6], [7, 8, 9], # rows
-                   [1, 4, 7], [2, 5, 8], [3, 6, 9], # columns
-                   [1, 5, 9], [3, 5, 7]]            # diagonals
-  
-  winning_lines.each do |line|
-    if  brd[line[0]] == PLAYER_MARK &&
-        brd[line[1]] == PLAYER_MARK &&
-        brd[line[2]] == PLAYER_MARK
-        return 'Player'
-    elsif brd[line[0]] == COMPUTER_MARK &&
-          brd[line[1]] == COMPUTER_MARK &&
-          brd[line[2]] == COMPUTER_MARK
-          return 'Computer'
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).count(PLAYER_MARK) == 3
+      return 'Player'
+    elsif brd.values_at(*line).count(COMPUTER_MARK) == 3
+      return 'Computer'
     end
   end
   nil
@@ -81,6 +80,7 @@ def board_full?(brd)
   empty_squares(brd).empty?
 end
 
+# main game loop
 loop do
   board = initialize_board
 
@@ -108,4 +108,3 @@ loop do
 end
 
 prompt("Thanks for playing Tic Tac Toe! Goodbye.")
-
