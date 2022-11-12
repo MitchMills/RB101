@@ -82,7 +82,7 @@ end
 
 # main game loop
 loop do
-  board = initialize_board
+  board = initialize_board()
 
   loop do
     display_board(board)
