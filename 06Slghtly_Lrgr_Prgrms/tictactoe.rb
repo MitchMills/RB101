@@ -47,7 +47,7 @@ end
 def player_picks_square!(brd)
   square = ''
   loop do
-    prompt("Choose an empty square (#{empty_squares(brd).join(', ')}):")
+    prompt("Choose an empty square: #{empty_squares(brd).join(', ')}")
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt("Sorry, that's not a valid choice.")
