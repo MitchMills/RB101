@@ -1,3 +1,5 @@
+require 'pry'
+
 INITIAL_MARK = ' '
 PLAYER_MARK = 'X'
 COMPUTER_MARK = 'O'
@@ -18,10 +20,11 @@ def initialize_board
 end
 
 # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-def display_board(brd)
+def display_board(brd, score)
   system('clear')
   puts
   puts "You are #{PLAYER_MARK}. Computer is #{COMPUTER_MARK}."
+  puts "Game #{score.values.sum + 1}"
   puts
   puts "       |       |"
   puts "   #{brd[1][1]}   |   #{brd[2][1]}   |   #{brd[3][1]}"
@@ -88,22 +91,26 @@ def board_full?(brd)
   empty_squares(brd).empty?
 end
 
-
-
-def get_score()
-
+def update_score(score, winner)
+  if winner == 'Player'
+    score[:player_score] += 1
+  elsif winner == 'Computer'
+    score[:computer_score] += 1
+  else
+    score[:ties] += 1
+  end
 end
 
-
-def display_score
-
+def display_score(score)
+  prompt("SCOREBOARD")
+  prompt("Player: #{score[:player_score].to_s}#, Computer: #{score[:computer_score]}, \
+Ties: #{score[:ties]}")
 end
-
 
 def detect_match_winner(score)
-  if score[:player] >= 3
+  if score[:player_score] >= 3
     return 'Player'
-  elsif score[:computer] >= 3
+  elsif score[:computer_score] >= 3
     return 'Computer'
   elsif score.values.sum >= 5
     return 'Tie'
@@ -111,30 +118,49 @@ def detect_match_winner(score)
   nil
 end
 
-
 def match_winner?(score)
   !!detect_match_winner(score)
+end
+
+def display_match_winner(match_winner)
+  case match_winner
+  when 'Player'
+    prompt("You are the Match Winner!")
+  when 'Computer'
+    prompt("Computer is the Match Winner!")
+  when 'Tie'
+    prompt("The Match has ended in a tie.")
+  end
 end
 
 
 
 # main game loop
-loop do ### PROGRAM LOOP BEGIN
-  score = {player_score: 0, computer_score: 0, ties: 0}
-  prompt("Welcome to Tic Tac Toe. You will play against the computer.")
-  prompt(" The player who wins the most games out of five will be the Match Winner.")
+first_time = true
 
-  game_number = 1
+loop do ### PROGRAM LOOP BEGIN
+  system('clear')
+  score = { player_score: 0, computer_score: 0, ties: 0 }
+
+  if first_time
+    prompt("Welcome to Tic Tac Toe. You are Player. You will play against Computer.")
+    first_time = false
+  else
+    prompt("Welcome back Player! Ready for another match?")
+  end
+  prompt("Whoever wins the most games out of five will be the Match Winner.")
+
 
 
   loop do ### MATCH LOOP BEGIN
-
+    display_score(score)
+    prompt("Let's begin Game #{score.values.sum + 1}.")
 
     loop do ### GAME LOOP BEGIN
       board = initialize_board()
 
       loop do
-        display_board(board)
+        display_board(board, score)
 
         player_picks_square!(board)
         break if game_winner?(board) || board_full?(board)
@@ -143,22 +169,24 @@ loop do ### PROGRAM LOOP BEGIN
         break if game_winner?(board) || board_full?(board)
       end
 
-      display_board(board)
+      display_board(board, score)
 
+      game_winner = detect_game_winner(board)
       if game_winner?(board)
-        prompt("#{detect_game_winner(board)} won!")
+        prompt("#{game_winner} won!")
       else
         prompt("It's a tie!")
       end
 
-      score = get_score()
+      score = update_score(score, game_winner)
       display_score(score)
 
       break if match_winner?(score)
 
     end ### GAME LOOP END
-
-    game_number += 1
+    match_winner = detect_match_winner(score)
+    display_match_winner(match_winner)
+    
   end ### MATCH LOOP END
 
 end ### PROGRAM LOOP END
