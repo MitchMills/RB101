@@ -102,8 +102,7 @@ def update_score(score, winner)
 end
 
 def display_score(score)
-  prompt("SCOREBOARD")
-  prompt("Player: #{score[:player_score].to_s}#, Computer: #{score[:computer_score]}, \
+  prompt("SCORES: Player: #{score[:player_score]}, Computer: #{score[:computer_score]}, \
 Ties: #{score[:ties]}")
 end
 
@@ -141,20 +140,21 @@ first_time = true
 loop do ### PROGRAM LOOP BEGIN
   system('clear')
   score = { player_score: 0, computer_score: 0, ties: 0 }
-
+  
   if first_time
-    prompt("Welcome to Tic Tac Toe. You are Player. You will play against Computer.")
+    prompt("Welcome to Tic Tac Toe. You will play against the computer.")
     first_time = false
   else
-    prompt("Welcome back Player! Ready for another match?")
+    prompt("Welcome back! Ready for another match?")
   end
   prompt("Whoever wins the most games out of five will be the Match Winner.")
 
 
-
   loop do ### MATCH LOOP BEGIN
-    display_score(score)
+
     prompt("Let's begin Game #{score.values.sum + 1}.")
+    prompt("Enter any key to continue.")
+    gets
 
     loop do ### GAME LOOP BEGIN
       board = initialize_board()
@@ -170,6 +170,9 @@ loop do ### PROGRAM LOOP BEGIN
       end
 
       display_board(board, score)
+      
+      
+    
 
       game_winner = detect_game_winner(board)
       if game_winner?(board)
@@ -178,8 +181,11 @@ loop do ### PROGRAM LOOP BEGIN
         prompt("It's a tie!")
       end
 
-      score = update_score(score, game_winner)
+      update_score(score, game_winner)
       display_score(score)
+      prompt("Enter any key to continue to Game #{score.values.sum + 1}.")
+      gets
+      
 
       break if match_winner?(score)
 
