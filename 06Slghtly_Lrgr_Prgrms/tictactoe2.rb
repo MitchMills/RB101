@@ -22,9 +22,9 @@ end
 # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 def display_board(brd, score)
   system('clear')
-  puts
-  puts "You are #{PLAYER_MARK}. Computer is #{COMPUTER_MARK}."
-  puts "Game #{score.values.sum + 1}"
+  prompt("Game #{score.values.sum + 1}")
+  display_score(score)
+  prompt("You are #{PLAYER_MARK}. Computer is #{COMPUTER_MARK}.")
   puts
   puts "       |       |"
   puts "   #{brd[1][1]}   |   #{brd[2][1]}   |   #{brd[3][1]}"
@@ -67,15 +67,34 @@ def player_picks_square!(brd)
   brd[square] = [' ', PLAYER_MARK]
 end
 
+def detect_threat(brd)
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).flatten.count(PLAYER_MARK) == 2 &&
+      brd.values_at(*line).flatten.count(COMPUTER_MARK) == 0
+      return line
+    end
+  end
+  nil
+end
 
+def resolve_threat(brd)
+  threat_line = detect_threat(brd)
+  target_square = threat_line.select {|num| brd[num][1] == INITIAL_MARK}
+  brd[target_square[0]] = [" ", COMPUTER_MARK]
+end
 
-
-def computer_picks_square!(brd)
+def random_pick(brd)
   square = empty_squares(brd).sample
   brd[square] = [' ', COMPUTER_MARK]
 end
 
-
+def computer_picks_square!(brd)
+  if detect_threat(brd)
+    resolve_threat(brd)
+  else
+    random_pick(brd)
+  end
+end
 
 def detect_game_winner(brd)
   WINNING_LINES.each do |line|
@@ -113,9 +132,11 @@ Computer: #{score[:computer_score]}, Ties: #{score[:ties]}")
 end
 
 def detect_match_winner(score)
-  if score[:player_score] >= 3
+  if score[:player_score] >= 3 ||
+    (score.values.sum >= 5 && score[:player_score] > score[:computer_score])
     return 'Player'
-  elsif score[:computer_score] >= 3
+  elsif score[:computer_score] >= 3 ||
+    (score.values.sum >= 5 && score[:computer_score] > score[:player_score])
     return 'Computer'
   elsif score.values.sum >= 5
     return 'Tie'
@@ -150,7 +171,7 @@ loop do ### MATCH LOOP BEGIN
   else
     prompt("Welcome back! Ready for another Match?")
   end
-  prompt("The player who wins the most games out of five will win the Match.")
+  prompt("Whichever player wins the most games out of five will win the Match.")
   prompt("Enter any key to continue.")
   gets
 
