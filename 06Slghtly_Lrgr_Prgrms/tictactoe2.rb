@@ -67,10 +67,15 @@ def player_picks_square!(brd)
   brd[square] = [' ', PLAYER_MARK]
 end
 
+
+
+
 def computer_picks_square!(brd)
   square = empty_squares(brd).sample
   brd[square] = [' ', COMPUTER_MARK]
 end
+
+
 
 def detect_game_winner(brd)
   WINNING_LINES.each do |line|
@@ -99,6 +104,7 @@ def update_score(score, winner)
   else
     score[:ties] += 1
   end
+  score
 end
 
 def display_score(score)
@@ -150,7 +156,6 @@ loop do ### MATCH LOOP BEGIN
 
   loop do ### GAME LOOP BEGIN
     board = initialize_board()
-    prompt("Let's begin Game #{score.values.sum + 1}.")
 
     loop do ### MOVES LOOP BEGIN
       display_board(board, score)
