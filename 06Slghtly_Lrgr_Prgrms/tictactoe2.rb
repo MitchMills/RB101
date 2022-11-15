@@ -69,8 +69,8 @@ end
 
 def detect_threat(brd)
   WINNING_LINES.each do |line|
-    if brd.values_at(*line).flatten.count(PLAYER_MARK) == 2 &&
-      brd.values_at(*line).flatten.count(COMPUTER_MARK) == 0
+    if (brd.values_at(*line).flatten.count(PLAYER_MARK) == 2) &&
+       (brd.values_at(*line).flatten.count(COMPUTER_MARK) == 0)
       return line
     end
   end
@@ -79,7 +79,7 @@ end
 
 def resolve_threat(brd)
   threat_line = detect_threat(brd)
-  target_square = threat_line.select {|num| brd[num][1] == INITIAL_MARK}
+  target_square = threat_line.select { |num| brd[num][1] == INITIAL_MARK }
   brd[target_square[0]] = [" ", COMPUTER_MARK]
 end
 
@@ -132,11 +132,13 @@ Computer: #{score[:computer_score]}, Ties: #{score[:ties]}")
 end
 
 def detect_match_winner(score)
-  if score[:player_score] >= 3 ||
-    (score.values.sum >= 5 && score[:player_score] > score[:computer_score])
+  player_score = score[:player_score]
+  computer_score = score[:computer_score]
+  if  (player_score >= 3) ||
+      (score.values.sum >= 5 && player_score > computer_score)
     return 'Player'
-  elsif score[:computer_score] >= 3 ||
-    (score.values.sum >= 5 && score[:computer_score] > score[:player_score])
+  elsif (computer_score >= 3) ||
+        (score.values.sum >= 5 && computer_score > player_score)
     return 'Computer'
   elsif score.values.sum >= 5
     return 'Tie'
@@ -175,7 +177,7 @@ loop do ### MATCH LOOP BEGIN
   prompt("Enter any key to continue.")
   gets
 
-  loop do ### GAME LOOP BEGIN
+  loop do ### SINGLE GAME LOOP BEGIN
     board = initialize_board()
 
     loop do ### MOVES LOOP BEGIN
@@ -204,7 +206,7 @@ loop do ### MATCH LOOP BEGIN
 
     prompt("Enter any key to continue to Game #{score.values.sum + 1}.")
     gets
-  end ### GAME LOOP END
+  end ### SINGLE GAME LOOP END
 
   match_winner = detect_match_winner(score)
   display_match_winner(match_winner)
