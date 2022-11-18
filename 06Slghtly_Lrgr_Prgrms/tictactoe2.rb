@@ -1,4 +1,4 @@
-require 'pry'
+require 'pry-byebug'
 
 INITIAL_MARK = ' '
 PLAYER_MARK = 'X'
