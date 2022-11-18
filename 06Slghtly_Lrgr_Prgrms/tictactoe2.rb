@@ -15,34 +15,47 @@ end
 
 def initialize_board
   new_board = {}
-  (1..9).each { |num| new_board[num] = [num, INITIAL_MARK] }
+  (1..9).each { |num| new_board[num] = INITIAL_MARK }
   new_board
 end
 
 # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 def display_board(brd, score)
+  brd_nums = number_board(brd)
   system('clear')
   prompt("Game #{score.values.sum + 1}")
   display_score(score)
   prompt("You are #{PLAYER_MARK}. Computer is #{COMPUTER_MARK}.")
   puts
   puts "       |       |"
-  puts "   #{brd[1][1]}   |   #{brd[2][1]}   |   #{brd[3][1]}"
-  puts "      #{brd[1][0]}|      #{brd[2][0]}|      #{brd[3][0]}"
+  puts "   #{brd[1]}   |   #{brd[2]}   |   #{brd[3]}"
+  puts "      #{brd_nums[1]}|      #{brd_nums[2]}|      #{brd_nums[3]}"
   puts "-------+-------+-------"
   puts "       |       |"
-  puts "   #{brd[4][1]}   |   #{brd[5][1]}   |   #{brd[6][1]}"
-  puts "      #{brd[4][0]}|      #{brd[5][0]}|      #{brd[6][0]}"
+  puts "   #{brd[4]}   |   #{brd[5]}   |   #{brd[6]}"
+  puts "      #{brd_nums[4]}|      #{brd_nums[5]}|      #{brd_nums[6]}"
   puts "-------+-------+-------"
   puts "       |       |"
-  puts "   #{brd[7][1]}   |   #{brd[8][1]}   |   #{brd[9][1]}"
-  puts "      #{brd[7][0]}|      #{brd[8][0]}|      #{brd[9][0]}"
+  puts "   #{brd[7]}   |   #{brd[8]}   |   #{brd[9]}"
+  puts "      #{brd_nums[7]}|      #{brd_nums[8]}|      #{brd_nums[9]}"
   puts
 end
 # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
 def empty_squares(brd)
-  brd.keys.select { |num| brd[num][1] == INITIAL_MARK }
+  brd.keys.select { |num| brd[num] == INITIAL_MARK }
+end
+
+def number_board(brd)
+  brd_nums = {}
+  (1..9).each do |num|
+    if empty_squares(brd).include?(num)
+      brd_nums[num] = num
+    else
+      brd_nums[num] = ' '
+    end
+  end
+  brd_nums
 end
 
 def joinor(array, delimiter = ', ', word = 'or')
@@ -64,13 +77,13 @@ def player_picks_square!(brd)
     break if empty_squares(brd).include?(square)
     prompt("That's not a valid choice. Try again.")
   end
-  brd[square] = [' ', PLAYER_MARK]
+  brd[square] = PLAYER_MARK
 end
 
 def detect_threat(brd)
   WINNING_LINES.each do |line|
-    if (brd.values_at(*line).flatten.count(PLAYER_MARK) == 2) &&
-       (brd.values_at(*line).flatten.count(COMPUTER_MARK) == 0)
+    if (brd.values_at(*line).count(PLAYER_MARK) == 2) &&
+       (brd.values_at(*line).count(COMPUTER_MARK) == 0)
       return line
     end
   end
@@ -79,13 +92,13 @@ end
 
 def resolve_threat(brd)
   threat_line = detect_threat(brd)
-  target_square = threat_line.select { |num| brd[num][1] == INITIAL_MARK }
-  brd[target_square[0]] = [" ", COMPUTER_MARK]
+  target_square = threat_line.select { |num| brd[num] == INITIAL_MARK }
+  brd[target_square.first] = COMPUTER_MARK
 end
 
 def random_pick(brd)
   square = empty_squares(brd).sample
-  brd[square] = [' ', COMPUTER_MARK]
+  brd[square] = COMPUTER_MARK
 end
 
 def computer_picks_square!(brd)
@@ -98,9 +111,9 @@ end
 
 def detect_game_winner(brd)
   WINNING_LINES.each do |line|
-    if brd.values_at(*line).flatten.count(PLAYER_MARK) == 3
+    if brd.values_at(*line).count(PLAYER_MARK) == 3
       return 'Player'
-    elsif brd.values_at(*line).flatten.count(COMPUTER_MARK) == 3
+    elsif brd.values_at(*line).count(COMPUTER_MARK) == 3
       return 'Computer'
     end
   end
@@ -161,6 +174,9 @@ def display_match_winner(match_winner)
   end
 end
 
+
+
+
 # main game loop
 first_time = true
 
@@ -173,7 +189,7 @@ loop do ### MATCH LOOP BEGIN
   else
     prompt("Welcome back! Ready for another Match?")
   end
-  prompt("Whichever player wins the most games out of five will win the Match.")
+  prompt("Whoever wins the most games out of five will win the Match.")
   prompt("Enter any key to continue.")
   gets
 
