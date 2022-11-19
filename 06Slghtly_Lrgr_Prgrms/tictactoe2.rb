@@ -80,33 +80,62 @@ def player_picks_square!(brd)
   brd[square] = PLAYER_MARK
 end
 
-def detect_threat(brd)
+def find_target_square(line, brd)
+  if brd.values_at(*line).count(INITIAL_MARK) == 1
+    target_square = brd.select{ |k, v| line.include?(k) && v == INITIAL_MARK }.keys.first
+  end
+end
+
+def target_square?(line, brd)
+  !!find_target_square(line, brd)
+end
+
+def get_opportunity(line, brd)
+  if brd.values_at(*line).count(COMPUTER_MARK) == 2
+    opportunity_square = find_target_square(line, brd)
+  end
+end
+
+def get_threat(line, brd)
+  if brd.values_at(*line).count(PLAYER_MARK) == 2
+    threat_square = find_target_square(line, brd)
+  end
+end
+
+def get_target_squares(brd)
+  opportunities = []
+  threats = []
+
   WINNING_LINES.each do |line|
-    if (brd.values_at(*line).count(PLAYER_MARK) == 2) &&
-       (brd.values_at(*line).count(COMPUTER_MARK) == 0)
-      return line
+    if target_square?(line, brd)
+      opportunities << get_opportunity(line, brd)
+      threats << get_threat(line,brd)
     end
   end
-  nil
+  target_squares = {opportunities: opportunities.compact, threats: threats.compact}
 end
 
-def resolve_threat(brd)
-  threat_line = detect_threat(brd)
-  target_square = threat_line.select { |num| brd[num] == INITIAL_MARK }
-  brd[target_square.first] = COMPUTER_MARK
-end
-
-def random_pick(brd)
-  square = empty_squares(brd).sample
-  brd[square] = COMPUTER_MARK
+def empty_corners(brd)
+  corners = [1, 3, 7, 9]
+  empty_corners = corners.intersection(empty_squares(brd))
 end
 
 def computer_picks_square!(brd)
-  if detect_threat(brd)
-    resolve_threat(brd)
+  target_squares = get_target_squares(brd)
+
+  if target_squares[:opportunities].size > 0
+    target_square = target_squares[:opportunities].sample
+  elsif target_squares[:threats].size > 0
+    target_square = target_squares[:threats].sample
+  elsif empty_squares(brd).include?(5)
+    target_square = 5
+  elsif empty_corners(brd).size > 0
+    target_square = empty_corners(brd).sample
   else
-    random_pick(brd)
+    target_square = empty_squares(brd).sample
   end
+
+  brd[target_square] = COMPUTER_MARK
 end
 
 def detect_game_winner(brd)
