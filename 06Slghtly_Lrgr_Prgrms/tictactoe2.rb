@@ -13,6 +13,30 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
+def choose_first_player
+  first_player = nil
+  loop do
+    prompt("Choose who will go first:")
+    prompt("  Enter 1 to go first")
+    prompt("  Enter 2 to have the computer go first")
+    prompt("  Enter 3 to have a first player chosen randomly")
+    first_player = gets.chomp.to_i
+    break if [1, 2, 3].include?(first_player)
+    prompt("Sorry, that's not a valid choice")
+  end
+  first_player
+end
+
+def set_first_player
+  first_player = choose_first_player
+  case first_player
+  when 1 then current_player = 'Player'
+  when 2 then current_player = 'Computer'
+  when 3 then current_player = ['Player', 'Computer'].sample
+  end
+  current_player
+end
+
 def initialize_board
   new_board = {}
   (1..9).each { |num| new_board[num] = INITIAL_MARK }
@@ -26,6 +50,7 @@ def display_board(brd, score)
   prompt("Game #{score.values.sum + 1}")
   display_score(score)
   prompt("You are #{PLAYER_MARK}. Computer is #{COMPUTER_MARK}.")
+  prompt("Your move!")
   puts
   puts "       |       |"
   puts "   #{brd[1]}   |   #{brd[2]}   |   #{brd[3]}"
@@ -46,14 +71,19 @@ def empty_squares(brd)
   brd.keys.select { |num| brd[num] == INITIAL_MARK }
 end
 
+def empty_corners(brd)
+  corners = [1, 3, 7, 9]
+  corners.intersection(empty_squares(brd))
+end
+
 def number_board(brd)
   brd_nums = {}
   (1..9).each do |num|
-    if empty_squares(brd).include?(num)
-      brd_nums[num] = num
-    else
-      brd_nums[num] = ' '
-    end
+    brd_nums[num] = if empty_squares(brd).include?(num)
+                      num
+                    else
+                      ' '
+                    end
   end
   brd_nums
 end
@@ -83,8 +113,8 @@ end
 def get_target_square(line, brd, mark)
   if (brd.values_at(*line).count(mark) == 2) &&
      (brd.values_at(*line).count(INITIAL_MARK) == 1)
-     target_square = line.intersection(empty_squares(brd)).first
-  end  
+    line.intersection(empty_squares(brd)).first
+  end
 end
 
 def target_square?(line, brd, mark)
@@ -96,35 +126,34 @@ def get_all_targets(brd)
   threats = []
 
   WINNING_LINES.each do |line|
-    opportunities << get_target_square(line, brd, COMPUTER_MARK) if target_square?(line, brd, COMPUTER_MARK)
-    threats << get_target_square(line, brd, PLAYER_MARK) if target_square?(line, brd, PLAYER_MARK)
+    opportunities << get_target_square(line, brd, COMPUTER_MARK) if
+      target_square?(line, brd, COMPUTER_MARK)
+    threats << get_target_square(line, brd, PLAYER_MARK) if
+      target_square?(line, brd, PLAYER_MARK)
   end
 
-  all_targets = {opportunities: opportunities, threats: threats}
+  { opportunities: opportunities, threats: threats }
 end
 
-def empty_corners(brd)
-  corners = [1, 3, 7, 9]
-  empty_corners = corners.intersection(empty_squares(brd))
-end
-
+# rubocop:disable Metrics/AbcSize
 def computer_picks_square!(brd)
   all_targets = get_all_targets(brd)
 
-  if all_targets[:opportunities].size > 0
-    target_square = all_targets[:opportunities].sample
-  elsif all_targets[:threats].size > 0
-    target_square = all_targets[:threats].sample
-  elsif empty_squares(brd).include?(5)
-    target_square = 5
-  elsif empty_corners(brd).size > 0
-    target_square = empty_corners(brd).sample
-  else
-    target_square = empty_squares(brd).sample
-  end
+  target_square = if all_targets[:opportunities].size > 0
+                    all_targets[:opportunities].sample
+                  elsif all_targets[:threats].size > 0
+                    all_targets[:threats].sample
+                  elsif empty_squares(brd).include?(5)
+                    5
+                  elsif empty_corners(brd).size > 0
+                    empty_corners(brd).sample
+                  else
+                    empty_squares(brd).sample
+                  end
 
   brd[target_square] = COMPUTER_MARK
 end
+# rubocop:enable Metrics/AbcSize
 
 def detect_game_winner(brd)
   WINNING_LINES.each do |line|
@@ -161,6 +190,7 @@ def display_score(score)
 Computer: #{score[:computer_score]}, Ties: #{score[:ties]}")
 end
 
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 def detect_match_winner(score)
   player_score = score[:player_score]
   computer_score = score[:computer_score]
@@ -175,6 +205,7 @@ def detect_match_winner(score)
   end
   nil
 end
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 def match_winner?(score)
   !!detect_match_winner(score)
@@ -191,8 +222,21 @@ def display_match_winner(match_winner)
   end
 end
 
+def pick_square!(brd, current_player)
+  if current_player == 'Computer'
+    computer_picks_square!(brd)
+  else
+    player_picks_square!(brd)
+  end
+end
 
-
+def alternate_player(current_player)
+  if current_player == 'Computer'
+    'Player'
+  else
+    'Computer'
+  end
+end
 
 # main game loop
 first_time = true
@@ -206,20 +250,23 @@ loop do ### MATCH LOOP BEGIN
   else
     prompt("Welcome back! Ready for another Match?")
   end
+
   prompt("Whoever wins the most games out of five will win the Match.")
+  puts
+
+  current_player = set_first_player
+  prompt("#{current_player} will go first on Game 1.")
+  prompt("After that the first player will alternate with each game.")
   prompt("Enter any key to continue.")
   gets
 
   loop do ### SINGLE GAME LOOP BEGIN
-    board = initialize_board()
+    board = initialize_board
 
     loop do ### MOVES LOOP BEGIN
-      display_board(board, score)
-
-      player_picks_square!(board)
-      break if game_winner?(board) || board_full?(board)
-
-      computer_picks_square!(board)
+      display_board(board, score) if current_player == 'Player'
+      pick_square!(board, current_player)
+      current_player = alternate_player(current_player)
       break if game_winner?(board) || board_full?(board)
     end ### MOVES LOOP END
 
