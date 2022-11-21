@@ -46,7 +46,7 @@ end
 def display_board(brd, score)
   brd_nums = board_numbers(brd)
   system('clear')
-  prompt("Game #{score.values.sum + 1}")
+  prompt("Game #{game_number(score)}")
   display_score(score)
   prompt("You are #{PLAYER_MARK}. Computer is #{COMPUTER_MARK}.")
   prompt("Your move!")
@@ -85,6 +85,10 @@ def board_numbers(brd)
                     end
   end
   brd_nums
+end
+
+def game_number(score)
+  score.values.sum + 1
 end
 
 def joinor(array, delimiter = ', ', word = 'or')
@@ -190,22 +194,22 @@ def display_score(score)
 Computer: #{score[:computer_score]}, Ties: #{score[:ties]}")
 end
 
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+def ahead?(player1, player2)
+  player1 > player2
+end
+
 def detect_match_winner(score)
-  player_score = score[:player_score]
-  computer_score = score[:computer_score]
-  if  (player_score >= 3) ||
-      (score.values.sum >= 5 && player_score > computer_score)
-    return 'Player'
-  elsif (computer_score >= 3) ||
-        (score.values.sum >= 5 && computer_score > player_score)
+  if  (score[:player_score] >= 3) ||
+      (game_number(score) > 5 && ahead?(score[:player_score], score[:computer_score]))
+    return 'Player' 
+  elsif (score[:computer_score] >= 3) ||
+        (game_number(score) > 5 && ahead?(score[:computer_score], score[:player_score]))
     return 'Computer'
-  elsif score.values.sum >= 5
+  elsif game_number(score) > 5
     return 'Tie'
   end
   nil
 end
-# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 def match_winner?(score)
   !!detect_match_winner(score)
