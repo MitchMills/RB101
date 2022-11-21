@@ -27,14 +27,13 @@ def choose_first_player
   first_player
 end
 
-def set_first_player
+def first_player
   first_player = choose_first_player
-  case first_player
-  when 1 then current_player = 'Player'
-  when 2 then current_player = 'Computer'
-  when 3 then current_player = ['Player', 'Computer'].sample
-  end
-  current_player
+  current_player =  case first_player
+                    when 1 then 'Player'
+                    when 2 then 'Computer'
+                    when 3 then ['Player', 'Computer'].sample
+                    end
 end
 
 def initialize_board
@@ -45,7 +44,7 @@ end
 
 # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 def display_board(brd, score)
-  brd_nums = number_board(brd)
+  brd_nums = board_numbers(brd)
   system('clear')
   prompt("Game #{score.values.sum + 1}")
   display_score(score)
@@ -76,7 +75,7 @@ def empty_corners(brd)
   corners.intersection(empty_squares(brd))
 end
 
-def number_board(brd)
+def board_numbers(brd)
   brd_nums = {}
   (1..9).each do |num|
     brd_nums[num] = if empty_squares(brd).include?(num)
@@ -115,6 +114,7 @@ def get_target_square(line, brd, mark)
      (brd.values_at(*line).count(INITIAL_MARK) == 1)
     line.intersection(empty_squares(brd)).first
   end
+  nil
 end
 
 def target_square?(line, brd, mark)
@@ -254,9 +254,9 @@ loop do ### MATCH LOOP BEGIN
   prompt("Whoever wins the most games out of five will win the Match.")
   puts
 
-  current_player = set_first_player
+  current_player = first_player
   prompt("#{current_player} will go first on Game 1.")
-  prompt("After that the first player will alternate with each game.")
+  prompt("After that the first player will alternate.")
   prompt("Enter any key to continue.")
   gets
 
