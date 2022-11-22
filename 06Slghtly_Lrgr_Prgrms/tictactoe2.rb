@@ -14,26 +14,25 @@ def prompt(msg)
 end
 
 def choose_first_player
-  first_player = nil
+  first_player_choice = nil
   loop do
     prompt("Choose who will go first:")
     prompt("  Enter 1 to go first")
     prompt("  Enter 2 to have the computer go first")
     prompt("  Enter 3 to have a first player chosen randomly")
-    first_player = gets.chomp.to_i
-    break if [1, 2, 3].include?(first_player)
+    first_player_choice = gets.chomp.to_i
+    break if [1, 2, 3].include?(first_player_choice)
     prompt("Sorry, that's not a valid choice")
   end
-  first_player
+  first_player_choice
 end
 
 def first_player
-  first_player = choose_first_player
-  current_player =  case first_player
-                    when 1 then 'Player'
-                    when 2 then 'Computer'
-                    when 3 then ['Player', 'Computer'].sample
-                    end
+  first_player =  case choose_first_player
+                  when 1 then :player
+                  when 2 then :computer
+                  when 3 then [:player, :computer].sample
+                  end
 end
 
 def initialize_board
@@ -162,9 +161,9 @@ end
 def detect_game_winner(brd)
   WINNING_LINES.each do |line|
     if brd.values_at(*line).count(PLAYER_MARK) == 3
-      return 'Player'
+      return :player
     elsif brd.values_at(*line).count(COMPUTER_MARK) == 3
-      return 'Computer'
+      return :computer
     end
   end
   nil
@@ -178,11 +177,9 @@ def board_full?(brd)
   empty_squares(brd).empty?
 end
 
-def update_score(score, winner)
-  if winner == 'Player'
-    score[:player_score] += 1
-  elsif winner == 'Computer'
-    score[:computer_score] += 1
+def update_score(brd, score, winner)
+  if game_winner?(brd)
+    score[winner] += 1
   else
     score[:ties] += 1
   end
@@ -190,44 +187,42 @@ def update_score(score, winner)
 end
 
 def display_score(score)
-  prompt("SCORES: Player: #{score[:player_score]}, \
-Computer: #{score[:computer_score]}, Ties: #{score[:ties]}")
+  prompt("SCORES: Player: #{score[:player]}, \
+Computer: #{score[:computer]}, Ties: #{score[:ties]}")
 end
 
-def ahead?(player1, player2)
-  player1 > player2
+def ahead?(score, player1, player2)
+  score[player1] > score[player2]
 end
 
-def detect_match_winner(score)
-  if  (score[:player_score] >= 3) ||
-      (game_number(score) > 5 && ahead?(score[:player_score], score[:computer_score]))
-    return 'Player' 
-  elsif (score[:computer_score] >= 3) ||
-        (game_number(score) > 5 && ahead?(score[:computer_score], score[:player_score]))
-    return 'Computer'
-  elsif game_number(score) > 5
-    return 'Tie'
+def detect_match_winner(score, player1, player2)
+  if (score[player1] >= 3) || 
+    (game_number(score) > 5 && ahead?(score, player1, player2))
+    return player1
+  elsif
+    game_number(score) > 5
+    return :tie
   end
   nil
 end
 
-def match_winner?(score)
-  !!detect_match_winner(score)
+def match_winner?(score, player1, player2)
+  !!detect_match_winner(score, player1, player2)
 end
 
 def display_match_winner(match_winner)
   case match_winner
-  when 'Player'
+  when :player
     prompt("You have won the Match!")
-  when 'Computer'
+  when :computer
     prompt("Computer has won the Match!")
-  when 'Tie'
+  when :tie
     prompt("This Match has ended in a tie.")
   end
 end
 
 def pick_square!(brd, current_player)
-  if current_player == 'Computer'
+  if current_player == :computer
     computer_picks_square!(brd)
   else
     player_picks_square!(brd)
@@ -235,10 +230,10 @@ def pick_square!(brd, current_player)
 end
 
 def alternate_player(current_player)
-  if current_player == 'Computer'
-    'Player'
+  if current_player == :computer
+    :player
   else
-    'Computer'
+    :computer
   end
 end
 
@@ -247,7 +242,8 @@ first_time = true
 
 loop do ### MATCH LOOP BEGIN
   system('clear')
-  score = { player_score: 0, computer_score: 0, ties: 0 }
+  score = { player: 0, computer: 0, ties: 0 }
+
   if first_time == true
     prompt("Welcome to Tic Tac Toe! You will play against the computer.")
     first_time = false
@@ -258,8 +254,8 @@ loop do ### MATCH LOOP BEGIN
   prompt("Whoever wins the most games out of five will win the Match.")
   puts
 
-  current_player = first_player
-  prompt("#{current_player} will go first on Game 1.")
+  current_player = first_player()
+  prompt("#{current_player.capitalize} will go first on Game 1.")
   prompt("After that the first player will alternate.")
   prompt("Enter any key to continue.")
   gets
@@ -268,7 +264,7 @@ loop do ### MATCH LOOP BEGIN
     board = initialize_board
 
     loop do ### MOVES LOOP BEGIN
-      display_board(board, score) if current_player == 'Player'
+      display_board(board, score) if current_player == :player
       pick_square!(board, current_player)
       current_player = alternate_player(current_player)
       break if game_winner?(board) || board_full?(board)
@@ -278,21 +274,21 @@ loop do ### MATCH LOOP BEGIN
 
     game_winner = detect_game_winner(board)
     if game_winner?(board)
-      prompt("#{game_winner} won this game!")
+      prompt("#{game_winner.capitalize} won this game!")
     else
       prompt("It's a tie!")
     end
     puts
 
-    update_score(score, game_winner)
+    update_score(board, score, game_winner)
     display_score(score)
-    break if match_winner?(score)
+    break if match_winner?(score, current_player, alternate_player(current_player))
 
     prompt("Enter any key to continue to Game #{score.values.sum + 1}.")
     gets
   end ### SINGLE GAME LOOP END
 
-  match_winner = detect_match_winner(score)
+  match_winner = detect_match_winner(score, current_player, alternate_player(current_player))
   display_match_winner(match_winner)
   puts
 

@@ -1,35 +1,43 @@
+INITIAL_MARK = ' '
+PLAYER_MARK = 'X'
+COMPUTER_MARK = 'O'
+WINNING_LINES = [
+  [1, 2, 3], [4, 5, 6], [7, 8, 9],  # rows
+  [1, 4, 7], [2, 5, 8], [3, 6, 9],  # columns
+  [1, 5, 9], [3, 5, 7]              # diagonals
+]
 
-def game_number(score)
-  score.values.sum + 1
+def prompt(msg)
+  puts "=> #{msg}"
 end
 
-def ahead?(player1, player2)
-  player1 > player2
-end
-
-
-
-# collapse if and elsif branches into one with parameter for player in question
-def detect_match_winner(score)
-  if  (score[:player_score] >= 3) ||
-      (game_number(score) >= 5 && ahead?(score[:player_score], score[:computer_score]))
-    return 'Player' 
-  elsif (score[:computer_score] >= 3) ||
-        (game_number(score) >= 5 && ahead?(score[:computer_score], score[:player_score]))
-    return 'Computer'
-  elsif game_number(score) >= 5
-    return 'Tie'
+def detect_game_winner(brd)
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).count(PLAYER_MARK) == 3
+      return :player
+    elsif brd.values_at(*line).count(COMPUTER_MARK) == 3
+      return :computer
+    end
   end
   nil
 end
 
+def game_winner?(brd)
+  !!detect_game_winner(brd)
+end
 
+def update_score(brd, score, winner)
+  if game_winner?(brd)
+    score[winner] += 1
+  else
+    score[:ties] += 1
+  end
+  score
+end
 
-
-
-
-p detect_match_winner({ player_score: 3, computer_score: 2, ties: 0 }) # player
-p detect_match_winner({ player_score: 0, computer_score: 3, ties: 0 }) # computer
-p detect_match_winner({ player_score: 2, computer_score: 2, ties: 1 }) # tie
-p detect_match_winner({ player_score: 0, computer_score: 0, ties: 0 }) # nil
-p detect_match_winner({ player_score: 1, computer_score: 2, ties: 2 }) # computer
+board = {1=>"X", 2=>"X", 3=>"X", 4=>" ", 5=>" ", 6=>" ", 7=>" ", 8=>" ", 9=>" "}
+score = { player: 0, computer: 0, ties: 0 }
+game_winner = detect_game_winner(board)
+update_score(board, score, game_winner)
+p game_winner
+p score
