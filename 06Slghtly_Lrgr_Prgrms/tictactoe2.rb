@@ -17,11 +17,11 @@ end
 def intro(first_time)
   if first_time == true
     prompt("Welcome to Tic Tac Toe! You will play against the computer.")
+    prompt("Whoever wins the most games out of five will win the Match.")
   else
     prompt("Welcome back! Ready for another Match?")
+    prompt("As before, whoever wins the most games out of five wins the Match.")
   end
-
-  prompt("Whoever wins the most games out of five will win the Match.")
   puts
 end
 
