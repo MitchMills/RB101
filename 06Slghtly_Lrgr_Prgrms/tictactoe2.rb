@@ -39,7 +39,7 @@ def choose_first_player
   first_player_choice
 end
 
-def first_player
+def determine_first_player
   case choose_first_player
   when 1 then :player
   when 2 then :computer
@@ -47,8 +47,8 @@ def first_player
   end
 end
 
-def start_match(current_player)
-  prompt("#{current_player.capitalize} will go first on Game 1.")
+def start_match(first_player)
+  prompt("#{first_player.capitalize} will go first on Game 1.")
   prompt("After that the first player will alternate.")
   prompt("Enter any key to continue.")
   gets
@@ -156,7 +156,7 @@ def get_all_targets(brd)
   { opportunities: opportunities, threats: threats }
 end
 
-# r ubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize
 def computer_picks_square!(brd)
   all_targets = get_all_targets(brd)
 
@@ -174,7 +174,7 @@ def computer_picks_square!(brd)
 
   brd[target_square] = COMPUTER_MARK
 end
-# r ubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/AbcSize
 
 def detect_game_winner(brd)
   WINNING_LINES.each do |line|
@@ -220,7 +220,8 @@ end
 
 def won_match?(score, player)
   score[player] >= 3 ||
-  (game_number(score) > 5 && (score[player] > score[alternate_player(player)]))
+    (game_number(score) > 5 &&
+    (score[player] > score[alternate_player(player)]))
 end
 
 def detect_match_winner(score, current_player)
@@ -228,8 +229,7 @@ def detect_match_winner(score, current_player)
     return current_player
   elsif won_match?(score, alternate_player(current_player))
     return alternate_player(current_player)
-  elsif
-    game_number(score) > 5
+  elsif game_number(score) > 5
     return :tie
   end
   nil
@@ -269,7 +269,15 @@ end
 def stay_or_go
   prompt("If you would you like to play another Match, enter 'y'.")
   prompt("Enter any other key to exit.")
-  another_match = gets.chomp.downcase
+  gets.chomp.downcase
+end
+
+def determine_current_player(score, first_player)
+  if game_number(score).even?
+    alternate_player(first_player)
+  else
+    first_player
+  end
 end
 
 # main game loop
@@ -282,8 +290,10 @@ loop do # Match Loop Begin
   intro(first_time)
   first_time = false
 
-  current_player = first_player()
-  start_match(current_player)
+  first_player = determine_first_player
+  start_match(first_player)
+
+  current_player = first_player
 
   loop do # Single Game Loop Begin
     board = initialize_board
@@ -299,21 +309,21 @@ loop do # Match Loop Begin
 
     game_winner = detect_game_winner(board)
     announce_game_winner(board, game_winner)
-    
+
     update_score(board, score, game_winner)
     display_score(score)
     break if match_winner?(score, current_player)
 
-    prompt("Enter any key to continue to Game #{score.values.sum + 1}.")
+    prompt("Enter any key to continue to Game #{game_number(score)}.")
     gets
+    current_player = determine_current_player(score, first_player)
   end # Single Game Loop end
 
   match_winner = detect_match_winner(score, current_player)
   display_match_winner(match_winner)
   puts
 
-  another_match = stay_or_go()
-  break unless another_match == 'y'
+  break unless stay_or_go == 'y'
 end # Match Loop End
 
 prompt("Thank you for playing Tic Tac Toe! Goodbye.")
