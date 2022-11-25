@@ -26,21 +26,21 @@ def intro(first_time)
 end
 
 def choose_first_player
-  first_player_choice = nil
+  choice = nil
   loop do
     prompt("Choose who will go first:")
     prompt("  Enter 1 to go first")
     prompt("  Enter 2 to have the computer go first")
     prompt("  Enter 3 to have a first player chosen randomly")
-    first_player_choice = gets.chomp.to_i
-    break if [1, 2, 3].include?(first_player_choice)
+    choice = gets.chomp.to_i
+    break if [1, 2, 3].include?(choice)
     prompt("Sorry, that's not a valid choice")
   end
-  first_player_choice
+  first_player(choice)
 end
 
-def determine_first_player
-  case choose_first_player
+def first_player(choice)
+  case choice
   when 1 then :player
   when 2 then :computer
   when 3 then [:player, :computer].sample
@@ -84,14 +84,6 @@ def display_board(brd, score)
 end
 # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-def empty_squares(brd)
-  brd.keys.select { |num| brd[num] == INITIAL_MARK }
-end
-
-def empty_corners(brd)
-  CORNER_SQUARES.intersection(empty_squares(brd))
-end
-
 def board_numbers(brd)
   brd_nums = {}
   ALL_SQUARES.each do |num|
@@ -108,14 +100,11 @@ def game_number(score)
   score.values.sum + 1
 end
 
-def joinor(array, delimiter = ', ', word = 'or')
-  case array.size
-  when 0 then ''
-  when 1 then array[0].to_s
-  when 2 then array.join(" #{word} ")
+def pick_square!(brd, current_player)
+  if current_player == :player
+    player_picks_square!(brd)
   else
-    array[-1] = "#{word} #{array.last}"
-    array.join(delimiter)
+    computer_picks_square!(brd)
   end
 end
 
@@ -130,30 +119,19 @@ def player_picks_square!(brd)
   brd[square] = PLAYER_MARK
 end
 
-def get_target_square(line, brd, mark)
-  if (brd.values_at(*line).count(mark) == 2) &&
-     (brd.values_at(*line).count(INITIAL_MARK) == 1)
-    return line.intersection(empty_squares(brd)).first
-  end
-  nil
+def empty_squares(brd)
+  brd.keys.select { |num| brd[num] == INITIAL_MARK }
 end
 
-def target_square?(line, brd, mark)
-  !!get_target_square(line, brd, mark)
-end
-
-def get_all_targets(brd)
-  opportunities = []
-  threats = []
-
-  WINNING_LINES.each do |line|
-    opportunities << get_target_square(line, brd, COMPUTER_MARK) if
-      target_square?(line, brd, COMPUTER_MARK)
-    threats << get_target_square(line, brd, PLAYER_MARK) if
-      target_square?(line, brd, PLAYER_MARK)
+def joinor(array, delimiter = ', ', word = 'or')
+  case array.size
+  when 0 then ''
+  when 1 then array[0].to_s
+  when 2 then array.join(" #{word} ")
+  else
+    array[-1] = "#{word} #{array.last}"
+    array.join(delimiter)
   end
-
-  { opportunities: opportunities, threats: threats }
 end
 
 # rubocop:disable Metrics/AbcSize
@@ -175,6 +153,44 @@ def computer_picks_square!(brd)
   brd[target_square] = COMPUTER_MARK
 end
 # rubocop:enable Metrics/AbcSize
+
+def get_all_targets(brd)
+  opportunities = []
+  threats = []
+
+  WINNING_LINES.each do |line|
+    opportunities << get_target_square(line, brd, COMPUTER_MARK) if
+      target_square?(line, brd, COMPUTER_MARK)
+    threats << get_target_square(line, brd, PLAYER_MARK) if
+      target_square?(line, brd, PLAYER_MARK)
+  end
+
+  { opportunities: opportunities, threats: threats }
+end
+
+def get_target_square(line, brd, mark)
+  if (brd.values_at(*line).count(mark) == 2) &&
+     (brd.values_at(*line).count(INITIAL_MARK) == 1)
+    return line.intersection(empty_squares(brd)).first
+  end
+  nil
+end
+
+def target_square?(line, brd, mark)
+  !!get_target_square(line, brd, mark)
+end
+
+def empty_corners(brd)
+  CORNER_SQUARES.intersection(empty_squares(brd))
+end
+
+def alternate_player(current_player)
+  if current_player == :computer
+    :player
+  else
+    :computer
+  end
+end
 
 def detect_game_winner(brd)
   WINNING_LINES.each do |line|
@@ -218,10 +234,12 @@ def display_score(score)
 Computer: #{score[:computer]}, Ties: #{score[:ties]}")
 end
 
-def won_match?(score, player)
-  score[player] >= 3 ||
-    (game_number(score) > 5 &&
-    (score[player] > score[alternate_player(player)]))
+def determine_current_player(score, first_player)
+  if game_number(score).even?
+    alternate_player(first_player)
+  else
+    first_player
+  end
 end
 
 def detect_match_winner(score, current_player)
@@ -233,6 +251,12 @@ def detect_match_winner(score, current_player)
     return :tie
   end
   nil
+end
+
+def won_match?(score, player)
+  score[player] >= 3 ||
+    (game_number(score) > 5 &&
+    (score[player] > score[alternate_player(player)]))
 end
 
 def match_winner?(score, current_player)
@@ -250,34 +274,10 @@ def display_match_winner(match_winner)
   end
 end
 
-def pick_square!(brd, current_player)
-  if current_player == :computer
-    computer_picks_square!(brd)
-  else
-    player_picks_square!(brd)
-  end
-end
-
-def alternate_player(current_player)
-  if current_player == :computer
-    :player
-  else
-    :computer
-  end
-end
-
 def stay_or_go
   prompt("If you would you like to play another Match, enter 'y'.")
   prompt("Enter any other key to exit.")
   gets.chomp.downcase
-end
-
-def determine_current_player(score, first_player)
-  if game_number(score).even?
-    alternate_player(first_player)
-  else
-    first_player
-  end
 end
 
 # main game loop
@@ -290,7 +290,7 @@ loop do # Match Loop Begin
   intro(first_time)
   first_time = false
 
-  first_player = determine_first_player
+  first_player = choose_first_player
   start_match(first_player)
 
   current_player = first_player
