@@ -10,59 +10,31 @@ WINNING_LINES = [
   [1, 5, 9], [3, 5, 7]              # diagonals
 ]
 
-def game_number(score)
-  score.values.sum + 1
+def prompt(msg)
+  puts "=> #{msg}"
 end
 
-def ahead?(score, player1, player2)
-  score[player1] > score[player2]
-end
-
-def detect_match_winner(score, current_player)
-  if (score[current_player] >= 3) || 
-    (game_number(score) > 5 && ahead?(score, current_player, alternate_player(current_player)))
-    return current_player
-
-
-    
-  elsif (score[player2] >= 3) || 
-    (game_number(score) > 5 && ahead?(score, player2, player1))
-    return player2
-  elsif
-    game_number(score) > 5
-    return :tie
+def choose_first_player
+  first_player_choice = nil
+  loop do
+    prompt("Choose who will go first:")
+    prompt("  Enter 1 to go first")
+    prompt("  Enter 2 to have the computer go first")
+    prompt("  Enter 3 to have a first player chosen randomly")
+    first_player_choice = gets.chomp.to_i
+    break if [1, 2, 3].include?(first_player_choice)
+    prompt("Sorry, that's not a valid choice")
   end
-  nil
+  first_player_choice
 end
 
-def match_winner?(score, player1, player2)
-  !!detect_match_winner(score, player1, player2)
-end
-
-def display_match_winner(match_winner)
-  case match_winner
-  when :player
-    prompt("You have won the Match!")
-  when :computer
-    prompt("Computer has won the Match!")
-  when :tie
-    prompt("This Match has ended in a tie.")
+def first_player
+  case choose_first_player()
+  when 1 then :player
+  when 2 then :computer
+  when 3 then [:player, :computer].sample
   end
 end
 
-def alternate_player(current_player)
-  if current_player == :computer
-    :player
-  else
-    :computer
-  end
-end
-
-
-current_player = :player
-score = { player: 1, computer: 2, ties: 2 }
-
-match_winner = detect_match_winner(score, current_player, alternate_player(current_player))
-match_winner2 = detect_match_winner(score, :player, :computer)
-p match_winner
-p match_winner2
+current_player = first_player()
+p current_player

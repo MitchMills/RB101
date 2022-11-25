@@ -1,5 +1,3 @@
-require 'pry-byebug'
-
 INITIAL_MARK = ' '
 PLAYER_MARK = 'X'
 COMPUTER_MARK = 'O'
@@ -11,8 +9,6 @@ WINNING_LINES = [
   [1, 4, 7], [2, 5, 8], [3, 6, 9],  # columns
   [1, 5, 9], [3, 5, 7]              # diagonals
 ]
-
-
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -44,11 +40,11 @@ def choose_first_player
 end
 
 def first_player
-  first_player =  case choose_first_player()
-                  when 1 then :player
-                  when 2 then :computer
-                  when 3 then [:player, :computer].sample
-                  end
+  case choose_first_player
+  when 1 then :player
+  when 2 then :computer
+  when 3 then [:player, :computer].sample
+  end
 end
 
 def start_match(current_player)
@@ -160,7 +156,7 @@ def get_all_targets(brd)
   { opportunities: opportunities, threats: threats }
 end
 
-# rubocop:disable Metrics/AbcSize
+# r ubocop:disable Metrics/AbcSize
 def computer_picks_square!(brd)
   all_targets = get_all_targets(brd)
 
@@ -178,7 +174,7 @@ def computer_picks_square!(brd)
 
   brd[target_square] = COMPUTER_MARK
 end
-# rubocop:enable Metrics/AbcSize
+# r ubocop:enable Metrics/AbcSize
 
 def detect_game_winner(brd)
   WINNING_LINES.each do |line|
@@ -222,14 +218,16 @@ def display_score(score)
 Computer: #{score[:computer]}, Ties: #{score[:ties]}")
 end
 
-def ahead?(score, player1, player2)
-  score[player1] > score[player2]
+def won_match?(score, player)
+  score[player] >= 3 ||
+  (game_number(score) > 5 && (score[player] > score[alternate_player(player)]))
 end
 
-def detect_match_winner(score, player1, player2)
-  if (score[player1] >= 3) || 
-    (game_number(score) > 5 && ahead?(score, player1, player2))
-    return player1
+def detect_match_winner(score, current_player)
+  if won_match?(score, current_player)
+    return current_player
+  elsif won_match?(score, alternate_player(current_player))
+    return alternate_player(current_player)
   elsif
     game_number(score) > 5
     return :tie
@@ -237,8 +235,8 @@ def detect_match_winner(score, player1, player2)
   nil
 end
 
-def match_winner?(score, player1, player2)
-  !!detect_match_winner(score, player1, player2)
+def match_winner?(score, current_player)
+  !!detect_match_winner(score, current_player)
 end
 
 def display_match_winner(match_winner)
@@ -268,14 +266,11 @@ def alternate_player(current_player)
   end
 end
 
-def outro
+def stay_or_go
   prompt("If you would you like to play another Match, enter 'y'.")
   prompt("Enter any other key to exit.")
   another_match = gets.chomp.downcase
 end
-
-
-
 
 # main game loop
 first_time = true
@@ -307,17 +302,17 @@ loop do # Match Loop Begin
     
     update_score(board, score, game_winner)
     display_score(score)
-    break if match_winner?(score, current_player, alternate_player(current_player))
+    break if match_winner?(score, current_player)
 
     prompt("Enter any key to continue to Game #{score.values.sum + 1}.")
     gets
   end # Single Game Loop end
 
-  match_winner = detect_match_winner(score, current_player, alternate_player(current_player))
+  match_winner = detect_match_winner(score, current_player)
   display_match_winner(match_winner)
   puts
 
-  another_match = outro()
+  another_match = stay_or_go()
   break unless another_match == 'y'
 end # Match Loop End
 
