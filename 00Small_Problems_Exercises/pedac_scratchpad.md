@@ -42,4 +42,7 @@ array, sub-arrays, integer
   - If the sum of that set is >= min_sum, return chunk_size
   - Break if index > num_arr.size - chunk_size
 - If no result, increase the chunk_size by 1 and start again at index 0
-- Return 0 if chunk_size == num_arr.size
+- If chunk_size >= num_arr.size
+  - return chunk_size if num_arr.sum >= min_sum
+  - else return 0
+  
