@@ -1,25 +1,46 @@
-# PROBLEM
-- Write a method that takes two arguments, a positive integer and a boolean, and calculates the bonus for a given salary. If the boolean is true, the bonus should be half of the salary. If the boolean is false, the bonus should be 0.
 
-*INPUT*: integer, boolean
-*OUTPUT*: integer (float?)
 
-**Rules/Requirements**
-- input integer will be positive
-- input integer represents salary
-- boolean represents whether bonus was earned
-- output integer (float?) represents bonus amount
+*PROBLEM*
+Given an array of n positive integers and a positive integer, find the minimal length of a contiguous subarray for which the sum >= integer.
 
-# EXAMPLES
-calculate_bonus(2800, true) == 1400
-calculate_bonus(1000, false) == 0
-calculate_bonus(50000, true) == 25000
+  Input: array of positive integers, positive integer
+  Output: integer (minimal length of a contiguous subarray whose sum >= integer)
 
-# DATA STRUCTURE(S)
-- integer
-- boolean
+*Rules*
+# Explicit:
+- The method takes two arguments:
+  - an array containing only positive integers: 'num_arr'
+  - a positive integer: 'min_sum'
+- We are looking for a set of contiguous elements in 'num_arr'
+  - the sum of those elements should exceed the value of 'min_sum'
+  - the output is the length of the shortest set of contiguous elements for which that is true
+# Implicit:
+- If the sum of all the elements in 'num_arr' is not greater than 'min_sum', return 0
+- A single element of 'num_arr' can count as a set; i.e. length 1 is acceptable
 
-# ALGORITHM
-1. If boolean is false, return 0
-2. If boolean is true, return salary / 2
+
+*EXAMPLES*
+# p minSubLength([2, 3, 1, 2, 4, 3], 7) == 2
+# p minSubLength([1, 10, 5, 2, 7], 9) == 1 --> single element
+# p minSubLength([1, 11, 100, 1, 0, 200, 3, 2, 1, 250], 280) == 4
+# p minSubLength([1, 2, 4], 8) == 0 --> sum of all elements less than target
+
+*DATA STRUCTURES*
+array, sub-arrays, integer
+
+*ALGORITHM*
+- Get sum of all elements in num_arr
+  - If that is less than min_sum, return 0
+- Get the largest integer in num_arr
+  - If that is >= min_sum, return 1
+- Iterate through num_arr
+  - Start at index 0
+  - Start with a chunk_size of 2
+    - (a chunk is a sub-array of contiguous elements, chunk_size is the length)
+  - Examine each set of contiguous elements of length chunk_size
+    - from index 0 till index (num_arr.size - chunk_size)
+  - If the sum of that set is >= min_sum, return chunk_size
+  - Break if index > num_arr.size - chunk_size
+- If no result, increase the chunk_size by 1 and start again at index 0
+- Return 0 if chunk_size == num_arr.size
 
