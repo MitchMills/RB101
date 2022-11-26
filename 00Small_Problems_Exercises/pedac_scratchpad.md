@@ -43,4 +43,3 @@ array, sub-arrays, integer
   - Break if index > num_arr.size - chunk_size
 - If no result, increase the chunk_size by 1 and start again at index 0
 - Return 0 if chunk_size == num_arr.size
-
