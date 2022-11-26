@@ -14,26 +14,44 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
-def choose_first_player
-  choice = nil
-  loop do
-    prompt("Choose who will go first:")
-    prompt("  Enter 1 to go first")
-    prompt("  Enter 2 to have the computer go first")
-    prompt("  Enter 3 to have a first player chosen randomly")
-    choice = gets.chomp.to_i
-    break if [1, 2, 3].include?(choice)
-    prompt("Sorry, that's not a valid choice")
-  end
-  first_player(choice)
+def initialize_board
+  new_board = {}
+  ALL_SQUARES.each { |num| new_board[num] = INITIAL_MARK }
+  new_board
 end
 
-def first_player(choice)
-  case choice
-  when 1 then :player
-  when 2 then :computer
-  when 3 then [:player, :computer].sample
+def update_score(brd, score)
+  if game_winner?(brd)
+    score[detect_game_winner(brd)] += 1
+  else
+    score[:ties] += 1
   end
+  score
 end
 
-p choose_first_player
+def detect_game_winner(brd)
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).count(PLAYER_MARK) == 3
+      return :player
+    elsif brd.values_at(*line).count(COMPUTER_MARK) == 3
+      return :computer
+    end
+  end
+  nil
+end
+
+def game_winner?(brd)
+  !!detect_game_winner(brd)
+end
+
+board = {
+  1=>"X", 2=>"X", 3=>"X", 
+  4=>" ", 5=>" ", 6=>" ", 
+  7=>" ", 8=>" ", 9=>" "
+}
+
+score = score = { player: 0, computer: 0, ties: 0 }
+
+# p score
+p detect_game_winner(board)
+# p score
