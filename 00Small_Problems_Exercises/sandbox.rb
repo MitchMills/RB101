@@ -19,10 +19,12 @@ def minSubLength(num_arr, min_sum)
     end
     chunk_size += 1
     
-    if chunk_size >= num_arr.size && num_arr.sum >= min_sum
-      return chunk_size
-    elsif chunk_size >= num_arr.size
-      return 0
+    if chunk_size >= num_arr.size
+      if num_arr.sum >= min_sum
+        return chunk_size
+      else
+        return 0
+      end
     end
 
   end      
