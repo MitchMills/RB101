@@ -342,23 +342,12 @@ def display_match_winner(score, current_player)
 end
 
 def display_win_reason(score, match_winner)
-  case win_reason(score, match_winner)
-  when :insurmountable_lead
-    prompt("#{match_winner.capitalize} has an insurmountable lead.")
-  when :won_most_games
-    prompt("#{match_winner.capitalize} has won the most games.")
-  when :tie
-    prompt("Player and Computer have won the same number of games.")
-  end
-end
-
-def win_reason(score, match_winner)
   if insurmountable_lead?(score, match_winner)
-    :insurmountable_lead
+    prompt("#{match_winner.capitalize} has an insurmountable lead.")
   elsif won_most_games?(score, match_winner)
-    :won_most_games
+    prompt("#{match_winner.capitalize} has won the most games.")
   else
-    :tie
+    prompt("Player and Computer have won the same number of games.")
   end
 end
 
