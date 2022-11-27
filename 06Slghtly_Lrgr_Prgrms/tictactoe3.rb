@@ -326,8 +326,8 @@ def determine_current_player(score, first_player)
   end
 end
 
-def display_match_winner(score, match_winner)
-  case match_winner
+def display_match_winner(score, current_player)
+  case detect_match_winner(score, current_player)
   when :player
     display_win_reason(score, :player)
     prompt("YOU WON THE MATCH!")
@@ -373,8 +373,7 @@ loop do
   current_player = first_player
   play_match(score, first_player, current_player)
 
-  match_winner = detect_match_winner(score, current_player)
-  display_match_winner(score, match_winner)
+  display_match_winner(score, current_player)
 
   break unless stay_or_go == 'y'
 end
