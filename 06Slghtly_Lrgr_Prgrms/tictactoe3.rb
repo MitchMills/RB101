@@ -1,9 +1,14 @@
 INITIAL_MARK = ' '
 PLAYER_MARK = 'X'
 COMPUTER_MARK = 'O'
+
 ALL_SQUARES = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 MIDDLE_SQUARE = 5
 CORNER_SQUARES = [1, 3, 7, 9]
+
+MAX_GAMES = 5
+EARLY_MATCH_WIN = (MAX_GAMES / 2) + 1
+
 WINNING_LINES = [
   [1, 2, 3], [4, 5, 6], [7, 8, 9],  # rows
   [1, 4, 7], [2, 5, 8], [3, 6, 9],  # columns
@@ -14,13 +19,14 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
-def intro(first_time)
+def welcome(first_time)
   if first_time == true
     prompt("Welcome to Tic Tac Toe! You will play against the computer.")
-    prompt("Whoever wins the most games out of five will win the Match.")
+    prompt("Whoever wins the most games out of #{MAX_GAMES} wins the Match.")
   else
     prompt("Welcome back! Ready for another Match?")
-    prompt("As before, whoever wins the most games out of five wins the Match.")
+    prompt("As before, whoever wins the most games out of #{MAX_GAMES}\
+wins the Match.")
   end
   puts
 end
@@ -47,11 +53,27 @@ def first_player(choice)
   end
 end
 
-def start_match(first_player)
+def intro(first_player)
   prompt("#{first_player.capitalize} will go first on Game 1.")
   prompt("After that the first player will alternate.")
   prompt("Enter any key to continue.")
   gets
+end
+
+def play_match(score, first_player, current_player)
+  loop do
+    board = initialize_board
+    play_one_game(board, score, current_player)
+
+    announce_game_results(board, score)
+    display_updated_score(board, score)
+
+    break if match_winner?(score, current_player)
+
+    prompt("Enter any key to continue to Game #{game_number(score)}.")
+    gets
+    current_player = determine_current_player(score, first_player)
+  end
 end
 
 def initialize_board
@@ -60,14 +82,21 @@ def initialize_board
   new_board
 end
 
+def play_one_game(brd, score, current_player)
+  loop do
+    display_board(brd, score) if current_player == :player
+    pick_square!(brd, current_player)
+    current_player = alternate_player(current_player)
+    break if game_winner?(brd) || board_full?(brd)
+  end
+end
+
 # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
 def display_board(brd, score)
   brd_nums = board_numbers(brd)
   system('clear')
-  p brd
-  p score
   prompt("Game #{game_number(score)}")
-  display_score(brd, score)
+  show_score(score)
   prompt("You are #{PLAYER_MARK}. Computer is #{COMPUTER_MARK}.")
   prompt("Your move!")
   puts
@@ -100,7 +129,11 @@ def board_numbers(brd)
 end
 
 def game_number(score)
-  score.values.sum + 1
+  if (score.values.sum + 1) <= MAX_GAMES
+    score.values.sum + 1
+  else
+    MAX_GAMES
+  end
 end
 
 def pick_square!(brd, current_player)
@@ -122,10 +155,6 @@ def player_picks_square!(brd)
   brd[square.to_i] = PLAYER_MARK
 end
 
-def empty_squares(brd)
-  brd.keys.select { |num| brd[num] == INITIAL_MARK }
-end
-
 def joinor(array, delimiter = ', ', word = 'or')
   case array.size
   when 0 then ''
@@ -137,11 +166,15 @@ def joinor(array, delimiter = ', ', word = 'or')
   end
 end
 
+def empty_squares(brd)
+  brd.keys.select { |num| brd[num] == INITIAL_MARK }
+end
+
 def computer_picks_square!(brd)
   target_square =
     if opportunities?(brd)
       get_opportunities(brd).sample
-    elsif threats?(brd)  
+    elsif threats?(brd)
       get_threats(brd).sample
     elsif middle_square_empty?(brd)
       MIDDLE_SQUARE
@@ -149,8 +182,12 @@ def computer_picks_square!(brd)
       get_empty_corners(brd).sample
     else
       empty_squares(brd).sample
-    end 
+    end
   brd[target_square] = COMPUTER_MARK
+end
+
+def opportunities?(brd)
+  get_opportunities(brd).size > 0
 end
 
 def get_opportunities(brd)
@@ -162,8 +199,8 @@ def get_opportunities(brd)
   opportunities
 end
 
-def opportunities?(brd)
-  get_opportunities(brd).size > 0
+def threats?(brd)
+  get_threats(brd).size > 0
 end
 
 def get_threats(brd)
@@ -173,10 +210,6 @@ def get_threats(brd)
       target_square?(line, brd, PLAYER_MARK)
   end
   threats
-end
-
-def threats?(brd)
-  get_threats(brd).size > 0
 end
 
 def middle_square_empty?(brd)
@@ -207,6 +240,10 @@ def alternate_player(current_player)
   current_player == :computer ? :player : :computer
 end
 
+def game_winner?(brd)
+  !!detect_game_winner(brd)
+end
+
 def detect_game_winner(brd)
   WINNING_LINES.each do |line|
     if brd.values_at(*line).count(PLAYER_MARK) == 3
@@ -218,8 +255,8 @@ def detect_game_winner(brd)
   nil
 end
 
-def game_winner?(brd)
-  !!detect_game_winner(brd)
+def board_full?(brd)
+  empty_squares(brd).empty?
 end
 
 def announce_game_results(brd, score)
@@ -232,8 +269,9 @@ def announce_game_results(brd, score)
   puts
 end
 
-def board_full?(brd)
-  empty_squares(brd).empty?
+def display_updated_score(brd, score)
+  update_score(brd, score)
+  show_score(score)
 end
 
 def update_score(brd, score)
@@ -245,10 +283,39 @@ def update_score(brd, score)
   score
 end
 
-def display_score(brd, score)
-  update_score(brd, score)
+def show_score(score)
   prompt("SCORES: Player: #{score[:player]}, \
 Computer: #{score[:computer]}, Ties: #{score[:ties]}")
+end
+
+def match_winner?(score, current_player)
+  !!detect_match_winner(score, current_player)
+end
+
+def detect_match_winner(score, current_player)
+  if won_match?(score, current_player)
+    return current_player
+  elsif won_match?(score, alternate_player(current_player))
+    return alternate_player(current_player)
+  elsif game_number(score) > MAX_GAMES
+    return :tie
+  end
+  nil
+end
+
+def won_match?(score, player)
+  insurmountable_lead?(score, player) ||
+    won_most_games?(score, player)
+end
+
+def insurmountable_lead?(score, player)
+  (score[player] - score[alternate_player(player)]) >
+    (MAX_GAMES - score.values.sum)
+end
+
+def won_most_games?(score, player)
+  ((game_number(score) >= MAX_GAMES) &&
+    (score[player] > score[alternate_player(player)]))
 end
 
 def determine_current_player(score, first_player)
@@ -259,37 +326,40 @@ def determine_current_player(score, first_player)
   end
 end
 
-def detect_match_winner(score, current_player)
-  if won_match?(score, current_player)
-    return current_player
-  elsif won_match?(score, alternate_player(current_player))
-    return alternate_player(current_player)
-  elsif game_number(score) > 5
-    return :tie
-  end
-  nil
-end
-
-def won_match?(score, player)
-  score[player] >= 3 ||
-    (game_number(score) > 5 &&
-    (score[player] > score[alternate_player(player)]))
-end
-
-def match_winner?(score, current_player)
-  !!detect_match_winner(score, current_player)
-end
-
 def display_match_winner(score, current_player)
-  case match_winner = detect_match_winner(score, current_player)
+  case detect_match_winner(score, current_player)
   when :player
-    prompt("You have won the Match!")
+    display_win_reason(score, :player)
+    prompt("YOU WON THE MATCH!")
   when :computer
-    prompt("Computer has won the Match!")
+    display_win_reason(score, :computer)
+    prompt("COMPUTER WON THE MATCH!")
   when :tie
-    prompt("This Match has ended in a tie.")
+    display_win_reason(score, :tie)
+    prompt("THIS MATCH HAS ENDED IN A TIE.")
   end
   puts
+end
+
+def display_win_reason(score, match_winner)
+  case win_reason(score, match_winner)
+  when :insurmountable_lead
+    prompt("#{match_winner.capitalize} has an insurmountable lead.")
+  when :won_most_games
+    prompt("#{match_winner.capitalize} has won the most games.")
+  when :tie
+    prompt("Player and Computer have won the same number of games.")
+  end
+end
+
+def win_reason(score, match_winner)
+  if insurmountable_lead?(score, match_winner)
+    :insurmountable_lead
+  elsif won_most_games?(score, match_winner)
+    :won_most_games
+  else
+    :tie
+  end
 end
 
 def stay_or_go
@@ -298,34 +368,6 @@ def stay_or_go
   gets.chomp.downcase
 end
 
-def play_match(score, first_player, current_player)
-  loop do
-    board = initialize_board
-    play_one_game(board, score, current_player)
-
-    announce_game_results(board, score)
-    display_score(board, score)
-    
-    break if match_winner?(score, current_player)
-
-    prompt("Enter any key to continue to Game #{game_number(score)}.")
-    gets
-    current_player = determine_current_player(score, first_player)
-  end
-end
-
-def play_one_game(brd, score, current_player)
-  loop do
-    display_board(brd, score) if current_player == :player
-    pick_square!(brd, current_player)
-    current_player = alternate_player(current_player)
-    break if game_winner?(brd) || board_full?(brd)
-  end
-end
-
-
-
-
 # main game loop
 first_time = true
 
@@ -333,17 +375,15 @@ loop do
   system('clear')
   score = { player: 0, computer: 0, ties: 0 }
 
-##### wrap
-  intro(first_time)
+  welcome(first_time)
   first_time = false
 
   first_player = choose_first_player
-  start_match(first_player)
-##### wrap
+  intro(first_player)
 
   current_player = first_player
   play_match(score, first_player, current_player)
-  
+
   match_winner = detect_match_winner(score, current_player)
   display_match_winner(score, match_winner)
 
