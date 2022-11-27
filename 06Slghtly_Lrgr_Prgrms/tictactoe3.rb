@@ -326,8 +326,8 @@ def determine_current_player(score, first_player)
   end
 end
 
-def display_match_winner(score, current_player)
-  case detect_match_winner(score, current_player)
+def display_match_winner(score, match_winner)
+  case match_winner
   when :player
     display_win_reason(score, :player)
     prompt("YOU WON THE MATCH!")
