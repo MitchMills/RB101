@@ -44,14 +44,33 @@ def game_winner?(brd)
   !!detect_game_winner(brd)
 end
 
+def update_score(brd, score)
+  if game_winner?(brd)
+    score[detect_game_winner(brd)] += 1
+  else
+    score[:ties] += 1
+  end
+  score
+end
+
+def display_score(brd, score)
+  update_score(brd, score)
+  prompt("SCORES: Player: #{score[:player]}, \
+Computer: #{score[:computer]}, Ties: #{score[:ties]}")
+end
+
 board = {
-  1=>"X", 2=>"X", 3=>"X", 
+  1=>" ", 2=>" ", 3=>" ", 
   4=>" ", 5=>" ", 6=>" ", 
   7=>" ", 8=>" ", 9=>" "
 }
 
 score = score = { player: 0, computer: 0, ties: 0 }
 
-# p score
-p detect_game_winner(board)
-# p score
+p board
+p score
+puts
+display_score(board, score)
+puts
+p board
+p score

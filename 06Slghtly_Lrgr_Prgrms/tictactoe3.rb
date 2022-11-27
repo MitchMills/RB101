@@ -32,11 +32,11 @@ def choose_first_player
     prompt("  Enter 1 to go first")
     prompt("  Enter 2 to have the computer go first")
     prompt("  Enter 3 to have a first player chosen randomly")
-    choice = gets.chomp.to_i
-    break if [1, 2, 3].include?(choice)
+    choice = gets.chomp
+    break if [1, 2, 3].include?(choice.to_f)
     prompt("Sorry, that's not a valid choice")
   end
-  first_player(choice)
+  first_player(choice.to_i)
 end
 
 def first_player(choice)
@@ -64,6 +64,8 @@ end
 def display_board(brd, score)
   brd_nums = board_numbers(brd)
   system('clear')
+  p brd
+  p score
   prompt("Game #{game_number(score)}")
   display_score(brd, score)
   prompt("You are #{PLAYER_MARK}. Computer is #{COMPUTER_MARK}.")
@@ -136,17 +138,18 @@ def joinor(array, delimiter = ', ', word = 'or')
 end
 
 def computer_picks_square!(brd)
-  target_square = if opportunities?(brd)
-                    get_opportunities(brd).sample
-                  elsif threats?(brd)  
-                    get_threats(brd).sample
-                  elsif middle_square_empty?(brd)
-                    MIDDLE_SQUARE
-                  elsif corners_empty?(brd)
-                    get_empty_corners(brd).sample
-                  else
-                    empty_squares(brd).sample
-                  end 
+  target_square =
+    if opportunities?(brd)
+      get_opportunities(brd).sample
+    elsif threats?(brd)  
+      get_threats(brd).sample
+    elsif middle_square_empty?(brd)
+      MIDDLE_SQUARE
+    elsif corners_empty?(brd)
+      get_empty_corners(brd).sample
+    else
+      empty_squares(brd).sample
+    end 
   brd[target_square] = COMPUTER_MARK
 end
 
@@ -298,8 +301,7 @@ end
 def play_match(score, first_player, current_player)
   loop do
     board = initialize_board
-
-    game_moves(board, score, current_player)
+    play_one_game(board, score, current_player)
 
     announce_game_results(board, score)
     display_score(board, score)
@@ -312,7 +314,7 @@ def play_match(score, first_player, current_player)
   end
 end
 
-def game_moves(brd, score, current_player)
+def play_one_game(brd, score, current_player)
   loop do
     display_board(brd, score) if current_player == :player
     pick_square!(brd, current_player)
@@ -331,12 +333,14 @@ loop do
   system('clear')
   score = { player: 0, computer: 0, ties: 0 }
 
+##### wrap
   intro(first_time)
   first_time = false
 
   first_player = choose_first_player
   start_match(first_player)
-  
+##### wrap
+
   current_player = first_player
   play_match(score, first_player, current_player)
   
