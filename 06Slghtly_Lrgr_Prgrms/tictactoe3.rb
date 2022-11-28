@@ -7,8 +7,6 @@ MIDDLE_SQUARE = 5
 CORNER_SQUARES = [1, 3, 7, 9]
 
 MAX_GAMES = 5
-EARLY_MATCH_WIN = (MAX_GAMES / 2) + 1
-
 WINNING_LINES = [
   [1, 2, 3], [4, 5, 6], [7, 8, 9],  # rows
   [1, 4, 7], [2, 5, 8], [3, 6, 9],  # columns
@@ -304,18 +302,18 @@ def detect_match_winner(score, current_player)
 end
 
 def won_match?(score, player)
-  insurmountable_lead?(score, player) ||
-    won_most_games?(score, player)
+  won_most_games?(score, player) ||
+    insurmountable_lead?(score, player)
+end
+
+def won_most_games?(score, player)
+  ((score.values.sum >= MAX_GAMES) &&
+    (score[player] > score[alternate_player(player)]))
 end
 
 def insurmountable_lead?(score, player)
   (score[player] - score[alternate_player(player)]) >
     (MAX_GAMES - score.values.sum)
-end
-
-def won_most_games?(score, player)
-  ((game_number(score) >= MAX_GAMES) &&
-    (score[player] > score[alternate_player(player)]))
 end
 
 def determine_current_player(score, first_player)
@@ -342,10 +340,10 @@ def display_match_winner(score, current_player)
 end
 
 def display_win_reason(score, match_winner)
-  if insurmountable_lead?(score, match_winner)
-    prompt("#{match_winner.capitalize} has an insurmountable lead.")
-  elsif won_most_games?(score, match_winner)
+  if won_most_games?(score, match_winner)
     prompt("#{match_winner.capitalize} has won the most games.")
+  elsif insurmountable_lead?(score, match_winner)
+    prompt("#{match_winner.capitalize} has an insurmountable lead.")
   else
     prompt("Player and Computer have won the same number of games.")
   end
