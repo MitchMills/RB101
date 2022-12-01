@@ -3,6 +3,7 @@
 
 # array1 = %w(c o d e w a r s)
 # array2 = %w(h a c k e r r a n k)
+# intersection = %w(c e a r)
 
 def anagram_difference(string1, string2)
   if string1.size <= string2.size
