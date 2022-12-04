@@ -1,6 +1,6 @@
 CARD_FACES = [
   '2', '3', '4', '5', '6', '7', '8', '9', '10', 
-  'J', 'Q', 'K', 'A'
+  'Jack', 'Queen', 'King', 'Ace'
 ]
 CARD_SUITS = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
 
@@ -35,19 +35,41 @@ def initialize_deck()
 end
 
 def get_initial_hands(deck, hands)
-  hands = deal_cards(deck, hand, 2)
+  2.times {deal_round(deck, hands)}
 end
 
-def deal_cards(deck, hand, number)
-  number.times { |i| hand << get_card(deck) }
-  hand
+def deal_round(deck, hands)
+  deal_card(deck, hands[:player])
+  deal_card(deck, hands[:dealer])
+end
+
+def deal_card(deck, hand)
+  hand << get_card(deck)
 end
 
 def get_card(deck)
   card = deck.sample
   deck.delete(card)
-  p card
   card
+end
+
+def display_both_hands(hands)
+  p hands
+  display_player_hand(hands[:player])
+  display_dealer_hand(hands[:dealer])
+end
+
+def display_player_hand(hand)
+  prompt("Your hand:")
+
+end
+
+def display_dealer_hand(hand)
+  prompt <<~HAND_INFO
+    Dealer hand:
+    #{hand[0][0]} of #{hand[0][1]}
+    #{hand[1][0]} of #{hand[1][1]}
+  HAND_INFO
 end
 
 # MAIN GAME LOOP
@@ -59,17 +81,16 @@ end
 # determine_winner()
 # outro()
 
-loop do
+# loop do
   welcome()
   deck = initialize_deck()
   hands = { player: [], dealer: [] }
   get_initial_hands(deck, hands)
-  display_hands(player_hand, dealer_hand)
-end
+  display_both_hands(hands)
+# end
 
-# deck = initialize_deck()
-# player_hand = []
-# player_hand = deal_cards(deck, player_hand, 2)
-# p player_hand
+# puts
+# p hands[:player]
+# p hands[:dealer]
 # puts
 # p deck

@@ -1,10 +1,10 @@
 CARD_FACES = [
   '2', '3', '4', '5', '6', '7', '8', '9', '10', 
-  'J', 'Q', 'K', 'A'
+  'Jack', 'Queen', 'King', 'Ace'
 ]
 CARD_SUITS = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
 
-# DECK = CARD_FACES.product(CARD_SUITS)
+# deck = CARD_FACES.product(CARD_SUITS)
 
 deck = [
   ["2", "Clubs"], ["2", "Diamonds"], ["2", "Hearts"], ["2", "Spades"],
@@ -28,13 +28,10 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-hand = []
-def get_card(small_deck)
-  card = small_deck.sample
-  small_deck.delete(card)
-  card
-end
+hands = { player: [["9", "Spades"], ["Q", "Diamonds"]], dealer: [["10", "Clubs"], ["K", "Hearts"]] }
 
-p small_deck
-p get_card(small_deck)
-p small_deck
+# p "#{hands[:player][0][0]} of #{hands[:player][0][1]}"
+
+hands[:player].each do |card|
+  prompt("#{card[0]} of #{card[1]}")
+end
