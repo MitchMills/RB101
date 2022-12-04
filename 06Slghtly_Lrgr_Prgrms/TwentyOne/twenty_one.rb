@@ -54,22 +54,17 @@ def get_card(deck)
 end
 
 def display_both_hands(hands)
-  p hands
-  display_player_hand(hands[:player])
-  display_dealer_hand(hands[:dealer])
-end
-
-def display_player_hand(hand)
   prompt("Your hand:")
-
+  display_hand(hands[:player]).each {|card| puts "#{card}"}
+  puts
+  prompt("Dealer hand:")
+  display_hand(hands[:dealer]).each {|card| puts "#{card}"}
 end
 
-def display_dealer_hand(hand)
-  prompt <<~HAND_INFO
-    Dealer hand:
-    #{hand[0][0]} of #{hand[0][1]}
-    #{hand[1][0]} of #{hand[1][1]}
-  HAND_INFO
+def display_hand(hand) # (hands[:player])
+  hand.map do |card|
+    "#{card[0]} of #{card[1]}"
+  end
 end
 
 # MAIN GAME LOOP
@@ -87,6 +82,7 @@ end
   hands = { player: [], dealer: [] }
   get_initial_hands(deck, hands)
   display_both_hands(hands)
+  player_turn()
 # end
 
 # puts

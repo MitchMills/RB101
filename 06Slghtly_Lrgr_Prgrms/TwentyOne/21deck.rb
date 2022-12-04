@@ -32,6 +32,7 @@ hands = { player: [["9", "Spades"], ["Q", "Diamonds"]], dealer: [["10", "Clubs"]
 
 # p "#{hands[:player][0][0]} of #{hands[:player][0][1]}"
 
-hands[:player].each do |card|
-  prompt("#{card[0]} of #{card[1]}")
-end
+# hands[:player].each do |card|
+#   prompt("#{card[0]} of #{card[1]}")
+# end
+p hands.keys[0].to_s
