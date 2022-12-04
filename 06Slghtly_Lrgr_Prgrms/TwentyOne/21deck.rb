@@ -16,10 +16,10 @@ deck = [
   ["8", "Clubs"], ["8", "Diamonds"], ["8", "Hearts"], ["8", "Spades"],
   ["9", "Clubs"], ["9", "Diamonds"], ["9", "Hearts"], ["9", "Spades"],
   ["10", "Clubs"], ["10", "Diamonds"], ["10", "Hearts"], ["10", "Spades"],
-  ["J", "Clubs"], ["J", "Diamonds"], ["J", "Hearts"], ["J", "Spades"],
-  ["Q", "Clubs"], ["Q", "Diamonds"], ["Q", "Hearts"], ["Q", "Spades"],
-  ["K", "Clubs"], ["K", "Diamonds"], ["K", "Hearts"], ["K", "Spades"],
-  ["A", "Clubs"], ["A", "Diamonds"], ["A", "Hearts"], ["A", "Spades"]
+  ["Jack", "Clubs"], ["Jack", "Diamonds"], ["Jack", "Hearts"], ["Jack", "Spades"],
+  ["Queen", "Clubs"], ["Queen", "Diamonds"], ["Queen", "Hearts"], ["Queen", "Spades"],
+  ["King", "Clubs"], ["King", "Diamonds"], ["King", "Hearts"], ["King", "Spades"],
+  ["Ace", "Clubs"], ["Ace", "Diamonds"], ["Ace", "Hearts"], ["Ace", "Spades"]
 ]
 
 small_deck = [["2", "Clubs"], ["2", "Diamonds"], ["2", "Hearts"], ["2", "Spades"]]
@@ -28,11 +28,26 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-hands = { player: [["9", "Spades"], ["Q", "Diamonds"]], dealer: [["10", "Clubs"], ["K", "Hearts"]] }
+hands = { player: [["9", "Spades"], ["Queen", "Diamonds"]], dealer: [["Ace", "Clubs"], ["Ace", "Clubs"], ["Ace", "Hearts"]] }
 
-# p "#{hands[:player][0][0]} of #{hands[:player][0][1]}"
+def visible_total(hand) # [["10", "Clubs"], ["K", "Hearts"]]
+  face_values = hand.map { |card| card[0] } # ["10", "K"]
+  visible_sum = 0
+  face_values.each_with_index do |value, idx|
+    if idx > 0
+      if value == "Ace"
+        visible_sum += 11
+      elsif value.to_i == 0
+        visible_sum += 10
+      else
+        visible_sum += value.to_i
+      end
+    end
+  end
+  face_values.select { |value| value == "Ace" }.count.times do
+    visible_sum -= 10 if visible_sum > 21
+  end
+  visible_sum
+end
 
-# hands[:player].each do |card|
-#   prompt("#{card[0]} of #{card[1]}")
-# end
-p hands.keys[0].to_s
+p visible_total(hands[:dealer])

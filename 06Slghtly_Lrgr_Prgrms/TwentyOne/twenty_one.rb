@@ -25,6 +25,7 @@ def prompt(message)
 end
 
 def welcome()
+  system 'clear'
   prompt "Welcome to Twenty-One!"
   prompt "Enter any key to begin."
   gets
@@ -34,7 +35,7 @@ def initialize_deck()
   CARD_FACES.product(CARD_SUITS)
 end
 
-def get_initial_hands(deck, hands)
+def deal_initial_hands(deck, hands)
   2.times {deal_round(deck, hands)}
 end
 
@@ -44,27 +45,116 @@ def deal_round(deck, hands)
 end
 
 def deal_card(deck, hand)
-  hand << get_card(deck)
-end
-
-def get_card(deck)
   card = deck.sample
   deck.delete(card)
-  card
+  hand << card
 end
 
 def display_both_hands(hands)
-  prompt("Your hand:")
-  display_hand(hands[:player]).each {|card| puts "#{card}"}
-  puts
-  prompt("Dealer hand:")
-  display_hand(hands[:dealer]).each {|card| puts "#{card}"}
+  system 'clear'
+  display_dealer_hand(hands[:dealer])  
+  display_player_hand(hands[:player])
 end
 
-def display_hand(hand) # (hands[:player])
+def display_player_hand(hand)
+  prompt("Your hand:")
+  display_hand(hand).each {|card| prompt(" #{card}")}
+  display_total(hand)
+  puts
+end
+
+def display_dealer_hand(hand)
+  prompt("Dealer hand:")
+  prompt(" Face Down Card")
+  display_hand(hand).each_with_index do |card, idx|
+    prompt(" #{card}") if idx > 0
+  end
+  display_visible_total(hand)
+  puts
+end
+  
+
+def display_hand(hand)
   hand.map do |card|
     "#{card[0]} of #{card[1]}"
   end
+end
+
+def display_total(hand)
+  prompt("Card value: #{total(hand)}")
+end
+
+def display_visible_total(hand)
+  prompt("Visible card value: #{visible_total(hand)}")
+end
+
+def total(hand)
+  face_values = hand.map { |card| card[0] }
+  sum = 0
+  face_values.each do |value|
+    if value == "Ace"
+      sum += 11
+    elsif value.to_i == 0
+      sum += 10
+    else
+      sum += value.to_i
+    end
+  end
+  face_values.select { |value| value == "Ace" }.count.times do
+    sum -= 10 if sum > 21
+  end
+  sum
+end
+
+def visible_total(hand)
+  face_values = hand.map { |card| card[0] }
+  visible_sum = 0
+  face_values.each_with_index do |value, idx|
+    if idx > 0
+      if value == "Ace"
+        visible_sum += 11
+      elsif value.to_i == 0
+        visible_sum += 10
+      else
+        visible_sum += value.to_i
+      end
+    end
+  end
+  face_values.select { |value| value == "Ace" }.count.times do
+    visible_sum -= 10 if visible_sum > 21
+  end
+  visible_sum
+end
+
+def player_turn(deck, hands)
+  answer = nil
+
+  loop do
+    display_both_hands(hands)
+    prompt("Would you like to hit or stay?")
+    answer = gets.chomp.downcase
+    
+    if answer == "stay"
+      break
+    elsif answer == "hit"
+      deal_card(deck, hands[:player])
+      break if busted?(hands[:player])
+    else
+      prompt("Sorry, that's not a valid answer. Try again:")
+      answer = gets.chomp.downcase
+    end
+  end
+
+  if busted?(hands[:player])
+    prompt("Busted!")
+  else
+    prompt("You chose to stay")
+  end
+
+end
+
+def busted?(hand)
+  total(hand) > 21
 end
 
 # MAIN GAME LOOP
@@ -80,9 +170,8 @@ end
   welcome()
   deck = initialize_deck()
   hands = { player: [], dealer: [] }
-  get_initial_hands(deck, hands)
-  display_both_hands(hands)
-  player_turn()
+  deal_initial_hands(deck, hands)
+  player_turn(deck, hands)
 # end
 
 # puts
