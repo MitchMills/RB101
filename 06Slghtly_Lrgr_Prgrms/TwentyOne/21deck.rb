@@ -22,32 +22,19 @@ deck = [
   ["Ace", "Clubs"], ["Ace", "Diamonds"], ["Ace", "Hearts"], ["Ace", "Spades"]
 ]
 
-small_deck = [["2", "Clubs"], ["2", "Diamonds"], ["2", "Hearts"], ["2", "Spades"]]
+hands = { player: [["King", "Hearts"], ["8", "Diamonds"]], dealer: [["2", "Clubs"], ["Ace", "Spades"]] }
+def display_initial_deal(hands) 
+  card_order = []
 
-def prompt(message)
-  puts "=> #{message}"
+  hands.each do |owner, hand|
+    card_order << hands[owner][0]
+  end
+
+  hands.each do |owner, hand|
+    card_order << hands[owner][1]
+  end
+  
+  card_order
 end
 
-hands = { player: [["9", "Spades"], ["Queen", "Diamonds"]], dealer: [["Ace", "Clubs"], ["Ace", "Clubs"], ["Ace", "Hearts"]] }
-
-def visible_total(hand) # [["10", "Clubs"], ["K", "Hearts"]]
-  face_values = hand.map { |card| card[0] } # ["10", "K"]
-  visible_sum = 0
-  face_values.each_with_index do |value, idx|
-    if idx > 0
-      if value == "Ace"
-        visible_sum += 11
-      elsif value.to_i == 0
-        visible_sum += 10
-      else
-        visible_sum += value.to_i
-      end
-    end
-  end
-  face_values.select { |value| value == "Ace" }.count.times do
-    visible_sum -= 10 if visible_sum > 21
-  end
-  visible_sum
-end
-
-p visible_total(hands[:dealer])
+p display_initial_deal(hands)

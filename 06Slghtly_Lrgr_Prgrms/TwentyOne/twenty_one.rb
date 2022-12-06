@@ -4,22 +4,6 @@ CARD_FACES = [
 ]
 CARD_SUITS = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
 
-# deck = [
-#   ["2", "Clubs"], ["2", "Diamonds"], ["2", "Hearts"], ["2", "Spades"],
-#   ["3", "Clubs"], ["3", "Diamonds"], ["3", "Hearts"], ["3", "Spades"],
-#   ["4", "Clubs"], ["4", "Diamonds"], ["4", "Hearts"], ["4", "Spades"],
-#   ["5", "Clubs"], ["5", "Diamonds"], ["5", "Hearts"], ["5", "Spades"],
-#   ["6", "Clubs"], ["6", "Diamonds"], ["6", "Hearts"], ["6", "Spades"],
-#   ["7", "Clubs"], ["7", "Diamonds"], ["7", "Hearts"], ["7", "Spades"],
-#   ["8", "Clubs"], ["8", "Diamonds"], ["8", "Hearts"], ["8", "Spades"],
-#   ["9", "Clubs"], ["9", "Diamonds"], ["9", "Hearts"], ["9", "Spades"],
-#   ["10", "Clubs"], ["10", "Diamonds"], ["10", "Hearts"], ["10", "Spades"],
-#   ["J", "Clubs"], ["J", "Diamonds"], ["J", "Hearts"], ["J", "Spades"],
-#   ["Q", "Clubs"], ["Q", "Diamonds"], ["Q", "Hearts"], ["Q", "Spades"],
-#   ["K", "Clubs"], ["K", "Diamonds"], ["K", "Hearts"], ["K", "Spades"],
-#   ["A", "Clubs"], ["A", "Diamonds"], ["A", "Hearts"], ["A", "Spades"]
-# ]
-
 def prompt(message)
   puts "=> #{message}"
 end
@@ -49,6 +33,20 @@ def deal_card(deck, hand)
   deck.delete(card)
   hand << card
 end
+
+
+# hands = { player: [["King", "Hearts"], ["8", "Diamonds"]], dealer: [["2", "Clubs"], ["Ace", "Spades"]] }
+def display_initial_deal(hands) 
+  card_order = []
+  hands.each do |owner, hand|
+    card_order << owner[0]
+    card_order << owner[1]
+  end
+  card_order
+end
+
+
+
 
 def display_both_hands(hands)
   display_hand(hands[:dealer], :dealer)  
@@ -94,6 +92,7 @@ def total(hand, owner)
       sum = sum_cards(sum, value)
     end
   end
+
   face_values.select { |value| value == "Ace" }.count.times do
     sum -= 10 if sum > 21
   end
@@ -114,7 +113,7 @@ end
 
 def player_turn(deck, hands)
   answer = nil
-  
+  system 'clear'
   loop do
     display_both_hands(hands)
     prompt("Would you like to hit or stay?")
@@ -127,7 +126,9 @@ def player_turn(deck, hands)
       system 'clear'
       break if busted?(hands[:player], :player)
     else
+      system 'clear'
       prompt("Sorry, that's not a valid answer. Try again:")
+      puts
     end
     
   end
