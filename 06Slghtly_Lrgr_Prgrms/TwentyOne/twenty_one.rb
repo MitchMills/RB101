@@ -51,28 +51,24 @@ def deal_card(deck, hand)
 end
 
 def display_both_hands(hands)
-  system 'clear'
-  display_dealer_hand(hands[:dealer])  
-  display_player_hand(hands[:player])
+  display_hand(hands[:dealer], :dealer)  
+  display_hand(hands[:player], :player)
 end
 
-def display_player_hand(hand)
-  prompt("Your hand:")
-  card_names(hand).each {|card| prompt(" #{card}")}
-  display_total(hand)
-  puts
-end
-
-def display_dealer_hand(hand)
-  prompt("Dealer hand:")
-  prompt(" Face Down Card")
-  card_names(hand).each_with_index do |card, idx|
-    prompt(" #{card}") if idx > 0
+def display_hand(hand, owner)
+  if owner == :player
+    prompt("Your hand:")
+  elsif owner == :dealer
+    prompt("Dealer hand:")
+    prompt(" Facedown Card")
   end
-  display_visible_total(hand)
+  start_index = (owner == :player ? 0 : 1)
+  card_names(hand).each_with_index do |card, idx|
+    prompt(" #{card}") if idx >= start_index
+  end
+  display_total(hand, owner)
   puts
 end
-  
 
 def card_names(hand)
   hand.map do |card|
@@ -80,38 +76,28 @@ def card_names(hand)
   end
 end
 
-def display_total(hand)
-  prompt("Card value: #{total(hand)}")
+def display_total(hand, owner)
+  if owner == :player
+    prompt("Card value: #{total(hand, owner)}")
+  elsif owner == :dealer
+    prompt("Visible card value: #{total(hand, owner)}")
+  end
 end
 
-def display_visible_total(hand)
-  prompt("Visible card value: #{visible_total(hand)}")
-end
-
-def total(hand)
+def total(hand, owner)
   face_values = hand.map { |card| card[0] }
   sum = 0
-  face_values.each do |value|
-    sum = sum_cards(sum, value)
+  start_index = (owner == :player ? 0 : 1)
+
+  face_values.each_with_index do |value, idx|
+    if idx >= start_index
+      sum = sum_cards(sum, value)
+    end
   end
   face_values.select { |value| value == "Ace" }.count.times do
     sum -= 10 if sum > 21
   end
   sum
-end
-
-def visible_total(hand)
-  face_values = hand.map { |card| card[0] }
-  visible_sum = 0
-  face_values.each_with_index do |value, idx|
-    if idx > 0
-      visible_sum = sum_cards(visible_sum, value)
-    end
-  end
-  face_values.select { |value| value == "Ace" }.count.times do
-    visible_sum -= 10 if visible_sum > 21
-  end
-  visible_sum
 end
 
 def sum_cards(sum, value)
@@ -128,33 +114,34 @@ end
 
 def player_turn(deck, hands)
   answer = nil
-
+  
   loop do
     display_both_hands(hands)
     prompt("Would you like to hit or stay?")
     answer = gets.chomp.downcase
-    
+
     if answer == "stay"
       break
     elsif answer == "hit"
       deal_card(deck, hands[:player])
-      break if busted?(hands[:player])
+      system 'clear'
+      break if busted?(hands[:player], :player)
     else
       prompt("Sorry, that's not a valid answer. Try again:")
-      answer = gets.chomp.downcase
     end
+    
   end
 
-  if busted?(hands[:player])
+  if busted?(hands[:player], :player)
+    display_both_hands(hands)
     prompt("Busted!")
   else
     prompt("You chose to stay")
   end
-
 end
 
-def busted?(hand)
-  total(hand) > 21
+def busted?(hand, owner)
+  total(hand, owner) > 21
 end
 
 # MAIN GAME LOOP
