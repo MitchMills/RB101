@@ -1,42 +1,40 @@
-=begin
-card = [face_value, suit]
-hand = [[card1], [card2], etc ]
+hand = [["10", "Clubs"], ["Ace", "Hearts"]]
 
-=end
-
-# def card_value(card, current_hand_value)
-#   if card[0] != 'A'
-#     card_value = card[0].to_i
-#   else
-#     card_value =
-#       if current_hand_value <= 10
-#         card_value = 11
-#       else
-#         card_value = 1
-#       end
-#   end
-#   card_value
-# end
-
-def total(cards)
-  # cards = [['H', '3'], ['S', 'Q'], ... ] ### I will reverse order ('3 of hearts') --> ['3', 'H']
-  values = cards.map { |card| card[1] } # get all the number values
-
+def total(hand)
+  face_values = hand.map { |card| card[0] }
   sum = 0
-  values.each do |value|
-    if value == "A"
-      sum += 11
-    elsif value.to_i == 0 # J, Q, K
-      sum += 10
-    else
-      sum += value.to_i
-    end
+  face_values.each do |value|
+    sum = sum_cards(sum, value)
   end
-
-  # correct for Aces
-  values.select { |value| value == "A" }.count.times do # find number of aces in hand
-    sum -= 10 if sum > 21 # subtract 10 for each ace until sum is less than 21
+  face_values.select { |value| value == "Ace" }.count.times do
+    sum -= 10 if sum > 21
   end
-
   sum
 end
+
+def visible_total(hand)
+  face_values = hand.map { |card| card[0] }
+  visible_sum = 0
+  face_values.each_with_index do |value, idx|
+    if idx > 0
+      visible_sum = sum_cards(visible_sum, value)
+    end
+  end
+  face_values.select { |value| value == "Ace" }.count.times do
+    visible_sum -= 10 if visible_sum > 21
+  end
+  visible_sum
+end
+
+def sum_cards(sum, value)
+  if value == "Ace"
+    sum += 11
+  elsif value.to_i == 0
+    sum += 10
+  else
+    sum += value.to_i
+  end
+end
+
+p total(hand)
+p visible_total(hand)

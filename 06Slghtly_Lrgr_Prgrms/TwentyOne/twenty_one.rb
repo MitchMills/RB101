@@ -58,7 +58,7 @@ end
 
 def display_player_hand(hand)
   prompt("Your hand:")
-  display_hand(hand).each {|card| prompt(" #{card}")}
+  card_names(hand).each {|card| prompt(" #{card}")}
   display_total(hand)
   puts
 end
@@ -66,7 +66,7 @@ end
 def display_dealer_hand(hand)
   prompt("Dealer hand:")
   prompt(" Face Down Card")
-  display_hand(hand).each_with_index do |card, idx|
+  card_names(hand).each_with_index do |card, idx|
     prompt(" #{card}") if idx > 0
   end
   display_visible_total(hand)
@@ -74,7 +74,7 @@ def display_dealer_hand(hand)
 end
   
 
-def display_hand(hand)
+def card_names(hand)
   hand.map do |card|
     "#{card[0]} of #{card[1]}"
   end
@@ -92,13 +92,7 @@ def total(hand)
   face_values = hand.map { |card| card[0] }
   sum = 0
   face_values.each do |value|
-    if value == "Ace"
-      sum += 11
-    elsif value.to_i == 0
-      sum += 10
-    else
-      sum += value.to_i
-    end
+    sum = sum_cards(sum, value)
   end
   face_values.select { |value| value == "Ace" }.count.times do
     sum -= 10 if sum > 21
@@ -111,13 +105,7 @@ def visible_total(hand)
   visible_sum = 0
   face_values.each_with_index do |value, idx|
     if idx > 0
-      if value == "Ace"
-        visible_sum += 11
-      elsif value.to_i == 0
-        visible_sum += 10
-      else
-        visible_sum += value.to_i
-      end
+      visible_sum = sum_cards(visible_sum, value)
     end
   end
   face_values.select { |value| value == "Ace" }.count.times do
@@ -125,6 +113,18 @@ def visible_total(hand)
   end
   visible_sum
 end
+
+def sum_cards(sum, value)
+  if value == "Ace"
+    sum += 11
+  elsif value.to_i == 0
+    sum += 10
+  else
+    sum += value.to_i
+  end
+end
+
+
 
 def player_turn(deck, hands)
   answer = nil
