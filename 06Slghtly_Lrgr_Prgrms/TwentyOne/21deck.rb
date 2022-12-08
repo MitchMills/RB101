@@ -22,36 +22,69 @@ deck = [
   ["Ace", "Clubs"], ["Ace", "Diamonds"], ["Ace", "Hearts"], ["Ace", "Spades"]
 ]
 
-hands = { player: [["King", "Hearts"], ["8", "Diamonds"]], dealer: [["2", "Clubs"], ["Ace", "Spades"]] }
-
 def prompt(message)
   puts "=> #{message}"
 end
 
-def display_initial_deal(hands)
-  prompt("You get the #{hands[:player][0][0]} of #{hands[:player][0][1]}.")
-  sleep(0.8)
-  prompt("  Dealer gets a facedown card.")
-  sleep(0.8)
-  prompt("You get the #{hands[:player][1][0]} of #{hands[:player][1][1]}.")
-  sleep(0.8)
-  prompt("  Dealer gets the #{hands[:dealer][1][0]} of #{hands[:dealer][1][1]}")
-  sleep(0.8)
+# def display_initial_deal(hands)
+#   prompt("Here's the deal:")
+#   sleep(0.8)
+#   prompt("  You get the #{hands[:player][0][0]} of #{hands[:player][0][1]}.")
+#   sleep(0.8)
+#   prompt("    The dealer gets a facedown card.")
+
+#   sleep(0.8)
+#   prompt("  You get the #{hands[:player][1][0]} of #{hands[:player][1][1]}.")
+#   sleep(0.8)
+#   prompt("    The dealer gets the #{hands[:dealer][1][0]} of #{hands[:dealer][1][1]}")
+  
+#   puts
+# end
+
+
+
+hands = { player: [["King", "Hearts"], ["8", "Diamonds"]], dealer: [["2", "Clubs"], ["Ace", "Spades"]] }
+
+def card_names(hand)
+  hand.map do |card|
+    "#{card[0]} of #{card[1]}"
+  end
 end
 
+def deal_order(hands)
+  deal_order = []
+  round = 0
+  loop do
+    hands.each do |_, cards|
+      cards.each_with_index do |card, idx|
+        deal_order << card if idx == round
+      end
+    end
+    round += 1
+    break if round >= 2
+  end
+  card_names(deal_order).each { |card| card.prepend("the ") }
+end
 
-p display_initial_deal(hands)
+def display_initial_deal(hands)
+  deal_order = deal_order(hands) # ["the King of Hearts", "the 2 of Clubs", "the 8 of Diamonds", "the Ace of Spades"]
+  deal_order[1] = "a facedown card"
+  prompt("Here's the deal:")
+  display_deal(deal_order)
 
-# def display_initial_deal(hands) 
-#   card_order = []
+end
 
-#   hands.each do |owner, hand|
-#     card_order << hands[owner][0]
-#   end
+def display_deal(deal_order)
+  idx = 0
+  deal_order.each_with_index do |card, idx|
+    if idx.even?
+      sleep(0.8)
+      prompt("  You get #{deal_order[idx]}")
+    else
+      sleep(0.8)
+      prompt("    The dealer gets #{deal_order[idx]}")
+    end
+  end
+end
 
-#   hands.each do |owner, hand|
-#     card_order << hands[owner][1]
-#   end
-  
-#   card_order
-# end
+display_initial_deal(hands)

@@ -37,7 +37,8 @@ end
 
 # hands = { player: [["King", "Hearts"], ["8", "Diamonds"]], dealer: [["2", "Clubs"], ["Ace", "Spades"]] }
 def display_initial_deal(hands)
-  prompt("The Game Begins:")
+  prompt("Here's the deal:")
+  sleep(0.8)
   prompt("  You get the #{hands[:player][0][0]} of #{hands[:player][0][1]}.")
   sleep(0.8)
   prompt("    The dealer gets a facedown card.")
@@ -102,13 +103,6 @@ def initial_sum(face_values, start_index, sum)
   sum
 end
 
-def correct_for_aces(face_values, sum)
-  face_values.select { |value| value == "Ace" }.count.times do
-    sum -= 10 if sum > 21
-  end
-  sum
-end
-
 def sum_cards(sum, value)
   if value == "Ace"
     sum += 11
@@ -117,6 +111,13 @@ def sum_cards(sum, value)
   else
     sum += value.to_i
   end
+end
+
+def correct_for_aces(face_values, sum)
+  face_values.select { |value| value == "Ace" }.count.times do
+    sum -= 10 if sum > 21
+  end
+  sum
 end
 
 
@@ -131,8 +132,10 @@ def player_turn(deck, hands)
     if answer == "stay"
       break
     elsif answer == "hit"
-      deal_card(deck, hands[:player])
       system 'clear'
+      deal_card(deck, hands[:player])
+      prompt("You get the #{hands[:player].last[0]} of #{hands[:player].last[1]}.")
+      puts
       break if busted?(hands[:player], :player)
     else
       system 'clear'
