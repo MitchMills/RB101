@@ -23,18 +23,35 @@ deck = [
 ]
 
 hands = { player: [["King", "Hearts"], ["8", "Diamonds"]], dealer: [["2", "Clubs"], ["Ace", "Spades"]] }
-def display_initial_deal(hands) 
-  card_order = []
 
-  hands.each do |owner, hand|
-    card_order << hands[owner][0]
-  end
-
-  hands.each do |owner, hand|
-    card_order << hands[owner][1]
-  end
-  
-  card_order
+def prompt(message)
+  puts "=> #{message}"
 end
 
+def display_initial_deal(hands)
+  prompt("You get the #{hands[:player][0][0]} of #{hands[:player][0][1]}.")
+  sleep(0.8)
+  prompt("  Dealer gets a facedown card.")
+  sleep(0.8)
+  prompt("You get the #{hands[:player][1][0]} of #{hands[:player][1][1]}.")
+  sleep(0.8)
+  prompt("  Dealer gets the #{hands[:dealer][1][0]} of #{hands[:dealer][1][1]}")
+  sleep(0.8)
+end
+
+
 p display_initial_deal(hands)
+
+# def display_initial_deal(hands) 
+#   card_order = []
+
+#   hands.each do |owner, hand|
+#     card_order << hands[owner][0]
+#   end
+
+#   hands.each do |owner, hand|
+#     card_order << hands[owner][1]
+#   end
+  
+#   card_order
+# end
