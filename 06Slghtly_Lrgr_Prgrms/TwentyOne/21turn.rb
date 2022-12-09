@@ -121,7 +121,9 @@ def busted?(hand, owner)
 end
 
 def player_turn(deck, hands)
-  hit_or_stay(deck, hands)
+  answer = hit_or_stay(hands)
+  response(answer)
+  
   # if busted?(hands[:player], :player)
   #   display_both_hands(hands)
   #   prompt("Busted!")
@@ -132,51 +134,30 @@ end
 
 
 
-def hit_or_stay(deck, hands)
+def hit_or_stay(hands) # solid
   answer = nil
   loop do
     display_both_hands(hands)
     prompt("Would you like to hit or stay?")
     answer = gets.chomp.downcase
-    response(answer, deck, hands)
-
-    if busted?(hands[:player], :player)
-      display_both_hands(hands)
-      prompt("Busted!")
-      break
-    else
-      prompt("You chose to stay")
-      break
-    end
-
-    # if answer == "stay"
-    #   break
-    # elsif answer == "hit"
-    #   hit(deck, hands)
-    #   break if busted?(hands[:player], :player)
-    # else
-    #   system 'clear'
-    #   prompt("Sorry, that's not a valid answer. Try again:")
-    #   puts
-    # end
-  end
-end
-
-def response(answer, deck, hands)
-  if answer == "stay"
-    return
-  elsif answer == "hit"
-    hit(deck, hands)
-    return if busted?(hands[:player], :player)
-  else
+    break if ["hit", "stay"].include?(answer)
     system 'clear'
-    prompt("Sorry, that's not a valid answer. Try again:")
+    prompt("Sorry, that's not a valid response. Please try again.")
     puts
-    return
+  end
+  answer
+end
+
+def response(answer, deck, hands) # needs work
+  if answer == "hit"
+    hit(deck, hands)
+
+  elsif answer == "stay"
+
   end
 end
 
-def hit(deck, hands)
+def hit(deck, hands) # solid
   system 'clear'
   deal_card(deck, hands[:player])
   prompt("You get the #{hands[:player].last[0]} of #{hands[:player].last[1]}.")
@@ -184,4 +165,4 @@ def hit(deck, hands)
 end
 
 
-player_turn(deck, hands)
+p hit_or_stay(hands)
