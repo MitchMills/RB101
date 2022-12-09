@@ -19,6 +19,11 @@ def initialize_deck()
   CARD_FACES.product(CARD_SUITS)
 end
 
+def initial_deal(deck,hands)
+  deal_initial_hands(deck, hands)
+  display_initial_deal(hands)
+end
+
 def deal_initial_hands(deck, hands)
   2.times do
     deal_card(deck, hands[:player])
@@ -196,8 +201,7 @@ end
   welcome()
   deck = initialize_deck()
   hands = { player: [], dealer: [] }
-  deal_initial_hands(deck, hands)
-  display_initial_deal(hands)
+  initial_deal(deck,hands)
   player_turn(deck, hands)
 # end
 
