@@ -45,37 +45,40 @@ end
 
 hands = { player: [["King", "Hearts"], ["8", "Diamonds"]], dealer: [["2", "Clubs"], ["Ace", "Spades"]] }
 
-def card_names(hand)
-  hand.map do |card|
-    "#{card[0]} of #{card[1]}"
-  end
+def display_initial_deal(hands)
+  deal_order = deal_order(hands)
+  deal_order[1] = "a facedown card"
+  prompt("Here's the deal:")
+  show_each_card(deal_order)
 end
 
 def deal_order(hands)
   deal_order = []
   round = 0
   loop do
-    hands.each do |_, cards|
-      cards.each_with_index do |card, idx|
-        deal_order << card if idx == round
-      end
-    end
+    add_cards_to_hand(hands, deal_order, round)
     round += 1
     break if round >= 2
   end
   card_names(deal_order).each { |card| card.prepend("the ") }
 end
 
-def display_initial_deal(hands)
-  deal_order = deal_order(hands) # ["the King of Hearts", "the 2 of Clubs", "the 8 of Diamonds", "the Ace of Spades"]
-  deal_order[1] = "a facedown card"
-  prompt("Here's the deal:")
-  display_deal(deal_order)
-
+def add_cards_to_hand(hands, deal_order, round)
+  hands.each do |_, cards|
+    cards.each_with_index do |card, idx|
+      deal_order << card if idx == round
+    end
+  end
+  deal_order
 end
 
-def display_deal(deal_order)
-  idx = 0
+def card_names(hand)
+  hand.map do |card|
+    "#{card[0]} of #{card[1]}"
+  end
+end
+
+def show_each_card(deal_order)
   deal_order.each_with_index do |card, idx|
     if idx.even?
       sleep(0.8)
