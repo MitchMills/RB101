@@ -31,7 +31,7 @@ deck = [
   ["Ace", "Clubs"], ["Ace", "Diamonds"], ["Ace", "Hearts"], ["Ace", "Spades"]
 ]
 
-hands = { player: [["King", "Hearts"], ["8", "Diamonds"]], dealer: [["2", "Clubs"], ["Ace", "Spades"]] }
+hands = { player: [["2", "Hearts"], ["8", "Diamonds"]], dealer: [["2", "Clubs"], ["Ace", "Spades"]] }
 
 def prompt(message)
   puts "=> #{message}"
@@ -50,43 +50,37 @@ def card_names(hand)
   end
 end
 
-def display_both_hands(hands)
-  display_hand(hands[:dealer], :dealer)  
-  display_hand(hands[:player], :player)
+def display_both_hands(hands, context)
+  display_hand(hands[:dealer], :dealer, context)  
+  display_hand(hands[:player], :player, :real)
 end
 
-def display_hand(hand, owner)
-  display_hand_header(owner)
-  start_index = (owner == :player ? 0 : 1)
+def display_hand(hand, owner, context)
+  display_hand_header(owner, context)
+  start_index = (context == :visible ? 1 : 0)
   card_names(hand).each_with_index do |card, idx|
     prompt(" #{card}") if idx >= start_index
   end
-  display_total(hand, owner)
+  display_total(hand, owner, context)
   puts
 end
 
-def display_hand_header(owner)
-  if owner == :player
-    prompt("Your hand:")
-  elsif owner == :dealer
-    prompt("Dealer hand:")
-    prompt(" Facedown Card")
-  end
+def display_hand_header(owner, context)
+  label = (owner == :player) ? "Your hand:" : "Dealer hand:"
+  prompt(label)
+  prompt(" Facedown Card") if (owner == :dealer && context == :visible)
 end
 
-def display_total(hand, owner)
-  if owner == :player
-    label = "Card value: "
-  elsif owner == :dealer
-    label = "Visible card value: "
-  end
-  prompt(label + "#{total(hand, owner, :display)}")
+def display_total(hand, owner, context)
+  label = "Card value: "
+  label = "Visible card value: " if (owner == :dealer && context = :visible)
+  prompt(label + "#{total(hand, owner, context)}")
 end
 
 def total(hand, owner, context)
   face_values = hand.map { |card| card[0] }
   sum = 0
-  start_index = (owner == :dealer && context == :display) ? 1 : 0
+  start_index = (context == :visible ? 1 : 0)
   sum = initial_sum(face_values, start_index, sum)
   sum = correct_for_aces(face_values, sum)
 end
@@ -124,21 +118,21 @@ end
 def player_turn(deck, hands)
   loop do
     answer = hit_or_stay(hands)
-    response = response(answer, deck, hands)
-    break if busted?(hands[:player], :player, :real) || response == "finish"    
+    hit(deck, hands, :player) if answer == "hit"
+    break if busted?(hands[:player], :player, :real) || answer == "stay"    
   end
   if busted?(hands[:player], :player, :real)
-    display_both_hands(hands)
+    display_both_hands(hands, :real)
     prompt("Busted!")
   else
     prompt("You chose to stay.")
   end
 end
 
-def hit_or_stay(hands) # solid
+def hit_or_stay(hands)
   answer = nil
   loop do
-    display_both_hands(hands)
+    display_both_hands(hands, :visible)
     prompt("Would you like to hit or stay?")
     answer = gets.chomp.downcase
     break if ["hit", "stay"].include?(answer)
@@ -149,21 +143,27 @@ def hit_or_stay(hands) # solid
   answer
 end
 
-def response(answer, deck, hands)
-  response = nil
-  if answer == "hit"
-    hit(deck, hands)
-  elsif answer == "stay"
-    response = "finish"
-  end
-  response
-end
-
-def hit(deck, hands) # solid; needs dealer version
+def hit(deck, hands, owner)
   system 'clear'
-  deal_card(deck, hands[:player])
-  prompt("You get the #{hands[:player].last[0]} of #{hands[:player].last[1]}.")
+  deal_card(deck, hands[owner])
+  prelude = (owner == :player) ? "You get " : "The dealer gets "
+  prompt(prelude + "the #{hands[owner].last[0]} of #{hands[owner].last[1]}.")
   puts
 end
 
-player_turn(deck, hands)
+def dealer_turn(deck, hands)
+  loop do
+    break if total(hands[:dealer], :dealer, :real) >= 17
+    hit(deck, hands, :dealer)
+    display_both_hands(hands, :visible)
+    gets
+  end
+  if busted?(hands[:dealer], :dealer, :real)
+    display_both_hands(hands, :real)
+    prompt("Busted!")
+  else
+    prompt("The dealer has chosen to stay.")
+  end
+end
+
+dealer_turn(deck, hands)

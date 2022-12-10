@@ -47,19 +47,16 @@ end
 
 def deal_order(hands)
   deal_order = []
-  round = 0
-  loop do
-    add_cards_to_hand(hands, deal_order, round)
-    round += 1
-    break if round >= 2
+  2.times do |idx|
+    add_cards_to_hand(hands, deal_order, idx)
   end
   card_names(deal_order).each { |card| card.prepend("the ") }
 end
 
-def add_cards_to_hand(hands, deal_order, round)
+def add_cards_to_hand(hands, deal_order, index)
   hands.each do |_, cards|
     cards.each_with_index do |card, idx|
-      deal_order << card if idx == round
+      deal_order << card if idx == index
     end
   end
   deal_order
@@ -113,13 +110,13 @@ def display_total(hand, owner)
   elsif owner == :dealer
     label = "Visible card value: "
   end
-  prompt(label + "#{total(hand, owner, :display)}")
+  prompt(label + "#{total(hand, owner, :visible)}")
 end
 
 def total(hand, owner, context)
   face_values = hand.map { |card| card[0] }
   sum = 0
-  start_index = (owner == :dealer && context == :display) ? 1 : 0
+  start_index = (owner == :dealer && context == :visible) ? 1 : 0
   sum = initial_sum(face_values, start_index, sum)
   sum = correct_for_aces(face_values, sum)
 end
@@ -153,8 +150,8 @@ end
 def player_turn(deck, hands)
   loop do
     answer = hit_or_stay(hands)
-    response = response(answer, deck, hands)
-    break if busted?(hands[:player], :player, :real) || response == "finish"    
+    hit(deck, hands, :player) if answer == "hit"
+    break if busted?(hands[:player], :player, :real) || answer == "stay"    
   end
   if busted?(hands[:player], :player, :real)
     display_both_hands(hands)
@@ -178,20 +175,11 @@ def hit_or_stay(hands) # solid
   answer
 end
 
-def response(answer, deck, hands)
-  response = nil
-  if answer == "hit"
-    hit(deck, hands)
-  elsif answer == "stay"
-    response = "finish"
-  end
-  response
-end
-
-def hit(deck, hands) # solid; needs dealer version
+def hit(deck, hands, owner)
   system 'clear'
-  deal_card(deck, hands[:player])
-  prompt("You get the #{hands[:player].last[0]} of #{hands[:player].last[1]}.")
+  deal_card(deck, hands[owner])
+  prelude = (owner == :player) ? "You get " : "The dealer gets "
+  prompt(prelude + "the #{hands[owner].last[0]} of #{hands[owner].last[1]}.")
   puts
 end
 
@@ -215,9 +203,3 @@ end
   initial_deal(deck,hands)
   player_turn(deck, hands)
 # end
-
-# puts
-# p hands[:player]
-# p hands[:dealer]
-# puts
-# p deck
