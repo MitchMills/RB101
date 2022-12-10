@@ -109,16 +109,17 @@ end
 
 def display_total(hand, owner)
   if owner == :player
-    prompt("Card value: #{total(hand, owner)}")
+    label = "Card value: "
   elsif owner == :dealer
-    prompt("Visible card value: #{total(hand, owner)}")
+    label = "Visible card value: "
   end
+  prompt(label + "#{total(hand, owner, :display)}")
 end
 
-def total(hand, owner)
+def total(hand, owner, context)
   face_values = hand.map { |card| card[0] }
   sum = 0
-  start_index = (owner == :player ? 0 : 1)
+  start_index = (owner == :dealer && context == :display) ? 1 : 0
   sum = initial_sum(face_values, start_index, sum)
   sum = correct_for_aces(face_values, sum)
 end
@@ -149,43 +150,53 @@ def correct_for_aces(face_values, sum)
   sum
 end
 
-
-
 def player_turn(deck, hands)
+  loop do
+    answer = hit_or_stay(hands)
+    response = response(answer, deck, hands)
+    break if busted?(hands[:player], :player, :real) || response == "finish"    
+  end
+  if busted?(hands[:player], :player, :real)
+    display_both_hands(hands)
+    prompt("Busted!")
+  else
+    prompt("You chose to stay.")
+  end
+end
+
+def hit_or_stay(hands) # solid
   answer = nil
   loop do
     display_both_hands(hands)
     prompt("Would you like to hit or stay?")
     answer = gets.chomp.downcase
-
-    if answer == "stay"
-      break
-    elsif answer == "hit"
-      system 'clear'
-
-      deal_card(deck, hands[:player])
-      prompt("You get the #{hands[:player].last[0]} of #{hands[:player].last[1]}.")
-      puts
-
-      break if busted?(hands[:player], :player)
-    else
-      system 'clear'
-      prompt("Sorry, that's not a valid answer. Try again:")
-      puts
-    end
-    
+    break if ["hit", "stay"].include?(answer)
+    system 'clear'
+    prompt("Sorry, that's not a valid response. Please try again.")
+    puts
   end
-
-  if busted?(hands[:player], :player)
-    display_both_hands(hands)
-    prompt("Busted!")
-  else
-    prompt("You chose to stay")
-  end
+  answer
 end
 
-def busted?(hand, owner)
-  total(hand, owner) > 21
+def response(answer, deck, hands)
+  response = nil
+  if answer == "hit"
+    hit(deck, hands)
+  elsif answer == "stay"
+    response = "finish"
+  end
+  response
+end
+
+def hit(deck, hands) # solid; needs dealer version
+  system 'clear'
+  deal_card(deck, hands[:player])
+  prompt("You get the #{hands[:player].last[0]} of #{hands[:player].last[1]}.")
+  puts
+end
+
+def busted?(hand, owner, context)
+  total(hand, owner, :real) > 21
 end
 
 # MAIN GAME LOOP
