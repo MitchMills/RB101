@@ -52,35 +52,34 @@ end
 
 def display_both_hands(hands, context)
   display_hand(hands[:dealer], :dealer, context)  
-  display_hand(hands[:player], :player, :real)
+  display_hand(hands[:player], :player, :all_cards)
 end
 
 def display_hand(hand, owner, context)
   display_hand_header(owner, context)
-  start_index = (context == :visible ? 1 : 0)
+  start_index = (context == :hidden_card ? 1 : 0)
   card_names(hand).each_with_index do |card, idx|
     prompt(" #{card}") if idx >= start_index
   end
-  display_total(hand, owner, context)
+  display_total(hand, context)
   puts
 end
 
 def display_hand_header(owner, context)
   label = (owner == :player) ? "Your hand:" : "Dealer hand:"
   prompt(label)
-  prompt(" Facedown Card") if (owner == :dealer && context == :visible)
+  prompt(" Facedown Card") if context == :hidden_card
 end
 
-def display_total(hand, owner, context)
-  label = "Card value: "
-  label = "Visible card value: " if (owner == :dealer && context = :visible)
-  prompt(label + "#{total(hand, owner, context)}")
+def display_total(hand, context)
+  label = (context == :hidden_card) ? "Visible card value: " : "Card value: "
+  prompt(label + "#{total(hand, context)}")
 end
 
-def total(hand, owner, context)
+def total(hand, context)
   face_values = hand.map { |card| card[0] }
   sum = 0
-  start_index = (context == :visible ? 1 : 0)
+  start_index = (context == :hidden_card) ? 1 : 0
   sum = initial_sum(face_values, start_index, sum)
   sum = correct_for_aces(face_values, sum)
 end
@@ -111,18 +110,18 @@ def correct_for_aces(face_values, sum)
   sum
 end
 
-def busted?(hand, owner, context)
-  total(hand, owner, :real) > 21
+def busted?(hand)
+  total(hand, :all_cards) > 21
 end
 
 def player_turn(deck, hands)
   loop do
     answer = hit_or_stay(hands)
     hit(deck, hands, :player) if answer == "hit"
-    break if busted?(hands[:player], :player, :real) || answer == "stay"    
+    break if busted?(hands[:player]) || answer == "stay"    
   end
-  if busted?(hands[:player], :player, :real)
-    display_both_hands(hands, :real)
+  if busted?(hands[:player])
+    display_both_hands(hands, :all_cards)
     prompt("Busted!")
   else
     prompt("You chose to stay.")
@@ -132,7 +131,7 @@ end
 def hit_or_stay(hands)
   answer = nil
   loop do
-    display_both_hands(hands, :visible)
+    display_both_hands(hands, :hidden_card)
     prompt("Would you like to hit or stay?")
     answer = gets.chomp.downcase
     break if ["hit", "stay"].include?(answer)
@@ -153,13 +152,13 @@ end
 
 def dealer_turn(deck, hands)
   loop do
-    break if total(hands[:dealer], :dealer, :real) >= 17
+    break if total(hands[:dealer], :all_cards) >= 17
     hit(deck, hands, :dealer)
-    display_both_hands(hands, :visible)
+    display_both_hands(hands, :hidden_card)
     gets
   end
-  if busted?(hands[:dealer], :dealer, :real)
-    display_both_hands(hands, :real)
+  if busted?(hands[:dealer])
+    display_both_hands(hands, :all_cards)
     prompt("Busted!")
   else
     prompt("The dealer has chosen to stay.")
@@ -167,3 +166,4 @@ def dealer_turn(deck, hands)
 end
 
 dealer_turn(deck, hands)
+display_both_hands(hands, :all_cards)
