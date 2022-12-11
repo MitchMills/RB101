@@ -150,8 +150,6 @@ def hit(deck, hands, owner)
   puts
 end
 
-# prompt(prelude + "the #{card_names(hands[owner]).last}.")
-
 def dealer_turn(deck, hands)
   loop do
     break if total(hands[:dealer], :all_cards) >= 17

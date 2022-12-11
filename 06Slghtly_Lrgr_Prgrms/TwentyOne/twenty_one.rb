@@ -56,7 +56,7 @@ end
 def add_cards_to_hand(hands, deal_order, index)
   hands.each do |_, cards|
     cards.each_with_index do |card, idx|
-      deal_order << card if idx == index
+      (deal_order << card) if (idx == index)
     end
   end
   deal_order
@@ -70,11 +70,10 @@ end
 
 def show_each_card(deal_order)
   deal_order.each_with_index do |card, idx|
+    sleep(0.7)
     if idx.even?
-      sleep(0.8)
       prompt("  You get #{deal_order[idx]}")
     else
-      sleep(0.8)
       prompt("    The dealer gets #{deal_order[idx]}")
     end
   end
@@ -143,7 +142,11 @@ end
 def player_turn(deck, hands)
   loop do
     answer = hit_or_stay(hands)
-    hit(deck, hands, :player) if answer == "hit"
+    if answer == "hit"
+      system 'clear'
+      prompt("You have chosen to hit:")
+      hit(deck, hands, :player)
+    end
     break if busted?(hands[:player]) || answer == "stay"    
   end
   if busted?(hands[:player])
@@ -169,7 +172,6 @@ def hit_or_stay(hands)
 end
 
 def hit(deck, hands, owner)
-  system 'clear'
   deal_card(deck, hands[owner])
   prelude = (owner == :player) ? "You get " : "The dealer gets "
   prompt(prelude + "the #{card_names(hands[owner]).last}.")
@@ -179,6 +181,51 @@ end
 def busted?(hand)
   total(hand, :all_cards) > 21
 end
+
+def dealer_turn(deck, hands)
+  loop do
+    break if total(hands[:dealer], :all_cards) >= 17
+    system 'clear'
+    prompt("The dealer has chosen to hit:")
+    hit(deck, hands, :dealer)
+    display_both_hands(hands, :hidden_card)
+    gets
+  end
+  if busted?(hands[:dealer])
+    display_both_hands(hands, :all_cards)
+    prompt("Busted!")
+  else
+    prompt("The dealer has chosen to stay.")
+  end
+end
+
+def determine_result(hands)
+  if busted?(hands[:player])
+    return :dealer
+  elsif busted?(hands[:dealer])
+    return :player
+  elsif total(hands[:player], :all_cards) > total(hands[:dealer], :all_cards)
+    return :player
+  elsif total(hands[:dealer], :all_cards) > total(hands[:player], :all_cards)
+    return :dealer
+  else
+    return :tie
+  end
+end
+
+def display_result(hands)
+  system 'clear'
+  display_both_hands(hands, :all_cards)
+  result = determine_result(hands)
+  if result == :player
+    prompt("You have won this hand!")
+  elsif result == :dealer
+    prompt("The dealer won this hand.")
+  else
+    prompt("It's a tie.")
+  end
+end
+
 
 # MAIN GAME LOOP
 # welcome()
@@ -195,4 +242,6 @@ end
   hands = { player: [], dealer: [] }
   initial_deal(deck,hands)
   player_turn(deck, hands)
+  dealer_turn(deck, hands)
+  display_result(hands)
 # end
