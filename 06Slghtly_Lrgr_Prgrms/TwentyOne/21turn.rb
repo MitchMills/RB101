@@ -146,9 +146,11 @@ def hit(deck, hands, owner)
   system 'clear'
   deal_card(deck, hands[owner])
   prelude = (owner == :player) ? "You get " : "The dealer gets "
-  prompt(prelude + "the #{hands[owner].last[0]} of #{hands[owner].last[1]}.")
+  prompt(prelude + "the #{card_names(hands[owner]).last}.")
   puts
 end
+
+# prompt(prelude + "the #{card_names(hands[owner]).last}.")
 
 def dealer_turn(deck, hands)
   loop do
