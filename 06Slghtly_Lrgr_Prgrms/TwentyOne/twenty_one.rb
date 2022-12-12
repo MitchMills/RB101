@@ -114,12 +114,6 @@ def display_hand(hand, owner, context) #####
   puts
 end
 
-def display_hand_header(owner, context) #####
-  label = (owner == :player) ? "Your hand:" : "Dealer hand:"
-  prompt(label)
-  prompt(" Facedown Card") if context == :hidden_card
-end
-
 def display_total(hand, context) #####
   label = (context == :hidden_card) ? "Visible card value: " : "Card value: "
   prompt(label + "#{total(hand, context)}")
@@ -133,24 +127,24 @@ def total(hand, context) #####
   sum = correct_for_aces(face_values, sum)
 end
 
-def initial_sum(face_values, start_index, sum) #####
-  face_values.each_with_index do |value, idx|
-    if idx >= start_index
-      sum = sum_cards(sum, value)
-    end
-  end
-  sum
-end
+# def initial_sum(face_values, start_index, sum) #####
+#   face_values.each_with_index do |value, idx|
+#     if idx >= start_index
+#       sum = sum_cards(sum, value)
+#     end
+#   end
+#   sum
+# end
 
-def sum_cards(sum, value) #####
-  if value == "Ace"
-    sum += 11
-  elsif value.to_i == 0
-    sum += 10
-  else
-    sum += value.to_i
-  end
-end
+# def sum_cards(sum, value) #####
+#   if value == "Ace"
+#     sum += 11
+#   elsif value.to_i == 0
+#     sum += 10
+#   else
+#     sum += value.to_i
+#   end
+# end
 
 def correct_for_aces(face_values, sum) #####
   face_values.select { |value| value == "Ace" }.count.times do

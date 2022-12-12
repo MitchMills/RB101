@@ -93,60 +93,51 @@ end
 #####
 
 def display_both_hands(hands, context) ##### ***
-  display_hand(hands[:dealer], :dealer, context)  
-  display_hand(hands[:player], :player, :all_cards)
+  display_hand(hands, :dealer, context)  
+  display_hand(hands, :player, :all_cards)
 end
 
-def display_hand(hand, owner, context) #####
-  display_hand_header(owner, context)
-  start_index = (context == :face_up_cards ? 1 : 0)
-  card_names(hand).each_with_index do |card, idx|
-    prompt(" #{card}") if idx >= start_index
-  end
-  display_total(hand, context)
+def display_hand(hands, owner, context) ##### ***
+  prompt(owner == :player ? "Your hand:" : "Dealer hand:")
+  hand = card_names(hands[owner])
+  hand[1] = "Facedown Card" if context == :face_up_cards
+  hand.each { |card| prompt(" #{card}") }
+  display_total(hands[owner], context)
   puts
 end
 
-def display_hand_header(owner, context) #####
-  label = (owner == :player) ? "Your hand:" : "Dealer hand:"
-  prompt(label)
-  prompt(" Facedown Card") if context == :face_up_cards
-end
-
-def display_total(hand, context) #####
+def display_total(hand, context) ##### ***
   label = (context == :face_up_cards) ? "Visible card value: " : "Card value: "
   prompt(label + "#{total(hand, context)}")
 end
 
-def total(hand, context) #####
-  face_values = hand.map { |card| card[0] }
-  sum = 0
-  start_index = (context == :face_up_cards) ? 1 : 0
-  sum = initial_sum(face_values, start_index, sum)
-  sum = correct_for_aces(face_values, sum)
+def total(hand, context) ##### ***
+  sum = hand.map { |card| card[:value] }.sum
+  sum -= hand[1][:value] if context == :face_up_cards
+  sum = correct_for_aces(hand, sum)
 end
 
-def initial_sum(face_values, start_index, sum) #####
-  face_values.each_with_index do |value, idx|
-    if idx >= start_index
-      sum = sum_cards(sum, value)
-    end
-  end
-  sum
-end
+# def initial_sum(face_values, start_index, sum) #####
+#   face_values.each_with_index do |value, idx|
+#     if idx >= start_index
+#       sum = sum_cards(sum, value)
+#     end
+#   end
+#   sum
+# end
 
-def sum_cards(sum, value) #####
-  if value == "Ace"
-    sum += 11
-  elsif value.to_i == 0
-    sum += 10
-  else
-    sum += value.to_i
-  end
-end
+# def sum_cards(sum, value) #####
+#   if value == "Ace"
+#     sum += 11
+#   elsif value.to_i == 0
+#     sum += 10
+#   else
+#     sum += value.to_i
+#   end
+# end
 
-def correct_for_aces(face_values, sum) #####
-  face_values.select { |value| value == "Ace" }.count.times do
+def correct_for_aces(hand, sum) ##### ***
+  hand.select { |card| card[:rank] == "Ace" }.count.times do
     sum -= 10 if sum > 21
   end
   sum
@@ -156,10 +147,8 @@ end
 # [{:rank=>"2", :suit=>"Clubs", :value=>2}]
 hands = { 
   player: [{:rank=>"2", :suit=>"Clubs", :value=>2}, {:rank=>"King", :suit=>"Clubs", :value=>10}],
-  dealer: [{:rank=>"Ace", :suit=>"Spades", :value=>11}, {:rank=>"5", :suit=>"Hearts", :value=>5}]
+  dealer: [{:rank=>"Ace", :suit=>"Spades", :value=>11}, {:rank=>"5", :suit=>"Hearts", :value=>5}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
 }
 
-display_initial_deal(hands)
 
-
-dealer: [{:rank=>"Ace", :suit=>"Spades", :value=>11}, {:rank=>"5", :suit=>"Hearts", :value=>5}]
+p total(hands[:dealer], :face_up_cards)
