@@ -15,29 +15,29 @@ def welcome()
   gets
 end
 
-def initialize_deck()
+def initialize_deck() #####
   CARD_RANKS.product(CARD_SUITS)
 end
 
-def initial_deal(deck, hands)
+def initial_deal(deck, hands) #####
   deal_initial_hands(deck, hands)
   display_initial_deal(hands)
 end
 
-def deal_initial_hands(deck, hands)
+def deal_initial_hands(deck, hands) #####
   2.times do
     deal_card(deck, hands[:player])
     deal_card(deck, hands[:dealer])
   end
 end
 
-def deal_card(deck, hand)
+def deal_card(deck, hand) #####
   card = deck.sample
   deck.delete(card)
   hand << card
 end
-
-def display_initial_deal(hands)
+#####
+def display_initial_deal(hands) #####
   deal_order = deal_order(hands)
   deal_order[1] = "a facedown card"
   prompt("Here's the deal:")
@@ -45,7 +45,7 @@ def display_initial_deal(hands)
   puts
 end
 
-def deal_order(hands)
+def deal_order(hands) #####
   deal_order = []
   2.times do |idx|
     add_cards_to_hand(hands, deal_order, idx)
@@ -53,7 +53,7 @@ def deal_order(hands)
   card_names(deal_order).each { |card| card.prepend("the ") }
 end
 
-def add_cards_to_hand(hands, deal_order, index)
+def add_cards_to_hand(hands, deal_order, index) #####
   hands.each do |_, cards|
     cards.each_with_index do |card, idx|
       (deal_order << card) if (idx == index)
@@ -62,13 +62,13 @@ def add_cards_to_hand(hands, deal_order, index)
   deal_order
 end
 
-def card_names(hand)
+def card_names(hand) #####
   hand.map do |card|
     "#{card[0]} of #{card[1]}"
   end
 end
 
-def show_each_card(deal_order)
+def show_each_card(deal_order) #####
   deal_order.each_with_index do |card, idx|
     sleep(0.7)
     if idx.even?
@@ -78,7 +78,7 @@ def show_each_card(deal_order)
     end
   end
 end
-
+#####
 def display_both_hands(hands, context)
   display_hand(hands[:dealer], :dealer, context)  
   display_hand(hands[:player], :player, :all_cards)
