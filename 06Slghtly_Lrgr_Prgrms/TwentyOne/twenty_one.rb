@@ -1,4 +1,4 @@
-CARD_FACES = [
+CARD_RANKS = [
   '2', '3', '4', '5', '6', '7', '8', '9', '10', 
   'Jack', 'Queen', 'King', 'Ace'
 ]
@@ -16,7 +16,7 @@ def welcome()
 end
 
 def initialize_deck()
-  CARD_FACES.product(CARD_SUITS)
+  CARD_RANKS.product(CARD_SUITS)
 end
 
 def initial_deal(deck, hands)
