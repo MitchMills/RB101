@@ -14,8 +14,10 @@ CARD_VALUES = CARD_RANKS.each_with_object({}) do |rank, hash|
   end
 end
 
-BUSTED = 22
+
 DEALER_STAY = 17
+BLACKJACK = 21
+BUSTED = 22
 
 def prompt(message)
   puts "=> #{message}"
@@ -204,13 +206,47 @@ end
 
 #####
 
+def check_for_blackjack(hands)
+  result = determine_blackjack(hands)
+  if result == :player
+    prompt("You have blackjack! You win!")
+  elsif result == :dealer
+    prompt("The dealer has blackjack! They win!")
+  elsif result == :tie
+    prompt("Both you and the dealer have blackjack! It's a tie.")
+  end
+end
+
+def determine_blackjack(hands)
+  if blackjack?(hands[:player])
+    blackjack?(hands[:dealer]) ? :tie : :player
+  elsif blackjack?(hands[:dealer])
+    blackjack?(hands[:player]) ? :tie : :dealer
+  else
+    :continue
+  end
+end
+
+def blackjack?(hand)
+  total(hand, :all_cards) == BLACKJACK
+end
+
+
 # [{:rank=>"2", :suit=>"Clubs", :value=>2}]
-# hands = { 
-#   player: [{:rank=>"2", :suit=>"Clubs", :value=>2}, {:rank=>"King", :suit=>"Clubs", :value=>10}],
-#   dealer: [{:rank=>"Ace", :suit=>"Spades", :value=>11}, {:rank=>"5", :suit=>"Hearts", :value=>5}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
-# }
+hands = { 
+  player: [{:rank=>"5", :suit=>"Clubs", :value=>5}, {:rank=>"King", :suit=>"Spades", :value=>10}],
+  dealer: [{:rank=>"Ace", :suit=>"Spades", :value=>11}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
+}
 
-deck = initialize_deck
-hands = { player: [], dealer: [] }
-initial_deal(deck, hands)
+# loop do
+# welcome()
+# deck = initialize_deck()
+# hands = { player: [], dealer: [] }
+# initial_deal(deck,hands)
+# check_for_blackjack(hands)
+# player_turn(deck, hands)
+# dealer_turn(deck, hands)
+# display_result(hands)
+# end
 
+determine_blackjack(hands)
