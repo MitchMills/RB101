@@ -97,63 +97,37 @@ def show_each_card(deal_order)
   end
 end
 
-#####
-
-def display_both_hands(hands, context) #####
-  display_hand(hands[:dealer], :dealer, context)  
-  display_hand(hands[:player], :player, :all_cards)
+def display_both_hands(hands, context)
+  display_hand(hands, :dealer, context)  
+  display_hand(hands, :player, :all_cards)
 end
 
-def display_hand(hand, owner, context) #####
-  display_hand_header(owner, context)
-  start_index = (context == :hidden_card ? 1 : 0)
-  card_names(hand).each_with_index do |card, idx|
-    prompt(" #{card}") if idx >= start_index
-  end
-  display_total(hand, context)
+def display_hand(hands, owner, context)
+  prompt(owner == :player ? "Your hand:" : "Dealer hand:")
+  hand = card_names(hands[owner])
+  hand[1] = "Facedown Card" if context == :face_up_cards
+  hand.each { |card| prompt(" #{card}") }
+  display_total(hands[owner], context)
   puts
 end
 
-def display_total(hand, context) #####
-  label = (context == :hidden_card) ? "Visible card value: " : "Card value: "
+def display_total(hand, context)
+  label = (context == :face_up_cards) ? "Visible card value: " : "Card value: "
   prompt(label + "#{total(hand, context)}")
 end
 
-def total(hand, context) #####
-  face_values = hand.map { |card| card[0] }
-  sum = 0
-  start_index = (context == :hidden_card) ? 1 : 0
-  sum = initial_sum(face_values, start_index, sum)
-  sum = correct_for_aces(face_values, sum)
+def total(hand, context)
+  sum = hand.map { |card| card[:value] }.sum
+  sum -= hand[1][:value] if context == :face_up_cards
+  sum = correct_for_aces(hand, sum)
 end
 
-# def initial_sum(face_values, start_index, sum) #####
-#   face_values.each_with_index do |value, idx|
-#     if idx >= start_index
-#       sum = sum_cards(sum, value)
-#     end
-#   end
-#   sum
-# end
-
-# def sum_cards(sum, value) #####
-#   if value == "Ace"
-#     sum += 11
-#   elsif value.to_i == 0
-#     sum += 10
-#   else
-#     sum += value.to_i
-#   end
-# end
-
-def correct_for_aces(face_values, sum) #####
-  face_values.select { |value| value == "Ace" }.count.times do
+def correct_for_aces(hand, sum)
+  hand.select { |card| card[:rank] == "Ace" }.count.times do
     sum -= 10 if sum > 21
   end
   sum
 end
-
-#####
 
 def player_turn(deck, hands)
   loop do
@@ -176,7 +150,7 @@ end
 def hit_or_stay(hands)
   answer = nil
   loop do
-    display_both_hands(hands, :hidden_card)
+    display_both_hands(hands, :face_up_cards)
     prompt("Would you like to hit or stay?")
     answer = gets.chomp.downcase
     break if ["hit", "stay"].include?(answer)
@@ -195,8 +169,10 @@ def hit(deck, hands, owner)
 end
 
 def busted?(hand)
-  total(hand, :all_cards) > 21
+  total(hand, :all_cards) >= BUSTED
 end
+
+#####
 
 def dealer_turn(deck, hands)
   loop do
@@ -204,7 +180,7 @@ def dealer_turn(deck, hands)
     system 'clear'
     prompt("The dealer has chosen to hit:")
     hit(deck, hands, :dealer)
-    display_both_hands(hands, :hidden_card)
+    display_both_hands(hands, :face_up_card)
     gets
   end
   if busted?(hands[:dealer])
@@ -258,6 +234,6 @@ end
   hands = { player: [], dealer: [] }
   initial_deal(deck,hands)
   player_turn(deck, hands)
-  dealer_turn(deck, hands)
-  display_result(hands)
+  # dealer_turn(deck, hands)
+  # display_result(hands)
 # end

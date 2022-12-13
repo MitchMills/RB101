@@ -21,6 +21,13 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def welcome()
+  system 'clear'
+  prompt "Welcome to Twenty-One!"
+  prompt "Enter any key to begin."
+  gets
+end
+
 def initialize_deck(number_of_decks = 1) ##### ***
   one_deck = CARD_RANKS.product(CARD_SUITS).map do |card|
     card_info = {}
@@ -90,8 +97,6 @@ def show_each_card(deal_order) ##### ***
   end
 end
 
-#####
-
 def display_both_hands(hands, context) ##### ***
   display_hand(hands, :dealer, context)  
   display_hand(hands, :player, :all_cards)
@@ -117,25 +122,6 @@ def total(hand, context) ##### ***
   sum = correct_for_aces(hand, sum)
 end
 
-# def initial_sum(face_values, start_index, sum) #####
-#   face_values.each_with_index do |value, idx|
-#     if idx >= start_index
-#       sum = sum_cards(sum, value)
-#     end
-#   end
-#   sum
-# end
-
-# def sum_cards(sum, value) #####
-#   if value == "Ace"
-#     sum += 11
-#   elsif value.to_i == 0
-#     sum += 10
-#   else
-#     sum += value.to_i
-#   end
-# end
-
 def correct_for_aces(hand, sum) ##### ***
   hand.select { |card| card[:rank] == "Ace" }.count.times do
     sum -= 10 if sum > 21
@@ -143,12 +129,58 @@ def correct_for_aces(hand, sum) ##### ***
   sum
 end
 
+def player_turn(deck, hands) ##### ***
+  loop do
+    answer = hit_or_stay(hands)
+    if answer == "hit"
+      system 'clear'
+      prompt("You have chosen to hit:")
+      hit(deck, hands, :player)
+    end
+    break if busted?(hands[:player]) || answer == "stay"    
+  end
+  if busted?(hands[:player])
+    display_both_hands(hands, :all_cards)
+    prompt("Busted!")
+  else
+    prompt("You chose to stay.")
+  end
+end
+
+def hit_or_stay(hands) ##### ***
+  answer = nil
+  loop do
+    display_both_hands(hands, :face_up_cards)
+    prompt("Would you like to hit or stay?")
+    answer = gets.chomp.downcase
+    break if ["hit", "stay"].include?(answer)
+    system 'clear'
+    prompt("Sorry, that's not a valid response. Please try again.")
+    puts
+  end
+  answer
+end
+
+def hit(deck, hands, owner) ##### ***
+  deal_card(deck, hands[owner])
+  prelude = (owner == :player) ? "You get " : "The dealer gets "
+  prompt(prelude + "the #{card_names(hands[owner]).last}.")
+  puts
+end
+
+def busted?(hand) ##### ***
+  total(hand, :all_cards) >= BUSTED
+end
+
 #####
+
 # [{:rank=>"2", :suit=>"Clubs", :value=>2}]
-hands = { 
-  player: [{:rank=>"2", :suit=>"Clubs", :value=>2}, {:rank=>"King", :suit=>"Clubs", :value=>10}],
-  dealer: [{:rank=>"Ace", :suit=>"Spades", :value=>11}, {:rank=>"5", :suit=>"Hearts", :value=>5}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
-}
+# hands = { 
+#   player: [{:rank=>"2", :suit=>"Clubs", :value=>2}, {:rank=>"King", :suit=>"Clubs", :value=>10}],
+#   dealer: [{:rank=>"Ace", :suit=>"Spades", :value=>11}, {:rank=>"5", :suit=>"Hearts", :value=>5}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
+# }
 
-
-p total(hands[:dealer], :face_up_cards)
+deck = initialize_deck()
+hands = { player: [], dealer: [] }
+initial_deal(deck,hands)
+player_turn(deck, hands)
