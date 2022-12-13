@@ -28,7 +28,7 @@ def welcome()
   gets
 end
 
-def initialize_deck(number_of_decks = 1) ##### ***
+def initialize_deck(number_of_decks = 1)
   one_deck = CARD_RANKS.product(CARD_SUITS).map do |card|
     card_info = {}
     card_info[:rank] = card[0]
@@ -39,54 +39,38 @@ def initialize_deck(number_of_decks = 1) ##### ***
   (one_deck * number_of_decks).shuffle
 end
 
-def initial_deal(deck, hands) ##### ***
-  deal_initial_hands(deck, hands)
-  display_initial_deal(hands)
+def initial_deal(deck, hands)
+  deal_order = deal_initial_hands(deck, hands)
+  display_initial_deal(hands, deal_order)
 end
 
-def deal_initial_hands(deck, hands) ##### ***
+def deal_initial_hands(deck, hands)
+  deal_order = []
   2.times do
-    deal_card(deck, hands[:player])
-    deal_card(deck, hands[:dealer])
+    deal_order << deal_card(deck, hands[:player]).last
+    deal_order << deal_card(deck, hands[:dealer]).last
   end
+  card_names(deal_order).each { |card| card.prepend("the ") }
 end
 
-def deal_card(deck, hand) ##### ***
+def deal_card(deck, hand)
   hand << deck.pop
 end
 
-def display_initial_deal(hands) ##### ***
-  deal_order = deal_order(hands)
+def card_names(hand)
+  hand.map do |card|
+    "#{card[:rank]} of #{card[:suit]}"
+  end
+end
+
+def display_initial_deal(hands, deal_order)
   deal_order[3] = "a facedown card"
   prompt("Here's the deal:")
   show_each_card(deal_order)
   puts
 end
 
-def deal_order(hands) ##### ***
-  deal_order = []
-  2.times do |idx|
-    add_cards_to_hand(hands, deal_order, idx)
-  end
-  card_names(deal_order).each { |card| card.prepend("the ") }
-end
-
-def add_cards_to_hand(hands, deal_order, index) ##### ***
-  hands.each do |owner, cards|
-    cards.each_with_index do |card, idx|
-      (deal_order << card) if (idx == index)
-    end
-  end
-  deal_order
-end
-
-def card_names(hand) ##### ***
-  hand.map do |card|
-    "#{card[:rank]} of #{card[:suit]}"
-  end
-end
-
-def show_each_card(deal_order) ##### ***
+def show_each_card(deal_order)
   deal_order.each_with_index do |card, idx|
     sleep(0.7)
     if idx.even?
@@ -97,12 +81,12 @@ def show_each_card(deal_order) ##### ***
   end
 end
 
-def display_both_hands(hands, context) ##### ***
+def display_both_hands(hands, context)
   display_hand(hands, :dealer, context)  
   display_hand(hands, :player, :all_cards)
 end
 
-def display_hand(hands, owner, context) ##### ***
+def display_hand(hands, owner, context)
   prompt(owner == :player ? "Your hand:" : "Dealer hand:")
   hand = card_names(hands[owner])
   hand[1] = "Facedown Card" if context == :face_up_cards
@@ -111,25 +95,25 @@ def display_hand(hands, owner, context) ##### ***
   puts
 end
 
-def display_total(hand, context) ##### ***
+def display_total(hand, context)
   label = (context == :face_up_cards) ? "Visible card value: " : "Card value: "
   prompt(label + "#{total(hand, context)}")
 end
 
-def total(hand, context) ##### ***
+def total(hand, context)
   sum = hand.map { |card| card[:value] }.sum
   sum -= hand[1][:value] if context == :face_up_cards
   sum = correct_for_aces(hand, sum)
 end
 
-def correct_for_aces(hand, sum) ##### ***
+def correct_for_aces(hand, sum)
   hand.select { |card| card[:rank] == "Ace" }.count.times do
     sum -= 10 if sum > 21
   end
   sum
 end
 
-def player_turn(deck, hands) ##### ***
+def player_turn(deck, hands)
   loop do
     answer = hit_or_stay(hands)
     if answer == "hit"
@@ -147,7 +131,7 @@ def player_turn(deck, hands) ##### ***
   end
 end
 
-def hit_or_stay(hands) ##### ***
+def hit_or_stay(hands)
   answer = nil
   loop do
     display_both_hands(hands, :face_up_cards)
@@ -161,15 +145,61 @@ def hit_or_stay(hands) ##### ***
   answer
 end
 
-def hit(deck, hands, owner) ##### ***
+def hit(deck, hands, owner)
   deal_card(deck, hands[owner])
   prelude = (owner == :player) ? "You get " : "The dealer gets "
   prompt(prelude + "the #{card_names(hands[owner]).last}.")
   puts
 end
 
-def busted?(hand) ##### ***
+def busted?(hand)
   total(hand, :all_cards) >= BUSTED
+end
+
+#####
+
+def dealer_turn(deck, hands) ##### add natural blackjack option
+  loop do
+    break if total(hands[:dealer], :all_cards) >= DEALER_STAY
+    system 'clear'
+    prompt("The dealer has chosen to hit:")
+    hit(deck, hands, :dealer)
+    display_both_hands(hands, :all_cards)
+    gets
+  end
+  if busted?(hands[:dealer])
+    display_both_hands(hands, :all_cards)
+    prompt("Busted!")
+  else
+    prompt("The dealer has chosen to stay.")
+  end
+end
+
+def determine_result(hands) #####
+  if busted?(hands[:player])
+    return :dealer
+  elsif busted?(hands[:dealer])
+    return :player
+  elsif total(hands[:player], :all_cards) > total(hands[:dealer], :all_cards)
+    return :player
+  elsif total(hands[:dealer], :all_cards) > total(hands[:player], :all_cards)
+    return :dealer
+  else
+    return :tie
+  end
+end
+
+def display_result(hands) #####
+  system 'clear'
+  display_both_hands(hands, :all_cards)
+  result = determine_result(hands)
+  if result == :player
+    prompt("You have won this hand!")
+  elsif result == :dealer
+    prompt("The dealer won this hand.")
+  else
+    prompt("It's a tie.")
+  end
 end
 
 #####
@@ -180,7 +210,7 @@ end
 #   dealer: [{:rank=>"Ace", :suit=>"Spades", :value=>11}, {:rank=>"5", :suit=>"Hearts", :value=>5}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
 # }
 
-deck = initialize_deck()
+deck = initialize_deck
 hands = { player: [], dealer: [] }
-initial_deal(deck,hands)
-player_turn(deck, hands)
+initial_deal(deck, hands)
+

@@ -40,50 +40,34 @@ def initialize_deck(number_of_decks = 1)
 end
 
 def initial_deal(deck, hands)
-  deal_initial_hands(deck, hands)
-  display_initial_deal(hands)
+  deal_order = deal_initial_hands(deck, hands)
+  display_initial_deal(hands, deal_order)
 end
 
 def deal_initial_hands(deck, hands)
+  deal_order = []
   2.times do
-    deal_card(deck, hands[:player])
-    deal_card(deck, hands[:dealer])
+    deal_order << deal_card(deck, hands[:player]).last
+    deal_order << deal_card(deck, hands[:dealer]).last
   end
+  card_names(deal_order).each { |card| card.prepend("the ") }
 end
 
 def deal_card(deck, hand)
   hand << deck.pop
 end
 
-def display_initial_deal(hands)
-  deal_order = deal_order(hands)
-  deal_order[3] = "a facedown card"
-  prompt("Here's the deal:")
-  show_each_card(deal_order)
-  puts
-end
-
-def deal_order(hands)
-  deal_order = []
-  2.times do |idx|
-    add_cards_to_hand(hands, deal_order, idx)
-  end
-  card_names(deal_order).each { |card| card.prepend("the ") }
-end
-
-def add_cards_to_hand(hands, deal_order, index)
-  hands.each do |owner, cards|
-    cards.each_with_index do |card, idx|
-      (deal_order << card) if (idx == index)
-    end
-  end
-  deal_order
-end
-
 def card_names(hand)
   hand.map do |card|
     "#{card[:rank]} of #{card[:suit]}"
   end
+end
+
+def display_initial_deal(hands, deal_order)
+  deal_order[3] = "a facedown card"
+  prompt("Here's the deal:")
+  show_each_card(deal_order)
+  puts
 end
 
 def show_each_card(deal_order)
