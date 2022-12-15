@@ -14,8 +14,9 @@ CARD_VALUES = CARD_RANKS.each_with_object({}) do |rank, hash|
   end
 end
 
-BUSTED = 22
 DEALER_STAY = 17
+BLACKJACK = 21
+BUSTED = 22
 
 def prompt(message)
   puts "=> #{message}"

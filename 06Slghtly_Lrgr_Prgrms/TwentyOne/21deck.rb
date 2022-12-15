@@ -14,7 +14,6 @@ CARD_VALUES = CARD_RANKS.each_with_object({}) do |rank, hash|
   end
 end
 
-
 DEALER_STAY = 17
 BLACKJACK = 21
 BUSTED = 22
