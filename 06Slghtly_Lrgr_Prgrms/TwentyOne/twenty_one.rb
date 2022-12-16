@@ -217,8 +217,13 @@ end
   welcome()
   deck = initialize_deck()
   hands = { player: [], dealer: [] }
-  initial_deal(deck,hands)
-  player_turn(deck, hands)
-  # dealer_turn(deck, hands)
+  initial_deal(deck, hands)
+  result = nil
+  loop do
+    result = check_for_blackjack(hands)
+    player_turn(deck, hands)
+    # dealer_turn(deck, hands)
+  end
   # display_result(hands)
+  # another_round?
 # end
