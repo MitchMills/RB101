@@ -114,6 +114,32 @@ def correct_for_aces(hand, sum)
   sum
 end
 
+def check_for_blackjack(hands)
+  result = determine_blackjack(hands)
+  if result == :player_wins
+    prompt("You have blackjack!")
+  elsif result == :dealer_wins
+    prompt("The dealer has blackjack!")
+  elsif result == :tie
+    prompt("Both you and the dealer have blackjack!")
+  end
+  result
+end
+
+def determine_blackjack(hands)
+  if blackjack?(hands[:player])
+    blackjack?(hands[:dealer]) ? :tie : :player_wins
+  elsif blackjack?(hands[:dealer])
+    :dealer_wins
+  else
+    :continue
+  end
+end
+
+def blackjack?(hand)
+  total(hand, :all_cards) == BLACKJACK
+end
+
 def player_turn(deck, hands)
   loop do
     answer = hit_or_stay(hands)
@@ -160,9 +186,7 @@ def busted?(hand)
   total(hand, :all_cards) >= BUSTED
 end
 
-#####
-
-def dealer_turn(deck, hands) ##### add natural blackjack option
+def dealer_turn(deck, hands)
   loop do
     break if total(hands[:dealer], :all_cards) >= DEALER_STAY
     system 'clear'
@@ -206,59 +230,51 @@ end
 
 #####
 
-def check_for_blackjack(hands)
-  result = determine_blackjack(hands)
-  if result == :player_wins
-    prompt("You have blackjack!")
-  elsif result == :dealer_wins
-    prompt("The dealer has blackjack!")
-  elsif result == :tie
-    prompt("Both you and the dealer have blackjack!")
+def play_one_hand(deck, hands)
+  initial_deal(deck, hands)
+  result = nil
+  loop do
+    result = check_for_blackjack(hands)
+    break unless result == :continue # :player_wins, :dealer_wins, :tie
+
+    result = player_turn(deck, hands)
+    break unless result == :continue # :dealer_wins
+
+    result = dealer_turn(deck, hands)
+    break unless result == :continue # player_wins
+
+    result = determine_result(hands) # :player_wins, :dealer_wins, :tie
+    break
   end
   result
 end
 
-def determine_blackjack(hands)
-  if blackjack?(hands[:player])
-    blackjack?(hands[:dealer]) ? :tie : :player_wins
-  elsif blackjack?(hands[:dealer])
-    :dealer_wins
-  else
-    :continue
-  end
-end
-
-def blackjack?(hand)
-  total(hand, :all_cards) == BLACKJACK
-end
-
+#####
 
 # [{:rank=>"2", :suit=>"Clubs", :value=>2}]
-hands = { 
-  player: [{:rank=>"10", :suit=>"Clubs", :value=>10}, {:rank=>"King", :suit=>"Spades", :value=>10}],
-  dealer: [{:rank=>"9", :suit=>"Spades", :value=>9}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
-}
+# hands = { 
+#   player: [{:rank=>"10", :suit=>"Clubs", :value=>10}, {:rank=>"King", :suit=>"Spades", :value=>10}],
+#   dealer: [{:rank=>"9", :suit=>"Spades", :value=>9}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
+# }
 
 # loop do
   # welcome()
   deck = initialize_deck()
-  # hands = { player: [], dealer: [] }
-  # initial_deal(deck,hands)
-  result = nil
-  loop do
-    result = check_for_blackjack(hands)
-    break unless result == :continue # unless blackjack
+  hands = { player: [], dealer: [] }
+  result = play_one_hand(deck, hands)
+  # loop do
+  #   result = check_for_blackjack(hands)
+  #   break unless result == :continue # :player_wins, :dealer_wins, :tie
 
-    result = player_turn(deck, hands)
-    break unless result == :continue # unless player busted
+  #   result = player_turn(deck, hands)
+  #   break unless result == :continue # :dealer_wins
 
-    result = dealer_turn(deck, hands)
-    break unless result == :continue # unless dealer busted
+  #   result = dealer_turn(deck, hands)
+  #   break unless result == :continue # player_wins
 
-    result = determine_result(hands)
-    break
-  end
-display_result(hands, result)
+  #   result = determine_result(hands) # :player_wins, :dealer_wins, :tie
+  #   break
+  # end
+
+  display_result(hands, result)
 # end
-
-
