@@ -1,4 +1,7 @@
-"ab01@b3"
+def total
+  42
+end
 
-p "AB CD".chars
-p "ABCD".split
+total = 7
+
+p total()
