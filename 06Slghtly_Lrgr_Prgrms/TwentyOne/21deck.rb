@@ -22,10 +22,14 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-def welcome()
+def welcome()def welcome()
   system 'clear'
-  prompt "Welcome to Twenty-One!"
-  prompt "Enter any key to begin."
+  prompt <<~HEREDOC
+  Welcome to Twenty-One!
+  => You will play against the Dealer. The player who
+  => gets closest to 21 without going over wins.
+  => Enter any key to begin.
+  HEREDOC
   gets
 end
 
@@ -144,7 +148,7 @@ def player_turn(deck, hands)
   loop do
     answer = hit_or_stay(hands)
     if answer == "hit"
-      system 'clear'
+      # system 'clear'
       prompt("You have chosen to hit:")
       hit(deck, hands, :player)
     end
@@ -168,7 +172,7 @@ end
         prompt("Would you like to hit or stay?")
         answer = gets.chomp.downcase
         break if ["hit", "stay"].include?(answer)
-        system 'clear'
+        # system 'clear'
         prompt("Sorry, that's not a valid response. Please try again.")
         puts
       end
@@ -189,7 +193,7 @@ end
 def dealer_turn(deck, hands)
   loop do
     break if total(hands[:dealer], :all_cards) >= DEALER_STAY
-    system 'clear'
+    # system 'clear'
     prompt("The dealer has chosen to hit:")
     hit(deck, hands, :dealer)
     display_both_hands(hands, :all_cards)
@@ -217,7 +221,7 @@ def determine_result(hands)
 end
 
     def display_result(hands, result) #####
-      system 'clear'
+      # system 'clear'
       display_both_hands(hands, :all_cards)
       if result == :player_wins
         prompt("You have won this hand!")
@@ -231,6 +235,7 @@ end
 #####
 
 def play_one_hand(deck, hands)
+  system 'clear'
   initial_deal(deck, hands)
   result = nil
   loop do

@@ -24,8 +24,12 @@ end
 
 def welcome()
   system 'clear'
-  prompt "Welcome to Twenty-One!"
-  prompt "Enter any key to begin."
+  prompt <<~HEREDOC
+  Welcome to Twenty-One!
+  => You will play against the Dealer. The player who
+  => gets closest to 21 without going over wins.
+  => Enter any key to begin.
+  HEREDOC
   gets
 end
 
@@ -256,10 +260,4 @@ hands = {
     dealer: [{:rank=>"9", :suit=>"Spades", :value=>9}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
   }
 
-  def plus_three(result)
-    (result + 3)
-  end
-  
-  result = 0
-  p plus_three(result)
-  p result
+  welcome()
