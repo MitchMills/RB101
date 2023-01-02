@@ -22,14 +22,25 @@ def prompt(message)
   puts "=> #{message}"
 end
 
-def welcome()def welcome()
+def add_lines(number)
+  number.times { puts }
+end
+
+def welcome(first_time)
   system 'clear'
-  prompt <<~HEREDOC
-  Welcome to Twenty-One!
-  => You will play against the Dealer. The player who
-  => gets closest to 21 without going over wins.
-  => Enter any key to begin.
-  HEREDOC
+  if first_time
+    prompt(
+      <<~HEREDOC
+      Welcome to Twenty-One!
+      => You will play against the Dealer. The player who
+      => gets closest to 21 without going over wins.
+      => Enter any key to deal the first hand.
+      HEREDOC
+    )
+  else
+    prompt("Welcome back! Ready to try again?")
+    prompt("Enter any key to deal the next hand.")
+  end
   gets
 end
 
@@ -47,6 +58,7 @@ end
 def initial_deal(deck, hands)
   deal_order = deal_initial_hands(deck, hands)
   display_initial_deal(hands, deal_order)
+  sleep(0.8)
 end
 
     def deal_initial_hands(deck, hands)
@@ -127,6 +139,7 @@ def check_for_blackjack(hands)
   elsif result == :tie
     prompt("Both you and the dealer have blackjack!")
   end
+  puts unless result == :continue
   result
 end
 
@@ -148,16 +161,17 @@ def player_turn(deck, hands)
   loop do
     answer = hit_or_stay(hands)
     if answer == "hit"
-      # system 'clear'
+      system 'clear'
       prompt("You have chosen to hit:")
       hit(deck, hands, :player)
+      add_lines(3)
     end
     break if busted?(hands[:player]) || answer == "stay"    
   end
 
   if busted?(hands[:player])
+    prompt("You have busted!")
     display_both_hands(hands, :all_cards)
-    prompt("Busted!")
     return :dealer_wins
   else
     prompt("You chose to stay.")
@@ -262,11 +276,13 @@ end
 #   dealer: [{:rank=>"9", :suit=>"Spades", :value=>9}, {:rank=>"King", :suit=>"Clubs", :value=>10}]
 # }
 
-# loop do
-    welcome()
-    deck = initialize_deck()
-    hands = { player: [], dealer: [] }
-    result = play_one_hand(deck, hands)
-    display_result(hands, result)
-    
-# end
+first_time = true
+loop do
+  welcome(first_time)
+  first_time = false
+  deck = initialize_deck()
+  hands = { player: [], dealer: [] }
+  result = play_one_hand(deck, hands)
+  display_result(hands, result)
+  break
+end
