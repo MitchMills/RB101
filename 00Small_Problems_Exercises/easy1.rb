@@ -1,5 +1,51 @@
-### 4 WHAT'S MY BONUS?
+### 7 MADLIBS
 
+
+### 6 RIGHT TRIANGLES
+# def triangle(num)
+#   (1..num).each do |line_number|
+#     spaces = ' ' * (num - line_number)
+#     stars = '*' * line_number
+#     puts spaces + stars
+#   end
+# end
+
+# def triangle(num)
+#   spaces = num - 1
+#   stars = 1
+
+#   while spaces >= 0
+#     puts (' ' * spaces) + ('*' * stars)
+#     spaces -= 1
+#     stars += 1
+#   end
+# end
+
+# triangle(5)
+
+### 5 BANNERIZER
+# def print_in_box(string)
+#   line = "+ #{'-' * string.size} +"
+#   side = "| #{' ' * string.size} |"
+
+#   puts line
+#   puts side
+#   puts "| #{string} |"
+#   puts side
+#   puts line
+
+# end
+
+# print_in_box("To boldly go")
+
+### 4 WHAT'S MY BONUS?
+# def calculate_bonus(salary, eligible)
+#   eligible ? (salary / 2) : 0
+# end
+
+# puts calculate_bonus(2800, true) == 1400
+# puts calculate_bonus(1000, false) == 0
+# puts calculate_bonus(50000, true) == 25000
 
 ### 3 STRINGY STRINGS
 # def stringy(integer)
@@ -66,10 +112,29 @@
 #   digits.join
 # end
 
-# puts stringy(6, 0) == '010101' # '101010'
-# puts stringy(9, 0) == '010101010' # '101010101'
-# puts stringy(4, 0) == '0101' # '1010'
-# puts stringy(7, 0) == '0101010' # '1010101'
+# def stringy(size, start_digit = 1)
+#   digits = []
+#   # adjustment = (start_digit == 1) ? 0 : 1
+  
+#   size.times do |idx|
+#     # idx += adjustment
+#     idx =+ 1 if start_digit == 0
+#     digit = (idx.even?) ? 1 : 0
+#     digits << digit
+#   end
+
+#   digits.join
+# end
+
+# puts stringy(6) == '101010'
+# puts stringy(9) == '101010101'
+# puts stringy(4) == '1010'
+# puts stringy(7) == '1010101'
+
+# puts stringy(6, 0) == '010101'
+# puts stringy(9, 0) == '010101010'
+# puts stringy(4, 0) == '0101'
+# puts stringy(7, 0) == '0101010'
 
 ### 2 ODD
 # def is_odd?(integer)
