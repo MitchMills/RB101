@@ -1,5 +1,15 @@
-### 7 PARENT CLASS
+### 9 DOWN THE RABBIT HOLE
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
 
+
+### 8 INCLUDED MODULES
+# a = [5, 9, 3, 11]
+# puts a.min(2)
+
+### 7 PARENT CLASS
+# s = 'abc'
+# puts s.public_methods(false).inspect
 
 ### 6 KEYWORD ARGUMENTS
 # 5.step(to: 10, by: 3) { |value| puts value }
