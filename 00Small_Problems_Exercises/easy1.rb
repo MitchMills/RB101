@@ -21,7 +21,53 @@
 #   end
 # end
 
-# triangle(5)
+# def triangle(num)
+#   line = 1
+#   until line > num
+#     puts ("*" * line).ljust(num)
+#     line += 1
+#   end
+# end
+
+# def triangle(size)
+#   stars = size
+#   until stars == 0
+#     puts ("*" * stars).rjust(size)
+#     stars -= 1
+#   end
+# end
+
+def triangle(size, corner)
+  if corner[0] == 'u'
+    stars = size
+  elsif corner[0] == 'l'
+    stars = 1
+  end
+
+  if corner[1] == 'l'
+    line = ("*" * stars).ljust(size)
+  elsif corner[1] == 'r'
+    line = ("*" * stars).rjust(size)
+  end
+
+  if corner[0] == 'u'
+    until stars == 0
+      puts line
+      stars -= 1
+    end
+  elsif corner[0] == 'l'
+    until stars > size
+      puts line
+      stars += 1
+    end
+  end
+
+end
+
+triangle(5, 'ul')
+triangle(5, 'ur')
+triangle(5, 'll')
+triangle(5, 'lr')
 
 ### 5 BANNERIZER
 # def print_in_box(string)
