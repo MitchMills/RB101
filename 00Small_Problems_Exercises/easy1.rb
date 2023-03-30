@@ -1,5 +1,41 @@
-### 8 REVERSE THE DIGITS
+### 9 GET MIDDLE CHARACTER
+def center_of(string)
+  return string if string.length <= 2
+  midpoint = (string.length / 2)
+  string.length.odd? ? string[midpoint] : string[midpoint - 1, 2]
+end
 
+# def center_of(string)
+#   array = string.size.divmod(2)
+#   string[(array[0] + array[1] - 1)..array[0]]
+# end
+
+p center_of('I love ruby') == 'e'
+p center_of('Launch School') == ' '
+p center_of('Launch') == 'un'
+p center_of('Launchschool') == 'hs'
+p center_of('x') == 'x'
+
+### 8 REVERSE THE DIGITS
+# def reversed_number(num)
+#   num.digits.join.to_i
+# end
+
+# def reversed_number(num)
+#   array = num.digits
+#   reversed_string = ""
+#   array.each do |digit|
+#     reversed_string << digit.to_s
+#   end
+#   reversed_string.to_i
+# end
+
+# p reversed_number(12345) == 54321
+# p reversed_number(12213) == 31221
+# p reversed_number(456) == 654
+# p reversed_number(12000) == 21 # No leading zeros in return value!
+# p reversed_number(12003) == 30021
+# p reversed_number(1) == 1
 
 ### 7 MADLIBS
 # def get_words
