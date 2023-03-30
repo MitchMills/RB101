@@ -1,5 +1,24 @@
-### 7 MADLIBS
+### 8 REVERSE THE DIGITS
 
+
+### 7 MADLIBS
+# def get_words
+#   categories = ['noun', 'verb', 'adjective', 'adverb']
+#   words = {}
+#   categories.each do |word|
+#     article = ("aeiou".include?(word[0])) ? 'an' : 'a'
+#     print "Enter #{article} #{word}: "
+#     words[word.to_sym] = gets.chomp
+#   end
+#   words
+# end
+
+# def print_story
+#   words = get_words
+#   puts "Do you #{words[:verb]} your #{words[:adjective]} #{words[:noun]} #{words[:adverb]}? That's hilarious!"
+# end
+
+# print_story
 
 ### 6 RIGHT TRIANGLES
 # def triangle(num)
@@ -22,9 +41,9 @@
 # end
 
 # def triangle(num)
-#   line = 1
+#   stars = 1
 #   until line > num
-#     puts ("*" * line).ljust(num)
+#     puts ("*" * stars).ljust(num)
 #     line += 1
 #   end
 # end
@@ -37,37 +56,26 @@
 #   end
 # end
 
-def triangle(size, corner)
-  if corner[0] == 'u'
-    stars = size
-  elsif corner[0] == 'l'
-    stars = 1
-  end
+# def triangle(size, right_angle)
+#   start = (right_angle[0] == 'b') ? 1 : size
+#   increment = (right_angle[0] == 'b') ? 1 : -1
+#   stop = (right_angle[0] == 'b') ? (size + 1) : 0
+  
+#   until start == stop
+#     if right_angle[1] == 'l'
+#       puts '*' * start
+#     else
+#       puts ('*' * start).rjust(size)
+#     end
 
-  if corner[1] == 'l'
-    line = ("*" * stars).ljust(size)
-  elsif corner[1] == 'r'
-    line = ("*" * stars).rjust(size)
-  end
+#     start += increment
+#   end
+# end
 
-  if corner[0] == 'u'
-    until stars == 0
-      puts line
-      stars -= 1
-    end
-  elsif corner[0] == 'l'
-    until stars > size
-      puts line
-      stars += 1
-    end
-  end
-
-end
-
-triangle(5, 'ul')
-triangle(5, 'ur')
-triangle(5, 'll')
-triangle(5, 'lr')
+# triangle(5, 'tl')
+# triangle(5, 'tr')
+# triangle(5, 'bl')
+# triangle(5, 'br')
 
 ### 5 BANNERIZER
 # def print_in_box(string)
