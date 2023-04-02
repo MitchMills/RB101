@@ -1,3 +1,79 @@
+### 8 SUM OR PRODUCT OF CONSECUTIVE INTEGERS
+number = 0
+loop do
+  print "Please enter an integer greater than 0: "
+  number = gets.chomp.to_i
+  break if number > 0
+  puts "Try again!"
+end
+
+choice = nil
+loop do
+  print "Enter 's' to compute the sum, 'p' to compute the product: "
+  choice = gets.chomp
+  break if ['s', 'p'].include?(choice)
+  puts "Try again!"
+end
+
+result = 1
+range = (2..number)
+if choice == 's'
+  range.each { |num| result += num }
+  puts "The sum of the integers between 1 and 5 is #{result}."
+else
+  range.each { |num| result *= num }
+  puts "The product of the integers between 1 and 5 is #{result}."
+end
+
+
+
+
+    
+
+
+
+### 7 EVEN NUMBERS
+
+### 6 ODD NUMBERS
+# puts (1..99).reject { |num| num.even? }
+# puts (1..99).select { |num| num.odd? }
+# puts (1..99).filter { |num| num.odd? }
+# puts (1..99).find_all { |num| num.odd? }
+
+# 1.step(to: 99, by: 2) { |num| puts num }
+
+# 99.times do |idx|
+#   count = idx + 1
+#   puts count if count.odd?
+# end
+
+# for num in (1..99)
+#   puts num if num.odd?
+# end
+
+# num = 1
+# until num > 99
+#   puts num 
+#   num += 2
+# end
+
+# while num < 100
+#   puts num
+#   num += 2
+# end
+
+# loop do
+#   puts num
+#   num += 2
+#   break if num > 99
+# end
+
+# 1.upto(99) { |num| puts num if num.odd? }
+
+# (1..99).each { |num| puts num if num.odd? }
+
+# (1..99).step(2) { |num| puts num}
+
 ### 5 GREETING A USER
 # print "What is your name? "
 # name = gets.chomp
