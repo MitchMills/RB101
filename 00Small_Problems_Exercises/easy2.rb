@@ -1,36 +1,60 @@
+### 10 ALWAYS RETURN NEGATIVE
+def negative(num)
+  num > 0 ? -num : num
+end
+
+p negative(5) == -5
+p negative(-3) == -3
+p negative(0) == 0
+
+### 9 STRING ASSIGNMENT
+# name = 'Bob'
+# save_name = name
+# name.upcase!
+# puts name, save_name
+=begin
+- On line 1 we initialize a variable `name` and assign it to point to a string object with the value 'Bob'.
+- On line 2 we initialize a variable `save_name` and assign it to point to the same object as `name` (a string object with value 'Bob')
+- On line 3 we invoke the `upcase!` method on `name`. This mutates in place the string object that `name` references. That string object now has the value `BOB`
+- Both `name` and `save_name` still point to the same string object. So when `puts` is called on line 4, with `name` and `save_name` passed in as arguments, it will output 'BOB' for both variables.
+- This example demonstrates how Ruby appears to use pass by reference when dealing with mutating methods. The value of the referenced object has changed, so both variables are affected.
+
+=end
+
 ### 8 SUM OR PRODUCT OF CONSECUTIVE INTEGERS
-number = 0
-loop do
-  print "Please enter an integer greater than 0: "
-  number = gets.chomp.to_i
-  break if number > 0
-  puts "Try again!"
-end
+# number = 0
+# loop do
+#   print "Please enter an integer greater than 0: "
+#   number = gets.chomp.to_i
+#   break if number > 0
+#   puts "Try again!"
+# end
 
-choice = nil
-loop do
-  print "Enter 's' to compute the sum, 'p' to compute the product: "
-  choice = gets.chomp
-  break if ['s', 'p'].include?(choice)
-  puts "Try again!"
-end
+# choice = nil
+# loop do
+#   print "Enter 's' to compute the sum, 'p' to compute the product: "
+#   choice = gets.chomp.downcase
+#   break if ['s', 'p'].include?(choice)
+#   puts "Try again!"
+# end
 
-result = 1
-range = (2..number)
-if choice == 's'
-  range.each { |num| result += num }
-  puts "The sum of the integers between 1 and 5 is #{result}."
-else
-  range.each { |num| result *= num }
-  puts "The product of the integers between 1 and 5 is #{result}."
-end
+# result = 1
+# range = (2..number)
+# if choice == 's'
+#   range.each { |num| result += num }
+#   puts "The sum of the integers between 1 and #{number} is #{result}."
+# else
+#   range.each { |num| result *= num }
+#   puts "The product of the integers between 1 and #{number} is #{result}."
+# end
 
-
-
-
-    
-
-
+# if choice == 's'
+#   result = (1..number).inject(:+)
+#   puts "The sum of the integers between 1 and #{number} is #{result}."
+# elsif choice == 'p'
+#   result = (1..number).inject(:*)
+#   puts "The product of the integers between 1 and #{number} is #{result}."
+# end
 
 ### 7 EVEN NUMBERS
 
@@ -47,6 +71,10 @@ end
 #   puts count if count.odd?
 # end
 
+# 50.times do |idx|
+#   puts (idx * 2) + 1
+# end
+
 # for num in (1..99)
 #   puts num if num.odd?
 # end
@@ -61,6 +89,15 @@ end
 #   puts num
 #   num += 2
 # end
+
+# numbers = []
+# current_number = 1
+# loop do
+#   numbers << current_number
+#   current_number += 2
+#   break if current_number > 99
+# end
+# puts numbers
 
 # loop do
 #   puts num
