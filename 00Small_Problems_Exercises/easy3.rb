@@ -1,5 +1,32 @@
-### 2 ARITHMETIC INTEGER
+### 3 COUNTING THE NUMBER OF CHARACTERS
 
+
+### 2 ARITHMETIC INTEGER
+# OPERATIONS = [:+, :-, :*, :/, :%, :**]
+
+# def get_number(order)
+#   print "Enter the #{order} number: "
+#   number = gets.chomp.to_i
+# end
+
+# def get_numbers
+#   numbers = []
+#   numbers << get_number("first")
+#   numbers << get_number("second")
+# end
+
+# def get_result(numbers, operation)
+#   numbers.inject(operation)
+# end
+
+# def display_results
+#   numbers = get_numbers
+#   OPERATIONS.each do |op|
+#     puts "#{numbers[0]} #{op} #{numbers[1]} = #{get_result(numbers, op)}"
+#   end
+# end
+
+# display_results
 
 ### 1 SEARCHING 101
 # def suffix(num)
