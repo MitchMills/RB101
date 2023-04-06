@@ -1,5 +1,60 @@
-### 4 MULTIPLYING TWO NUMBERS
+### 7 PALINDROMIC STRINGS I
+def palindrome?(string)
+  string.reverse == string
+end
 
+p palindrome?('madam') == true
+p palindrome?('Madam') == false          # (case matters)
+p palindrome?("madam i'm adam") == false # (all characters matter)
+p palindrome?('356653') == true
+
+### 6 EXCLUSIVE OR
+# def xor?(value1, value2)
+#   !!( (value1 && !value2) || (value2 && !value1) )
+# end
+
+# def xor?(arg1, arg2)
+#   count = 0
+#   count += 1 if arg1
+#   count += 1 if arg2
+#   return true if count == 1
+#   false
+# end
+
+# p xor?(5.even?, 4.even?) == true
+# p xor?(5.odd?, 4.odd?) == true
+# p xor?(5.odd?, 4.even?) == false
+# p xor?(5.even?, 4.odd?) == false
+
+### 5 SQUARING AN ARGUMENT
+# def multiply(num1, num2)
+#   num1 * num2
+# end
+
+# def square(num)
+#   multiply(num, num)
+# end
+
+# def powered(num, exponent)
+#   result = num
+#   (exponent-1).times do
+#     result = multiply(result, num)
+#   end
+#   result
+# end
+
+# # p square(5) == 25
+# # p square(-8) == 64
+# p powered(2, 2) == 4
+# p powered(2, 3) == 8
+# p powered(3, 3) == 27
+
+### 4 MULTIPLYING TWO NUMBERS
+# def multiply(num1, num2)
+#   num1 * num2
+# end
+
+# p multiply(['a', 'b'], 3)
 
 ### 3 COUNTING THE NUMBER OF CHARACTERS
 # print "Please write word or multiple words: "
