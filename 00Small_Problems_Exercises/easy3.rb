@@ -1,15 +1,48 @@
-### 8 PALINDROMIC STRINGS II
-def real_palindrome?(string)
-  string = string.downcase.delete('^a-z0-9')
-  string == string.reverse
+### 10 UPPERCASE CHECK
+def uppercase?(string)
+  string == string.upcase
 end
 
-p real_palindrome?('madam') == true
-p real_palindrome?('Madam') == true           # (case does not matter)
-p real_palindrome?("Madam, I'm Adam") == true # (only alphanumerics matter)
-p real_palindrome?('356653') == true
-p real_palindrome?('356a653') == true
-p real_palindrome?('123ab321') == false
+p uppercase?('t') == false
+p uppercase?('T') == true
+p uppercase?('Four Score') == false
+p uppercase?('FOUR SCORE') == true
+p uppercase?('4SCORE!') == true
+p uppercase?('') == true
+
+### 9 PALINDROMIC NUMBERS
+# def palindromic_number?(num)
+#   num.digits == num.digits.reverse
+# end
+
+# def palindromic_number?(num)
+#   num.to_s == num.to_s.reverse
+# end
+
+# p palindromic_number?(34543) == true
+# p palindromic_number?(123210) == false
+# p palindromic_number?(22) == true
+# p palindromic_number?(5) == true
+
+### 8 PALINDROMIC STRINGS II
+# def real_palindrome?(string)
+#   stripped_string = string.downcase.chars.select do |char|
+#                       ('a'..'z').include?(char) || ('0'..'9').include?(char)
+#                     end.join
+#   stripped_string == stripped_string.reverse
+# end
+
+# def real_palindrome?(string)
+#   string = string.downcase.delete('^a-z0-9')
+#   string == string.reverse
+# end
+
+# p real_palindrome?('madam') == true
+# p real_palindrome?('Madam') == true           # (case does not matter)
+# p real_palindrome?("Madam, I'm Adam") == true # (only alphanumerics matter)
+# p real_palindrome?('356653') == true
+# p real_palindrome?('356a653') == true
+# p real_palindrome?('123ab321') == false
 
 ### 7 PALINDROMIC STRINGS I
 # def palindrome?(input)
