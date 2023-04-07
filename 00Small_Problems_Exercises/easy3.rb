@@ -1,24 +1,50 @@
-### 7 PALINDROMIC STRINGS I
-def palindrome?(string)
-  string.reverse == string
+### 8 PALINDROMIC STRINGS II
+def real_palindrome?(string)
+  string = string.downcase.delete('^a-z0-9')
+  string == string.reverse
 end
 
-p palindrome?('madam') == true
-p palindrome?('Madam') == false          # (case matters)
-p palindrome?("madam i'm adam") == false # (all characters matter)
-p palindrome?('356653') == true
+p real_palindrome?('madam') == true
+p real_palindrome?('Madam') == true           # (case does not matter)
+p real_palindrome?("Madam, I'm Adam") == true # (only alphanumerics matter)
+p real_palindrome?('356653') == true
+p real_palindrome?('356a653') == true
+p real_palindrome?('123ab321') == false
+
+### 7 PALINDROMIC STRINGS I
+# def palindrome?(input)
+#   input.reverse == input
+# end
+
+# def palindrome?(input)
+#   reverse = input.class.new
+#   (input.size - 1).downto(0) do |idx|
+#     reverse << input[idx]
+#   end
+#   input == reverse
+# end
+
+# p palindrome?('madam') == true
+# p palindrome?('Madam') == false          # (case matters)
+# p palindrome?("madam i'm adam") == false # (all characters matter)
+# p palindrome?('356653') == true
+# p palindrome?([1, 2, 3, 2, 1]) == true
+# p palindrome?(['ant', 'man', 'ant']) == true
 
 ### 6 EXCLUSIVE OR
+# def xor?(val1, val2)
+#   !val1 != !val2
+# end
+
 # def xor?(value1, value2)
 #   !!( (value1 && !value2) || (value2 && !value1) )
 # end
 
 # def xor?(arg1, arg2)
 #   count = 0
-#   count += 1 if arg1
-#   count += 1 if arg2
-#   return true if count == 1
-#   false
+#   count += 1 if !!arg1
+#   count += 1 if !!arg2
+#   count == 1
 # end
 
 # p xor?(5.even?, 4.even?) == true
