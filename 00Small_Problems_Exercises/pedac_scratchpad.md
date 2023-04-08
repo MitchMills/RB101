@@ -1,51 +1,27 @@
 # PROBLEM
-Write a method that takes a year as input and returns the century. The return value should be a string that begins with the century number, and ends with st, nd, rd, or th as appropriate for that number.
+In the modern era under the Gregorian Calendar, leap years occur in every year that is evenly divisible by 4, unless the year is also divisible by 100. If the year is evenly divisible by 100, then it is not a leap year unless the year is evenly divisible by 400.
 
-New centuries begin in years that end with 01. So, the years 1901-2000 comprise the 20th century.
+Assume this rule is good for any year greater than year 0. Write a method that takes any year greater than 0 as input, and returns true if the year is a leap year, or false if it is not a leap year.
 
-  Input: integer
-  Output: string
+  Input: 
+  Output:
 
   ## Rules
   ### explicit
-  - input is an integer representing a year
-  - output is a string representing the century
-    - begins with century number
-    - ends with appropriate suffix ('st', 'nd', 'rd', or 'th')
-  - new centuries begin in years that end with 01
-    - e.g. 1900 = 19th century, 1901 = 20th century
   
   ### implicit
-  - Assume the year is AD / CE
+
 
   ## Questions
 
 
 # EXAMPLES
-century(2000) == '20th'
-century(2001) == '21st'
-century(1965) == '20th'
-century(256) == '3rd'
-century(5) == '1st'
-century(10103) == '102nd'
-century(1052) == '11th'
-century(1127) == '12th'
-century(11201) == '113th'
+
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- divide input integer by 100
-  - if modulus == 0, then `century` = (quotient + 1)
-  - else `century` = quotient
-- convert `century` to a string
-  - get last character to determine `suffix`
-    - if '1' => 'st'
-    - if '2' => 'nd'
-    - if '3' => 'rd'
-    - else => 'th'
-- return `century` + `suffix`
 
 
 # # # # # # # # #
