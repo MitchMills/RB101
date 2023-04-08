@@ -1,7 +1,28 @@
 ### 3 LEAP YEARS I
-def leap_year(year)
+# def leap_year?(year)
+#   (year % 100 == 0) ? (year % 400 == 0) : (year % 4 == 0)
+# end
 
-end
+# def leap_year?(year)
+#   if year % 4 == 0
+#     if year % 100 == 0
+#       return false unless year % 400 == 0
+#     end
+#     true
+#   else
+#     false
+#   end
+# end
+
+# def leap_year?(year)
+#   if year % 400 == 0
+#     true
+#   elsif year % 100 == 0
+#     false
+#   else
+#     year % 4 == 0
+#   end
+# end
 
 p leap_year?(2016) == true
 p leap_year?(2015) == false
