@@ -1,46 +1,38 @@
 # PROBLEM
-Write a method that takes an Array of numbers, and returns an Array with the same number of elements, and each element has the running total from the original Array.
+The String#to_i method converts a string of numeric characters (including an optional plus or minus sign) to an Integer. String#to_i and the Integer constructor (Integer()) behave similarly. In this exercise, you will create a method that does the same thing.
 
-A running total is the sum of all values in a list up to and including the current element. Thus, the running total when looking at index 2 of the array [14, 11, 7, 15, 20] is 32 (14 + 11 + 7), while the running total at index 3 is 47 (14 + 11 + 7 + 15).
+Write a method that takes a String of digits, and returns the appropriate number as an integer. You may not use any of the methods mentioned above.
 
-  Input: array
-  Output: array
+For now, do not worry about leading + or - signs, nor should you worry about invalid characters; assume all characters will be numeric.
+
+You may not use any of the standard conversion methods available in Ruby to convert a string to a number, such as String#to_i, Integer(), etc. Your method should do this the old-fashioned way and calculate the result by analyzing the characters in the string.
+
+  Input: 
+  Output:
 
   ## Rules
   ### explicit
-  - input array contains numbers
-  - output array contains same number of elements as input array
-  - each element of output array has running total from original array
-    - running total is the sum of all values in the input array up to and including the current element
-
+  
   ### implicit
-  - first element of output array will be the same as first element of input array
-  - if input array is empty, return empty array
+
 
   ## Questions
 
 
 # EXAMPLES
-running_total([2, 5, 13]) == [2, 7, 20]
-running_total([14, 11, 7, 15, 20]) == [14, 25, 32, 47, 67]
-running_total([3]) == [3]
-running_total([]) == []
+string_to_integer('4321') == 4321
+string_to_integer('570') == 570
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- initialize a variable `total` and set its value to `0`
-- iterate over the input array
-  - for each element in the input array, add its value to `total`
-  - set the corresponding element in the output array to `total`
-- return output array
 
 
 
-# # # # # # # # #
-# # # # # # # # #
-# # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # #
 
 # PROBLEM
 

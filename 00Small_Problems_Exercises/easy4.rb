@@ -1,3 +1,11 @@
+### 7 CONVERT A STRING TO A NUMBER!
+def string_to_integer(str)
+
+end
+
+string_to_integer('4321') == 4321
+string_to_integer('570') == 570
+
 ### 6 RUNNING TOTALS
 # def running_total(array)
 #   total = 0
@@ -15,12 +23,17 @@
 
 # def running_total(array)
 #   total = 0
-#   array.each_with_object([]) { |num, array| array << total += num }
+#   array.each_with_object([]) { |num, result| result << total += num }
 # end
 
 # def running_total(array)
 #   total_array = []
-#   array.inject(0) { |sum, num| total_array[array.index(num)] = sum + num }
+#   index = 0
+#   array.inject(0) do |sum, num|
+#     total_array[index] = sum += num
+#     index += 1
+#     sum
+#   end
 #   total_array
 # end
 
@@ -33,11 +46,11 @@
 #   array.inject([]) { |total_array, num| total_array << total += num }
 # end
 
+# p running_total([1, 1, 1, 1, 1]) == [1, 2, 3, 4, 5]
 # p running_total([2, 5, 13]) == [2, 7, 20]
 # p running_total([14, 11, 7, 15, 20]) == [14, 25, 32, 47, 67]
 # p running_total([3]) == [3]
 # p running_total([]) == []
-
 
 ### 5 MULTIPLES OF 3 AND 5
 # def multisum(num)
