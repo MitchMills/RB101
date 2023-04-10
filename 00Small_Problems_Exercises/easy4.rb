@@ -1,10 +1,61 @@
+### 6 RUNNING TOTALS
+# def running_total(array)
+#   total = 0
+#   array.map { |num| total += num }
+# end
+
+# def running_total(array)
+#   total = 0
+#   total_array = []
+#   array.each do |num|
+#     total_array << total += num
+#   end
+#   total_array
+# end
+
+# def running_total(array)
+#   total = 0
+#   array.each_with_object([]) { |num, array| array << total += num }
+# end
+
+# def running_total(array)
+#   total_array = []
+#   array.inject(0) { |sum, num| total_array[array.index(num)] = sum + num }
+#   total_array
+# end
+
+# def running_total(array)
+#   array.inject([]) { |result, element| result << result.last.to_i + element }
+# end
+
+# def running_total(array)
+#   total = 0
+#   array.inject([]) { |total_array, num| total_array << total += num }
+# end
+
+# p running_total([2, 5, 13]) == [2, 7, 20]
+# p running_total([14, 11, 7, 15, 20]) == [14, 25, 32, 47, 67]
+# p running_total([3]) == [3]
+# p running_total([]) == []
+
+
 ### 5 MULTIPLES OF 3 AND 5
+# def multisum(num)
+#   total = 0
+#   1.upto(num) do |i|
+#     total += i if (i % 3 == 0 || i % 5 == 0)
+#   end
+#   total
+# end
 
+# def multisum(max)
+#   (1..max).select { |num| num % 3 == 0 || num % 5 == 0}.sum
+# end
 
-p multisum(3) == 3
-p multisum(5) == 8
-p multisum(10) == 33
-p multisum(1000) == 234168
+# p multisum(3) == 3 # (1, 2, 3) => 3
+# p multisum(5) == 8 # (1, 2, 3, 4, 5) => 3 + 5
+# p multisum(10) == 33 #(1..10) => 3 + 5 + 6 + 9 + 10
+# p multisum(1000) == 234168
 
 ### 4 LEAP YEARS II
 # def leap_year?(year)
