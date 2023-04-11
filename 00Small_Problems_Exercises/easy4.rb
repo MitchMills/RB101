@@ -1,33 +1,44 @@
-### 7 CONVERT A STRING TO A NUMBER!
-INTEGERS = Hash.new
-('0'..'9').each_with_index { |char, idx| INTEGERS[char] = idx }
+### 8 CONVERT A STRING TO A SIGNED NUMBER!
 
-# def string_to_digits(str)
-#   digits = []
-#   str.each_char do |char|
-#     digits << INTEGERS[char]
-#   end
-#   digits
+p string_to_signed_integer('4321') == 4321
+p string_to_signed_integer('-570') == -570
+p string_to_signed_integer('+100') == 100
+
+### 7 CONVERT A STRING TO A NUMBER!
+# NUMBERS = Hash.new
+# ('0'..'9').each_with_index { |char, idx| NUMBERS[char] = idx }
+
+# LETTERS = Hash.new
+# ('a'..'f').each_with_index { |char, idx| LETTERS[char] = idx + 10 }
+
+# HEXADECIMALS = NUMBERS.merge(LETTERS)
+
+# def hexadecimal_to_integer(str)
+#   digits = str.downcase.chars.map { |char| HEXADECIMALS[char] }.reverse
+#   digits.map.each_with_index { |digit, idx| digit * 16**idx }.sum
 # end
 
+# p hexadecimal_to_integer('4D9f') #== 19871
+# p hexadecimal_to_integer('1E240')
+
 # def string_to_integer(str)
-#   digits = string_to_digits(str).reverse
+#   digits = str.chars.map { |char| INTEGERS[char] }.reverse
 #   digits.map.each_with_index { |digit, idx| digit * 10**idx }.sum
 # end
 
-def string_to_integer(string)
-  digits = string.chars.map { |char| INTEGERS[char] }
-  p digits
-  value = 0
-  digits.each do |digit| 
-    value = 10 * value + digit
-    p value
-  end
-  value
-end
+# def string_to_integer(string)
+#   digits = string.chars.map { |char| INTEGERS[char] }
+#   p digits
+#   value = 0
+#   digits.each do |digit| 
+#     value = 10 * value + digit
+#     p value
+#   end
+#   value
+# end
 
-p string_to_integer('4321') == 4321
-p string_to_integer('570') == 570
+# p string_to_integer('4321') == 4321
+# p string_to_integer('570') == 570
 
 ### 6 RUNNING TOTALS
 # def running_total(array)
