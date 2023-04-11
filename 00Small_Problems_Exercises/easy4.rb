@@ -1,10 +1,33 @@
 ### 7 CONVERT A STRING TO A NUMBER!
-def string_to_integer(str)
+INTEGERS = Hash.new
+('0'..'9').each_with_index { |char, idx| INTEGERS[char] = idx }
 
+# def string_to_digits(str)
+#   digits = []
+#   str.each_char do |char|
+#     digits << INTEGERS[char]
+#   end
+#   digits
+# end
+
+# def string_to_integer(str)
+#   digits = string_to_digits(str).reverse
+#   digits.map.each_with_index { |digit, idx| digit * 10**idx }.sum
+# end
+
+def string_to_integer(string)
+  digits = string.chars.map { |char| INTEGERS[char] }
+  p digits
+  value = 0
+  digits.each do |digit| 
+    value = 10 * value + digit
+    p value
+  end
+  value
 end
 
-string_to_integer('4321') == 4321
-string_to_integer('570') == 570
+p string_to_integer('4321') == 4321
+p string_to_integer('570') == 570
 
 ### 6 RUNNING TOTALS
 # def running_total(array)
@@ -44,6 +67,14 @@ string_to_integer('570') == 570
 # def running_total(array)
 #   total = 0
 #   array.inject([]) { |total_array, num| total_array << total += num }
+# end
+
+# def running_total(array)
+#   total_array = []
+#   array.each_with_index do |num, idx|
+#     total_array << array[0..idx].inject(:+)
+#   end
+#   total_array
 # end
 
 # p running_total([1, 1, 1, 1, 1]) == [1, 2, 3, 4, 5]
