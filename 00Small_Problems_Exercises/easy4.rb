@@ -1,8 +1,29 @@
-### 8 CONVERT A STRING TO A SIGNED NUMBER!
+### 9 CONVERT A NUMBER TO A STRING!
+def integer_to_string(num)
 
-p string_to_signed_integer('4321') == 4321
-p string_to_signed_integer('-570') == -570
-p string_to_signed_integer('+100') == 100
+end
+
+integer_to_string(4321) == '4321'
+integer_to_string(0) == '0'
+integer_to_string(5000) == '5000'
+
+### 8 CONVERT A STRING TO A SIGNED NUMBER!
+# INTEGERS = Hash.new
+# ('0'..'9').each_with_index { |char, idx| INTEGERS[char] = idx }
+
+# def string_to_integer(str)
+#   digits = str.chars.map { |char| INTEGERS[char] }.reverse
+#   digits.map.each_with_index { |digit, idx| digit * 10**idx }.sum
+# end
+
+# def string_to_signed_integer(str)
+#   result = string_to_integer(str.delete('+-'))
+#   str.chr == '-' ? -result : result
+# end
+
+# p string_to_signed_integer('4321') == 4321
+# p string_to_signed_integer('-570') == -570
+# p string_to_signed_integer('+100') == 100
 
 ### 7 CONVERT A STRING TO A NUMBER!
 # NUMBERS = Hash.new
