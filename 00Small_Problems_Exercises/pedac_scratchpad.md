@@ -8,7 +8,7 @@ You may not use any of the standard conversion methods available in Ruby, such a
 
   ## Rules
   ### explicit
-  
+  - input integer is non-negative (zero or positive)
   ### implicit
 
 
@@ -16,13 +16,18 @@ You may not use any of the standard conversion methods available in Ruby, such a
 
 
 # EXAMPLES
-
+integer_to_string(4321) == '4321'
+integer_to_string(0) == '0'
+integer_to_string(5000) == '5000'
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-
+- create a hash with integers as keys and their respective string representations as values
+- convert input integer into an array of individual digits
+- join those digits into a string
+- return the string 
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #

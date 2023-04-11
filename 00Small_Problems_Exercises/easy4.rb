@@ -1,11 +1,21 @@
 ### 9 CONVERT A NUMBER TO A STRING!
-def integer_to_string(num)
+INT_STRINGS = ('0'..'9').to_a
 
+# def integer_to_string(num)
+#   num.digits.reverse.join
+# end
+
+def integer_to_string(num)
+  num.digits.reverse.each_with_object("") { |num, str| str << INT_STRINGS[num] }
 end
 
-integer_to_string(4321) == '4321'
-integer_to_string(0) == '0'
-integer_to_string(5000) == '5000'
+# def integer_to_string(num)
+#   [num].join
+# end
+
+p integer_to_string(4321) == '4321'
+p integer_to_string(0) == '0'
+p integer_to_string(5000) == '5000'
 
 ### 8 CONVERT A STRING TO A SIGNED NUMBER!
 # INTEGERS = Hash.new
