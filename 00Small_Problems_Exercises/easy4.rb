@@ -1,21 +1,50 @@
-### 9 CONVERT A NUMBER TO A STRING!
+### 10 CONVERT A SIGNED NUMBER TO A STRING!
 INT_STRINGS = ('0'..'9').to_a
-
-# def integer_to_string(num)
-#   num.digits.reverse.join
-# end
+# ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 def integer_to_string(num)
   num.digits.reverse.each_with_object("") { |num, str| str << INT_STRINGS[num] }
 end
 
+def signed_integer_to_string(num)
+  return '0' if num == 0
+  result = integer_to_string(num.abs)
+  num.positive? ? result.prepend('+') : result.prepend('-')
+end
+
+p signed_integer_to_string(4321) == '+4321'
+p signed_integer_to_string(-123) == '-123'
+p signed_integer_to_string(0) == '0'
+
+### 9 CONVERT A NUMBER TO A STRING!
+# INT_STRINGS = ('0'..'9').to_a
+# # ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+# # def integer_to_string(num)
+# #   num.digits.reverse.join
+# # end
+
 # def integer_to_string(num)
-#   [num].join
+#   num.digits.reverse.each_with_object("") { |num, str| str << INT_STRINGS[num] }
 # end
 
-p integer_to_string(4321) == '4321'
-p integer_to_string(0) == '0'
-p integer_to_string(5000) == '5000'
+# # def integer_to_string(num)
+# #   [num].join
+# # end
+
+# def integer_to_string(number)
+#   result = ''
+#   loop do
+#     number, remainder = number.divmod(10)
+#     result.prepend(INT_STRINGS[remainder])
+#     break if number == 0
+#   end
+#   result
+# end
+
+# p integer_to_string(4321) == '4321'
+# p integer_to_string(0) == '0'
+# p integer_to_string(5000) == '5000'
 
 ### 8 CONVERT A STRING TO A SIGNED NUMBER!
 # INTEGERS = Hash.new
