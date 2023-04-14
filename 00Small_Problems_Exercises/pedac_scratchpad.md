@@ -1,36 +1,37 @@
 # PROBLEM
-Write a method that takes an integer, and converts it to a string representation.
+The time of day can be represented as the number of minutes before or after midnight. If the number of minutes is positive, the time is after midnight. If the number of minutes is negative, the time is before midnight.
 
-You may not use any of the standard conversion methods available in Ruby, such as Integer#to_s, String(), Kernel#format, etc. You may, however, use integer_to_string from the previous exercise.
+Write a method that takes a time using this minute-based format and returns the time of day in 24 hour format (hh:mm). Your method should work with any integer input.
 
-  Input: integer
-  Output: string
+You may not use ruby's Date and Time classes.
+
+  Input: 
+  Output:
 
   ## Rules
   ### explicit
   
   ### implicit
-  - if input integer is positive, output string will begin with a `+`
-  - if input integer is negative, output string will begin with a `-`
-  - if input ingeger is 0, output `'0'` (no sign)
+
 
   ## Questions
 
 
 # EXAMPLES
-signed_integer_to_string(4321) == '+4321'
-signed_integer_to_string(-123) == '-123'
-signed_integer_to_string(0) == '0'
+time_of_day(0) == "00:00"
+time_of_day(-3) == "23:57"
+time_of_day(35) == "00:35"
+time_of_day(-1437) == "00:03"
+time_of_day(3000) == "02:00"
+time_of_day(800) == "13:20"
+time_of_day(-4231) == "01:29"
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- if input integer is 0 return '0'
-- else set a variable `positive` to `true` if positive or `false` if negative
-- pass absolute value of integer to `integer_to_string`
-- if `positive` is true, prepend `+`
-- if `positive` is false, prepend `-`
+
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
