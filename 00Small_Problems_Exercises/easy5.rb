@@ -1,12 +1,35 @@
+### 4 LETTER SWAP
 
+p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
+p swap('Abcde') == 'ebcdA'
+p swap('a') == 'a'
 
 ### 3 AFTER MIDNIGHT II
-SECONDS_PER_MINUTE = 60
-MIDNIGHT = Time.new(Time.now.year)
+# SECONDS_PER_MINUTE = 60
+# MINUTES_PER_DAY = 1440
+# CURRENT_YEAR = Time.now.year
+# MIDNIGHT = Time.new(CURRENT_YEAR)
 
-def after_midnight(time)
-  MIDNIGHT - time
-end
+# def get_time(time_string)
+#   hours, minutes = time_string[0..1].to_i, time_string[3..4].to_i
+#   time = Time.new(CURRENT_YEAR, 1, 1, hours, minutes)
+# end
+
+# def after_midnight(time_string)
+#   time = get_time(time_string)
+#   (((time - MIDNIGHT) / SECONDS_PER_MINUTE).to_i) % MINUTES_PER_DAY
+# end
+
+# def before_midnight(time_string)
+#   (MINUTES_PER_DAY - after_midnight(time_string)) % MINUTES_PER_DAY
+# end
+
+# p after_midnight('00:00') #== 0
+# p before_midnight('00:00') #== 0
+# p after_midnight('12:34') #== 754
+# p before_midnight('12:34') #== 686
+# p after_midnight('24:00') #== 0
+# p before_midnight('24:00') #== 0
 
 # MINUTES_PER_HOUR = 60
 # MINUTES_PER_DAY = 1440
@@ -41,13 +64,6 @@ end
 # def before_midnight(time)
 #   MINUTES_PER_DAY - get_total_minutes(time, 'before')
 # end
-
-p after_midnight('00:00') #== 0
-p before_midnight('00:00') #== 0
-p after_midnight('12:34') #== 754
-p before_midnight('12:34') #== 686
-p after_midnight('24:00') #== 0
-p before_midnight('24:00') #== 0
 
 ### 2 AFTER MIDNIGHT I
 # SECONDS_PER_MINUTE = 60
