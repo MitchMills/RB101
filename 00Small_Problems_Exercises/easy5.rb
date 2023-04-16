@@ -1,8 +1,33 @@
-### 4 LETTER SWAP
+### LETTER COUNTER I
 
-p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
-p swap('Abcde') == 'ebcdA'
-p swap('a') == 'a'
+p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 1, 6 => 1 }
+p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 1, 7 => 2 }
+p word_sizes("What's up doc?") == { 6 => 1, 2 => 1, 4 => 1 }
+p word_sizes('') == {}
+
+### 5 CLEAN UP THE WORDS
+# def cleanup(string)
+#   cleaned_up = string.chars.map { |char| ('a'..'z').include?(char) ? char : ' ' }
+#   string = cleaned_up.join.squeeze(' ')
+#   p string
+# end
+
+# p cleanup("---what's my +*& line?") == ' what s my line '
+
+### 4 LETTER SWAP
+# def swap(string)
+#   words = string.split
+#   words.each { |word| word[0], word[-1] = word[-1], word[0] }
+#   words.join(' ')
+# end
+
+# def swap(string)
+#   string.split.each { |word| word[0], word[-1] = word[-1], word[0] }.join(' ')
+# end
+
+# p swap('Oh what a wonderful day it is') #== 'hO thaw a londerfuw yad ti si'
+# p swap('Abcde') #== 'ebcdA'
+# p swap('a') #== 'a'
 
 ### 3 AFTER MIDNIGHT II
 # SECONDS_PER_MINUTE = 60
