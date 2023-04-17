@@ -1,10 +1,40 @@
+### ALPHABETICAL NUMBERS
+def alphabetic_number_sort(int_array)
+
+end
+
+p alphabetic_number_sort((0..19).to_a) == [
+  8, 18, 11, 15, 5,
+  4, 14, 9, 19, 1,
+  7, 17, 6, 16, 10,
+  13, 3, 12, 2, 0
+]
+
 ### LETTER COUNTER II
+# def word_sizes(string)
+#   words = string.split.map { |word| word.gsub(/[^[:alpha:]]/, '') }
+#   words.each_with_object(Hash.new(0)) { |word, hash| hash[word.size] += 1 }
+# end
 
+# def word_sizes(string)
+#   string.split.each_with_object(Hash.new(0)) do |word, hash|
+#     hash[word.count('A-Za-z')] += 1
+#   end
+# end
 
-p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 2 }
-p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
-p word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
-p word_sizes('') == {}
+# def word_sizes(words_string)
+#   counts = Hash.new(0)
+#   words_string.split.each do |word|
+#     clean_word = word.delete('^A-Za-z')
+#     counts[clean_word.size] += 1
+#   end
+#   counts
+# end
+
+# p word_sizes('[Four] score and seven.') == { 3 => 1, 4 => 1, 5 => 2 }
+# p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 3 }
+# p word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
+# p word_sizes('') == {}
 
 ### LETTER COUNTER I
 # def word_sizes(string)
@@ -21,6 +51,30 @@ p word_sizes('') == {}
 #   string.split.each_with_object(Hash.new(0)) do |word, hash|
 #     hash[word.size] += 1
 #   end
+# end
+
+# def word_sizes(string)
+#   string.split.each_with_object({}) do |word, hash|
+#     hash[word.size] = string.split.map {|word| word.size}.count(word.size)
+#   end
+# end
+
+# def word_sizes(string)
+#   words = string.split
+#   sizes = Hash.new do |hash, key| 
+#     hash[key] = words.map {|word| word.size}.count(key)
+#   end
+#   words.each { |word| sizes[word.size] }
+#   sizes
+# end
+
+# def word_sizes(string)
+#   word_sizes = string.split.map { |word| word.size }
+#   size_counts = Hash.new do |hash, key| 
+#     hash[key] = word_sizes.count(key)
+#   end
+#   word_sizes.uniq.each { |size| size_counts[size] }
+#   size_counts
 # end
 
 # p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 1, 6 => 1 }
