@@ -1,14 +1,45 @@
 ### ALPHABETICAL NUMBERS
-def alphabetic_number_sort(int_array)
+INTEGERS = (0..19).to_a
+INTEGER_WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
+INTEGERS_TO_WORDS = INTEGERS.zip(INTEGER_WORDS).to_h
+# { 0=>"zero",      1=>"one",         2=>"two",       3=>"three",
+#   4=>"four",      5=>"five",        6=>"six",       7=>"seven", 
+#   8=>"eight",     9=>"nine",        10=>"ten",      11=>"eleven", 
+#   12=>"twelve",   13=>"thirteen",   14=>"fourteen", 15=>"fifteen", 
+#   16=>"sixteen",  17=>"seventeen",  18=>"eighteen", 19=>"nineteen"}
 
-end
-
-p alphabetic_number_sort((0..19).to_a) == [
+SORTED_INTEGERS = [
   8, 18, 11, 15, 5,
   4, 14, 9, 19, 1,
   7, 17, 6, 16, 10,
   13, 3, 12, 2, 0
 ]
+
+# def alphabetic_number_sort(int_array)
+#   int_words = int_array.map { |int| INTEGERS_TO_WORDS[int] }.sort
+#   int_words.map { |word| INTEGERS_TO_WORDS.key(word) }
+# end
+
+# def alphabetic_number_sort(int_array)
+#   sorted_array = []
+#   int_array.map do |int|
+#     sorted_array[SORTED_INTEGERS.index(int)] = int
+#   end
+#   sorted_array.compact
+# end
+
+def alphabetic_number_sort(int_array)
+  sorted_array = int_array.map.each_with_object([]) do |int, array|
+    array[SORTED_INTEGERS.index(int)] = int
+  end.compact
+end
+
+p alphabetic_number_sort((0..15).to_a) #== [
+#   8, 18, 11, 15, 5,
+#   4, 14, 9, 19, 1,
+#   7, 17, 6, 16, 10,
+#   13, 3, 12, 2, 0
+# ]
 
 ### LETTER COUNTER II
 # def word_sizes(string)
