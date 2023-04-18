@@ -1,4 +1,29 @@
-### DDAAIILLYY DDOOUUBBLLEE
+### 10 SPIN ME AROUND IN CIRCLES
+string1 = "hello"
+p string1.object_id # => 60
+puts
+
+array1 = string1.split
+p array1 # => ["hello"]
+p array1.object_id # => 80
+puts
+
+p array1[0] # => "hello"
+p array1[0].object_id # => 100 
+puts
+
+p array1[0].object_id
+p array1[0] = array1[0].reverse!
+p array1[0].object_id
+p array1[0]
+puts
+
+string2 = array1.join
+p string2 # => "hello"
+p string2.object_id # => 120
+
+
+### 9 DDAAIILLYY DDOOUUBBLLEE
 # def crunch(string)
 #   new_string = ''
 #   string.each_char do |char|
@@ -7,19 +32,19 @@
 #   new_string
 # end
 
-def crunch(input_string)
-  input_string.each_char.each_with_object("") do |char, new_string|
-    new_string << char unless char == new_string[-1]
-  end 
-end
+# def crunch(input_string)
+#   input_string.each_char.with_object("") do |char, new_string|
+#     new_string << char unless char == new_string[-1]
+#   end 
+# end
 
-p crunch('ddaaiillyy ddoouubbllee') #== 'daily double'
-p crunch('4444abcabccba') #== '4abcabcba'
-p crunch('ggggggggggggggg') #== 'g'
-p crunch('a') #== 'a'
-p crunch('') #== ''
+# p crunch('ddaaiillyy ddoouubbllee') == 'daily double'
+# p crunch('4444abcabccba') == '4abcabcba'
+# p crunch('ggggggggggggggg') == 'g'
+# p crunch('a') == 'a'
+# p crunch('') == ''
 
-### ALPHABETICAL NUMBERS
+### 8 ALPHABETICAL NUMBERS
 # INTEGERS = (0..19).to_a
 # WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
 # INTEGERS_TO_WORDS = INTEGERS.zip(WORDS).to_h
@@ -60,7 +85,7 @@ p crunch('') #== ''
 # end
 
 # def alphabetic_number_sort(int_array)
-#   sorted_array = int_array.map.each_with_object([]) do |int, array|
+#   sorted_array = int_array.map.with_object([]) do |int, array|
 #     array[SORTED_INTEGERS.index(int)] = int
 #   end.compact
 # end
@@ -86,14 +111,15 @@ p crunch('') #== ''
 # end
 
 # p alphabetic_number_sort([1, 2, 3, 3, 3, 4, 5])
-# p alphabetic_number_sort((0..15).to_a) #== [
+# p alphabetic_number_sort((0..9).to_a)
+# p alphabetic_number_sort((0..19).to_a) == [
 #   8, 18, 11, 15, 5,
 #   4, 14, 9, 19, 1,
 #   7, 17, 6, 16, 10,
 #   13, 3, 12, 2, 0
 # ]
 
-### LETTER COUNTER II
+### 7 LETTER COUNTER II
 # def word_sizes(string)
 #   words = string.split.map { |word| word.gsub(/[^[:alpha:]]/, '') }
 #   words.each_with_object(Hash.new(0)) { |word, hash| hash[word.size] += 1 }
@@ -119,7 +145,7 @@ p crunch('') #== ''
 # p word_sizes("What's up doc?") == { 5 => 1, 2 => 1, 3 => 1 }
 # p word_sizes('') == {}
 
-### LETTER COUNTER I
+### 6 LETTER COUNTER I
 # def word_sizes(string)
 #   sizes = Hash.new(0)
 #   string.split.each { |word| sizes[word.size] += 1 }
