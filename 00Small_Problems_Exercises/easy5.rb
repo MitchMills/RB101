@@ -1,19 +1,40 @@
+### DDAAIILLYY DDOOUUBBLLEE
+# def crunch(string)
+#   new_string = ''
+#   string.each_char do |char|
+#     new_string << char unless char == new_string[-1]
+#   end
+#   new_string
+# end
+
+def crunch(input_string)
+  input_string.each_char.each_with_object("") do |char, new_string|
+    new_string << char unless char == new_string[-1]
+  end 
+end
+
+p crunch('ddaaiillyy ddoouubbllee') #== 'daily double'
+p crunch('4444abcabccba') #== '4abcabcba'
+p crunch('ggggggggggggggg') #== 'g'
+p crunch('a') #== 'a'
+p crunch('') #== ''
+
 ### ALPHABETICAL NUMBERS
-INTEGERS = (0..19).to_a
-WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
-INTEGERS_TO_WORDS = INTEGERS.zip(WORDS).to_h
+# INTEGERS = (0..19).to_a
+# WORDS = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen)
+# INTEGERS_TO_WORDS = INTEGERS.zip(WORDS).to_h
 # { 0=>"zero",      1=>"one",         2=>"two",       3=>"three",
 #   4=>"four",      5=>"five",        6=>"six",       7=>"seven", 
 #   8=>"eight",     9=>"nine",        10=>"ten",      11=>"eleven", 
 #   12=>"twelve",   13=>"thirteen",   14=>"fourteen", 15=>"fifteen", 
 #   16=>"sixteen",  17=>"seventeen",  18=>"eighteen", 19=>"nineteen"}
 
-SORTED_INTEGERS = [
-  8, 18, 11, 15, 5,
-  4, 14, 9, 19, 1,
-  7, 17, 6, 16, 10,
-  13, 3, 12, 2, 0
-]
+# SORTED_INTEGERS = [
+#   8, 18, 11, 15, 5,
+#   4, 14, 9, 19, 1,
+#   7, 17, 6, 16, 10,
+#   13, 3, 12, 2, 0
+# ]
 
 # def alphabetic_number_sort(int_array)
 #   int_array.sort do |int1, int2|
@@ -44,20 +65,33 @@ SORTED_INTEGERS = [
 #   end.compact
 # end
 
-def alphabetic_number_sort(int_array)
-  sorted_array = []
-  SORTED_INTEGERS.each do |int|
-    
-  end
-end
+# def alphabetic_number_sort(int_array)
+#   sorted_array = []
+#   index = 0
+#   SORTED_INTEGERS.each do |int|
+#     if int_array.include?(int)
+#       sorted_array[index] = int
+#       index += 1
+#     end
+#   end
+#   sorted_array
+# end
 
-p alphabetic_number_sort([1, 2, 3, 3, 3, 4, 5])
-p alphabetic_number_sort((0..19).to_a) == [
-  8, 18, 11, 15, 5,
-  4, 14, 9, 19, 1,
-  7, 17, 6, 16, 10,
-  13, 3, 12, 2, 0
-]
+# def alphabetic_number_sort(int_array)
+#   SORTED_INTEGERS.intersection(int_array)
+# end
+
+# def alphabetic_number_sort(int_array)
+#   int_array.sort_by { |int| SORTED_INTEGERS.index(int) }
+# end
+
+# p alphabetic_number_sort([1, 2, 3, 3, 3, 4, 5])
+# p alphabetic_number_sort((0..15).to_a) #== [
+#   8, 18, 11, 15, 5,
+#   4, 14, 9, 19, 1,
+#   7, 17, 6, 16, 10,
+#   13, 3, 12, 2, 0
+# ]
 
 ### LETTER COUNTER II
 # def word_sizes(string)

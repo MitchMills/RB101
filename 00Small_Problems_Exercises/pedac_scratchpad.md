@@ -1,42 +1,38 @@
 # PROBLEM
-Write a method that takes an Array of Integers between 0 and 19, and returns an Array of those Integers sorted based on the English words for each number:
+Write a method that takes a string argument and returns a new string that contains the value of the original string with all consecutive duplicate characters collapsed into a single character. You may not use `String#squeeze` or `String#squeeze!`.
 
-zero, one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
-
-  Input: array
-  Output: array
+  Input: string
+  Output: string
 
   ## Rules
   ### explicit
-  - input array contains integers
-  - output array contains those same integers sorted alphabetically based on the English words for each number
+  - input is a string
+  - output is a new string
+    - all consecutive duplicate characters in input string are collapsed into a single character
+  - may not use `String#squeeze` or `String#squeeze!`
   ### implicit
-
+  - if input string is empty, return an empty string
+  - to count as duplicates, characters must be consecutive
+  - any number of consecutive duplicate characters should be collapsed into a single character
 
   ## Questions
-
+  - does case matter? Assumption: yes (i.e. 'Aa' => 'Aa')
 
 # EXAMPLES
-alphabetic_number_sort((0..19).to_a) == [
-  8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17,
-  6, 16, 10, 13, 3, 12, 2, 0
-]
+crunch('ddaaiillyy ddoouubbllee') == 'daily double'
+crunch('4444abcabccba') == '4abcabcba'
+crunch('ggggggggggggggg') == 'g'
+crunch('a') == 'a'
+crunch('') == ''
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- from the input array, create a new array of strings, each representing the English word for the given input array integer
-  - use a hash: keys = integers, values = strings
--sort the new array alphabetically
-- convert that array into a new array of integers
-  - use the same hash as before
-- return the new array
-
-- use the sorted array to assign and index and value to a new array
-- remove any nil values
-return the array
-
+- initialize an empty string `new_string`
+- iterate over the input string
+- if current character is not the same as the last character of `new_string`, add it to `new_string`
+- return `new string`
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
