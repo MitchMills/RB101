@@ -1,27 +1,59 @@
+### 11 LIST OF DIGITS
+
+# puts digit_list(12345) == [1, 2, 3, 4, 5]     # => true
+# puts digit_list(7) == [7]                     # => true
+# puts digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+# puts digit_list(444) == [4, 4, 4]             # => true
+
+
+def spin_me(str)
+  p "str = '#{str}': #{str.object_id}, start of method"
+  puts
+  result = str.split.each do |word|
+    p "str = '#{str}': #{str.object_id}, inside block"
+    p "word = '#{word}': #{word.object_id}"
+    puts
+    word.reverse!
+    p "str = '#{str}': #{str.object_id}, inside block"
+    p "word = '#{word}': #{word.object_id}"
+    puts
+    word
+  end.join(" ")
+  p "str = '#{str}': #{str.object_id}, end of method"
+  p "result = '#{result}': #{result.object_id}, end of method"
+  result
+end
+
+string1 = "hello world"
+p "string1 = '#{string1}': #{string1.object_id}, before method call"
+puts
+string2 = spin_me(string1)
+puts
+p "string2 = '#{string2}': #{string2.object_id}, after method call"
+p "string1 = '#{string1}': #{string1.object_id}, after method call"
+
 ### 10 SPIN ME AROUND IN CIRCLES
-string1 = "hello"
-p string1.object_id # => 60
-puts
+# string1 = "hello" #1
+# p string1 # => "hello"
+# p string1.object_id # => 60
+# puts
 
-array1 = string1.split
-p array1 # => ["hello"]
-p array1.object_id # => 80
-puts
+# array1 = string1.split #2
+# p array1 # => ["hello"]
+# p array1.object_id # => 80
+# p array1[0] # => "hello"
+# p array1[0].object_id # => 100 
+# puts
 
-p array1[0] # => "hello"
-p array1[0].object_id # => 100 
-puts
+# array1.each do |word| #4
+#   p word # => "hello"
+#   p word.object_id # => 100
+# end
+# puts
 
-p array1[0].object_id
-p array1[0] = array1[0].reverse!
-p array1[0].object_id
-p array1[0]
-puts
-
-string2 = array1.join
-p string2 # => "hello"
-p string2.object_id # => 120
-
+# string2 = array1.join #6
+# p string2 # => "hello"
+# p string2.object_id # => 120
 
 ### 9 DDAAIILLYY DDOOUUBBLLEE
 # def crunch(string)
