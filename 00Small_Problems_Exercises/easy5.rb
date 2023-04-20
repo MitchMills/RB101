@@ -1,38 +1,52 @@
 ### 11 LIST OF DIGITS
+# def digit_list(int)
+#   int.digits.reverse
+# end
 
-# puts digit_list(12345) == [1, 2, 3, 4, 5]     # => true
-# puts digit_list(7) == [7]                     # => true
-# puts digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
-# puts digit_list(444) == [4, 4, 4]             # => true
-
-
-def spin_me(str)
-  p "str = '#{str}': #{str.object_id}, start of method"
-  puts
-  result = str.split.each do |word|
-    p "str = '#{str}': #{str.object_id}, inside block"
-    p "word = '#{word}': #{word.object_id}"
-    puts
-    word.reverse!
-    p "str = '#{str}': #{str.object_id}, inside block"
-    p "word = '#{word}': #{word.object_id}"
-    puts
-    word
-  end.join(" ")
-  p "str = '#{str}': #{str.object_id}, end of method"
-  p "result = '#{result}': #{result.object_id}, end of method"
+def digit_list(int)
+  current_num = int
+  result = []
+  loop do
+    current_num, digit = current_num.divmod(10)
+    result.prepend(digit)
+    break if current_num == 0
+  end
   result
 end
 
-string1 = "hello world"
-p "string1 = '#{string1}': #{string1.object_id}, before method call"
-puts
-string2 = spin_me(string1)
-puts
-p "string2 = '#{string2}': #{string2.object_id}, after method call"
-p "string1 = '#{string1}': #{string1.object_id}, after method call"
+
+p digit_list(12345) == [1, 2, 3, 4, 5]     # => true
+p digit_list(7) == [7]                     # => true
+p digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+p digit_list(444) == [4, 4, 4]             # => true
 
 ### 10 SPIN ME AROUND IN CIRCLES
+# def spin_me(str)
+#   p "str = '#{str}', id: #{str.object_id}, start of method"
+#   puts
+#   result = str.split.each do |word|
+#     p "str = '#{str}', id: #{str.object_id}, inside block"
+#     p "word = '#{word}', id: #{word.object_id}"
+#     puts
+#     word.reverse!
+#     p "str = '#{str}', id: #{str.object_id}, inside block"
+#     p "word = '#{word}', id: #{word.object_id}"
+#     puts
+#     word
+#   end.join(" ")
+#   p "str = '#{str}', id: #{str.object_id}, end of method"
+#   p "result = '#{result}', id: #{result.object_id}, end of method"
+#   result
+# end
+
+# string1 = "hello world"
+# p "string1 = '#{string1}', id: #{string1.object_id}, before method call"
+# puts
+# string2 = spin_me(string1)
+# puts
+# p "string2 = '#{string2}', id: #{string2.object_id}, after method call"
+# p "string1 = '#{string1}', id: #{string1.object_id}, after method call"
+
 # string1 = "hello" #1
 # p string1 # => "hello"
 # p string1.object_id # => 60
