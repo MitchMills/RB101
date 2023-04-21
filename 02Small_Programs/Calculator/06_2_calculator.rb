@@ -24,3 +24,8 @@ elsif operation == 'd'
 end
 
 puts "#{num1} #{operator} #{num2} = #{result}"
+
+
+def calculate(nums, operation)
+  nums.reduce(operation)
+end
