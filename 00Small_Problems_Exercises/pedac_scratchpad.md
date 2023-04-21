@@ -16,7 +16,7 @@ DEGREE = "\xC2\xB0"
   - input float represents an angle between 0 and 360 degrees
   - output string represents that angle in degrees, minutes, and seconds
   - to represent:
-    - degrees: °
+    - degrees: °, DEGREE = "\xC2\xB0"
     - minutes: '
     - seconds: "
   - 1 degree = 60 minutes
