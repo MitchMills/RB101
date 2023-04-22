@@ -1,47 +1,35 @@
 # PROBLEM
-Write a method that takes a floating point number that represents an angle between 0 and 360 degrees and returns a String that represents that angle in degrees, minutes and seconds. You should use a degree symbol (°) to represent degrees, a single quote (') to represent minutes, and a double quote (") to represent seconds. A degree has 60 minutes, while a minute has 60 seconds.
+Write a method that takes an array of strings, and returns an array of the same string values, except with the vowels (a, e, i, o, u) removed.
 
-Note: your results may differ slightly depending on how you round values, but should be within a second or two of the results shown.
-
-You should use two digit numbers with leading zeros when formatting the minutes and seconds, e.g., 321°03'07".
-
-You may use this constant to represent the degree symbol:
-DEGREE = "\xC2\xB0"
-
-  Input: float
-  Output: string
+  Input: array
+  Output: (new?) array
 
   ## Rules
   ### explicit
-  - input float represents an angle between 0 and 360 degrees
-  - output string represents that angle in degrees, minutes, and seconds
-  - to represent:
-    - degrees: °, DEGREE = "\xC2\xB0"
-    - minutes: '
-    - seconds: "
-  - 1 degree = 60 minutes
-  - 1 minute = 60 seconds
-  - for minutes and seconds, numbers less than 10 should have a leading 0
+  - input array consists of strings
+  - output array also consists of strings, with all vowels removed
+  - vowels are a, e, i, o, u (and A, E, I, O, U)
+
   ### implicit
-  - output string format: "%(degrees°minutes'seconds")
-  - if input float is 360, output can be 360° or 0°
+  - output string has same number of elements as input string
+  - if all the characters in a particular string are vowels, return an empty string
+  - maintain case of input string
 
   ## Questions
 
 
 # EXAMPLES
-dms(30) == %(30°00'00")
-dms(76.73) == %(76°43'48")
-dms(254.6) == %(254°36'00")
-dms(93.034773) == %(93°02'05")
-dms(0) == %(0°00'00")
-dms(360) == %(360°00'00") || dms(360) == %(0°00'00")
+remove_vowels(%w(abcdefghijklmnopqrstuvwxyz)) == %w(bcdfghjklmnpqrstvwxyz)
+remove_vowels(%w(green YELLOW black white)) == %w(grn YLLW blck wht)
+remove_vowels(%w(ABC AEIOU XYZ)) == ['BC', '', 'XYZ']
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-
+- iterate over the input array
+  - for each element, remove all vowels
+- return the transformed array
 
 
 
