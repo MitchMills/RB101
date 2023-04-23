@@ -1,35 +1,36 @@
 # PROBLEM
-Write a method that takes an array of strings, and returns an array of the same string values, except with the vowels (a, e, i, o, u) removed.
+The Fibonacci series is a series of numbers (1, 1, 2, 3, 5, 8, 13, 21, ...) such that the first 2 numbers are 1 by definition, and each subsequent number is the sum of the two previous numbers. This series appears throughout the natural world.
 
-  Input: array
-  Output: (new?) array
+Computationally, the Fibonacci series is a very simple series, but the results grow at an incredibly rapid rate. For example, the 100th Fibonacci number is 354,224,848,179,261,915,075 -- that's enormous, especially considering that it takes 6 iterations before it generates the first 2 digit number.
+
+Write a method that calculates and returns the index of the first Fibonacci number that has the number of digits specified as an argument. (The first Fibonacci number has index 1.)
+
+You may assume that the argument is always greater than or equal to 2.
+
+  Input: 
+  Output:
 
   ## Rules
   ### explicit
-  - input array consists of strings
-  - output array also consists of strings, with all vowels removed
-  - vowels are a, e, i, o, u (and A, E, I, O, U)
-
+  
   ### implicit
-  - output string has same number of elements as input string
-  - if all the characters in a particular string are vowels, return an empty string
-  - maintain case of input string
+
 
   ## Questions
 
 
 # EXAMPLES
-remove_vowels(%w(abcdefghijklmnopqrstuvwxyz)) == %w(bcdfghjklmnpqrstvwxyz)
-remove_vowels(%w(green YELLOW black white)) == %w(grn YLLW blck wht)
-remove_vowels(%w(ABC AEIOU XYZ)) == ['BC', '', 'XYZ']
+find_fibonacci_index_by_length(2) == 7     # 1 1 2 3 5 8 13
+find_fibonacci_index_by_length(3) == 12    # 1 1 2 3 5 8 13 21 34 55 89 144
+find_fibonacci_index_by_length(10) == 45
+find_fibonacci_index_by_length(100) == 476
+find_fibonacci_index_by_length(1000) == 4782
+find_fibonacci_index_by_length(10000) == 47847
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- iterate over the input array
-  - for each element, remove all vowels
-- return the transformed array
 
 
 

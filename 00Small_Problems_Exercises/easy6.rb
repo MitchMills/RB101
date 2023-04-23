@@ -1,32 +1,63 @@
+### 3 FIBONACCI NUMBER LOCATION BY LENGTH
+def find_fibonacci_index_by_length(length)
+
+end
+
+p find_fibonacci_index_by_length(2) == 7   # 1 1 2 3 5 8 13
+p find_fibonacci_index_by_length(3) == 12  # 1 1 2 3 5 8 13 21 34 55 89 144
+p find_fibonacci_index_by_length(10) == 45
+p find_fibonacci_index_by_length(100) == 476
+p find_fibonacci_index_by_length(1000) == 4782
+p find_fibonacci_index_by_length(10000) == 47847
+
 ### 2 DELETE VOWELS
-VOWELS = "aeiouAEIOU"
+# VOWELS = "aeiouAEIOU"
+
 # def remove_vowels(string_array)
 #   string_array.map { |string| string.delete(VOWELS) }
 # end
 
 # def remove_vowels(string_array)
-#   string_array.map { |string| string.gsub(/[aeiouAEIOU]/, "") }
+#   string_array.map { |string| string.gsub(/[aeiou]/i, "") }
 # end
 
-# def remove_vowels(string)
-#   string.each_char.map do |char|
-#     char = VOWELS.include?(char) ? "" : char
-#   end.join
+# def remove_vowels(string_array)
+#   string_array.map do |string| 
+#     string.chars.each do |char|
+#       char = VOWELS.include?(char) ? "" : char
+#     end.join
+#   end
 # end
 
-# p remove_vowels("abcde")
+# def remove_vowels(string_array)
+#   string_array.map do |string| 
+#     string.chars.map do |char|
+#       char = VOWELS.include?(char) ? "" : char
+#     end.join
+#   end
+# end
 
-def remove_vowels(string_array)
-  string_array.map do |string| 
-    string.each_char.map do |char|
-      char = VOWELS.include?(char) ? "" : char
-    end.join
-  end
-end
+# def remove_vowels(string_array)
+#   string_array.map do |string|
+#     new_string = "" 
+#     string.each_char do |char|
+#       new_string << char unless VOWELS.include?(char)
+#     end
+#     new_string
+#   end
+# end
 
-p remove_vowels(%w(abcdefghijklmnopqrstuvwxyz)) == %w(bcdfghjklmnpqrstvwxyz)
-p remove_vowels(%w(green YELLOW black white)) == %w(grn YLLW blck wht)
-p remove_vowels(%w(ABC AEIOU XYZ)) == ['BC', '', 'XYZ']
+# def remove_vowels(string_array)
+#   string_array.map do |string|
+#     string.each_char.with_object("") do |char, new_string|
+#       new_string << char unless VOWELS.include?(char)
+#     end
+#   end
+# end
+
+# p remove_vowels(%w(abcdefghijklmnopqrstuvwxyz)) == %w(bcdfghjklmnpqrstvwxyz)
+# p remove_vowels(%w(green YELLOW black white)) == %w(grn YLLW blck wht)
+# p remove_vowels(%w(ABC AEIOU XYZ)) == ['BC', '', 'XYZ']
 
 ### 1 CUTE ANGLES
 # DEGREE = "\xC2\xB0"
