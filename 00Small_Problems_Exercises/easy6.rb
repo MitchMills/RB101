@@ -1,14 +1,52 @@
+### 4 REVERSED ARRAYS I
+
+list = [1,2,3,4]
+result = reverse!(list)
+p result == [4, 3, 2, 1] # true
+p list == [4, 3, 2, 1] # true
+p list.object_id == result.object_id # true
+
+list = %w(a b e d c)
+p reverse!(list) == ["c", "d", "e", "b", "a"] # true
+p list == ["c", "d", "e", "b", "a"] # true
+
+list = ['abc']
+p reverse!(list) == ["abc"] # true
+p list == ["abc"] # true
+
+list = []
+p reverse!(list) == [] # true
+p list == [] # true
+
 ### 3 FIBONACCI NUMBER LOCATION BY LENGTH
-def find_fibonacci_index_by_length(length)
+# def find_fibonacci_index_by_length(length)
+#   num1, num2 = 1, 1
+#   index = 3
+#   loop do
+#     next_num = num1 + num2
+#     return index if next_num.to_s.size >= length
+#     index += 1
+#     num1, num2 = num2, next_num
+#   end
+# end
 
-end
+# def find_fibonacci_index_by_length(length)
+#   current_pair = [1, 1]
+#   index = 3
+#   loop do
+#     next_num = current_pair.sum
+#     return index if next_num.to_s.size >= length
+#     index += 1
+#     current_pair[0], current_pair[1] = current_pair[1], next_num
+#   end
+# end
 
-p find_fibonacci_index_by_length(2) == 7   # 1 1 2 3 5 8 13
-p find_fibonacci_index_by_length(3) == 12  # 1 1 2 3 5 8 13 21 34 55 89 144
-p find_fibonacci_index_by_length(10) == 45
-p find_fibonacci_index_by_length(100) == 476
-p find_fibonacci_index_by_length(1000) == 4782
-p find_fibonacci_index_by_length(10000) == 47847
+# p find_fibonacci_index_by_length(2) == 7   # 1 1 2 3 5 8 13
+# p find_fibonacci_index_by_length(3) == 12  # 1 1 2 3 5 8 13 21 34 55 89 144
+# p find_fibonacci_index_by_length(10) == 45
+# p find_fibonacci_index_by_length(100) == 476
+# p find_fibonacci_index_by_length(1000) == 4782
+# p find_fibonacci_index_by_length(10000) == 47847
 
 ### 2 DELETE VOWELS
 # VOWELS = "aeiouAEIOU"
