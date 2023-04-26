@@ -1,4 +1,16 @@
 ### 4 REVERSED ARRAYS I
+def reverse!(array)
+  new_array = []
+  (array.size).times do
+    new_array << array.pop
+  end
+  
+  (new_array.size).times do
+    array << new_array.shift
+  end
+  array
+end 
+
 
 list = [1,2,3,4]
 result = reverse!(list)

@@ -3,12 +3,15 @@ Write a method that takes an Array as an argument, and reverses its elements in 
 
 You may not use `Array#reverse` or `Array#reverse!`.
 
-  Input: 
-  Output:
+  Input: array
+  Output: same array
 
   ## Rules
   ### explicit
-  
+  - output array is input array mutated in place
+  - if input array is empty, return (same) empty array
+  - output array contains same elements reversed in order
+    - elements themselves are not mutated
   ### implicit
 
 
@@ -40,7 +43,10 @@ Note: for the test case list = ['abc'], we want to reverse the elements in the a
 
 
 # ALGORITHM
-
+- iterate over the input array
+  - set `index` = 0
+  - set `target` = input array length - 1
+  
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
