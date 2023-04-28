@@ -63,13 +63,18 @@ end
 
 def get_result(numbers, operator)
   if operator == '/'
-    numbers.map { |num| num.to_f }.reduce(operator.to_sym)
+    if numbers[1] == '0'
+      "unable to divide by 0"
+    else
+      numbers.map(&:to_f).reduce(operator.to_sym)
+    end
   else
-    numbers.map { |num| num.to_i }.reduce(operator.to_sym)
+    numbers.map(&:to_i).reduce(operator.to_sym)
   end
 end
 
-def display_result(numbers, operator,result)
+def display_result(numbers, operator)
+  result = get_result(numbers, operator)
   prompt("#{numbers[0]} #{operator} #{numbers[1]} = #{result}")
 end
 
@@ -81,6 +86,7 @@ def another?
 end
 
 # Main program loop
+system 'clear'
 prompt("Welcome to Calculator")
 name = get_name
 prompt("Let's get started, #{name}.")
@@ -89,11 +95,8 @@ loop do
   puts
   numbers = get_numbers
   operator = get_operator
-  result = get_result(numbers, operator)
-
-  display_result(numbers, operator, result)
+  display_result(numbers, operator)
   puts
-  
   break unless another?
 end
 
