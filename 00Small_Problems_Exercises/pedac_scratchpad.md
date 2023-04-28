@@ -1,16 +1,18 @@
 # PROBLEM
 Write a method that takes an Array, and returns a new Array with the elements of the original list in reverse order. Do not modify the original list.
 
-You may not use Array#reverse or Array#reverse!, nor may you use the method you wrote in the previous exercise.
+You may not use `Array#reverse` or `Array#reverse!`, nor may you use the method you wrote in the previous exercise.
 
-  Input: 
-  Output:
+  Input: array
+  Output: new array
 
   ## Rules
   ### explicit
-  
+  - do not modify the input array
+  - output array contains input array's elements in reverse order
   ### implicit
-
+  - reverse the order of the elements in the array, not the order of any individual element
+  - if input array is empty, return (new) empty array
 
   ## Questions
 
@@ -31,6 +33,11 @@ new_list == [2, 3, 1]                 # => true
 
 
 # ALGORITHM
+- iterate over the input array
+  - start at the end of the array
+    - add each element into a new array
+
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #

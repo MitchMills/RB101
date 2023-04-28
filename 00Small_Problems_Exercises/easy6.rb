@@ -1,6 +1,48 @@
 ### 5 REVESED ARRAYS II
-def reverse(array)
-  
+# def reverse(array)
+#   new_array = []
+#   index = array.length - 1
+#   until index < 0
+#     new_array << array[index]
+#     index -= 1
+#   end
+#   new_array
+# end
+
+# def reverse(array)
+#   index = array.length - 1
+#   array.each_with_object([]) do |_, arr|
+#     arr << array[index]
+#     index -= 1
+#   end
+# end
+
+# def reverse(array)
+#   array.each_index.with_object([]) do |idx, new_array|
+#     new_array << array[(array.length - 1) - idx]
+#   end
+# end
+
+# def reverse(array)
+#   array.reverse_each.with_object([]) do |ele, new_array|
+#     new_array << ele
+#   end
+# end
+
+# def reverse(array)
+#   array.inject([]) do |new_array, element|
+#     new_array.prepend(element)
+#   end
+# end
+
+# def reverse(array)
+#   array.each_with_object([]) do |element, new_array|
+#     new_array.prepend(element)
+#   end
+# end
+
+def reverse(arr)
+  arr.inject([], :prepend)
 end
 
 p reverse([1,2,3,4]) == [4,3,2,1]          # => true
