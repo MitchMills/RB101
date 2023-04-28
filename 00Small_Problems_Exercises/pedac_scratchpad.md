@@ -1,42 +1,28 @@
 # PROBLEM
-Write a method that takes an Array, and returns a new Array with the elements of the original list in reverse order. Do not modify the original list.
+Write a method that takes an Array as an argument, and returns two Arrays (as a pair of nested Arrays) that contain the first half and second half of the original Array, respectively. If the original array contains an odd number of elements, the middle element should be placed in the first half Array.
 
-You may not use `Array#reverse` or `Array#reverse!`, nor may you use the method you wrote in the previous exercise.
-
-  Input: array
-  Output: new array
+  Input: 
+  Output:
 
   ## Rules
   ### explicit
-  - do not modify the input array
-  - output array contains input array's elements in reverse order
+  
   ### implicit
-  - reverse the order of the elements in the array, not the order of any individual element
-  - if input array is empty, return (new) empty array
+
 
   ## Questions
 
 
 # EXAMPLES
-reverse([1,2,3,4]) == [4,3,2,1]          # => true
-reverse(%w(a b e d c)) == %w(c d e b a)  # => true
-reverse(['abc']) == ['abc']              # => true
-reverse([]) == []                        # => true
-
-list = [1, 3, 2]                      # => [1, 3, 2]
-new_list = reverse(list)              # => [2, 3, 1]
-list.object_id != new_list.object_id  # => true
-list == [1, 3, 2]                     # => true
-new_list == [2, 3, 1]                 # => true
+halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
+halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
+halvsies([5]) == [[5], []]
+halvsies([]) == [[], []]
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- iterate over the input array
-  - start at the end of the array
-    - add each element into a new array
-
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #

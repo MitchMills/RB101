@@ -1,4 +1,25 @@
-### 5 REVESED ARRAYS II
+### HALVSIES
+
+p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
+p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
+p halvsies([5]) == [[5], []]
+p halvsies([]) == [[], []]
+
+### 6 COMBINING ARRAYS
+# def merge(arr1, arr2)
+#   arr2.each do |ele|
+#     arr1 << ele unless arr1.include?(ele)
+#   end
+#   arr1
+# end
+
+# def merge(arr1, arr2)
+#   arr2.inject(arr1, :<<).uniq
+# end
+
+# p merge([1, 3, 5], [3, 6, 9]) == [1, 3, 5, 6, 9]
+
+### 5 REVERSED ARRAYS II
 # def reverse(array)
 #   new_array = []
 #   index = array.length - 1
@@ -41,20 +62,20 @@
 #   end
 # end
 
-def reverse(arr)
-  arr.inject([], :prepend)
-end
+# def reverse(arr)
+#   arr.inject([], :prepend)
+# end
 
-p reverse([1,2,3,4]) == [4,3,2,1]          # => true
-p reverse(%w(a b e d c)) == %w(c d e b a)  # => true
-p reverse(['abc']) == ['abc']              # => true
-p reverse([]) == []                        # => true
+# p reverse([1,2,3,4]) == [4,3,2,1]          # => true
+# p reverse(%w(a b e d c)) == %w(c d e b a)  # => true
+# p reverse(['abc']) == ['abc']              # => true
+# p reverse([]) == []                        # => true
 
-list = [1, 3, 2]                      # => [1, 3, 2]
-new_list = reverse(list)              # => [2, 3, 1]
-p list.object_id != new_list.object_id  # => true
-p list == [1, 3, 2]                     # => true
-p new_list == [2, 3, 1]                 # => true
+# list = [1, 3, 2]                      # => [1, 3, 2]
+# new_list = reverse(list)              # => [2, 3, 1]
+# p list.object_id != new_list.object_id  # => true
+# p list == [1, 3, 2]                     # => true
+# p new_list == [2, 3, 1]                 # => true
 
 ### 4 REVERSED ARRAYS I
 # def reverse!(array)
