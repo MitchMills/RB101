@@ -1,9 +1,46 @@
-### HALVSIES
+### 8 FIND THE DUPLICATE
+def find_dup(array)
+  
+end
 
-p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
-p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
-p halvsies([5]) == [[5], []]
-p halvsies([]) == [[], []]
+p find_dup([1, 5, 3, 1]) == 1
+p find_dup([18,  9, 36, 96, 31, 19, 54, 75, 42, 15,
+          38, 25, 97, 92, 46, 69, 91, 59, 53, 27,
+          14, 61, 90, 81,  8, 63, 95, 99, 30, 65,
+          78, 76, 48, 16, 93, 77, 52, 49, 37, 29,
+          89, 10, 84,  1, 47, 68, 12, 33, 86, 60,
+          41, 44, 83, 35, 94, 73, 98,  3, 64, 82,
+          55, 79, 80, 21, 39, 72, 13, 50,  6, 70,
+          85, 87, 51, 17, 66, 20, 28, 26,  2, 22,
+          40, 23, 71, 62, 73, 32, 43, 24,  4, 56,
+          7,  34, 57, 74, 45, 11, 88, 67,  5, 58]) == 73
+
+### 7 HALVSIES
+# def halvsies(array)
+#   sub_array1 = array.select.with_index do |_, idx|
+#     idx <= (array.size - 1)/2
+#   end
+#   sub_array2 = array.select.with_index do |_, idx|
+#     idx > (array.size - 1)/2
+#   end
+#   [sub_array1, sub_array2]
+# end
+
+# def halvsies(array)
+#   left = array[0..((array.size - 1)/2)]
+#   right = array[(left.size)..]
+#   [left, right]
+# end
+
+# def halvsies(array)
+#   half = array.size.divmod(2).sum
+#   left, right = array.slice(0, half), array.slice(half, array.size - half)
+# end 
+
+# p halvsies([1, 2, 3, 4]) == [[1, 2], [3, 4]]
+# p halvsies([1, 5, 2, 4, 3]) == [[1, 5, 2], [4, 3]]
+# p halvsies([5]) == [[5], []]
+# p halvsies([]) == [[], []]
 
 ### 6 COMBINING ARRAYS
 # def merge(arr1, arr2)
