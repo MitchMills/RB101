@@ -1,3 +1,7 @@
+
+require 'yaml'
+MESSAGES = YAML.load_file('calculator2_messages.yml')
+
 def prompt(message, action = "puts")
   if action == "print"
     print "=> #{message}"
@@ -8,10 +12,10 @@ end
 
 def get_name
   loop do
-    prompt("Please enter your name: ", "print")
+    prompt(MESSAGES['get_name'], 'print')
     name = gets.chomp
     return name unless name.empty?
-    puts "Make sure to enter a name."
+    prompt(MESSAGES['name_error']) 
   end
 end
 
@@ -21,10 +25,11 @@ end
 
 def get_number(order)
   loop do
-    prompt("Please enter the #{order} number: ", "print")
+    prompt(MESSAGES['enter_number'], 'print')
+    print "#{order} number: "
     number = gets.chomp
     return number if valid_number?(number)
-    puts "Sorry, that's not a valid number."
+    prompt(MESSAGES['number_error']) 
   end
 end
 
@@ -44,20 +49,12 @@ def operation_to_operator(operation)
 end
 
 def get_operator
-  operation_message = <<~MSG
-  Please enter the operation:
-    a) addition
-    s) subtraction
-    m) multiplication
-    d) division
-  MSG
-
-  prompt(operation_message)
+  prompt(MESSAGES['enter_operator'])
   loop do
     operation = gets.chomp
     operator =  operation_to_operator(operation)
     return operator if %w(a s m d).include?(operation)
-    prompt("Please enter a valid operation.")
+    prompt(MESSAGES['operation_error'])
   end
 end
 
@@ -79,17 +76,18 @@ def display_result(numbers, operator)
 end
 
 def another?
-  prompt("Do you want to perform another calcluation?")
-  prompt("If yes, enter 'y'. Enter any other key to exit: ", "print")
+  prompt(MESSAGES['another'])
+  prompt(MESSAGES['another_entry'], 'print')
   reply = gets.chomp.downcase
   reply == 'y'
 end
 
 # Main program loop
 system 'clear'
-prompt("Welcome to Calculator")
+prompt(MESSAGES['welcome'])
 name = get_name
-prompt("Let's get started, #{name}.")
+prompt(MESSAGES['get_started'], 'print')
+puts("#{name}.")
 
 loop do
   puts
@@ -101,4 +99,5 @@ loop do
 end
 
 puts
-prompt("Thank you for using Calculator, #{name}!")
+prompt(MESSAGES['thanks'], 'print')
+puts "#{name}!"

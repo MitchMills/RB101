@@ -1,0 +1,18 @@
+
+welcome: "Welcome to Calculator!"
+get_name: "Please enter your name: "
+name_error: "Make sure to enter a name."
+get_started: "Let's get started, "
+
+enter_number: "Please enter the "
+number_error: "Sorry, that's not a valid number."
+enter_operator: >
+  Please enter the operation:
+    a) addition
+    s) subtraction
+    m) multiplication
+    d) division
+operation_error: "Please enter a valid operation."
+another: "Do you want to perform another calcluation?"
+another_entry: "If yes, enter 'y'. Enter any other key to exit: "
+thanks: "Thank you for using Calculator, "
