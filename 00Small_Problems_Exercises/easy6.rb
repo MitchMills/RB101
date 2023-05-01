@@ -1,9 +1,21 @@
 ### 10 MUTATION
 array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
+p array1.object_id
 array2 = []
+p array2.object_id
+puts
 array1.each { |value| array2 << value }
-array1.each { |value| value.upcase! if value.start_with?('C', 'S') }
-puts array2
+p array1.object_id
+p array2.object_id
+puts
+array2.each { |value| value.upcase! if value.start_with?('C', 'S') }
+p array1
+p array1.object_id
+puts
+p array2
+p array2.object_id
+
+
 
 ### 9 DOES MY LIST INCLUDE THIS?
 # def include?(array, target)
