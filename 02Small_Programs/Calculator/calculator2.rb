@@ -2,7 +2,8 @@
 require 'yaml'
 MESSAGES = YAML.load_file('calculator2_messages.yml')
 
-def prompt(message, action = "puts")
+def prompt(key, action = 'puts', data = '')
+  message = format(MESSAGES[key], data: data)
   if action == "print"
     print "=> #{message}"
   else
@@ -12,10 +13,10 @@ end
 
 def get_name
   loop do
-    prompt(MESSAGES['get_name'], 'print')
+    prompt('get_name', 'print')
     name = gets.chomp
     return name unless name.empty?
-    prompt(MESSAGES['name_error']) 
+    prompt('name_error') 
   end
 end
 
@@ -25,11 +26,10 @@ end
 
 def get_number(order)
   loop do
-    prompt(MESSAGES['enter_number'], 'print')
-    print "#{order} number: "
+    prompt('enter_number', 'print', order)
     number = gets.chomp
     return number if valid_number?(number)
-    prompt(MESSAGES['number_error']) 
+    prompt('number_error') 
   end
 end
 
@@ -49,12 +49,12 @@ def operation_to_operator(operation)
 end
 
 def get_operator
-  prompt(MESSAGES['enter_operator'])
+  prompt('enter_operator')
   loop do
     operation = gets.chomp
     operator =  operation_to_operator(operation)
     return operator if %w(a s m d).include?(operation)
-    prompt(MESSAGES['operation_error'])
+    prompt('operation_error')
   end
 end
 
@@ -72,22 +72,21 @@ end
 
 def display_result(numbers, operator)
   result = get_result(numbers, operator)
-  prompt("#{numbers[0]} #{operator} #{numbers[1]} = #{result}")
+  prompt('result', 'puts', "#{numbers[0]} #{operator} #{numbers[1]} = #{result}")
 end
 
-def another?
-  prompt(MESSAGES['another'])
-  prompt(MESSAGES['another_entry'], 'print')
+def another?(name)
+  prompt('another', 'puts', name)
+  prompt('another_entry', 'print')
   reply = gets.chomp.downcase
   reply == 'y'
 end
 
 # Main program loop
 system 'clear'
-prompt(MESSAGES['welcome'])
+prompt('welcome')
 name = get_name
-prompt(MESSAGES['get_started'], 'print')
-puts("#{name}.")
+prompt('get_started', 'print', name)
 
 loop do
   puts
@@ -95,9 +94,8 @@ loop do
   operator = get_operator
   display_result(numbers, operator)
   puts
-  break unless another?
+  break unless another?(name)
 end
 
 puts
-prompt(MESSAGES['thanks'], 'print')
-puts "#{name}!"
+prompt('thanks', 'puts', name)
