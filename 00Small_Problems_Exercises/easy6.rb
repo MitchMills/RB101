@@ -1,13 +1,74 @@
-### 9 DOES MY LIST INCLUDE THIS?
-def include?(array, target)
-  
-end
+### 10 MUTATION
+array1 = %w(Moe Larry Curly Shemp Harpo Chico Groucho Zeppo)
+array2 = []
+array1.each { |value| array2 << value }
+array1.each { |value| value.upcase! if value.start_with?('C', 'S') }
+puts array2
 
-p include?([1,2,3,4,5], 3) == true
-p include?([1,2,3,4,5], 6) == false
-p include?([], 3) == false
-p include?([nil], nil) == true
-p include?([], nil) == false
+### 9 DOES MY LIST INCLUDE THIS?
+# def include?(array, target)
+#   array.each { |ele| return true if ele == target }
+#   false
+# end
+
+# def include?(array, target)
+#   !!array.index(target)
+# end
+
+# def include?(array, target)
+#   !(array.select { |ele| ele == target }.empty?)
+# end
+
+# def include?(array, target)
+#   array.any?(target)
+# end
+
+# def include?(array, target)
+#   !(array.all? { |ele| ele != target })
+# end
+
+# def include?(array, target)
+#   !array.none?(target)
+# end
+
+# def include?(array, target)
+#   array.count(target) > 0
+# end
+
+# def include?(array, target)
+#   (array.reject { |ele| ele == target }).size != array.size
+# end
+
+# def include?(array, target)
+#   !(array.delete_if { |ele| ele != target }.empty?)
+# end
+
+# def include?(array, target)
+#   array.delete_if { |ele| ele != target }.size > 0
+# end
+
+# def include?(array, target)
+#   original_size = array.size
+#   (array.delete_if { |ele| ele == target }.size) != original_size
+# end
+
+# def include?(array, target)
+#   array.intersection([target]).size > 0
+# end
+
+# def include?(array, target)
+#   (array << target).uniq! != nil
+# end
+
+# def include?(array, target)
+#   (array << target).uniq.size != array.size
+# end
+
+# p include?([1,2,3,4,5], 3) == true
+# p include?([1,2,3,4,5], 6) == false
+# p include?([], 3) == false
+# p include?([nil], nil) == true
+# p include?([], nil) == false
 
 ### 8 FIND THE DUPLICATE
 # def find_dup(array)
