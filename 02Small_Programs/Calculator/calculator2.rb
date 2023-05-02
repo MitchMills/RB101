@@ -2,6 +2,10 @@
 require 'yaml'
 MESSAGES = YAML.load_file('calculator2_messages.yml')
 
+def blank_line(lines = 1)
+  lines.times { puts }
+end
+
 def prompt(key, action = 'puts', data = '')
   message = format(MESSAGES[key], data: data)
   if action == "print"
@@ -86,16 +90,16 @@ end
 system 'clear'
 prompt('welcome')
 name = get_name
-prompt('get_started', 'print', name)
+prompt('get_started', 'puts', name)
 
 loop do
-  puts
+  blank_line
   numbers = get_numbers
   operator = get_operator
   display_result(numbers, operator)
-  puts
+  blank_line
   break unless another?(name)
 end
 
-puts
+blank_line
 prompt('thanks', 'puts', name)
