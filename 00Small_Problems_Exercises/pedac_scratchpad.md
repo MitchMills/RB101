@@ -1,40 +1,37 @@
 # PROBLEM
-Write a method that takes a string, and then returns a hash that contains 3 entries: one represents the number of characters in the string that are lowercase letters, one the number of characters that are uppercase letters, and one the number of characters that are neither.
+Write a method that takes a single String argument and returns a new string that contains the original value of the argument with the first character of every word capitalized and all other letters lowercase.
+
+You may assume that words are any sequence of non-blank characters.
 
   Input: string
-  Output: hash
+  Output: new string
 
   ## Rules
   ### explicit
-  - output hash contains three key/value pairs: lowercase, uppercase, neither
-    - neither includes non-alphabetic characters AND spaces
-  - if input is an empty string, values for all three keys is 0
+  - "word" = any sequence of non-space characters
+  - each word in new string should have first character upcased and all other characters downcased: 'javaScript' --> 'Javascript'
   ### implicit
-
+  - a word surrounded by quotes should not be capitalized
+    - "quoted" --> "quoted"
+  - single character words: 'a' --. 'A'
 
   ## Questions
 
 
 # EXAMPLES
-letter_case_count('abCdef 123') == { lowercase: 5, uppercase: 1, neither: 4 }
-letter_case_count('AbCd +Ef') == { lowercase: 3, uppercase: 3, neither: 2 }
-letter_case_count('123') == { lowercase: 0, uppercase: 0, neither: 3 }
-letter_case_count('') == { lowercase: 0, uppercase: 0, neither: 0 }
+word_cap('four score and seven') == 'Four Score And Seven'
+word_cap('the javaScript language') == 'The Javascript Language'
+word_cap('this is a "quoted" word') == 'This Is A "quoted" Word'
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- initialize a hash `result` with three keys each set to 0
-- iterate over each character in the string
-  - determine if it is lowercase, uppercase, or neither
-    - see if it is included in a list of all lowercase letters
-      - if so increment `lowercase` count by 1
-    - if not, see if it is included in a list of all uppercase letters
-      - if so increment `uppercase` count by 1
-    - if not, increment `neither` count by 1
-- return `result`
-
+- split the string into an array of "words"
+- iterate over the array
+  - for each word, upcase the first letter
+    - dowcase the rest of the word
+- join the array back into a single string
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
