@@ -6,7 +6,9 @@ Write a method that takes a string, and then returns a hash that contains 3 entr
 
   ## Rules
   ### explicit
-  
+  - output hash contains three key/value pairs: lowercase, uppercase, neither
+    - neither includes non-alphabetic characters AND spaces
+  - if input is an empty string, values for all three keys is 0
   ### implicit
 
 
@@ -23,7 +25,15 @@ letter_case_count('') == { lowercase: 0, uppercase: 0, neither: 0 }
 
 
 # ALGORITHM
-
+- initialize a hash `result` with three keys each set to 0
+- iterate over each character in the string
+  - determine if it is lowercase, uppercase, or neither
+    - see if it is included in a list of all lowercase letters
+      - if so increment `lowercase` count by 1
+    - if not, see if it is included in a list of all uppercase letters
+      - if so increment `uppercase` count by 1
+    - if not, increment `neither` count by 1
+- return `result`
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
