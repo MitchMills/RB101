@@ -1,0 +1,6 @@
+en:
+  welcome: "Welcome to the Loan Calculator, %{data}!"
+
+
+es:
+  welcome: "In Spanish: Welcome to the Loan Calculator, %{data}!"
