@@ -1,15 +1,37 @@
-###3 CAPITALIZE WORDS
-def word_cap(string)
-  string.split(' ').map do |word|
-    new_word = word.downcase
-    new_word[0].upcase!
-    p new_word
-  end.join(' ')
-end
+###4 SWAP CASE
 
-p word_cap('four score and seven') #== 'Four Score And Seven'
-# p word_cap('the javaScript language') #== 'The Javascript Language'
-# puts word_cap('this is a "quoted" word') #== 'This Is A "quoted" Word'
+p swapcase('CamelCase') == 'cAMELcASE'
+p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
+
+
+###3 CAPITALIZE WORDS
+# def word_cap(words)
+#   words.split.map(&:capitalize).join(" ")
+# end
+
+# def word_cap(words)
+#   words.downcase.split.map do |word|
+#     word[0] = word[0].upcase
+#     word
+#   end.join(' ')
+# end
+
+# def word_cap(words)
+#   words.split.map { |word| word[0].upcase + word[1..].downcase }.join(' ')
+# end
+
+# def word_cap(words)
+#   words.split.map do |word|
+#     word.each_char.with_index.map do |char, idx|
+#       idx == 0 ? char.upcase : char.downcase
+#     end.join
+#   end.join(' ')
+# end
+
+# p word_cap('four score and seven') == 'Four Score And Seven'
+# p word_cap('the javaScript language') == 'The Javascript Language'
+# puts word_cap('this is a "quoted" word') == 'This Is A "quoted" Word'
+
 ### 2 LETTERCASE COUNTER
 # LOWERCASE = ('a'..'z')
 # UPPERCASE = ('A'..'Z')
