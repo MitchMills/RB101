@@ -15,9 +15,11 @@
 - welcome
 - get name
 
-- get loan amount
-- get annual percentage rate
-- get loan duration
+- get user data
+  - get loan amount
+  - get annual percentage rate
+  - get loan duration
+
 - display results
 
 - again?

@@ -1,5 +1,20 @@
 en:
-  welcome: "Welcome to the Loan Calculator, %{data}!"
+  welcome: "Welcome to the Loan Calculator!"
+  enter_name: "Please enter your name: "
+  name_error: "You didn't enter anything."
+  get_started: "Great! Let's get started, %{data}."
+
+  intro: "This program will calculate the monthly payments for your loan."
+  needed_info: >
+    To do that, we'll need three pieces of information from you:
+        1) the loan amount
+        2) the annual percentage rate (APR)
+        3) the loan duration
+  ready?: "Once you've gathered that information, enter any key to continue."
+
+  loan_amount?:
+  apr?:
+  loan_duration?:
 
 
 es:
