@@ -1,11 +1,48 @@
-### 5 STAGGERED CAPS I
-def staggered_case(str)
+### 6 STAGGERED CAPS II
+def staggered_case(string)
 
 end
 
-p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
-p staggered_case('ALL_CAPS') == 'AlL_CaPs'
-p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+p staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
+p staggered_case('ALL CAPS') == 'AlL cApS'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
+
+### 5 STAGGERED CAPS I
+# def staggered_case(str)
+#   str.each_char.with_index.map do |char, idx|
+#     idx.even? ? char.upcase : char.downcase
+#   end.join
+# end
+
+# UPPERCASE = ('A'..'Z').to_a
+# LOWERCASE = ('a'..'z').to_a
+# UPPER_TO_LOWER = UPPERCASE.zip(LOWERCASE).to_h
+
+# def staggered_case(string)
+#   string.each_char.with_index.map do |char, idx|
+#     next char unless (UPPERCASE + LOWERCASE).include?(char)
+#     if idx.even?
+#       LOWERCASE.include?(char) ? UPPER_TO_LOWER.key(char) : char
+#     else
+#       UPPERCASE.include?(char) ? UPPER_TO_LOWER[char] : char
+#     end
+#   end.join
+# end
+
+# def staggered_case(string, start_upper: true)
+#   string.chars.each_with_object('') do |char, result|
+#     result << (start_upper ? char.upcase : char.downcase)
+#     start_upper = !start_upper
+#   end
+# end
+
+# p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+# p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+# p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+
+# p staggered_case('I Love Launch School!', start_upper: false) == "i lOvE LaUnCh sChOoL!"
+# p staggered_case('ALL_CAPS', start_upper: false) == "aLl_cApS"
+# p staggered_case('ignore 77 the 444 numbers', start_upper: false) == "iGnOrE 77 tHe 444 nUmBeRs"
 
 ###4 SWAP CASE
 # UPPERCASE = ('A'..'Z').to_a
@@ -41,13 +78,6 @@ p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
 #     else
 #       char
 #     end
-#   end.join
-# end
-
-# def swapcase(str)
-#   str.chars.map do |char|
-#     next char unless UPPERCASE.include?(char) || LOWERCASE.include?(char)
-#     UPPERCASE.include?(char) ? UPPER_TO_LOWER[char] : UPPER_TO_LOWER.key(char)
 #   end.join
 # end
 
