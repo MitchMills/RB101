@@ -1,8 +1,77 @@
+### 5 STAGGERED CAPS I
+def staggered_case(str)
+
+end
+
+p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+
 ###4 SWAP CASE
+# UPPERCASE = ('A'..'Z').to_a
+# LOWERCASE = ('a'..'z').to_a
+# UPPER_TO_LOWER = UPPERCASE.zip(LOWERCASE).to_h
+# p UPPER_TO_LOWER
 
-p swapcase('CamelCase') == 'cAMELcASE'
-p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
+# {
+#   "A"=>"a", "B"=>"b", "C"=>"c", "D"=>"d", "E"=>"e", "F"=>"f", "G"=>"g", 
+#   "H"=>"h", "I"=>"i", "J"=>"j", "K"=>"k", "L"=>"l", "M"=>"m", "N"=>"n", 
+#   "O"=>"o", "P"=>"p", "Q"=>"q", "R"=>"r", "S"=>"s", "T"=>"t", "U"=>"u", 
+#   "V"=>"v", "W"=>"w", "X"=>"x", "Y"=>"y", "Z"=>"z"
+# }
 
+# def swapcase(str)
+#   str.chars.map do |char|
+#     if char.upcase == char.downcase
+#       char
+#     elsif char == char.upcase
+#       UPPER_TO_LOWER[char]
+#     else
+#       UPPER_TO_LOWER.key(char)
+#     end
+#   end.join
+# end
+
+# def swapcase(str)
+#   str.chars.map do |char|
+#     if UPPERCASE.include?(char)
+#       UPPER_TO_LOWER[char]
+#     elsif LOWERCASE.include?(char)
+#       UPPER_TO_LOWER.key(char)
+#     else
+#       char
+#     end
+#   end.join
+# end
+
+# def swapcase(str)
+#   str.chars.map do |char|
+#     next char unless UPPERCASE.include?(char) || LOWERCASE.include?(char)
+#     UPPERCASE.include?(char) ? UPPER_TO_LOWER[char] : UPPER_TO_LOWER.key(char)
+#   end.join
+# end
+
+# def swapcase(str)
+#   str.chars.map do |char|
+#     next char unless (UPPERCASE + LOWERCASE).include?(char)
+#     UPPERCASE.include?(char) ? UPPER_TO_LOWER[char] : UPPER_TO_LOWER.key(char)
+#   end.join
+# end
+
+# def swapcase(str)
+#   str.chars.map {|chr| chr == chr.upcase ? chr.downcase : chr.upcase}.join
+# end
+
+# def swapcase(str)
+#   str.each_char.map {|chr| chr == chr.upcase ? chr.downcase : chr.upcase}.join
+# end
+
+# def swapcase(str)
+#   str.split('').map {|chr| chr == chr.upcase ? chr.downcase : chr.upcase}.join
+# end
+
+# p swapcase('CamelCase') == 'cAMELcASE'
+# p swapcase('Tonight on XYZ-TV') == 'tONIGHT ON xyz-tv'
 
 ###3 CAPITALIZE WORDS
 # def word_cap(words)
