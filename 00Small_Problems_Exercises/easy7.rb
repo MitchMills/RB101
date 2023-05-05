@@ -1,6 +1,29 @@
 ### 6 STAGGERED CAPS II
-def staggered_case(string)
+# UPPER = ('A'..'Z').to_a
+# LOWER = ('a'..'z').to_a
 
+# def staggered_case(string, upper: true)
+#   string.chars.each_with_object('') do |char, result|
+#     next result << char unless (UPPER + LOWER).include?(char)
+#     result << (upper ? char.upcase : char.downcase)
+#     upper = !upper
+#   end
+# end
+
+# def staggered_case(string, upper = true)
+#   string.chars.each_with_object('') do |char, result|
+#     next result << char unless (char.count('^A-Za-z') == 0)
+#     result << (upper ? char.upcase : char.downcase)
+#     upper = !upper
+#   end
+# end
+
+def staggered_case(string, upper = true)
+  string.chars.each_with_object('') do |char, result|
+    next result << char unless char =~ /[a-z]/i
+    result << (upper ? char.upcase : char.downcase)
+    upper = !upper
+  end
 end
 
 p staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
