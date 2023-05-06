@@ -1,3 +1,12 @@
+### MULTIPLICATIVE AVERAGE
+def show_multiplicative_average(array)
+
+end
+
+p show_multiplicative_average([3, 5])                # => result: 7.500
+p show_multiplicative_average([6])                   # => result: 6.000
+p show_multiplicative_average([2, 5, 7, 11, 13, 17]) # => result: 28361.667
+
 ### 6 STAGGERED CAPS II
 # UPPER = ('A'..'Z').to_a
 # LOWER = ('a'..'z').to_a
@@ -18,17 +27,37 @@
 #   end
 # end
 
-def staggered_case(string, upper = true)
-  string.chars.each_with_object('') do |char, result|
-    next result << char unless char =~ /[a-z]/i
-    result << (upper ? char.upcase : char.downcase)
-    upper = !upper
-  end
-end
+# def staggered_case(string, upper = true)
+#   string.chars.each_with_object('') do |char, result|
+#     next result << char unless char =~ /[a-z]/i
+#     result << (upper ? char.upcase : char.downcase)
+#     upper = !upper
+#   end
+# end
 
-p staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
-p staggered_case('ALL CAPS') == 'AlL cApS'
-p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
+# def staggered_case(string, start_upper: true, count_non_alpha: true)
+#   string.chars.each_with_object('') do |char, result|
+#     if count_non_alpha
+#       result << (start_upper ? char.upcase : char.downcase)
+#     else
+#       next result << char unless char =~ /[a-z]/i
+#       result << (start_upper ? char.upcase : char.downcase)
+#     end
+#     start_upper = !start_upper
+#   end
+# end
+
+# p staggered_case('I Love Launch School!') == 'I LoVe lAuNcH ScHoOl!'
+# p staggered_case('ALL_CAPS') == 'AlL_CaPs'
+# p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 NuMbErS'
+
+# p staggered_case('I Love Launch School!', count_non_alpha: false) == 'I lOvE lAuNcH sChOoL!'
+# p staggered_case('ALL CAPS', count_non_alpha: false) == 'AlL cApS'
+# p staggered_case('ignore 77 the 444 numbers', count_non_alpha: false) == 'IgNoRe 77 ThE 444 nUmBeRs'
+
+# p staggered_case('I Love Launch School!', start_upper: false) == "i lOvE LaUnCh sChOoL!"
+# p staggered_case('ALL_CAPS', start_upper: false) == "aLl_cApS"
+# p staggered_case('ignore 77 the 444 numbers', start_upper: false) == "iGnOrE 77 tHe 444 nUmBeRs"
 
 ### 5 STAGGERED CAPS I
 # def staggered_case(str)
@@ -54,8 +83,8 @@ p staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
 
 # def staggered_case(string, start_upper: true)
 #   string.chars.each_with_object('') do |char, result|
-#     result << (start_upper ? char.upcase : char.downcase)
-#     start_upper = !start_upper
+    # result << (start_upper ? char.upcase : char.downcase)
+    # start_upper = !start_upper
 #   end
 # end
 

@@ -1,42 +1,27 @@
 # PROBLEM
-Modify the method from the previous exercise so it ignores non-alphabetic characters when determining whether it should uppercase or lowercase each letter. The non-alphabetic characters should still be included in the return value; they just don't count when toggling the desired case.
+Write a method that takes an Array of integers as input, multiplies all the numbers together, divides the result by the number of entries in the Array, and then prints the result rounded to 3 decimal places. Assume the array is non-empty.
 
-  Input: string
-  Output: new string
+  Input: array of integers
+  Output: float
 
   ## Rules
   ### explicit
-  - output string contains same values as input string except for alphabetic characters may be changed to upper or lower case
-  - every other alphabetic character in output string will be uppercase, every OTHER other alphabetic character in output string will be lowercase
-  - non-alphabetic characters will be included in output string
-  - non-alphabetic characters are ignored when determing whether to toggle the case of alphabetic characters
+  
   ### implicit
-  - at beginning of output string, toggle is set to uppercase, then alternates with each alphabetic character
-  - non-alphabetic characters do not change the toggle, only alphabetic characters
+
 
   ## Questions
 
 
 # EXAMPLES
-staggered_case('I Love Launch School!') == 'I lOvE lAuNcH sChOoL!'
-staggered_case('ALL CAPS') == 'AlL cApS'
-staggered_case('ignore 77 the 444 numbers') == 'IgNoRe 77 ThE 444 nUmBeRs'
+show_multiplicative_average([3, 5])                # => The result is 7.500
+show_multiplicative_average([6])                   # => The result is 6.000
+show_multiplicative_average([2, 5, 7, 11, 13, 17]) # => The result is 28361.667
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- create a toggle variable, set it to true
-- iterate over each character in input string
-- if character is not alphabetic, go to next character
-- if character is alphabetic:
-    - if toggle is true:
-      - uppercase the letter
-      - change toggle to false
-    - if toggle is false:
-      - lowercase the letter
-      - change toggle to true
-- return the new string
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
