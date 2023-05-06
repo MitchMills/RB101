@@ -1,11 +1,25 @@
-### MULTIPLICATIVE AVERAGE
-def show_multiplicative_average(array)
+### 8 MULTIPLY LISTS
+def multiply_list(arr1, arr2)
 
 end
 
-p show_multiplicative_average([3, 5])                # => result: 7.500
-p show_multiplicative_average([6])                   # => result: 6.000
-p show_multiplicative_average([2, 5, 7, 11, 13, 17]) # => result: 28361.667
+
+p multiply_list([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
+
+### 7 MULTIPLICATIVE AVERAGE
+# def show_multiplicative_average(array)
+#   result = array.reduce(:*) / array.size.to_f
+#   puts "The result is #{format("%.3f", result)}"
+# end
+
+# def show_multiplicative_average(array)
+#   result = array.reduce(:*).fdiv(array.size)
+#   puts "The result is #{format("%.3f", result)}"
+# end
+
+# show_multiplicative_average([3, 5])                # => result: 7.500
+# show_multiplicative_average([6])                   # => result: 6.000
+# show_multiplicative_average([2, 5, 7, 11, 13, 17]) # => result: 28361.667
 
 ### 6 STAGGERED CAPS II
 # UPPER = ('A'..'Z').to_a
