@@ -1,13 +1,41 @@
-### 9 MULTIPLY ALL PAIRS
-def multiply_all_pairs(arr1, arr2)
+### 10 THE END IS NEAR BUT NOT HERE
+def penultimate(sentence)
 
 end
 
-p multiply_all_pairs([2, 4], [4, 3, 1, 2]) == [2, 4, 4, 6, 8, 8, 12, 16]
+p penultimate('last word') == 'last'
+p penultimate('Launch School is great!') == 'is'
+
+### 9 MULTIPLY ALL PAIRS
+# def multiply_all_pairs(arr1, arr2)
+#   arr1.product(arr2).map { |pair| pair.inject(:*) }.sort
+# end
+
+# def multiply_all_pairs(arr1, arr2)
+#   arr1.each_with_object([]) do |arr1_num, result|
+#     arr2.each do |arr2_num|
+#       result << arr2_num * arr1_num
+#     end
+#   end.sort
+# end
+
+# def multiply_all_pairs(arr1, arr2)
+#   arr1.each_with_object([]) { |n1, res| arr2.each { |n2| res << n2 * n1 } }.sort
+# end
+
+# def multiply_all_pairs(arr1, arr2)
+#   arr1.map { |num1| arr2.map { |num2| num1 * num2 } }.flatten.sort
+# end
+
+# p multiply_all_pairs([2, 4], [4, 3, 1, 2]) == [2, 4, 4, 6, 8, 8, 12, 16]
 
 ### 8 MULTIPLY LISTS
 # def multiply_list(arr1, arr2)
 #   arr1.map.with_index { |num, idx| num * arr2[idx] }
+# end
+
+# def multiply_list(arr1, arr2)
+#   arr1.each_index.map { |idx| arr1[idx] * arr2[idx] }
 # end
 
 # def multiply_list(arr1, arr2)
