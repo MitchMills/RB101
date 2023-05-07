@@ -1,8 +1,10 @@
 # PROBLEM
-Write a method that takes two Array arguments in which each Array contains a list of numbers, and returns a new Array that contains the product of each pair of numbers from the arguments that have the same index. You may assume that the arguments contain the same number of elements.
+Write a method that takes two Array arguments in which each Array contains a list of numbers, and returns a new Array that contains the product of every pair of numbers that can be formed between the elements of the two Arrays. The results should be sorted by increasing value.
 
-  Input: two arrays
-  Output: new array
+You may assume that neither argument is an empty Array.
+
+  Input: 
+  Output:
 
   ## Rules
   ### explicit
@@ -14,13 +16,12 @@ Write a method that takes two Array arguments in which each Array contains a lis
 
 
 # EXAMPLES
-multiply_list([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
+multiply_all_pairs([2, 4], [4, 3, 1, 2]) == [2, 4, 4, 6, 8, 8, 12, 16]
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #

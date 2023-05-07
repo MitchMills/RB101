@@ -1,10 +1,32 @@
-### 8 MULTIPLY LISTS
-def multiply_list(arr1, arr2)
+### 9 MULTIPLY ALL PAIRS
+def multiply_all_pairs(arr1, arr2)
 
 end
 
+p multiply_all_pairs([2, 4], [4, 3, 1, 2]) == [2, 4, 4, 6, 8, 8, 12, 16]
 
-p multiply_list([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
+### 8 MULTIPLY LISTS
+# def multiply_list(arr1, arr2)
+#   arr1.map.with_index { |num, idx| num * arr2[idx] }
+# end
+
+# def multiply_list(arr1, arr2)
+#   arr1.zip(arr2).map { |pair| pair.reduce(:*) }
+# end
+
+# def multiply_list(arr1, arr2)
+#   arr1.each_with_index.with_object([]) do |(num, idx), result|
+#     result << (num * arr2[idx])
+#   end
+# end
+
+# def multiply_list(arr1, arr2)
+#   arr1.each_index.with_object([]) do |idx, result|
+#     result << (arr1[idx] * arr2[idx])
+#   end
+# end
+
+# p multiply_list([3, 5, 7], [9, 10, 11]) == [27, 50, 77]
 
 ### 7 MULTIPLICATIVE AVERAGE
 # def show_multiplicative_average(array)
