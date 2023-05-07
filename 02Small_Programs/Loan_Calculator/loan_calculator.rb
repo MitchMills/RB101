@@ -18,7 +18,7 @@ def prompt(key, action: 'puts', data: '', lang: LANGUAGE)
 end
 
 def valid_number?(input, type)
-
+  true
 end
 
 def get_name
@@ -41,25 +41,36 @@ end
 
 def get_user_data
   loan_amount = get_loan_amount()
-  annual_percentage_rate = get_apr()
-  loan_duration_years = get_loan_duration()
+  monthly_rate = get_loan_rate()
+  loan_months = get_loan_duration()
 
-  user_data = [loan_amount, mpr, loan_duration_months]
+  user_data = {
+    loan_amount: loan_amount, 
+    monthly_rate: monthly_rate, 
+    loan_months: loan_months
+  }
 end
 
 def get_loan_amount
-  prompt('loan_amount?')
-  loan_amount
+  prompt('loan_amount?', action: 'print')
+  loan_amount = gets.chomp.to_f
 end
 
-def get_apr
-  prompt('apr?')
-  apr
+def get_loan_rate
+  prompt('loan_rate?', action: 'print')
+  annual_percentage_rate = gets.chomp.to_f
+  monthly_percentage_rate = annual_percentage_rate / MONTHS_PER_YEAR
 end
 
 def get_loan_duration
-  prompt('loan_duration?')
-  loan_duration_years
+  prompt('loan_duration?', action: 'print')
+  loan_years = gets.chomp.to_i
+  loan_months = loan_years * MONTHS_PER_YEAR
+end
+
+
+def get_results(user_data)
+  monthly_payment = user_data[:loan_amount] * (user_data[:monthly_rate] / (1 - (1 + user_data[:monthly_rate])**(-user_data[:loan_months])))
 end
 
 
@@ -67,12 +78,16 @@ end
 
 # MAIN PROGRAM LOOP
 
-system 'clear'
-prompt('welcome')
-name = get_name
-prompt('get_started', data: name)
+# system 'clear'
+# prompt('welcome')
+# name = get_name
+# prompt('get_started', data: name)
 
-intro
+# intro
+
 user_data = get_user_data
-results = get_results(user_data)
-display_results(results)
+# results = get_results(user_data)
+# display_results(results)
+
+
+p get_results(user_data)

@@ -9,7 +9,7 @@
   - monthly payment `monthly_payment`
 
 `monthly_payment = `
-`loan_amount * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_months)))`
+`loan_amount * (monthly_rate / (1 - (1 + monthly_rate)**(-loan_months)))`
 
 # main program loop:
 - welcome
