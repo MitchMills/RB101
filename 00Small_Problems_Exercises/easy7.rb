@@ -1,14 +1,54 @@
 ### 11 HOW MANY
-def count_occurences
+# def count_occurrences(array)
+#   array.tally.each { |type, count| puts "#{type} => #{count}" }
+# end
 
-end
+# def count_occurrences(array)
+#   counts = {}
+#   array.uniq.each { |type| counts[type] = array.count(type) }
+#   counts.each { |type, count| puts "#{type} => #{count}" }
+# end
 
-vehicles = [
-  'car', 'car', 'truck', 'car', 'SUV', 'truck',
-  'motorcycle', 'motorcycle', 'car', 'truck'
-]
+# def count_occurrences(arr)
+#   occs = arr.uniq.each_with_object({}) {|ele, occs| occs[ele] = arr.count(ele)}
+#   occs.each { |type, count| puts "#{type} => #{count}" }
+# end
 
-count_occurrences(vehicles)
+# def count_occurrences(arr)
+#   occs = arr.each_with_object(Hash.new(0)) { |type, occs| occs[type] += 1 }
+#   occs.each { |type, count| puts "#{type} => #{count}" }
+# end
+
+# def count_occurrences(array)
+#   array.map(&:downcase).tally.each { |type, count| puts "#{type} => #{count}" }
+# end
+
+# def count_occurrences(array)
+#   occurrences = {}
+#   types = array.map(&:downcase)
+#   types.uniq.each { |type| occurrences[type] = types.count(type) }
+#   occurrences.each { |type, count| puts "#{type} => #{count}" }
+# end
+
+# def count_occurrences(array)
+#   types = array.map(&:downcase)
+#   occurrences = types.each_with_object(Hash.new(0)) do |type, occurrences| 
+#     occurrences[type] += 1
+#   end
+#   occurrences.each { |type, count| puts "#{type} => #{count}" }
+# end
+
+# def count_occurrences(array)
+#   types = array.map(&:downcase)
+#   types.uniq.each { |type| puts "#{type} => #{types.count(type)}" }
+# end
+
+# vehicles = [
+#   'Car', 'car', 'TRUCK', 'CAR', 'SUV', 'truck',
+#   'motorcycle', 'Motorcycle', 'car', 'truck', 'suv'
+# ]
+
+# count_occurrences(vehicles)
 
 ### 10 THE END IS NEAR BUT NOT HERE
 # def middle_word(sentence)

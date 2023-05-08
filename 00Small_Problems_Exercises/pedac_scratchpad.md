@@ -1,10 +1,8 @@
 # PROBLEM
-Write a method that counts the number of occurrences of each element in a given array.
+Write a method that takes an Array of numbers and then returns the sum of the sums of each leading subsequence for that Array. You may assume that the Array always contains at least one number.
 
-The words in the array are case-sensitive: 'suv' != 'SUV'. Once counted, print each element alongside the number of occurrences.
-
-  Input: 
-  Output:
+  Input: array
+  Output: integer
 
   ## Rules
   ### explicit
@@ -16,22 +14,16 @@ The words in the array are case-sensitive: 'suv' != 'SUV'. Once counted, print e
 
 
 # EXAMPLES
-vehicles = [
-  'car', 'car', 'truck', 'car', 'SUV', 'truck',
-  'motorcycle', 'motorcycle', 'car', 'truck'
-]
-
-count_occurrences(vehicles)
-
-car => 4
-truck => 3
-SUV => 1
-motorcycle => 2
+sum_of_sums([3, 5, 2]) == (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
+sum_of_sums([1, 5, 7, 3]) == (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
+sum_of_sums([4]) == 4
+sum_of_sums([1, 2, 3, 4, 5]) == 35
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
+
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
