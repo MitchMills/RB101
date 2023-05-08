@@ -1,10 +1,31 @@
 ### 10 THE END IS NEAR BUT NOT HERE
-def penultimate(sentence)
-
+def middle_word(sentence)
+  words = sentence.split
+  middle_index = ((words.size) / 2.0).ceil - 1
+  middle_index < 0 ? '' : words[middle_index]
 end
 
-p penultimate('last word') == 'last'
-p penultimate('Launch School is great!') == 'is'
+p middle_word('last word') #== 'last'
+p middle_word('Launch School is great!') #== 'School'
+p middle_word('Launch School is really great!') #== 'is'
+p middle_word('middle') #== 'middle'
+p middle_word(' ') #== ''
+
+# def penultimate(sentence)
+#   (sentence.split)[-2]
+# end
+
+# def penultimate(string)
+#   spaces = []
+#   string.strip.squeeze(' ').chars.each_with_index do |char, idx|
+#     spaces << idx if char == ' '
+#   end
+#   start = spaces.size < 2 ? 0 : spaces[-2] + 1
+#   string[start...spaces[-1]]
+# end
+
+# p penultimate('last word') #== 'last'
+# p penultimate('Launch School is great!') #== 'is'
 
 ### 9 MULTIPLY ALL PAIRS
 # def multiply_all_pairs(arr1, arr2)
