@@ -1,31 +1,76 @@
-### 10 THE END IS NEAR BUT NOT HERE
-def middle_word(sentence)
-  words = sentence.split
-  middle_index = ((words.size) / 2.0).ceil - 1
-  middle_index < 0 ? '' : words[middle_index]
+### 11 HOW MANY
+def count_occurences
+
 end
 
-p middle_word('last word') #== 'last'
-p middle_word('Launch School is great!') #== 'School'
-p middle_word('Launch School is really great!') #== 'is'
-p middle_word('middle') #== 'middle'
-p middle_word(' ') #== ''
+vehicles = [
+  'car', 'car', 'truck', 'car', 'SUV', 'truck',
+  'motorcycle', 'motorcycle', 'car', 'truck'
+]
+
+count_occurrences(vehicles)
+
+### 10 THE END IS NEAR BUT NOT HERE
+# def middle_word(sentence)
+#   words = sentence.split
+#   middle_index = (words.size / 2.0).ceil - 1
+#   words.empty? ? '' : words[middle_index]
+# end
+
+# p middle_word('Launch School is great!') == 'School'
+# p middle_word('Launch School is really great!') == 'is'
+# p middle_word('middle') == 'middle'
+# p middle_word(' ') == ''
+# p middle_word('') == ''
+
+# def middle_word(sentence) # if even return first word in second half
+#   words = sentence.split
+#   middle_index = words.size / 2
+#   words.empty? ? '' : words[middle_index]
+# end
+
+# p middle_word('Launch School is really great!') == 'is'
+# p middle_word('Launch School is great!') == 'is'
+# p middle_word('middle') == 'middle'
+# p middle_word(' ') == ''
+# p middle_word('') == ''
+# puts
+
+# def middle_word(sentence)
+#   words = sentence.split
+#   middle_index = (words.size / 2.0).ceil - 1
+#   number = words.size.even? ? 2 : 1 
+#   words.empty? ? '' : words[middle_index, number].join(' ')
+# end
+
+# p middle_word('Launch School is great!') == 'School is'
+# p middle_word('Launch School is really great!') == 'is'
+# p middle_word('middle') == 'middle'
+# p middle_word(' ') == ''
+# p middle_word('') == ''
 
 # def penultimate(sentence)
-#   (sentence.split)[-2]
+#   sentence.split[-2]
 # end
 
 # def penultimate(string)
+#   clean_string = string.strip.squeeze(' ')
 #   spaces = []
-#   string.strip.squeeze(' ').chars.each_with_index do |char, idx|
+#   clean_string.chars.each_with_index do |char, idx|
 #     spaces << idx if char == ' '
 #   end
 #   start = spaces.size < 2 ? 0 : spaces[-2] + 1
-#   string[start...spaces[-1]]
+#   clean_string[start...spaces[-1]]
 # end
 
-# p penultimate('last word') #== 'last'
-# p penultimate('Launch School is great!') #== 'is'
+# p penultimate('last word') == 'last'
+# p penultimate('Launch School is great!') == 'is'
+# p penultimate(' last word') == 'last'
+# p penultimate('Launch School is great! ') == 'is'
+# p penultimate('last   word') == 'last'
+# p penultimate('last') == 'last'
+# p penultimate(' ') == ''
+# p penultimate('') == ''
 
 ### 9 MULTIPLY ALL PAIRS
 # def multiply_all_pairs(arr1, arr2)
