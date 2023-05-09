@@ -64,7 +64,17 @@ p leading_substrings('xyzzy') == ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']
 #   array.each_index.map { |idx| array.take(idx + 1).sum }.sum
 # end
 
-# p sum_of_sums([3, 5, 2]) == (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
-# p sum_of_sums([1, 5, 7, 3]) == (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
-# p sum_of_sums([4]) == 4
-# p sum_of_sums([1, 2, 3, 4, 5]) == 35
+# def sum_of_sums(array)
+#   array.each_with_index.inject(0) do |sum, (num, idx)|
+#     sum += (num * (array.size - idx))
+#   end
+# end
+
+# def sum_of_sums(array)
+#   array.each_index.inject(0) { |sum, idx| sum += array.take(idx + 1).sum }
+# end
+
+# p sum_of_sums([3, 5, 2]) #== (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
+# p sum_of_sums([1, 5, 7, 3]) #== (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
+# p sum_of_sums([4]) #== 4
+# p sum_of_sums([1, 2, 3, 4, 5]) #== 35
