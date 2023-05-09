@@ -17,8 +17,32 @@ def prompt(key, action: 'puts', data: '', lang: LANGUAGE)
   end
 end
 
-def valid_number?(input, type)
-  true
+# INPUT VALIDATION METHODS
+def valid_integer?(input)
+  (input.to_i.to_s == input) && non_negative?(input)
+end
+
+def valid_float?(input)
+  (input.to_f.to_s == input) && non_negative?(input)
+end
+
+def non_negative?(input)
+  input.abs == input
+end
+
+def valid_number?(input, type: 'number')
+  if type == 'integer'
+    valid_integer?(input)
+  elsif type == 'number'
+   valid_integer?(input) || valid_float?(input)
+  end
+end
+
+# INTRO METHODS
+def welcome(user_data)
+  prompt('welcome')
+  user_data[:name] = get_name
+  prompt('get_started', data: user_data[:name])
 end
 
 def get_name
@@ -39,16 +63,14 @@ def intro
 end
 
 
-def get_user_data
+def get_user_inputs(user_data)
   loan_amount = get_loan_amount()
   monthly_rate = get_loan_rate()
   loan_months = get_loan_duration()
 
-  user_data = {
-    loan_amount: loan_amount, 
-    monthly_rate: monthly_rate, 
-    loan_months: loan_months
-  }
+  user_data[:loan_amount] = loan_amount
+  user_data[:monthly_rate] = monthly_rate
+  user_data[:loan_months] = loan_months
 end
 
 def get_loan_amount
@@ -68,9 +90,12 @@ def get_loan_duration
   loan_months = loan_years * MONTHS_PER_YEAR
 end
 
-
 def get_results(user_data)
   monthly_payment = user_data[:loan_amount] * (user_data[:monthly_rate] / (1 - (1 + user_data[:monthly_rate])**(-user_data[:loan_months])))
+end
+
+def display_results(results)
+
 end
 
 
@@ -79,15 +104,19 @@ end
 # MAIN PROGRAM LOOP
 
 # system 'clear'
-# prompt('welcome')
-# name = get_name
-# prompt('get_started', data: name)
+user_data = {
+    name: '',
+    loan_amount: 0, 
+    monthly_rate: 0, 
+    loan_months: 0
+  }
+welcome(user_data)
+intro()
 
-# intro
-
-user_data = get_user_data
-# results = get_results(user_data)
+get_user_inputs(user_data)
+results = get_results(user_data)
+p results
 # display_results(results)
 
 
-p get_results(user_data)
+# p get_results(user_data)
