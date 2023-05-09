@@ -1,8 +1,8 @@
 # PROBLEM
-Write a method that takes an Array of numbers and then returns the sum of the sums of each leading subsequence for that Array. You may assume that the Array always contains at least one number.
+Write a method that returns a list of all substrings of a string that start at the beginning of the original string. The return value should be arranged in order from shortest to longest substring.
 
-  Input: array
-  Output: integer
+  Input: string
+  Output: array
 
   ## Rules
   ### explicit
@@ -14,10 +14,9 @@ Write a method that takes an Array of numbers and then returns the sum of the su
 
 
 # EXAMPLES
-sum_of_sums([3, 5, 2]) == (3) + (3 + 5) + (3 + 5 + 2) # -> (21)
-sum_of_sums([1, 5, 7, 3]) == (1) + (1 + 5) + (1 + 5 + 7) + (1 + 5 + 7 + 3) # -> (36)
-sum_of_sums([4]) == 4
-sum_of_sums([1, 2, 3, 4, 5]) == 35
+leading_substrings('abc') == ['a', 'ab', 'abc']
+leading_substrings('a') == ['a']
+leading_substrings('xyzzy') == ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']
 
 # DATA STRUCTURES
 
