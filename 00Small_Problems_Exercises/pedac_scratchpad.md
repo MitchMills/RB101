@@ -1,8 +1,10 @@
 # PROBLEM
-Write a method that returns a list of all substrings of a string that start at the beginning of the original string. The return value should be arranged in order from shortest to longest substring.
+Write a method that returns a list of all substrings of a string. The returned list should be ordered by where in the string the substring begins. This means that all substrings that start at position 0 should come first, then all substrings that start at position 1, and so on. Since multiple substrings will occur at each position, the substrings at a given position should be returned in order from shortest to longest.
 
-  Input: string
-  Output: array
+You may (and should) use the leading_substrings method you wrote in the previous exercise
+
+  Input: 
+  Output:
 
   ## Rules
   ### explicit
@@ -14,15 +16,20 @@ Write a method that returns a list of all substrings of a string that start at t
 
 
 # EXAMPLES
-leading_substrings('abc') == ['a', 'ab', 'abc']
-leading_substrings('a') == ['a']
-leading_substrings('xyzzy') == ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']
+substrings('abcde') == [
+  'a', 'ab', 'abc', 'abcd', 'abcde',
+  'b', 'bc', 'bcd', 'bcde',
+  'c', 'cd', 'cde',
+  'd', 'de',
+  'e'
+]
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
 
+  
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #

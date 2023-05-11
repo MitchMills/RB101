@@ -1,6 +1,39 @@
-### 2 LEADING SUBSTRINGS
-def leading_substrings(string)
+### 3 ALL SUBSTRINGS
+def substrings(string)
 
+end
+
+p substrings('abcde') == [
+  'a', 'ab', 'abc', 'abcd', 'abcde',
+  'b', 'bc', 'bcd', 'bcde',
+  'c', 'cd', 'cde',
+  'd', 'de',
+  'e'
+]
+
+### 2 LEADING SUBSTRINGS
+# def leading_substrings(string)
+#   string.chars.each_index.map { |idx| string.slice(0, idx + 1) }
+# end
+
+def leading_substrings(string)
+  string.chars.each_index.map { |idx| string.slice(0..idx) }
+end
+
+def leading_substrings(string)
+  (1..string.size).map { |counter| string.slice(0, counter) }
+end
+
+def leading_substrings(string)
+  1.upto(string.size).map { |counter| string.slice(0, counter) }
+end
+
+def leading_substrings(string)
+  (0...string.size).map { |counter| string.slice(0..counter) }
+end
+
+def leading_substrings(string)
+  string.size.times.map { |counter| string.slice(0..counter) }
 end
 
 p leading_substrings('abc') == ['a', 'ab', 'abc']
