@@ -1,45 +1,51 @@
 ### 3 ALL SUBSTRINGS
-# def substrings(string)
+def substrings(string)
+  (string.size).times.map do |num|
+    leading_substrings(string[num..-1])
+  end.flatten
+end
 
-# end
+def leading_substrings(string)
+  (1..string.size).map { |num| string[0, num] }
+end
 
-# p substrings('abcde') == [
-#   'a', 'ab', 'abc', 'abcd', 'abcde',
-#   'b', 'bc', 'bcd', 'bcde',
-#   'c', 'cd', 'cde',
-#   'd', 'de',
-#   'e'
-# ]
+p substrings('abcde') == [
+  'a', 'ab', 'abc', 'abcd', 'abcde',
+  'b', 'bc', 'bcd', 'bcde',
+  'c', 'cd', 'cde',
+  'd', 'de',
+  'e'
+]
 
 ### 2 LEADING SUBSTRINGS
 # def leading_substrings(string)
 #   string.chars.each_index.map { |idx| string.slice(0, idx + 1) }
 # end
 
-def leading_substrings(string) # iterating directly over the characters
-  string.chars.each_index.map { |idx| string[0..idx] }
-end
+# def leading_substrings(string) # iterating directly over the characters
+#   string.chars.each_index.map { |idx| string[0..idx] }
+# end
 
-def leading_substrings(string) # iterating over a range
-  (0...string.size).map { |num| string[0..num] }
-end
+# def leading_substrings(string) # iterating over a range
+#   (0...string.size).map { |num| string[0..num] }
+# end
 
-def leading_substrings(string) # using #times to iterate
-  (string.size).times.map { |counter| string[0..counter] }
-end
+# def leading_substrings(string) # using #times to iterate
+#   (string.size).times.map { |counter| string[0..counter] }
+# end
 
 def leading_substrings(string) # iterating over a range
   (1..string.size).map { |num| string[0, num] }
 end
 
-def leading_substrings(string) # using #upto to iterate
-  1.upto(string.size).map { |num| string[0, num] }
-end
+# def leading_substrings(string) # using #upto to iterate
+#   1.upto(string.size).map { |num| string[0, num] }
+# end
 
 
-p leading_substrings('abc') == ['a', 'ab', 'abc']
-p leading_substrings('a') == ['a']
-p leading_substrings('xyzzy') == ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']
+# p leading_substrings('abc') == ['a', 'ab', 'abc']
+# p leading_substrings('a') == ['a']
+# p leading_substrings('xyzzy') == ['x', 'xy', 'xyz', 'xyzz', 'xyzzy']
 
 ### 1 SUM OF SUMS
 # def sum_of_sums(array)
