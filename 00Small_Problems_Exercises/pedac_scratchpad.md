@@ -3,8 +3,8 @@ Write a method that returns a list of all substrings of a string. The returned l
 
 You may (and should) use the leading_substrings method you wrote in the previous exercise
 
-  Input: 
-  Output:
+  Input: string
+  Output: array
 
   ## Rules
   ### explicit

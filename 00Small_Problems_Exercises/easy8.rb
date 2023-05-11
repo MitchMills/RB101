@@ -1,40 +1,41 @@
 ### 3 ALL SUBSTRINGS
-def substrings(string)
+# def substrings(string)
 
-end
+# end
 
-p substrings('abcde') == [
-  'a', 'ab', 'abc', 'abcd', 'abcde',
-  'b', 'bc', 'bcd', 'bcde',
-  'c', 'cd', 'cde',
-  'd', 'de',
-  'e'
-]
+# p substrings('abcde') == [
+#   'a', 'ab', 'abc', 'abcd', 'abcde',
+#   'b', 'bc', 'bcd', 'bcde',
+#   'c', 'cd', 'cde',
+#   'd', 'de',
+#   'e'
+# ]
 
 ### 2 LEADING SUBSTRINGS
 # def leading_substrings(string)
 #   string.chars.each_index.map { |idx| string.slice(0, idx + 1) }
 # end
 
-def leading_substrings(string)
-  string.chars.each_index.map { |idx| string.slice(0..idx) }
+def leading_substrings(string) # iterating directly over the characters
+  string.chars.each_index.map { |idx| string[0..idx] }
 end
 
-def leading_substrings(string)
-  (1..string.size).map { |counter| string.slice(0, counter) }
+def leading_substrings(string) # iterating over a range
+  (0...string.size).map { |num| string[0..num] }
 end
 
-def leading_substrings(string)
-  1.upto(string.size).map { |counter| string.slice(0, counter) }
+def leading_substrings(string) # using #times to iterate
+  (string.size).times.map { |counter| string[0..counter] }
 end
 
-def leading_substrings(string)
-  (0...string.size).map { |counter| string.slice(0..counter) }
+def leading_substrings(string) # iterating over a range
+  (1..string.size).map { |num| string[0, num] }
 end
 
-def leading_substrings(string)
-  string.size.times.map { |counter| string.slice(0..counter) }
+def leading_substrings(string) # using #upto to iterate
+  1.upto(string.size).map { |num| string[0, num] }
 end
+
 
 p leading_substrings('abc') == ['a', 'ab', 'abc']
 p leading_substrings('a') == ['a']
