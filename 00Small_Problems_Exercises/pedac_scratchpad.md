@@ -1,48 +1,38 @@
 # PROBLEM
-Write a method that returns a list of all substrings of a string. The returned list should be ordered by where in the string the substring begins. This means that all substrings that start at position 0 should come first, then all substrings that start at position 1, and so on. Since multiple substrings will occur at each position, the substrings at a given position should be returned in order from shortest to longest.
+Write a method that returns a list of all substrings of a string that are palindromic. That is, each substring must consist of the same sequence of characters forwards as it does backwards. The return value should be arranged in the same sequence as the substrings appear in the string. Duplicate palindromes should be included multiple times.
 
-You may (and should) use the leading_substrings method you wrote in the previous exercise
+You may (and should) use the substrings method you wrote in the previous exercise.
 
-  Input: string
-  
-  Output: array
-  - contains all substrings of input string
-  - should be ordered by starting character / index (i.e. all substrings that start at position 0 should come first, and so on)
-    - substrings starting at a given character / index should be sorted according length, shortest to longest
+For the purposes of this exercise, you should consider all characters and pay attention to case; that is, "AbcbA" is a palindrome, but neither "Abcba" nor "Abc-bA" are. In addition, assume that single characters are not palindromes.
+
+  Input: 
+  Output:
 
   ## Rules
   ### explicit
   
   ### implicit
-  - treat all characters the same
-  - for index 0, there will be string.size substrings
-    - for index 1, there will be string.size - 1 substrings
-    - etc
-  - for any given start_index, there will be (string.size - start_index) substrings
-    - the longest substring of that set will have a size of (string.size - start_index )
+
 
   ## Questions
 
 
 # EXAMPLES
-substrings('abcde') == [
-  'a', 'ab', 'abc', 'abcd', 'abcde',
-  'b', 'bc', 'bcd', 'bcde',
-  'c', 'cd', 'cde',
-  'd', 'de',
-  'e'
+palindromes('abcd') == []
+palindromes('madam') == ['madam', 'ada']
+palindromes('hello-madam-did-madam-goodbye') == [
+  'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+  'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+  '-madam-', 'madam', 'ada', 'oo'
+]
+palindromes('knitting cassettes') == [
+  'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
 ]
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- iterate
-  - feed input string into leading_substrings
-    - store return values in a holding array
-  - remove a letter from the front of the input string
-  - continue until substring size == 1
-- return array of all return values
   
 
 
