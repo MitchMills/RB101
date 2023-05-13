@@ -1,28 +1,51 @@
-### 4 PALINDROMIC SUBSTRINGS
-def palindromes(string)
+### 5 FIZZBUZZ
+def fizzbuzz(start, end)
 
 end
 
-p  palindromes('abcd') == []
-p  palindromes('madam') == ['madam', 'ada']
-p  palindromes('hello-madam-did-madam-goodbye') == [
-  'll', 
-  '-madam-', '-madam-did-madam-', 
-  'madam', 'madam-did-madam', 
-  'ada', 'adam-did-mada', 
-  'dam-did-mad', 
-  'am-did-ma', 
-  'm-did-m', 
-  '-did-', 
-  'did',
-  '-madam-', 
-  'madam', 
-  'ada', 
-  'oo'
-]
-p  palindromes('knitting cassettes') == [
-  'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
-]
+fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
+
+### 4 PALINDROMIC SUBSTRINGS
+# def is_palindrome?(string)
+#   string.reverse == string
+# end
+
+# def leading_substrings(string)
+#   (2..string.size).map { |length| string[0, length] } # only returns substrings with size > 1
+# end
+
+# def all_substrings(string)
+#   (string.size - 1).times.map do |start| # only passes substrings with size > 1 into leading_substrings
+#     leading_substrings(string[start..-1])
+#   end.flatten
+# end
+
+# def palindromes(string)
+#   string = string.downcase.gsub(/[^a-z0-9]/, '')
+#   all_substrings(string).select { |str| is_palindrome?(str) }
+# end
+
+#####
+# def leading_substrings(string)
+#   (2..string.size).map { |length| string[0, length] } # only returns substrings with size > 1
+# end
+
+# def palindromes(string)
+#   (string.size - 1).times.map do |start| # only passes substrings with size > 1 into leading_substrings
+#     leading_substrings(string[start..-1]).select { |str| is_palindrome?(str) }
+#   end.flatten
+# end
+#####
+# p palindromes('abcd') == []
+# p palindromes('madam') == ['madam', 'ada']
+# p palindromes('hello-madam-did-madam-goodbye') == [
+#   'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
+#   'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
+#   '-madam-', 'madam', 'ada', 'oo'
+# ]
+# p palindromes('knitting cassettes') == [
+#   'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
+# ]
 
 ### 3 ALL SUBSTRINGS
 # def substrings(string) # uses leading_substrings as a helper method

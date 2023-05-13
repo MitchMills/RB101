@@ -1,9 +1,5 @@
 # PROBLEM
-Write a method that returns a list of all substrings of a string that are palindromic. That is, each substring must consist of the same sequence of characters forwards as it does backwards. The return value should be arranged in the same sequence as the substrings appear in the string. Duplicate palindromes should be included multiple times.
-
-You may (and should) use the substrings method you wrote in the previous exercise.
-
-For the purposes of this exercise, you should consider all characters and pay attention to case; that is, "AbcbA" is a palindrome, but neither "Abcba" nor "Abc-bA" are. In addition, assume that single characters are not palindromes.
+Write a method that takes two arguments: the first is the starting number, and the second is the ending number. Print out all numbers from the starting number to the ending number, except if a number is divisible by 3, print "Fizz", if a number is divisible by 5, print "Buzz", and finally if a number is divisible by 3 and 5, print "FizzBuzz".
 
   Input: 
   Output:
@@ -18,22 +14,12 @@ For the purposes of this exercise, you should consider all characters and pay at
 
 
 # EXAMPLES
-palindromes('abcd') == []
-palindromes('madam') == ['madam', 'ada']
-palindromes('hello-madam-did-madam-goodbye') == [
-  'll', '-madam-', '-madam-did-madam-', 'madam', 'madam-did-madam', 'ada',
-  'adam-did-mada', 'dam-did-mad', 'am-did-ma', 'm-did-m', '-did-', 'did',
-  '-madam-', 'madam', 'ada', 'oo'
-]
-palindromes('knitting cassettes') == [
-  'nittin', 'itti', 'tt', 'ss', 'settes', 'ette', 'tt'
-]
+fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-  
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
