@@ -1,11 +1,28 @@
 ### 5 FIZZBUZZ
-def fizzbuzz(start, end)
+def fizzbuzz(start, stop)
 
 end
 
-fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
+# fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
 
 ### 4 PALINDROMIC SUBSTRINGS
+# def is_palindrome?(string)
+#   string.size > 1 && string.reverse == string
+# end
+
+# def find_substring_palindromes(string)
+#   (1..string.size).map do |length| 
+#     string[0, length]
+#   end.select { |str| is_palindrome?(str) }
+# end
+
+# def palindromes(string)
+#   (string.size).times.map do |start|
+#     find_substring_palindromes(string[start..-1])
+#   end.flatten
+# end
+
+#############
 # def is_palindrome?(string)
 #   string.reverse == string
 # end
@@ -25,7 +42,7 @@ fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 
 #   all_substrings(string).select { |str| is_palindrome?(str) }
 # end
 
-#####
+###########
 # def leading_substrings(string)
 #   (2..string.size).map { |length| string[0, length] } # only returns substrings with size > 1
 # end
@@ -35,7 +52,7 @@ fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 
 #     leading_substrings(string[start..-1]).select { |str| is_palindrome?(str) }
 #   end.flatten
 # end
-#####
+###########
 # p palindromes('abcd') == []
 # p palindromes('madam') == ['madam', 'ada']
 # p palindromes('hello-madam-did-madam-goodbye') == [
