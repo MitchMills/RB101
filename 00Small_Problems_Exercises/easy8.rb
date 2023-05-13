@@ -11,6 +11,23 @@ end
 # end
 
 # def find_substring_palindromes(string)
+#   string.chars.each_index.with_object([]) do |idx, pals| 
+#     pals << string[0..idx] if is_palindrome?(string[0..idx])
+#   end
+# end
+
+# def palindromes(string)
+#   string.chars.each_index.map do |idx|
+#     find_substring_palindromes(string[idx..-1])
+#   end.flatten
+# end
+
+#####################
+# def is_palindrome?(string)
+#   string.size > 1 && string.reverse == string
+# end
+
+# def find_substring_palindromes(string)
 #   (1..string.size).map do |length| 
 #     string[0, length]
 #   end.select { |str| is_palindrome?(str) }
@@ -20,6 +37,28 @@ end
 #   (string.size).times.map do |start|
 #     find_substring_palindromes(string[start..-1])
 #   end.flatten
+# end
+
+################
+# def is_palindrome?(string)
+#   string.size > 1 && string.reverse == string
+# end
+
+# def leading_substrings(string)
+#   string.chars.each_index.map do |idx| 
+#     string[0..idx]
+#   end
+# end
+
+# def all_substrings(string)
+#   string.chars.each_index.map do |idx|
+#     leading_substrings(string[idx..-1])
+#   end.flatten
+# end
+
+# def palindromes(string)
+#   # string = string.downcase.gsub(/[^a-z0-9]/, '')
+#   all_substrings(string).select { |str| is_palindrome?(str) }
 # end
 
 #############
