@@ -6,19 +6,22 @@ end
 # fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
 
 ### 4 PALINDROMIC SUBSTRINGS
+############## most readable
 # def is_palindrome?(string)
 #   string.size > 1 && string.reverse == string
 # end
 
 # def find_substring_palindromes(string)
-#   string.chars.each_index.with_object([]) do |idx, pals| 
-#     pals << string[0..idx] if is_palindrome?(string[0..idx])
+#   string.chars.each_index.with_object([]) do |stop_idx, palindromes|
+#     substring = string[0..stop_idx] 
+#     palindromes << substring if is_palindrome?(substring)
 #   end
 # end
 
 # def palindromes(string)
-#   string.chars.each_index.map do |idx|
-#     find_substring_palindromes(string[idx..-1])
+#   # string = string.downcase.gsub(/[^a-z0-9]/, '')
+#   string.chars.each_index.map do |start_idx|
+#     find_substring_palindromes(string[start_idx..-1])
 #   end.flatten
 # end
 
@@ -28,37 +31,37 @@ end
 # end
 
 # def find_substring_palindromes(string)
-#   (1..string.size).map do |length| 
-#     string[0, length]
-#   end.select { |str| is_palindrome?(str) }
+#   string.chars.each_index.map do |stop_idx|
+#     string[0..stop_idx]
+#   end.select { |substring| is_palindrome?(substring) }
 # end
 
 # def palindromes(string)
-#   (string.size).times.map do |start|
-#     find_substring_palindromes(string[start..-1])
+#   string.chars.each_index.map do |start_idx|
+#     find_substring_palindromes(string[start_idx..-1])
 #   end.flatten
 # end
 
-################
+################ most readable
 # def is_palindrome?(string)
 #   string.size > 1 && string.reverse == string
 # end
 
-# def leading_substrings(string)
-#   string.chars.each_index.map do |idx| 
-#     string[0..idx]
+# def get_leading_substrings(string)
+#   string.chars.each_index.map do |stop_idx| 
+#     string[0..stop_idx]
 #   end
 # end
 
-# def all_substrings(string)
-#   string.chars.each_index.map do |idx|
-#     leading_substrings(string[idx..-1])
+# def get_all_substrings(string)
+#   string.chars.each_index.map do |start_idx|
+#     get_leading_substrings(string[start_idx..-1])
 #   end.flatten
 # end
 
 # def palindromes(string)
 #   # string = string.downcase.gsub(/[^a-z0-9]/, '')
-#   all_substrings(string).select { |str| is_palindrome?(str) }
+#   get_all_substrings(string).select { |substr| is_palindrome?(substr) }
 # end
 
 #############
