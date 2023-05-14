@@ -1,7 +1,87 @@
-### 5 FIZZBUZZ
-def fizzbuzz(start, stop)
+### 6 DOUBLE CHAR I
+def repeater(string)
 
 end
+
+p repeater('Hello') == "HHeelllloo"
+p repeater("Good job!") == "GGoooodd  jjoobb!!"
+p repeater('') == ''
+
+### 5 FIZZBUZZ
+# def fizzbuzz(start_num, end_num)
+#   (start_num..end_num).each do |num|
+#     if num % 3 == 0 && num % 5 == 0
+#       puts "FizzBuzz"
+#     elsif num % 3 == 0
+#       puts "Fizz"
+#     elsif num % 5 == 0
+#       puts "Buzz"
+#     else
+#       puts num
+#     end
+#   end
+# end
+
+# def fizzbuzz(start, stop)
+#   (start..stop).each do |num|
+#     if 15.step(stop, 15).include?(num)
+#       puts "FizzBuzz"
+#     elsif 3.step(stop, 3).include?(num)
+#       puts "Fizz"
+#     elsif 5.step(stop, 5).include?(num) 
+#       puts "Buzz"
+#     else
+#       puts num
+#     end
+#   end
+# end
+
+# def fizzbuzz(start, stop)
+#   puts (start..stop).map { |num| fizzbuzz_value(num) }.join(", ")
+# end
+
+# def fizzbuzz_value(num)
+#   case
+#   when num % 15 == 0 then "FizzBuzz"
+#   when num % 3 == 0 then "Fizz"
+#   when num % 5 == 0 then "Buzz"
+#   else num
+#   end
+# end
+
+# def fizzbuzz(start, stop)
+#   result = (start..stop).each_with_object("") do |num, string|
+#     string << num.to_s unless num % 3 == 0 || num % 5 == 0
+#     string << "Fizz" if num % 3 == 0
+#     string << "Buzz" if num % 5 == 0
+#     string << ", " unless num == stop
+#   end
+#   puts result
+# end
+
+# def fizzbuzz(start, stop)
+#   result = (start..stop).map do |num|
+#     word = [["Fizz"][num % 3], ["Buzz"][num % 5]].compact
+#     word.empty? ? num : word.join
+#   end
+#   puts result.join(", ")
+# end
+
+# def fizzbuzz(start, stop) # Daniel Chae's recursive solution
+#   print(
+#     ( (ele = "FizzBuzz"[(start % 3 == 0 ? 0 : 4)...(start % 5 == 0 ? 8 : 4)]).empty? ) ? start : ele, (start < stop ? ", " : "\n")
+#   ); fizzbuzz(start+1, stop) if start < stop
+# end
+
+# def fizzbuzz(start_num, end_num) # my non-recursive solution based off his idea
+#   result = (start_num..end_num).map do |num|
+#     start = num % 3 == 0 ? 0 : 4
+#     stop = num % 5 == 0 ? 8 : 4
+#     word = "FizzBuzz"[start...stop]
+#     word.empty? ? num : word
+#   end
+#   puts result.join(", ")
+# end
 
 # fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
 
