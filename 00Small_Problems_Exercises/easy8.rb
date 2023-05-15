@@ -1,3 +1,13 @@
+### 7 DOUBLE CHAR II
+def double_consonants(string)
+
+end
+
+p double_consonants('String') == "SSttrrinngg"
+p double_consonants("Hello-World!") == "HHellllo-WWorrlldd!"
+p double_consonants("July 4th") == "JJullyy 4tthh"
+p double_consonants('') == ""
+
 ### 6 DOUBLE CHAR I
 # def repeater(string)
 #   string.chars.map { |char| char * 2 }.join
@@ -7,12 +17,6 @@
 #   string.chars.zip(string.chars).join
 # end
 
-def repeater(string)
-  new_string = string.chars.zip(string.chars)
-  p new_string.flatten
-  new_string.join
-end
-
 # def repeater(string)
 #   string.each_char.with_object("") { |char, output| output << char * 2 }
 # end
@@ -21,9 +25,9 @@ end
 #   string.chars.inject("") {|new_string, char| new_string << char * 2 }
 # end
 
-p repeater('Hello') == "HHeelllloo"
-p repeater("Good job!") == "GGoooodd  jjoobb!!"
-p repeater('') == ''
+# p repeater('Hello') == "HHeelllloo"
+# p repeater("Good job!") == "GGoooodd  jjoobb!!"
+# p repeater('') == ''
 
 ### 5 FIZZBUZZ
 # def fizzbuzz(start_num, end_num)

@@ -1,32 +1,28 @@
 # PROBLEM
-Write a method that takes a string, and returns a new string in which every character is doubled.
+Write a method that takes a string, and returns a new string in which every consonant character is doubled. Vowels (a,e,i,o,u), digits, punctuation, and whitespace should not be doubled.
 
-  Input: string
-  Output: new string
-    - same characters as input string
-    - every character is doubled
-      - this includes spaces, punctuation, etc
+  Input: 
+  Output:
+
   ## Rules
   ### explicit
   
   ### implicit
-  - if input string is empty, return empty string
+
 
   ## Questions
 
 
 # EXAMPLES
-repeater('Hello') == "HHeelllloo"
-repeater("Good job!") == "GGoooodd  jjoobb!!"
-repeater('') == ''
+double_consonants('String') == "SSttrrinngg"
+double_consonants("Hello-World!") == "HHellllo-WWorrlldd!"
+double_consonants("July 4th") == "JJullyy 4tthh"
+double_consonants('') == ""
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- iterate over each character of the input string
-- double each character
-- return string
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
