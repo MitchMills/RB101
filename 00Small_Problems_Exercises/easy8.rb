@@ -1,6 +1,13 @@
 ### 7 DOUBLE CHAR II
-def double_consonants(string)
+ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
+VOWELS = "AEIOUaeiou"
+CONSONANTS = ALPHABET.delete_if { |char| VOWELS.include?(char) }
 
+def double_consonants(string)
+  string.chars.map do |char|
+    next char * 2 if CONSONANTS.include?(char)
+    char
+  end.join
 end
 
 p double_consonants('String') == "SSttrrinngg"
