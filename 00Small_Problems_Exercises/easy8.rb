@@ -1,12 +1,40 @@
-### 8 REVERSE IT I
-def reverse_sentence(sentence)
-  sentence.split.reverse.join(' ')
+### 9 REVERSE IT II
+def reverse_words(string)
+
 end
 
-p reverse_sentence('Hello World') == 'World Hello'
-p reverse_sentence('Reverse these words') == 'words these Reverse'
-p reverse_sentence('') == ''
-p reverse_sentence('    ') == '' # Any number of spaces results in ''
+p reverse_words('Professional')          # => lanoisseforP
+p reverse_words('Walk around the block') # => Walk dnuora the kcolb
+p reverse_words('Launch School')         # => hcnuaL loohcS
+
+### 8 REVERSE IT I
+# def reverse_sentence(sentence)
+#   sentence.split.reverse.join(' ')
+# end
+
+# def reverse_sentence(sentence)
+#   (1..sentence.split.size).each_with_object("") do |idx, reversed|
+#     reversed << sentence.split[-idx]
+#     reversed << " " unless idx == sentence.split.size
+#   end
+# end
+
+# def reverse_sentence(sentence)
+#   (0...sentence.split.size).each_with_object([]) do |idx, reversed|
+#     reversed[idx] = sentence.split[-(idx + 1)]
+#   end.join(' ')
+# end
+
+# def reverse_sentence(sentence)
+#   (sentence.split.size / 2).times.with_object(sentence.split) do |idx, words|
+#     words[idx], words[-(idx + 1)] = words[-(idx + 1)], words[idx]
+#   end.join(' ')
+# end
+
+# p reverse_sentence('Hello World Goodbye World') #== 'World Hello'
+# p reverse_sentence('Reverse these words right now') #== 'words these Reverse'
+# p reverse_sentence('') #== ''
+# p reverse_sentence('    ') #== '' # Any number of spaces results in ''
 
 ### 7 DOUBLE CHAR II
 # ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
