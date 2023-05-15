@@ -1,35 +1,30 @@
 # PROBLEM
-Write a method that takes a string, and returns a new string in which every consonant character is doubled. Vowels (a,e,i,o,u), digits, punctuation, and whitespace should not be doubled.
+Write a method that takes one argument, a string, and returns a new string with the words in reverse order.
 
-  Input: string
-  Output: new string
-    - same characters as input string
-    - every consonant character is doubled
-    - every other character is not
+  Input: 
+  Output:
 
   ## Rules
   ### explicit
   
   ### implicit
-  - if input string is empty, return an empty string
+
 
   ## Questions
 
 
 # EXAMPLES
-double_consonants('String') == "SSttrrinngg"
-double_consonants("Hello-World!") == "HHellllo-WWorrlldd!"
-double_consonants("July 4th") == "JJullyy 4tthh"
-double_consonants('') == ""
+puts reverse_sentence('Hello World') == 'World Hello'
+puts reverse_sentence('Reverse these words') == 'words these Reverse'
+puts reverse_sentence('') == ''
+puts reverse_sentence('    ') == '' # Any number of spaces results in ''
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- iterate over each character in the input string
-  - if it is a consonant, add it twice to a new string
-  - otherwise, add it as is to new string
-- return the new string
+
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #

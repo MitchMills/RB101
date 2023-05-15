@@ -1,19 +1,61 @@
-### 7 DOUBLE CHAR II
-ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
-VOWELS = "AEIOUaeiou"
-CONSONANTS = ALPHABET.delete_if { |char| VOWELS.include?(char) }
-
-def double_consonants(string)
-  string.chars.map do |char|
-    next char * 2 if CONSONANTS.include?(char)
-    char
-  end.join
+### 8 REVERSE IT I
+def reverse_sentence(sentence)
+  sentence.split.reverse.join(' ')
 end
 
-p double_consonants('String') == "SSttrrinngg"
-p double_consonants("Hello-World!") == "HHellllo-WWorrlldd!"
-p double_consonants("July 4th") == "JJullyy 4tthh"
-p double_consonants('') == ""
+p reverse_sentence('Hello World') == 'World Hello'
+p reverse_sentence('Reverse these words') == 'words these Reverse'
+p reverse_sentence('') == ''
+p reverse_sentence('    ') == '' # Any number of spaces results in ''
+
+### 7 DOUBLE CHAR II
+# ALPHABET = ('A'..'Z').to_a + ('a'..'z').to_a
+# VOWELS = %w(A E I O U a e i o u)
+# CONSONANTS = ALPHABET.delete_if { |char| VOWELS.include?(char) }
+
+# def double_consonants(string)
+#   string.chars.map do |char|
+#     next char unless CONSONANTS.include?(char)
+#     char * 2
+#   end.join
+# end
+
+# def double_consonants(string)
+#   string.chars.map do |char|
+#     next char * 2 if CONSONANTS.include?(char)
+#     char
+#   end.join
+# end
+
+# def double_consonants(string)
+#   string.chars.map do |char|
+#     CONSONANTS.include?(char) ? char * 2 : char
+#   end.join
+# end
+
+# def double_consonants(string)
+#   string.chars.map do |char|
+#     char =~ /[a-z&&[^aeiou]]/i ? char * 2 : char
+#   end.join
+# end
+
+# map one-liner with regex (by Daniel Chae)
+# def double_consonants(string)
+#   string.chars.each.map do |char| 
+#     char =~ /^[^aeiou_\d\W]/i ? char * 2 : char
+#   end.join
+# end
+
+# regex one-liner with negative lookahead (by Daniel Chae)
+# def double_consonants(string)
+#   string.gsub(/((?![aeiou])[a-z])/i, '\1' * 2)
+# end
+
+# p double_consonants('String') == "SSttrrinngg"
+# p double_consonants("Hello-World!") == "HHellllo-WWorrlldd!"
+# p double_consonants("July 4th") == "JJullyy 4tthh"
+# p double_consonants("AEIOUaeiou") == "AEIOUaeiou"
+# p double_consonants('') == ""
 
 ### 6 DOUBLE CHAR I
 # def repeater(string)
