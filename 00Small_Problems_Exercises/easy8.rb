@@ -1,7 +1,25 @@
 ### 6 DOUBLE CHAR I
-def repeater(string)
+# def repeater(string)
+#   string.chars.map { |char| char * 2 }.join
+# end
 
+# def repeater(string)
+#   string.chars.zip(string.chars).join
+# end
+
+def repeater(string)
+  new_string = string.chars.zip(string.chars)
+  p new_string.flatten
+  new_string.join
 end
+
+# def repeater(string)
+#   string.each_char.with_object("") { |char, output| output << char * 2 }
+# end
+
+# def repeater(string)
+#   string.chars.inject("") {|new_string, char| new_string << char * 2 }
+# end
 
 p repeater('Hello') == "HHeelllloo"
 p repeater("Good job!") == "GGoooodd  jjoobb!!"
