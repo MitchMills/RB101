@@ -1,6 +1,37 @@
-### 9 REVERSE IT II
-def reverse_words(string)
+### 10 ARRAY AVERAGE
+def average(array)
 
+end
+
+p average([1, 6]) == 3 # integer division: (1 + 6) / 2 -> 3
+p average([1, 5, 87, 45, 8, 8]) == 25
+p average([9, 47, 23, 95, 16, 52]) == 40
+
+### 9 REVERSE IT II
+# def reverse_words(string)
+#   string.split.map { |word| word.size < 5 ? word : word.reverse }.join(' ')
+# end
+
+# def reverse_words(string)
+#   string.split.map do |word|
+#     next word unless word.size > 4 
+#     word.reverse
+#   end.join(' ')
+# end
+
+def reverse_words(string)
+  string.split.each_with_object([]) do |word, words|
+    word.reverse! if word.size > 4
+    words << word
+  end.join(' ')
+end
+
+def reverse_words(string)
+  string.split.each_with_index.with_object('') do |(word, idx), words|
+    word.reverse! if word.size > 4
+    words << word
+    words << " " unless idx == string.split.size - 1
+  end
 end
 
 p reverse_words('Professional')          # => lanoisseforP
@@ -21,6 +52,18 @@ p reverse_words('Launch School')         # => hcnuaL loohcS
 
 # def reverse_sentence(sentence)
 #   (0...sentence.split.size).each_with_object([]) do |idx, reversed|
+#     reversed[idx] = sentence.split[-(idx + 1)]
+#   end.join(' ')
+# end
+
+# def reverse_sentence(sentence)
+#   (1..sentence.split.size).each_with_object([]) do |idx, reversed|
+#     reversed[idx - 1] = sentence.split[-idx]
+#   end.join(' ')
+# end
+
+# def reverse_sentence(sentence)
+#   sentence.split.each_index.with_object([]) do |idx, reversed|
 #     reversed[idx] = sentence.split[-(idx + 1)]
 #   end.join(' ')
 # end

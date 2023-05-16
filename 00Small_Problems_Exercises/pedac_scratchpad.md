@@ -1,12 +1,17 @@
 # PROBLEM
-Write a method that takes one argument, a string containing one or more words, and returns the given string with words that contain five or more characters reversed. Each string will consist of only letters and spaces. Spaces should be included only when more than one word is present.
+Write a method that takes one argument, an array containing integers, and returns the average of all numbers in the array. The array will never be empty and the numbers will always be positive integers. Your result should also be an integer.
 
-  Input: 
-  Output:
+Don't use the Array#sum method for your solution - see if you can solve this problem using iteration more directly.
+
+  Input: array
+    - contains only positive integers
+    - will never be empty
+  Output: integer
+    - average of all numbers in the array (use integer division)
 
   ## Rules
   ### explicit
-  
+  - do not use `Array#sum` method
   ### implicit
 
 
@@ -14,9 +19,9 @@ Write a method that takes one argument, a string containing one or more words, a
 
 
 # EXAMPLES
-puts reverse_words('Professional')          # => lanoisseforP
-puts reverse_words('Walk around the block') # => Walk dnuora the kcolb
-puts reverse_words('Launch School')         # => hcnuaL loohcS
+puts average([1, 6]) == 3 # integer division: (1 + 6) / 2 -> 3
+puts average([1, 5, 87, 45, 8, 8]) == 25
+puts average([9, 47, 23, 95, 16, 52]) == 40
 
 # DATA STRUCTURES
 
