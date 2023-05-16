@@ -27,7 +27,9 @@ puts average([9, 47, 23, 95, 16, 52]) == 40
 
 
 # ALGORITHM
-
+- iterate over the input array
+  - add each element to a sum
+- return the sum
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #

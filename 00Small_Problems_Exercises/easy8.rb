@@ -1,11 +1,37 @@
 ### 10 ARRAY AVERAGE
-def average(array)
+# def average(array)
+#   sum = 0
+#   array.each do |num|
+#     sum += num
+#   end
+#   sum / array.size
+# end
 
+# def average(array)
+#   array.inject(:+) / array.size
+# end
+
+# def average(array)
+#   array.each_index.with_object([]) do |idx, sums|
+#     sums << array[0..idx].inject(:+)
+#   end.last / array.size
+# end
+
+# def average(array)
+#   array.each_index.map do |idx|
+#     array[0..idx].inject(:+)
+#   end.last / array.size
+# end
+
+def average(array)
+  array.each_index.with_object([]) do |idx, sums|
+    sums << (idx == 0 ? array[idx] : array[idx] + sums.last)
+  end.last / array.size
 end
 
-p average([1, 6]) == 3 # integer division: (1 + 6) / 2 -> 3
-p average([1, 5, 87, 45, 8, 8]) == 25
-p average([9, 47, 23, 95, 16, 52]) == 40
+p average([1, 6]) #== 3 # integer division: (1 + 6) / 2 -> 3
+p average([1, 5, 87, 45, 8, 8]) #== 25
+p average([9, 47, 23, 95, 16, 52]) #== 40
 
 ### 9 REVERSE IT II
 # def reverse_words(string)
@@ -19,24 +45,34 @@ p average([9, 47, 23, 95, 16, 52]) == 40
 #   end.join(' ')
 # end
 
-def reverse_words(string)
-  string.split.each_with_object([]) do |word, words|
-    word.reverse! if word.size > 4
-    words << word
-  end.join(' ')
-end
+# def reverse_words(string)
+#   string.split.each_with_object([]) do |word, words|
+#     words << (word.size < 5 ? word : word.reverse)
+#   end.join(' ')
+# end
 
-def reverse_words(string)
-  string.split.each_with_index.with_object('') do |(word, idx), words|
-    word.reverse! if word.size > 4
-    words << word
-    words << " " unless idx == string.split.size - 1
-  end
-end
+# def reverse_words(string)
+#   string.split.each_with_object('') do |word, words|
+#     words << (word.size < 5 ? word : word.reverse)
+#     words << " " unless word == string.split.last
+#   end
+# end
 
-p reverse_words('Professional')          # => lanoisseforP
-p reverse_words('Walk around the block') # => Walk dnuora the kcolb
-p reverse_words('Launch School')         # => hcnuaL loohcS
+# def reverse_words(string)
+#   string.split.map do |word|
+#     word.size < 5 ? word : reverse_word(word)
+#   end.join(' ')
+# end
+
+# def reverse_word(word)
+#   word.chars.each_index.with_object('') do |idx, reversed|
+#     reversed[idx] = word[-(idx + 1)]
+#   end
+# end
+
+# p reverse_words('Professional')          # => lanoisseforP
+# p reverse_words('Walk around the block') # => Walk dnuora the kcolb
+# p reverse_words('Launch School')         # => hcnuaL loohcS
 
 ### 8 REVERSE IT I
 # def reverse_sentence(sentence)
