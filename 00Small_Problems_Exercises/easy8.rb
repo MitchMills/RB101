@@ -1,9 +1,7 @@
 ### 10 ARRAY AVERAGE
 # def average(array)
 #   sum = 0
-#   array.each do |num|
-#     sum += num
-#   end
+#   array.each { |num| sum += num }
 #   sum / array.size
 # end
 
@@ -13,25 +11,13 @@
 
 # def average(array)
 #   array.each_index.with_object([]) do |idx, sums|
-#     sums << array[0..idx].inject(:+)
+#     sums << (idx == 0 ? array[idx] : array[idx] + sums.last)
 #   end.last / array.size
 # end
 
-# def average(array)
-#   array.each_index.map do |idx|
-#     array[0..idx].inject(:+)
-#   end.last / array.size
-# end
-
-def average(array)
-  array.each_index.with_object([]) do |idx, sums|
-    sums << (idx == 0 ? array[idx] : array[idx] + sums.last)
-  end.last / array.size
-end
-
-p average([1, 6]) #== 3 # integer division: (1 + 6) / 2 -> 3
-p average([1, 5, 87, 45, 8, 8]) #== 25
-p average([9, 47, 23, 95, 16, 52]) #== 40
+# p average([1, 6]) #== 3 # integer division: (1 + 6) / 2 -> 3
+# p average([1, 5, 87, 45, 8, 8]) #== 25
+# p average([9, 47, 23, 95, 16, 52]) #== 40
 
 ### 9 REVERSE IT II
 # def reverse_words(string)
