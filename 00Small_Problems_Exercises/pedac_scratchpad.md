@@ -3,12 +3,16 @@ A double number is a number with an even number of digits whose left-side digits
 
 Write a method that returns 2 times the number provided as an argument, unless the argument is a double number; double numbers should be returned as-is.
 
-  Input: 
-  Output:
+  Input: integer
+  Output: integer
+    - if input integer is a double number, return as is
+    - otherwise return input integer * 2
 
   ## Rules
   ### explicit
-  
+  - double numbers:
+    - even number of digits
+    - left side digits == right side digits
   ### implicit
 
 
@@ -31,7 +35,12 @@ twice(5) == 10
 
 
 # ALGORITHM
-
+- determine if number is a double number
+  - if odd number of digits: false => number * 2
+  - else if first half == second half: true => number
+    - convert to string, half = size / 2
+    - if string[0, half] == [half, half]: true
+  - else: false => number * 2
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
