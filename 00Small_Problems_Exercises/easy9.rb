@@ -1,3 +1,35 @@
+### 4 HOW LONG ARE YOU?
+# def word_lengths(string)
+#   string.split.map { |word| "#{word} #{word.size}" }
+# end
+
+###############
+def get_spaces(string)
+  string.chars.each_with_index.with_object([]) do |(char, idx), spaces|
+    spaces << idx if char == ' '
+  end
+end
+
+def get_words(string)
+  spaces = get_spaces(string)
+  p spaces # [3, 9]
+  spaces.each. do |idx|
+    string[idx...spaces[idx]]
+  end
+end
+
+p get_words("cow sheep chicken")
+
+def word_lengths(string)
+  words = get_words(string, spaces)
+end
+####################
+# p word_lengths("cow sheep chicken") #== ["cow 3", "sheep 5", "chicken 7"]
+# p word_lengths("baseball hot dogs and apple pie") #== ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+# p word_lengths("It ain't easy, is it?") #== ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+# p word_lengths("Supercalifragilisticexpialidocious") #== ["Supercalifragilisticexpialidocious 34"]
+# p word_lengths("") #== []
+
 ### 3 COUNTING UP
 # def sequence(num)
 #   (1..num).to_a
@@ -7,26 +39,21 @@
 #   1.upto(num).to_a
 # end
 
-def sequence(num)
-  num > 0 ? [*1..num] : [*num..-1]
-end
+# def sequence(num)
+#   num > 0 ? (1..num).to_a : (num..-1).to_a
+# end
 
 # def sequence(num)
 #   return [0] if num == 0
 #   num.positive? ? 1.upto(num).to_a : -1.downto(num).to_a
 # end
 
-# def sequence(int)
-#   sign = int <=> 0
-#   ([int, 1].min..[sign, int].max).to_a
-# end
-
-p sequence(5) == [1, 2, 3, 4, 5]
-p sequence(3) == [1, 2, 3]
-p sequence(1) == [1]
-p sequence(0) == []
-p sequence(-1) == [-1]
-p sequence(-5) == [-5, -4, -3, -2, -1]
+# p sequence(5) == [1, 2, 3, 4, 5]
+# p sequence(3) == [1, 2, 3]
+# p sequence(1) == [1]
+# p sequence(0) == []
+# p sequence(-1) == [-1]
+# p sequence(-5) == [-5, -4, -3, -2, -1]
 
 ### 2 DOUBLE DOUBLES
 # def twice(num)
