@@ -1,34 +1,44 @@
+### 5 NAME SWAPPING
+def swap_name(first_last_name)
+
+end
+
+p swap_name('Joe Roberts') == 'Roberts, Joe'
+
 ### 4 HOW LONG ARE YOU?
 # def word_lengths(string)
 #   string.split.map { |word| "#{word} #{word.size}" }
 # end
 
 ###############
-def get_spaces(string)
-  string.chars.each_with_index.with_object([]) do |(char, idx), spaces|
-    spaces << idx if char == ' '
-  end
-end
+# def word_lengths(string)
+#   words = get_words(string)
+#   words.map { |word| "#{word} #{word.size}" }
+# end
 
-def get_words(string)
-  spaces = get_spaces(string)
-  p spaces # [3, 9]
-  spaces.each. do |idx|
-    string[idx...spaces[idx]]
-  end
-end
+# def get_words(string)
+#   spaces = find_spaces(string)
+#   spaces += [string.size] unless string.empty?
+#   start = 0
+#   spaces.each_index.with_object([]) do |idx, result|
+#     stop = spaces[idx]
+#     result << string[start...stop]
+#     start = stop + 1
+#   end
+# end
 
-p get_words("cow sheep chicken")
-
-def word_lengths(string)
-  words = get_words(string, spaces)
-end
+# def find_spaces(string)
+#   string.chars.each_with_index.with_object([]) do |(char, idx), spaces|
+#     spaces << idx if char == ' '
+#   end
+# end
 ####################
-# p word_lengths("cow sheep chicken") #== ["cow 3", "sheep 5", "chicken 7"]
-# p word_lengths("baseball hot dogs and apple pie") #== ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
-# p word_lengths("It ain't easy, is it?") #== ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
-# p word_lengths("Supercalifragilisticexpialidocious") #== ["Supercalifragilisticexpialidocious 34"]
-# p word_lengths("") #== []
+
+# p word_lengths("cow sheep chicken") == ["cow 3", "sheep 5", "chicken 7"]
+# p word_lengths("baseball hot dogs and apple pie") == ["baseball 8", "hot 3", "dogs 4", "and 3", "apple 5", "pie 3"]
+# p word_lengths("It ain't easy, is it?") == ["It 2", "ain't 5", "easy, 5", "is 2", "it? 3"]
+# p word_lengths("Supercalifragilisticexpialidocious") == ["Supercalifragilisticexpialidocious 34"]
+# p word_lengths("") == []
 
 ### 3 COUNTING UP
 # def sequence(num)
