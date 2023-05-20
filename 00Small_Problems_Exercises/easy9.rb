@@ -1,6 +1,6 @@
 ### 6 SEQUENCE COUNT
 def sequence(count, num)
-
+  (1..count).map { |multiplier| num * multiplier }
 end
 
 p sequence(5, 1) == [1, 2, 3, 4, 5]
