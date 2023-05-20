@@ -1,9 +1,31 @@
-### 5 NAME SWAPPING
-def swap_name(first_last_name)
+### 6 SEQUENCE COUNT
+def sequence(count, num)
 
 end
 
-p swap_name('Joe Roberts') == 'Roberts, Joe'
+p sequence(5, 1) == [1, 2, 3, 4, 5]
+p sequence(4, -7) == [-7, -14, -21, -28]
+p sequence(3, 0) == [0, 0, 0]
+p sequence(0, 1000000) == []
+
+### 5 NAME SWAPPING
+# def swap_name(name)
+#   name.split.reverse.join(", ")
+# end
+
+# def swap_name(name)
+#   "#{name.split[1]}, #{name.split[0]}"
+# end
+
+# def swap_name(full_name)
+#   name_array = full_name.split.reverse
+#   name_array.each_index.with_object("") do |idx, swapped_name|
+#     swapped_name << name_array[idx]
+#     swapped_name << ", " if idx == 0
+#   end
+# end
+
+# p swap_name('Joe Roberts') == 'Roberts, Joe'
 
 ### 4 HOW LONG ARE YOU?
 # def word_lengths(string)
