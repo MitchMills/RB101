@@ -1,9 +1,19 @@
 # PROBLEM
-Write a method which takes a grocery list (array) of fruits with quantities and converts it into an array of the correct number of each fruit.
+Given the array:
 
-  Input: array
+  words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+          'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+          'flow', 'neon']
 
-  Output: array
+Write a program that prints out groups of words that are anagrams. Anagrams are words that have the same exact letters in them but in a different order. Your output should look something like this:
+
+  ["demo", "dome", "mode"]
+  ["neon", "none"]
+  #(etc)
+
+  Input: 
+
+  Output:
 
   ## Rules
   ### explicit
@@ -15,8 +25,7 @@ Write a method which takes a grocery list (array) of fruits with quantities and 
 
 
 # EXAMPLES
-buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
-  ["apples", "apples", "apples", "orange", "bananas","bananas"]
+
 
 # DATA STRUCTURES
 

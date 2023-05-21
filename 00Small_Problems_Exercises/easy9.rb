@@ -1,10 +1,31 @@
-### 8 GROCERY LIST
-def buy_fruit(list)
+### 9 GROUP ANAGRAMS
+def group_anagrams(list)
 
 end
 
-p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
-  ["apples", "apples", "apples", "orange", "bananas","bananas"]
+words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+  'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+  'flow', 'neon']
+
+p group_anagrams(words)
+
+### 8 GROCERY LIST
+# def buy_fruit(list)
+#   list.each_with_object([]) do |(item, quantity), results|
+#     quantity.times { results << item }
+#   end
+# end
+
+# def buy_fruit(list)
+#   list.map { |item, quantity| [item] * quantity }.flatten
+# end
+
+# def buy_fruit(list)
+#   list.flat_map { |item, quantity| [item] * quantity }
+# end
+
+# p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) #== 
+# ["apples", "apples", "apples", "orange", "bananas","bananas"]
 
 ### 7 GRADE BOOK
 # def get_grade(score1, score2, score3)
@@ -49,20 +70,20 @@ p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
 #                 C: (70..79),
 #                 D: (60..69),
 #                 F: (0..59) }
-# def get_grade(*scores)
-#   GRADE_SCALE.find do |grade, range|
-#     range.include?(scores.sum / scores.size)
-#   end.first.to_s
-# end
+# # def get_grade(*scores)
+# #   GRADE_SCALE.find do |grade, range|
+# #     range.include?(scores.sum / scores.size)
+# #   end.first.to_s
+# # end
 
 # def get_grade(*scores)
-#   average = (scores.sum / scores.size).round
+#   average = (scores.sum / scores.size.to_f).round
 #   GRADE_SCALE.each do |grade, range|
 #     return grade.to_s if range.include?(average)
 #   end
 # end
-# ############/
-
+# # ############/
+# p get_grade(60, 60, 59)
 # p get_grade(95, 90, 93) == "A"
 # p get_grade(50, 50, 95) == "D"
 
