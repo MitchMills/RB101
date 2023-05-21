@@ -1,10 +1,70 @@
-### 7 GRADE BOOK
-def get_grade(score1, score2, score3)
+### 8 GROCERY LIST
+def buy_fruit(list)
 
 end
 
-p get_grade(95, 90, 93) == "A"
-p get_grade(50, 50, 95) == "D"
+p buy_fruit([["apples", 3], ["orange", 1], ["bananas", 2]]) ==
+  ["apples", "apples", "apples", "orange", "bananas","bananas"]
+
+### 7 GRADE BOOK
+# def get_grade(score1, score2, score3)
+#   average = (score1 + score2 + score3) / 3
+#   case average
+#   when   (90..) then 'A'
+#   when (80..89) then 'B'
+#   when (70..79) then 'C'
+#   when (60..69) then 'D'
+#   else               'F' 
+#   end
+# end
+
+#########
+# GRADES = {  A: (90..),
+#             B: (80..89),
+#             C: (70..79),
+#             D: (60..69),
+#             F: (0..59) }
+
+# def get_grade(num1, num2, num3)
+#   average = (num1 + num2 + num3) / 3
+#   GRADES.keys.each { |grade| return grade.to_s if GRADES[grade].include?(average) }
+# end
+#############
+# def get_grade(*grades)
+#   grade_scale = { 
+#     A:   (90..), 
+#     B: (80..89), 
+#     C: (70..79), 
+#     D: (60..69), 
+#     F:  (0..59) 
+#   }
+#   average = grades.sum / grades.size
+#   grade_scale.keys.each do |letter|
+#     return letter.to_s if (grade_scale[letter]).include?(average)
+#   end
+# end
+###########
+# GRADE_SCALE = { A: (90..),
+#                 B: (80..89),
+#                 C: (70..79),
+#                 D: (60..69),
+#                 F: (0..59) }
+# def get_grade(*scores)
+#   GRADE_SCALE.find do |grade, range|
+#     range.include?(scores.sum / scores.size)
+#   end.first.to_s
+# end
+
+# def get_grade(*scores)
+#   average = (scores.sum / scores.size).round
+#   GRADE_SCALE.each do |grade, range|
+#     return grade.to_s if range.include?(average)
+#   end
+# end
+# ############/
+
+# p get_grade(95, 90, 93) == "A"
+# p get_grade(50, 50, 95) == "D"
 
 ### 6 SEQUENCE COUNT
 # def sequence(count, num)
