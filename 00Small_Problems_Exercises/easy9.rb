@@ -1,12 +1,45 @@
-### 6 SEQUENCE COUNT
-def sequence(count, num)
-  (1..count).map { |multiplier| num * multiplier }
+### 7 GRADE BOOK
+def get_grade(score1, score2, score3)
+
 end
 
-p sequence(5, 1) == [1, 2, 3, 4, 5]
-p sequence(4, -7) == [-7, -14, -21, -28]
-p sequence(3, 0) == [0, 0, 0]
-p sequence(0, 1000000) == []
+p get_grade(95, 90, 93) == "A"
+p get_grade(50, 50, 95) == "D"
+
+### 6 SEQUENCE COUNT
+# def sequence(count, num)
+#   (1..count).map { |multiplier| num * multiplier }
+# end
+
+# def sequence(count, first)
+#   count.times.each_with_object([]) do |idx, result|
+#     result[idx] = first + (idx * first)
+#   end
+# end
+
+# def sequence(count, num)
+#   count.times.map { |idx| num + (idx * num) }
+# end
+
+# def sequence(count, first)
+#   first.step(by: first).take(count)
+# end
+
+# one-liner with step for fun (Daniel Chae) VVVVV
+# def sequence(n, x)
+#   x.step((n * x == 0 ? (return [x] * n) : n * x), x).to_a
+# end
+
+# def sequence(count, first)
+#   limit = count * first == 0 ? (return [first] * count) : count * first
+#   first.step(limit, first).to_a
+# end
+# one-liner with step for fun (Daniel Chae) ^^^^
+
+# p sequence(5, 1) #== [1, 2, 3, 4, 5]
+# p sequence(4, -7) #== [-7, -14, -21, -28]
+# p sequence(3, 0) #== [0, 0, 0]
+# p sequence(0, 1000000) #== []
 
 ### 5 NAME SWAPPING
 # def swap_name(name)

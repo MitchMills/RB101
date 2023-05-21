@@ -1,7 +1,14 @@
 # PROBLEM
-Create a method that takes two integers as arguments. The first argument is a count, and the second is the first number of a sequence that your method will create. The method should return an Array that contains the same number of elements as the count argument, while the values of each element will be multiples of the starting number.
+Write a method that determines the mean (average) of the three scores passed to it, and returns the letter value associated with that grade. 
 
-You may assume that the count argument will always have a value of 0 or greater, while the starting number can be any integer value. If the count is 0, an empty list should be returned.
+Numerical Score Letter 	Grade
+90  <=  score  <= 100 	'A'
+80  <=  score  <   90 	'B'
+70  <=  score  <   80 	'C'
+60  <=  score  <   70 	'D'
+0   <=  score  <   60 	'F'
+
+Tested values are all between 0 and 100. There is no need to check for negative values or values greater than 100.
 
   Input: 
 
@@ -17,10 +24,8 @@ You may assume that the count argument will always have a value of 0 or greater,
 
 
 # EXAMPLES
-sequence(5, 1) == [1, 2, 3, 4, 5]
-sequence(4, -7) == [-7, -14, -21, -28]
-sequence(3, 0) == [0, 0, 0]
-sequence(0, 1000000) == []
+get_grade(95, 90, 93) == "A"
+get_grade(50, 50, 95) == "D"
 
 # DATA STRUCTURES
 
