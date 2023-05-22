@@ -1,13 +1,84 @@
 ### 9 GROUP ANAGRAMS
-def group_anagrams(list)
-
-end
-
 words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
   'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
   'flow', 'neon']
 
-p group_anagrams(words)
+# def is_anagram?(word1, word2)
+#   word1.chars.sort == word2.chars.sort
+# end
+
+# def display_anagrams(list)
+#   anagrams = find_all_anagrams(list)
+#   anagrams.each { |subarray| p subarray }
+# end
+
+#######
+# def find_all_anagrams(list)
+#   list.each_with_object([]) do |word1, all_anagrams|
+#     next if all_anagrams.flatten.include?(word1)
+#     sub_anagrams = find_sub_anagrams(list, word1)
+#     all_anagrams << sub_anagrams unless sub_anagrams.empty?
+#   end
+# end
+
+# def find_sub_anagrams(word1, list)
+#   sublist = list - [word1]
+#   sub_anagrams = sublist.each_with_object([]) do |word2, sub_anagrams|
+#     sub_anagrams << word2 if is_anagram?(word1, word2)
+#   end
+#   sub_anagrams.prepend(word1) unless sub_anagrams.empty?
+# end
+########
+
+#########
+# def find_all_anagrams(list)
+#   list.each_with_index.with_object([]) do |(word1, idx), all_anagrams|
+#     next if all_anagrams.flatten.include?(word1)
+#     sub_anagrams = find_sub_anagrams(word1, idx, list)
+#     all_anagrams << sub_anagrams unless sub_anagrams.empty? 
+#   end
+# end
+
+# def find_sub_anagrams(word1, idx, list)
+#   sub_anagrams = ((idx + 1)...list.size).each_with_object([]) do |idx2, sub_anagrams|
+#     sub_anagrams << list[idx2] if is_anagram?(word1, list[idx2])
+#   end
+#   sub_anagrams.prepend(word1) unless sub_anagrams.empty?
+# end
+#########
+
+###############
+
+###############
+# def find_anagrams(list)
+#   list.each_with_object({}) do |word, result|
+#     key = word.split('').sort.join
+#     result.has_key?(key) ? result[key].push(word) : result[key] = [word]
+#   end
+# end
+
+# def display_anagrams(list)
+#   anagrams = find_anagrams(list)
+#   anagrams.each_value { |value| p value }
+# end
+
+# display_anagrams(words)
+##############
+# def get_anagrams(arr)
+#   arr.group_by { |word| word.chars.sort }.each { |_, group| p group }
+# end
+
+# def get_anagrams(list)
+#   list.group_by { |word| word.chars.sort.join }.each_value { |group| p group }
+# end
+
+# p get_anagrams(words)
+##############
+words.map do |outer_word|
+  words.select do |inner_word|
+    inner_word if inner_word.chars.difference(outer_word.chars) == [] 
+  end.sort
+end.uniq.each { |arr| p arr }
 
 ### 8 GROCERY LIST
 # def buy_fruit(list)
