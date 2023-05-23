@@ -1,36 +1,48 @@
+### 10 SUM OF DIGITS
+def sum(num)
+
+end
+
+p sum(23) == 5
+p sum(496) == 19
+p sum(123_456_789) == 45
+
 ### 9 GROUP ANAGRAMS
-words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
-  'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
-  'flow', 'neon']
+# words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
+#   'fowl', 'veil', 'wolf', 'diet', 'vile', 'edit', 'tide',
+#   'flow', 'neon']
 
-# def is_anagram?(word1, word2)
-#   word1.chars.sort == word2.chars.sort
-# end
-
-# def display_anagrams(list)
-#   anagrams = find_all_anagrams(list)
-#   anagrams.each { |subarray| p subarray }
-# end
-
-#######
+#########################
+# initial solution #1
 # def find_all_anagrams(list)
-#   list.each_with_object([]) do |word1, all_anagrams|
-#     next if all_anagrams.flatten.include?(word1)
-#     sub_anagrams = find_sub_anagrams(list, word1)
+#   list.each_with_object([]) do |word, all_anagrams|
+#     next if all_anagrams.flatten.include?(word)
+#     sub_anagrams = find_sub_anagrams(list, word)
 #     all_anagrams << sub_anagrams unless sub_anagrams.empty?
 #   end
 # end
 
-# def find_sub_anagrams(word1, list)
+# def find_sub_anagrams(list, word1)
 #   sublist = list - [word1]
 #   sub_anagrams = sublist.each_with_object([]) do |word2, sub_anagrams|
 #     sub_anagrams << word2 if is_anagram?(word1, word2)
 #   end
 #   sub_anagrams.prepend(word1) unless sub_anagrams.empty?
 # end
-########
 
-#########
+# def is_anagram?(word1, word2)
+#   word1.chars.sort == word2.chars.sort
+# end
+
+# def display_anagrams(anagrams)
+#   anagrams.each { |subarray| p subarray }
+# end
+
+# anagrams = find_all_anagrams(words)
+# display_anagrams(anagrams)
+
+#########################
+# initial solution #2
 # def find_all_anagrams(list)
 #   list.each_with_index.with_object([]) do |(word1, idx), all_anagrams|
 #     next if all_anagrams.flatten.include?(word1)
@@ -45,40 +57,95 @@ words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
 #   end
 #   sub_anagrams.prepend(word1) unless sub_anagrams.empty?
 # end
-#########
 
-###############
+# def is_anagram?(word1, word2)
+#   word1.chars.sort == word2.chars.sort
+# end
 
-###############
+# def display_anagrams(anagrams)
+#   anagrams.each { |subarray| p subarray }
+# end
+
+# anagrams = find_all_anagrams(words)
+# display_anagrams(anagrams)
+
+#########################
+# using Enumerable#chunk
 # def find_anagrams(list)
-#   list.each_with_object({}) do |word, result|
-#     key = word.split('').sort.join
-#     result.has_key?(key) ? result[key].push(word) : result[key] = [word]
+#   sorted_list = list.sort_by { |word| word.chars.sort.join }
+#   sorted_list.chunk do |word|
+#     word.chars.sort.join
+#   end.map { |element| element[1] }
+# end
+
+# using Enumerable#chunk_while
+# def find_anagrams(list)
+#   sorted_list = list.sort_by { |word| word.chars.sort.join }
+#   sorted_list.chunk_while do |word1, word2|
+#     word1.chars.sort.join == word2.chars.sort.join
 #   end
 # end
 
-# def display_anagrams(list)
-#   anagrams = find_anagrams(list)
+# def display_anagrams(anagrams)
+#   anagrams.each { |group| p group }
+# end
+
+# anagrams = find_anagrams(words)
+# display_anagrams(anagrams)
+
+#########################
+# LS Solution refactored
+# def find_anagrams(list)
+#   list.each_with_object({}) do |word, result|
+#     group = word.split('').sort.join
+#     result.has_key?(group) ? result[group] << word : result[group] = [word]
+#   end
+# end
+
+# def display_anagrams(anagrams)
 #   anagrams.each_value { |value| p value }
 # end
 
-# display_anagrams(words)
-##############
-# def get_anagrams(arr)
-#   arr.group_by { |word| word.chars.sort }.each { |_, group| p group }
+# anagrams = find_anagrams(words)
+# display_anagrams(anagrams)
+
+#########################
+# using Enumerable#group_by
+# def find_anagrams(list)
+#   list.group_by { |word| word.chars.sort.join }
 # end
 
-# def get_anagrams(list)
-#   list.group_by { |word| word.chars.sort.join }.each_value { |group| p group }
+# def display_anagrams(anagrams)
+#   anagrams.each_value { |group| p group }
 # end
 
-# p get_anagrams(words)
-##############
-words.map do |outer_word|
-  words.select do |inner_word|
-    inner_word if inner_word.chars.difference(outer_word.chars) == [] 
-  end.sort
-end.uniq.each { |arr| p arr }
+# anagrams = find_anagrams(words)
+# display_anagrams(anagrams)
+
+#########################
+# using Array#select #1
+# def find_anagrams(list)
+#   list.map do |word1|
+#     list.select { |word2| word2.chars.sort == word1.chars.sort }.sort
+#   end.uniq
+# end
+
+# using Array#select #2
+# def find_anagrams(list)
+#   groups = list.map { |word| word.chars.sort.join }.uniq
+#   groups.map do |group|
+#     list.select { |word| word.chars.sort.join == group }
+#   end
+# end
+
+# def display_anagrams(anagrams)
+#   anagrams.each { |group| p group }
+# end
+
+# anagrams = find_anagrams(words)
+# display_anagrams(anagrams)
+
+#########################
 
 ### 8 GROCERY LIST
 # def buy_fruit(list)
