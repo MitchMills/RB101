@@ -1,11 +1,39 @@
-### 10 SUM OF DIGITS
-def sum(num)
+### 11 ODD LISTS
+# def oddities(array)
+#   array.each_with_index.with_object([]) do |(element, idx), result|
+#     result << element if idx.even?
+#   end
+# end
 
+def oddities(array)
+  array.size.times.with_object([]) do |idx, result|
+    result << array[idx] if idx.even?
+  end
 end
 
-p sum(23) == 5
-p sum(496) == 19
-p sum(123_456_789) == 45
+p oddities([2, 3, 4, 5, 6]) #== [2, 4, 6]
+p oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
+p oddities(['abc', 'def']) == ['abc']
+p oddities([123]) == [123]
+p oddities([]) == []
+p oddities([1, 2, 3, 4, 1]) == [1, 3, 1]
+
+### 10 SUM OF DIGITS
+# def sum(num)
+#   num.to_s.chars.map(&:to_i).sum
+# end
+
+# def sum(num)
+#   num.to_s.each_char.map(&:to_i).sum
+# end
+
+# def sum(num)
+#   num.digits.sum
+# end
+
+# p sum(23) == 5
+# p sum(496) == 19
+# p sum(123_456_789) == 45
 
 ### 9 GROUP ANAGRAMS
 # words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
@@ -97,7 +125,7 @@ p sum(123_456_789) == 45
 # LS Solution refactored
 # def find_anagrams(list)
 #   list.each_with_object({}) do |word, result|
-#     group = word.split('').sort.join
+#     group = word.chars.sort.join
 #     result.has_key?(group) ? result[group] << word : result[group] = [word]
 #   end
 # end
