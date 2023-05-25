@@ -31,10 +31,10 @@ x == [1, 2, 3, 4]                 # => true
 # ALGORITHM
 - iterate over the input array
   - in a new array, for each element of the input array:
-    - shift the index down by 1
-      - 0 => -1
-      - 1 => 0
-      - 2 => 1
+    - shift the index up by 1
+      - 0 => 1
+      - 1 => 2
+      - 2 => 3
 - return the new array
 
 
