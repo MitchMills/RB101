@@ -1,14 +1,50 @@
 ### 11 ODD LISTS
-def oddities(array)
-  array.select.with_index { |ele, idx| idx.even? }
-end
+# def oddities(array)
+#   array.select.with_index { |_, idx| idx.even? }
+# end
 
-p oddities([2, 3, 4, 5, 6]) == [2, 4, 6]
-p oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
-p oddities(['abc', 'def']) == ['abc']
-p oddities([123]) == [123]
-p oddities([]) == []
-p oddities([1, 2, 3, 4, 1]) == [1, 3, 1]
+# def oddities(array)
+#   array.each_with_index.with_object([]) do |(ele, idx), result|
+#     result << ele if idx.even?
+#   end
+# end
+
+# def oddities(array)
+#   array.each_index.with_object([]) do |idx, result|
+#     result << array[idx] if idx.even?
+#   end
+# end
+
+# def oddities(array)
+#   array.map.with_index { |ele, idx| ele if idx.even? }.compact
+# end
+
+# def oddities(array)
+#   (0...array.size).each_with_object([]) do |idx, result|
+#     result << array[idx] if idx.even?
+#   end
+# end
+
+# def oddities(array)
+#   (0...array.size).step(2).with_object([]) do |idx, result|
+#     result << array[idx]
+#   end
+# end
+
+# def oddities(array)
+#   0.step(array.size - 1, 2).with_object([]) do |idx, result|
+#     result << array[idx]
+#   end
+# end
+
+# p oddities([2, 3, 4, 5, 6]) == [2, 4, 6]
+# p oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
+# p oddities(['abc', 'def']) == ['abc']
+# p oddities([123]) == [123]
+# p oddities([]) == []
+# p oddities([1, 2, 3, 4, 1]) == [1, 3, 1]
+# p oddities([1, 1, 1, 1, 1]) == [1, 1, 1]
+# p oddities([0, 1, 1, 1, 1]) == [0, 1, 1]
 
 ### 10 SUM OF DIGITS
 # def sum(num)
@@ -23,9 +59,21 @@ p oddities([1, 2, 3, 4, 1]) == [1, 3, 1]
 #   num.digits.sum
 # end
 
-# p sum(23) == 5
-# p sum(496) == 19
-# p sum(123_456_789) == 45
+def sum(num)
+  string = num.to_s
+  sum = 0
+  (0...string.size).each { |idx| sum += string[idx].to_i }
+  sum
+end
+
+# def sum(num)
+#   string = num.to_s
+#   (0...string.size).each.inject(0) { |sum, idx| sum += string[idx].to_i }
+# end
+
+p sum(23) #== 5
+p sum(496) #== 19
+p sum(123_456_789) #== 45
 
 ### 9 GROUP ANAGRAMS
 # words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
