@@ -59,21 +59,48 @@
 #   num.digits.sum
 # end
 
-def sum(num)
-  string = num.to_s
-  sum = 0
-  (0...string.size).each { |idx| sum += string[idx].to_i }
-  sum
-end
+# def sum(num)
+#   string = num.to_s
+#   sum = 0
+#   (0...string.size).each { |idx| sum += string[idx].to_i }
+#   sum
+# end
+
+# def sum(num)
+#   string = num.to_s
+#   sum = 0
+#   string.size.times { |idx| sum += string[idx].to_i }
+#   sum
+# end
 
 # def sum(num)
 #   string = num.to_s
 #   (0...string.size).each.inject(0) { |sum, idx| sum += string[idx].to_i }
 # end
 
-p sum(23) #== 5
-p sum(496) #== 19
-p sum(123_456_789) #== 45
+# def sum(num)
+#   string = num.to_s
+#   string.size.times.inject(0) { |sum, idx| sum += string[idx].to_i }
+# end
+
+# def sum(num)
+#   string = num.to_s
+#   string.size.times.with_object([]) do |_, result|
+#     num, remainder = num.divmod(10)
+#     result << remainder
+#   end.sum
+# end
+
+# def sum(num)
+#   num.to_s.size.times.map do |_|
+#     num, remainder = num.divmod(10)
+#     remainder
+#   end.sum
+# end
+
+# p sum(23) #== 5
+# p sum(496) #== 19
+# p sum(123_456_789) #== 45
 
 ### 9 GROUP ANAGRAMS
 # words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
