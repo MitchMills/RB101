@@ -1,17 +1,9 @@
 ### 11 ODD LISTS
-# def oddities(array)
-#   array.each_with_index.with_object([]) do |(element, idx), result|
-#     result << element if idx.even?
-#   end
-# end
-
 def oddities(array)
-  array.size.times.with_object([]) do |idx, result|
-    result << array[idx] if idx.even?
-  end
+  array.select.with_index { |ele, idx| idx.even? }
 end
 
-p oddities([2, 3, 4, 5, 6]) #== [2, 4, 6]
+p oddities([2, 3, 4, 5, 6]) == [2, 4, 6]
 p oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
 p oddities(['abc', 'def']) == ['abc']
 p oddities([123]) == [123]
