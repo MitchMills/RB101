@@ -1,36 +1,41 @@
 # PROBLEM
-Write a method that returns an Array that contains every other element of an Array that is passed in as an argument. The values in the returned list should be those values that are in the 1st, 3rd, 5th, and so on elements of the argument Array.
+Write a method that rotates an array by moving the first element to the end of the array. The original array should not be modified.
+
+Do not use the method Array#rotate or Array#rotate! for your implementation.
 
   Input: array
 
-  Output: array
-    - consists of every other element of the input array (1st, 3rd, 5th, etc)
+  Output: new array
+    - contains same elements as first array but first element is at end of array
   ## Rules
   ### explicit
   
   ### implicit
-  - if the input array contains only one element, return an array of that element
-  - if the input array is empty, return an empty array
+  - if input array only has one element, output array will look the same
 
   ## Questions
 
 
 # EXAMPLES
-oddities([2, 3, 4, 5, 6]) == [2, 4, 6]
-oddities([1, 2, 3, 4, 5, 6]) == [1, 3, 5]
-oddities(['abc', 'def']) == ['abc']
-oddities([123]) == [123]
-oddities([]) == []
-oddities([1, 2, 3, 4, 1]) == [1, 3, 1]
+rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
+rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
+rotate_array(['a']) == ['a']
+
+x = [1, 2, 3, 4]
+rotate_array(x) == [2, 3, 4, 1]   # => true
+x == [1, 2, 3, 4]                 # => true
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
 - iterate over the input array
-- return every other element, beginning with the first element
-  - elements at 0, 2, 4 ...
-
+  - in a new array, for each element of the input array:
+    - shift the index down by 1
+      - 0 => -1
+      - 1 => 0
+      - 2 => 1
+- return the new array
 
 
 
