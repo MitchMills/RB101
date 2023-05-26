@@ -19,19 +19,28 @@
 #   (arr[1..] || []) + arr[0, 1]
 # end
 
-def rotate_integer(int) # Daniel Chae
-  ( ( digs = int.digits.reverse )[1..] + digs[0, 1] ).reduce(0) do |sum, digs|
-     sum * 10 + digs
-  end
-end
+# def rotate_integer(int) # Daniel Chae
+#   ( ( digs = int.digits.reverse )[1..] + digs[0, 1] ).reduce(0) do |sum, digs|
+#      sum * 10 + digs
+#   end
+# end
 
-[1, 2, 3, 4, 5] => [2, 3, 4, 5, 1]
+# def rotate(input) # Joseph Liang
+#   if input.class == Array
+#     (input[1..-1] || []) + input[0, 1]
+#   elsif input.class == String
+#     (input[1..-1] || "") + input[0, 1]
+#   elsif input.class == Integer
+#     (input.to_s[1..-1] + input.to_s[0]).to_i
+#   end
+# end
 
-p rotate_integer(1234)
-p rotate_integer(0)
-x = 12345
-p rotate_integer(x)
-p x
+# p rotate([]) == []
+# p rotate([1, 2, 3]) == [2, 3, 1]
+# p rotate('') == ''
+# p rotate('123') == '231'
+# p rotate(0) == 0
+# p rotate(123) == 231
 
 # p rotate_array([1, 2, 3, 4, 5, 6]) == [2, 3, 4, 5, 6, 1]
 # p rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
