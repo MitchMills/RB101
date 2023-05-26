@@ -35,9 +35,24 @@ x == [1, 2, 3, 4]                 # => true
       - 0 => 1
       - 1 => 2
       - 2 => 3
+    - for the last element in the array, shift the index to 0
 - return the new array
 
+ (a b c d e)  => (b c d e a)
+ (0 1 2 3 4)
+-(5 4 3 2 1)
 
+a  0 => 4
+b  1 => 0
+c  2 => 1
+d  3 => 2
+e  4 => 3
+
+a  -5 =>  -1
+b  -4 =>  -5
+c  -3 =>  -4
+d  -2 =>  -3
+e  -1 =>  -2
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
