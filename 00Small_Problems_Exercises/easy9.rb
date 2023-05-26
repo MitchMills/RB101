@@ -20,21 +20,15 @@
 # end
 
 # def oddities(array)
-#   (0...array.size).each_with_object([]) do |idx, result|
-#     result << array[idx] if idx.even?
-#   end
+#   (0...array.size).map { |idx| array[idx] if idx.even? }.compact
 # end
 
 # def oddities(array)
-#   (0...array.size).step(2).with_object([]) do |idx, result|
-#     result << array[idx]
-#   end
+#   (0...array.size).step(2).map { |idx| array[idx] }
 # end
 
-# def oddities(array)
-#   0.step(array.size - 1, 2).with_object([]) do |idx, result|
-#     result << array[idx]
-#   end
+# def oddities(array) 
+#   0.step(array.size - 1, 2).map { |idx| array[idx] }
 # end
 
 # p oddities([2, 3, 4, 5, 6]) == [2, 4, 6]
