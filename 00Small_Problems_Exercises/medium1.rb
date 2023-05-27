@@ -1,7 +1,51 @@
 ### ROTATION II
-def rotate_rightmost_digits(number, digits)
-
+def rotate_object(object)
+  case object
+  when Array, String
+    object.empty? ? object : object[1..] + object[0, 1]
+  when Hash
+    rotate_object(object.to_a).to_h
+  when Integer
+    rotate_object(object.to_s).to_i
+  else
+    "Unable to rotate this type of object."
+  end
 end
+
+# def rotate_rightmost_digits(number, n)
+#   digits = number.to_s.chars
+#   head, tail = digits.partition.with_index { |_, idx| idx < digits.size - n }
+#   (head + rotate_object(tail)).join.to_i
+# end
+
+# def rotate_rightmost_digits(number, n)
+#   digits = number.to_s.chars
+#   tail = digits[-n..]
+#   (digits - tail + rotate_object(tail)).join.to_i
+# end
+
+def rotate_rightmost_digits(num, n)
+  digits = num.digits.reverse
+  (digits << digits.delete_at(-n)).join.to_i
+end
+
+
+########### Daniel Chae
+# one-liner; no strings
+# def rotate_rightmost_digits(num, n)
+#   digits = num.digits.reverse # [7, 3, 5, 2, 9, 1]
+#   (digits << digits.delete_at(-n)).reduce(0) do |sum, digit|
+#     sum * 10 + digit
+#   end
+# end
+###########
+
+# def rotate_rightmost_digits(number, n)
+#   digits = number.to_s.chars
+#   split = digits.size - n
+#   head, tail = digits.take(split), digits.drop(split)
+#   (head + rotate_object(tail)).join.to_i
+# end
 
 p rotate_rightmost_digits(735291, 1) == 735291
 p rotate_rightmost_digits(735291, 2) == 735219
