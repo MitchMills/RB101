@@ -1,3 +1,15 @@
+### ROTATION II
+def rotate_rightmost_digits(number, digits)
+
+end
+
+p rotate_rightmost_digits(735291, 1) == 735291
+p rotate_rightmost_digits(735291, 2) == 735219
+p rotate_rightmost_digits(735291, 3) == 735912
+p rotate_rightmost_digits(735291, 4) == 732915
+p rotate_rightmost_digits(735291, 5) == 752913
+p rotate_rightmost_digits(735291, 6) == 352917
+
 ### ROTATION I
 # initial solution
 # def rotate_array(array)
@@ -51,79 +63,39 @@
 # p rotate_array(x) == [2, 3, 4, 1]   # => true
 # p x == [1, 2, 3, 4]                 # => true
 
-#############
-# def rotate_array(arr) # Daniel Chae
-#   (arr[1..] || []) + arr[0, 1]
-# end
-
-# def rotate_integer(int) # Daniel Chae
-#   ( ( digs = int.digits.reverse )[1..] + digs[0, 1] ).reduce(0) do |sum, digs|
-#      sum * 10 + digs
-#   end
-# end
-##############
-
-###############
-# def rotate_object(object)
-#   case object
-#   when Array, String
-#     (object[1..] || object.class.new) + object[0, 1]
-#   when Integer
-#     (object.to_s[1..] + object.to_s[0]).to_i
-#   when Hash
-#     ((object.to_a[1..] || object.class.new.to_a) + object.to_a[0, 1]).to_h
-#   else
-#     "Unable to rotate this type of object."
-#   end
-# end
-
+###################################
 # def rotate_object(object)
 #   case object
 #   when Array, String
 #     object.empty? ? object : object[1..] + object[0, 1]
-#   when Integer
-#     (object.to_s[1..] + object.to_s[0]).to_i
 #   when Hash
-#     object.empty? ? object : (object.to_a[1..] + object.to_a[0, 1]).to_h
+#     rotate_object(object.to_a).to_h
+#   when Integer
+#     rotate_object(object.to_s).to_i
 #   else
 #     "Unable to rotate this type of object."
 #   end
 # end
 
-def rotate_object(object)
-  sym = case object
-        when Array then :to_a
-        when String then :to_s
-        when Integer then :to_s
-        when Hash then :to_a
-        else :to_s
-        end
-  obj = object.send(sym)
-  obj.empty? ? obj : obj[1..] + obj[0, 1]
-end
-
-p rotate_object([]) == []
-p rotate_object([1, 2, 3]) == [2, 3, 1]
-puts
-p rotate_object('') == ''
-p rotate_object('123') == '231'
-puts
-p rotate_object(0) == 0
-p rotate_object(123) == 231
-puts
-p rotate_object({}) == {}
-p rotate_object({a: 1, b: 2, c: 3}) == {b: 2, c: 3, a: 1}
-puts
-p rotate_object(1.2)
-############################
-
-#########################
-# def rotate_sequence(sequence) # Kelly Netterville
-#   case sequence
-#   when Array then return sequence[1..-1] + [sequence[0]]
-#   when String then return sequence[1..-1] + sequence[0]
-#   when Integer
-#     rotate_sequence(sequence.to_s).to_i
-#   end
-# end
-######################
+# array = [1, 2, 3]
+# p rotate_object([]) == []
+# p rotate_object(array) == [2, 3, 1]
+# p array == [1, 2, 3]
+# puts
+# string = '123'
+# p rotate_object('') == ''
+# p rotate_object(string) == '231'
+# p string == '123'
+# puts
+# hash = {a: 1, b: 2, c: 3}
+# p rotate_object({}) == {}
+# p rotate_object(hash) == {b: 2, c: 3, a: 1}
+# p hash == {a: 1, b: 2, c: 3}
+# puts
+# integer = 123
+# p rotate_object(0) == 0
+# p rotate_object(integer) == 231
+# p integer == 123
+# puts
+# p rotate_object(102) # => 21
+# p rotate_object(1.2) # => "Unable to rotate this type of object."

@@ -1,58 +1,38 @@
 # PROBLEM
-Write a method that rotates an array by moving the first element to the end of the array. The original array should not be modified.
+Write a method that can rotate the last n digits of a number.
 
-Do not use the method Array#rotate or Array#rotate! for your implementation.
+Note that rotating just 1 digit results in the original number being returned.
 
-  Input: array
+You may use the rotate_array method from the previous exercise if you want. (Recommended!)
 
-  Output: new array
-    - contains same elements as first array but first element is at end of array
+You may assume that n is always a positive integer.
+
+  Input: 
+
+  Output:
+
   ## Rules
   ### explicit
   
   ### implicit
-  - if input array only has one element, output array will look the same
+
 
   ## Questions
 
 
 # EXAMPLES
-rotate_array([7, 3, 5, 2, 9, 1]) == [3, 5, 2, 9, 1, 7]
-rotate_array(['a', 'b', 'c']) == ['b', 'c', 'a']
-rotate_array(['a']) == ['a']
-
-x = [1, 2, 3, 4]
-rotate_array(x) == [2, 3, 4, 1]   # => true
-x == [1, 2, 3, 4]                 # => true
+rotate_rightmost_digits(735291, 1) == 735291
+rotate_rightmost_digits(735291, 2) == 735219
+rotate_rightmost_digits(735291, 3) == 735912
+rotate_rightmost_digits(735291, 4) == 732915
+rotate_rightmost_digits(735291, 5) == 752913
+rotate_rightmost_digits(735291, 6) == 352917
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- iterate over the input array
-  - in a new array, for each element of the input array:
-    - shift the index up by 1
-      - 0 => 1
-      - 1 => 2
-      - 2 => 3
-    - for the last element in the array, shift the index to 0
-- return the new array
 
- (a b c d e)  => (b c d e a)
- (0 1 2 3 4)
--(5 4 3 2 1)
-
-a  0 => 4
-b  1 => 0
-c  2 => 1
-d  3 => 2
-e  4 => 3
-
-a  -5 =>  -1
-b  -4 =>  -5
-c  -3 =>  -4
-d  -2 =>  -3
-e  -1 =>  -2
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
