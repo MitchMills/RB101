@@ -1,46 +1,67 @@
-### ROTATION II
-def rotate_integer(int)
-  (int.to_s[1..] + int.to_s[0, 1]).to_i
+### ROTATION III
+def max_rotation(int)
+
 end
 
-######################## using helper method vvv
+p max_rotation(735291) == 321579
+p max_rotation(3) == 3
+p max_rotation(35) == 53
+p max_rotation(105) == 15 # the leading zero gets dropped
+p max_rotation(8_703_529_146) == 7_321_609_845
+
+### ROTATION II
+######################## vvv using helper method vvv
+
+# def rotate_array(array)
+#   array.empty? ? array : array[1..] + array[0, 1]
+# end
+
 # def rotate_rightmost_digits(number, n)
 #   digits = number.to_s.chars
 #   head, tail = digits.partition.with_index { |_, idx| idx < digits.size - n }
-#   (head + rotate_integer(tail)).join.to_i
+#   (head + rotate_array(tail)).join.to_i
 # end
 
 # def rotate_rightmost_digits(number, n)
 #   digits = number.to_s.chars
 #   tail = digits[-n..]
-#   (digits - tail + rotate_integer(tail)).join.to_i
+#   (digits - tail + rotate_array(tail)).join.to_i
 # end
 
 # def rotate_rightmost_digits(number, n)
 #   digits = number.to_s.chars
-#   split = digits.size - n
-#   head, tail = digits.take(split), digits.drop(split)
-#   (head + rotate_integer(tail)).join.to_i
+#   tail = digits.drop(digits.size - n)
+#   (digits - tail + rotate_array(tail)).join.to_i
+# end
+
+#############
+
+# def rotate_integer(int)
+#   (int.to_s[1..] + int.to_s[0, 1]).to_i
 # end
 
 # def rotate_rightmost_digits(num, n)
 #   tail = num % 10**n
 #   num - tail + rotate_integer(tail)
 # end
-######################## using helper method ^^^
+
+######################## ^^^ using helper method ^^^
+
+######################## vvv no helper method vvv
 
 # def rotate_rightmost_digits(num, n)
 #   digits = num.digits.reverse
 #   (digits << digits.delete_at(-n)).join.to_i
 # end
 
-def rotate_rightmost_digits(num, n)
-  tail = num % 10**n
-  divisor = 10**(n-1)
-  rotated_tail = ((tail % divisor) * 10) + (tail / divisor)
-  num - tail + rotated_tail
-end
+# def rotate_rightmost_digits(num, n)
+#   tail = num % 10**n
+#   divisor = 10**(n-1)
+#   rotated_tail = ((tail % divisor) * 10) + (tail / divisor)
+#   num - tail + rotated_tail
+# end
 
+######################## ^^^ no helper method ^^^
 
 ########### Daniel Chae
 # one-liner; no strings
@@ -52,14 +73,14 @@ end
 # end
 ###########
 
-p rotate_rightmost_digits(735291, 0) == 735291
-p rotate_rightmost_digits(735291, 1) == 735291
-p rotate_rightmost_digits(735291, 2) == 735219
-p rotate_rightmost_digits(735291, 3) == 735912
-p rotate_rightmost_digits(735291, 4) == 732915
-p rotate_rightmost_digits(735291, 5) == 752913
-p rotate_rightmost_digits(735291, 6) == 352917
-p rotate_rightmost_digits(735291, 7) == 352917
+# p rotate_rightmost_digits(735291, 0) == 735291
+# p rotate_rightmost_digits(735291, 1) == 735291
+# p rotate_rightmost_digits(735291, 2) == 735219
+# p rotate_rightmost_digits(735291, 3) == 735912
+# p rotate_rightmost_digits(735291, 4) == 732915
+# p rotate_rightmost_digits(735291, 5) == 752913
+# p rotate_rightmost_digits(735291, 6) == 352917
+# p rotate_rightmost_digits(735291, 7) #== 352917
 
 ### ROTATION I
 # initial solution
