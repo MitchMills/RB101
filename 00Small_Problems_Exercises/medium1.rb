@@ -1,13 +1,13 @@
 ### ROTATION III
-def max_rotation(int)
+# def max_rotation(int)
 
-end
+# end
 
-p max_rotation(735291) == 321579
-p max_rotation(3) == 3
-p max_rotation(35) == 53
-p max_rotation(105) == 15 # the leading zero gets dropped
-p max_rotation(8_703_529_146) == 7_321_609_845
+# p max_rotation(735291) == 321579
+# p max_rotation(3) == 3
+# p max_rotation(35) == 53
+# p max_rotation(105) == 15 # the leading zero gets dropped
+# p max_rotation(8_703_529_146) == 7_321_609_845
 
 ### ROTATION II
 ######################## vvv using helper method vvv
@@ -33,6 +33,64 @@ p max_rotation(8_703_529_146) == 7_321_609_845
 #   tail = digits.drop(digits.size - n)
 #   (digits - tail + rotate_array(tail)).join.to_i
 # end
+
+# def rotate_rightmost_digits(number, n)
+#   digits = number.digits.reverse
+#   digits.size.times.map do |idx|
+#     if idx < digits.size - n
+#       digits[idx]
+#     else
+#       idx == digits.size - 1 ? digits[digits.size - n] : digits[idx + 1]
+#     end
+#   end.join.to_i
+# end
+
+def rotate_rightmost_digits(number, n)
+  digits = number.digits.reverse
+  digits.size.times.map do |idx|
+    if idx < (digits.size - n)
+      digits[idx]
+    else
+      digits[n + ((idx + 1) % n)]           3
+    end
+  end
+end
+
+# new_indexes = (1..array.size).map { |num| num % array.size }
+
+p rotate_rightmost_digits(735291, 1) #== 735291 *
+p rotate_rightmost_digits(735291, 2) #== 735219 *
+p rotate_rightmost_digits(735291, 3) #== 735912
+p rotate_rightmost_digits(735291, 4) #== 732915 *
+p rotate_rightmost_digits(735291, 5) #== 752913
+p rotate_rightmost_digits(735291, 6) #== 352917
+
+n = 3, rest = 3
+           *
+'0  1  2   3  4  5'
+[7, 3, 5,  2, 9, 1] # original
+[7, 3, 5,  9, 1, 2] # target
+
+'3 4 5' # original indexes
+'4 5 3' # target indexes   n + ((idx + 1) % n)
+ 0 1 2  # idx % n
+ 1 2 0  # (idx + 1) % n
+
+
+ n = 4, rest = 2
+         *
+'0  1    2  3  4  5'
+[7, 3,   5, 2, 9, 1] # original
+[7, 3,   2, 9, 1, 5] # target
+
+'2 3 4 5' # original indexes
+'3 4 5 2' # target indexes
+ 2 3 0 1  # idx % n
+ 1 2 3 0  # this + 2 = target
+
+# array.each_index.map { |idx| array[idx - (array.size - 1)] }
+
+#  array.each_index.map { |idx| array[(idx+1) % array.size] }
 
 #############
 
@@ -74,12 +132,12 @@ p max_rotation(8_703_529_146) == 7_321_609_845
 ###########
 
 # p rotate_rightmost_digits(735291, 0) == 735291
-# p rotate_rightmost_digits(735291, 1) == 735291
-# p rotate_rightmost_digits(735291, 2) == 735219
-# p rotate_rightmost_digits(735291, 3) == 735912
-# p rotate_rightmost_digits(735291, 4) == 732915
-# p rotate_rightmost_digits(735291, 5) == 752913
-# p rotate_rightmost_digits(735291, 6) == 352917
+# p rotate_rightmost_digits(735291, 1) #== 735291
+# p rotate_rightmost_digits(735291, 2) #== 735219
+# p rotate_rightmost_digits(735291, 3) #== 735912
+# p rotate_rightmost_digits(735291, 4) #== 732915
+# p rotate_rightmost_digits(735291, 5) #== 752913
+# p rotate_rightmost_digits(735291, 6) #== 352917
 # p rotate_rightmost_digits(735291, 7) #== 352917
 
 ### ROTATION I
