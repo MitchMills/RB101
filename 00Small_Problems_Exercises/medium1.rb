@@ -1,32 +1,44 @@
 ### ROTATION II
-def rotate_object(object)
-  case object
-  when Array, String
-    object.empty? ? object : object[1..] + object[0, 1]
-  when Hash
-    rotate_object(object.to_a).to_h
-  when Integer
-    rotate_object(object.to_s).to_i
-  else
-    "Unable to rotate this type of object."
-  end
+def rotate_integer(int)
+  (int.to_s[1..] + int.to_s[0, 1]).to_i
 end
 
+######################## using helper method vvv
 # def rotate_rightmost_digits(number, n)
 #   digits = number.to_s.chars
 #   head, tail = digits.partition.with_index { |_, idx| idx < digits.size - n }
-#   (head + rotate_object(tail)).join.to_i
+#   (head + rotate_integer(tail)).join.to_i
 # end
 
 # def rotate_rightmost_digits(number, n)
 #   digits = number.to_s.chars
 #   tail = digits[-n..]
-#   (digits - tail + rotate_object(tail)).join.to_i
+#   (digits - tail + rotate_integer(tail)).join.to_i
+# end
+
+# def rotate_rightmost_digits(number, n)
+#   digits = number.to_s.chars
+#   split = digits.size - n
+#   head, tail = digits.take(split), digits.drop(split)
+#   (head + rotate_integer(tail)).join.to_i
+# end
+
+# def rotate_rightmost_digits(num, n)
+#   tail = num % 10**n
+#   num - tail + rotate_integer(tail)
+# end
+######################## using helper method ^^^
+
+# def rotate_rightmost_digits(num, n)
+#   digits = num.digits.reverse
+#   (digits << digits.delete_at(-n)).join.to_i
 # end
 
 def rotate_rightmost_digits(num, n)
-  digits = num.digits.reverse
-  (digits << digits.delete_at(-n)).join.to_i
+  tail = num % 10**n
+  divisor = 10**(n-1)
+  rotated_tail = ((tail % divisor) * 10) + (tail / divisor)
+  num - tail + rotated_tail
 end
 
 
@@ -40,19 +52,14 @@ end
 # end
 ###########
 
-# def rotate_rightmost_digits(number, n)
-#   digits = number.to_s.chars
-#   split = digits.size - n
-#   head, tail = digits.take(split), digits.drop(split)
-#   (head + rotate_object(tail)).join.to_i
-# end
-
+p rotate_rightmost_digits(735291, 0) == 735291
 p rotate_rightmost_digits(735291, 1) == 735291
 p rotate_rightmost_digits(735291, 2) == 735219
 p rotate_rightmost_digits(735291, 3) == 735912
 p rotate_rightmost_digits(735291, 4) == 732915
 p rotate_rightmost_digits(735291, 5) == 752913
 p rotate_rightmost_digits(735291, 6) == 352917
+p rotate_rightmost_digits(735291, 7) == 352917
 
 ### ROTATION I
 # initial solution
