@@ -5,9 +5,11 @@ Write a method that takes an integer as argument, and returns the maximum rotati
 
 Note that you do not have to handle multiple 0s.
 
-  Input: 
-
-  Output:
+  Input: integer
+    - will not have multiple zeros in a row
+  Output: integer
+    - a leading zero will get dropped during the rotation:
+      - 105 => 051 --> 51 => 15
 
   ## Rules
   ### explicit
