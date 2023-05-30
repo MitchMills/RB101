@@ -15,8 +15,8 @@ Note that you do not have to handle multiple 0s.
   ### explicit
   
   ### implicit
-
-
+  - number of rotations will be (input integer's length in digits - 1)
+  - if input integer only has 1 digit, return that digit
   ## Questions
 
 
@@ -31,6 +31,14 @@ max_rotation(8_703_529_146) == 7_321_609_845
 
 
 # ALGORITHM
+- iterate over the input integer: number of times = integer length - 1
+  - on each iteration, pass the array to `rotate_rightmost_digits`
+    - start the value of n at the length of the input integer in digits
+      - length - idx
+    - decrease the value of n on each iteration
+    - save the result
+ - return the rotated integer
+  
 
 
 

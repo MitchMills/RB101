@@ -1,13 +1,96 @@
 ### ROTATION III
-def max_rotation(int)
+# helper method
+# def rotate_rightmost_digits(num, n)
+#   digits = num.digits.reverse
+#   (digits << digits.delete_at(-n)).join.to_i
+# end
 
+# # original solution
+# def max_rotation(integer)
+#   number_of_digits = integer.to_s.size
+#   rotations = number_of_digits - 1
+#   rotations.times do |idx|
+#     integer = rotate_rightmost_digits(integer, number_of_digits - idx)
+#   end
+#   integer
+# end
+
+# same idea but with map
+# def max_rotation(integer)
+#   number_of_digits = integer.to_s.size
+#   rotations = number_of_digits > 1 ? number_of_digits - 1 : 1
+#   rotations.times.map do |idx|
+#     integer = rotate_rightmost_digits(integer, number_of_digits - idx)
+#   end.last
+# end
+
+# def max_rotation(integer) # LS Solution
+#   number_of_digits = integer.digits.size
+#   number_of_digits.downto(2) do |num|
+#     integer = rotate_rightmost_digits(integer, num)
+#   end
+#   integer
+# end
+
+# Without a helper method
+# def max_rotation(integer)
+#   number_of_digits = integer.digits.size
+#   number_of_digits.downto(2) do |num|
+#     digits = integer.digits.reverse
+#     integer = (digits << digits.delete_at(-num)).join.to_i
+#   end
+#   integer
+# end
+
+# p max_rotation(735291) == 321579
+# p max_rotation(3) == 3
+# p max_rotation(35) == 53
+# p max_rotation(105) == 15 # the leading zero gets dropped
+# p max_rotation(8_703_529_146) == 7_321_609_845
+
+################### vvv preserve zeros vvv
+# helper method
+# def rotate_rightmost_elements(array, n)
+#   array << array.delete_at(-n)
+# end
+
+# def max_rotation_with_zeros(integer)
+#   number_of_digits = integer.digits.size
+#   int_array = integer.digits.reverse
+#   number_of_digits.downto(2) do |num|
+#     int_array = rotate_rightmost_elements(int_array, num)
+#   end
+#   int_array.join.to_i
+# end
+
+# Same idea but with map
+# def max_rotation_with_zeros(integer)
+#   number_of_digits = integer.digits.size
+#   return integer if number_of_digits < 2
+#   int_array = integer.digits.reverse
+#   number_of_digits.downto(2).map do |num|
+#     int_array = rotate_rightmost_elements(int_array, num)
+#   end.last.join.to_i
+# end
+
+# Same solution without a helper method
+def max_rotation_with_zeros(integer) # no helper method
+  number_of_digits = integer.digits.size
+  int_array = integer.digits.reverse
+  number_of_digits.downto(2) do |num|
+    int_array << int_array.delete_at(-num)
+  end
+  int_array.join.to_i
 end
 
-p max_rotation(735291) == 321579
-p max_rotation(3) == 3
-p max_rotation(35) == 53
-p max_rotation(105) == 15 # the leading zero gets dropped
-p max_rotation(8_703_529_146) == 7_321_609_845
+p max_rotation_with_zeros(735291) == 321579
+p max_rotation_with_zeros(3) == 3
+p max_rotation_with_zeros(35) == 53
+p max_rotation_with_zeros(105) == 15
+p max_rotation_with_zeros(8_703_529_146) == 7_321_609_845
+p max_rotation_with_zeros(10023) == 2130
+p max_rotation_with_zeros(10003) == 130
+######################## ^^^ preserve zeros ^^^
 
 ### ROTATION II
 ######################## vvv using helper method vvv
