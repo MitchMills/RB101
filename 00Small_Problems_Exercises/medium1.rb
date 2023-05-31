@@ -1,27 +1,16 @@
 ### ROTATION III
-# helper method
+# # initial solution, with a helper method
 # def rotate_rightmost_digits(num, n)
 #   digits = num.digits.reverse
 #   (digits << digits.delete_at(-n)).join.to_i
 # end
 
-# # original solution
 # def max_rotation(integer)
-#   number_of_digits = integer.to_s.size
-#   rotations = number_of_digits - 1
-#   rotations.times do |idx|
-#     integer = rotate_rightmost_digits(integer, number_of_digits - idx)
+#   digits = integer.digits.reverse
+#   digits.each_index do |idx|
+#     integer = rotate_rightmost_digits(integer, digits.size - idx)
 #   end
 #   integer
-# end
-
-# same idea but with map
-# def max_rotation(integer)
-#   number_of_digits = integer.to_s.size
-#   rotations = number_of_digits > 1 ? number_of_digits - 1 : 1
-#   rotations.times.map do |idx|
-#     integer = rotate_rightmost_digits(integer, number_of_digits - idx)
-#   end.last
 # end
 
 # def max_rotation(integer) # LS Solution
@@ -32,15 +21,22 @@
 #   integer
 # end
 
-# Without a helper method
+############ vvv Without a helper method vvv
 # def max_rotation(integer)
-#   number_of_digits = integer.digits.size
-#   number_of_digits.downto(2) do |num|
-#     digits = integer.digits.reverse
-#     integer = (digits << digits.delete_at(-num)).join.to_i
-#   end
-#   integer
+#   digits = integer.digits.reverse
+#   digits.each_index do |idx|
+#     digits << digits.delete_at(idx)
+#   end.join.to_i
 # end
+
+# def max_rotation(integer) # basically LS solution
+#   digits = integer.digits.reverse
+#   digits.size.downto(2) do |num|
+#     digits << digits.delete_at(-num)
+#   end
+#   digits.join.to_i
+# end
+############### ^^^ Without a helper method ^^^
 
 # p max_rotation(735291) == 321579
 # p max_rotation(3) == 3
@@ -49,48 +45,64 @@
 # p max_rotation(8_703_529_146) == 7_321_609_845
 
 ################### vvv preserve zeros vvv
-# helper method
+### With a helper method
 # def rotate_rightmost_elements(array, n)
-#   array << array.delete_at(-n)
+#   array << array.delete_at(n)
 # end
 
 # def max_rotation_with_zeros(integer)
-#   number_of_digits = integer.digits.size
-#   int_array = integer.digits.reverse
-#   number_of_digits.downto(2) do |num|
-#     int_array = rotate_rightmost_elements(int_array, num)
-#   end
-#   int_array.join.to_i
+#   digits = integer.digits.reverse
+#   digits.each_index do |idx|
+#     digits = rotate_rightmost_elements(digits, idx)
+#   end.join.to_i
 # end
 
-# Same idea but with map
-# def max_rotation_with_zeros(integer)
-#   number_of_digits = integer.digits.size
-#   return integer if number_of_digits < 2
-#   int_array = integer.digits.reverse
-#   number_of_digits.downto(2).map do |num|
-#     int_array = rotate_rightmost_elements(int_array, num)
-#   end.last.join.to_i
-# end
-
-# Same solution without a helper method
-def max_rotation_with_zeros(integer) # no helper method
-  number_of_digits = integer.digits.size
-  int_array = integer.digits.reverse
-  number_of_digits.downto(2) do |num|
-    int_array << int_array.delete_at(-num)
+#### Without a helper method
+def max_rotation_with_zeros(integer)
+  digits = integer.digits.reverse
+  digits.each_index do |idx|
+    digits << digits.delete_at(idx)
   end
-  int_array.join.to_i
+  digits[0] == 0 ? digits.join : digits.join.to_i
 end
+
+######### Daniel Chae vvv
+# FE one-liner; works for consecutive zeros in input arg
+# def max_rotation_with_zeros(x)
+#   (d = x.to_s).size.times.reduce(d) { |d, i| d + (d.slice!(i) || "") }.to_i
+# end
+
+# def max_rotation_with_zeros(integer) # above expanded
+#   string = integer.to_s
+#   string.size.times.reduce(string) do |string, idx|
+#     # string + (string.slice!(idx) || "") # is || needed?
+#     string << string.slice!(idx)
+#   end.to_i
+# end
+
+# without using strings
+# def max_rotation_with_zeros(x)
+#   (d = x.digits.reverse).each_index { |i| d << d.delete_at(i) }.reduce(0) { |y, z| y * 10 + z }
+# end
+
+# def max_rotation_with_zeros(integer) # above expanded
+#   digits = integer.digits.reverse
+#   digits.each_index do |idx|
+#     digits << digits.delete_at(idx)
+#   end
+#   digits.reduce(0) { |sum, digit| sum * 10 + digit }
+# end
+######## Daniel Chae ^^^
 
 p max_rotation_with_zeros(735291) == 321579
 p max_rotation_with_zeros(3) == 3
 p max_rotation_with_zeros(35) == 53
-p max_rotation_with_zeros(105) == 15
+p max_rotation_with_zeros(105) == '015'
 p max_rotation_with_zeros(8_703_529_146) == 7_321_609_845
-p max_rotation_with_zeros(10023) == 2130
-p max_rotation_with_zeros(10003) == 130
+p max_rotation_with_zeros(10023) == '02130'
+p max_rotation_with_zeros(10003) == '00130'
 ######################## ^^^ preserve zeros ^^^
+
 
 ### ROTATION II
 ######################## vvv using helper method vvv
