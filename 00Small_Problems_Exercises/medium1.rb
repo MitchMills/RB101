@@ -49,57 +49,74 @@
 ###
 
 ### using array instead of hash
-def lights(number_of_lights)
-  switches = Array.new(number_of_lights, -1) # -1 = off, 1 = on
+# def lights(number_of_lights)
+#   switches = Array.new(number_of_lights, -1) # -1 = off, 1 = on
 
-  1.upto(switches.size) do |position|
-    switches = switches.map.with_index do |status, idx|
-      (idx + 1) % position == 0 ? -status : status
-    end
-  end
+#   1.upto(switches.size) do |position|
+#     switches = switches.map.with_index do |status, idx|
+#       (idx + 1) % position == 0 ? -status : status
+#     end
+#   end
 
-  switches.map.with_index do |status, idx|
-    status == 1 ? (idx + 1) : nil
-  end.compact
+#   switches.map.with_index do |status, idx|
+#     status == 1 ? (idx + 1) : nil
+#   end.compact
 
-end
+# end
+
+# def lights(number_of_lights)
+#   switches = Array.new(number_of_lights, -1) # -1 = off, 1 = on
+
+#   1.upto(switches.size) do |position|
+#     switches = switches.map.with_index do |status, idx|
+#       (idx + 1) % position == 0 ? -status : status
+#     end
+#   end
+
+#   switches.filter_map.with_index do |status, idx|
+#     status == 1 ? idx + 1 : false
+#   end
+
+# end
 ###
 
 ### with text display
-# def lights(number_of_lights)
-#   switches = initialize_switches(number_of_lights)
-#   toggle_switches!(switches)
-#   # on_lights(switches)
+def lights(number_of_lights)
+  switches = initialize_switches(number_of_lights)
+  display_repetitions(switches)
   
-# end
+end
 
-# def initialize_switches(number_of_lights)
-#   switch_numbers = (1..number_of_lights)
-#   statuses = Array.new(number_of_lights, -1) # -1 means "off", 1 means "on"
-#   switches = switch_numbers.zip(statuses).to_h
-# end
+def initialize_switches(number_of_lights)
+  switch_numbers = (1..number_of_lights)
+  statuses = Array.new(number_of_lights, -1) # -1 means "off", 1 means "on"
+  switches = switch_numbers.zip(statuses).to_h
+end
 
-# def toggle_switches!(switches)
-#   1.upto(switches.size) do |position|
-#     (position..switches.size).step(position) do |switch_number|
-#       switches[switch_number] = -switches[switch_number]
-#     end
-#     display_current_status(switches)
-#   end
-# end
+def display_repetitions(switches)
+  1.upto(switches.size) do |position|
+    toggle_switches!(switches, position)
+    display_current_status(switches, position)
+  end
+end
 
-# # def on_lights(switches)
-# #   switches.keys.select { |switch_number| switches[switch_number] == 1 }
-# # end
+def toggle_switches!(switches, position)
+  (position..switches.size).step(position) do |switch|
+    switches[switch] = -switches[switch]
+  end
+end
 
-# def display_current_status(switches)
-#   on_switches = switches.keys.select { |switch_num| switches[switch_num ] == 1 }
-#   off_switches = switches.keys.select { |switch_#| switches[switch_num] == -1 }
-# end
+def display_current_status(switches, position)
+  on, off = switches.keys.partition {|switch| switches[switch] == 1 }
+  on_message = "lights #{on[0..-2].join(", ")} and #{on.last} are now on."
+  puts "Round #{position}: #{on_message}"
+end
 ###
 p lights(5)  #== [1, 4]
-p lights(100) #== [1, 4, 9]
+# p lights(10) #== [1, 4, 9]
 
+# switches = {  1=>1,   2=>-1,  3=>-1,  4=>1,   5=>-1,
+#               6=>-1,  7=>-1,  8=>-1,  9=>1, 10=>-1  }
 
 ### 3 ROTATION III
 # # initial solution, with a helper method
