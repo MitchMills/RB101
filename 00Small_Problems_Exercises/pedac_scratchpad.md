@@ -1,44 +1,43 @@
 # PROBLEM
-If you take a number like 735291, and rotate it to the left, you get 352917. If you now keep the first digit fixed in place, and rotate the remaining digits, you get 329175. Keep the first 2 digits fixed in place and rotate again to 321759. Keep the first 3 digits fixed in place and rotate again to get 321597. Finally, keep the first 4 digits fixed in place and rotate the final 2 digits to get 321579. The resulting number is called the maximum rotation of the original number.
+You have a bank of switches before you, numbered from 1 to n. Each switch is connected to exactly one light that is initially off. You walk down the row of switches and toggle every one of them. You go back to the beginning, and on this second pass, you toggle switches 2, 4, 6, and so on. On the third pass, you go back again to the beginning and toggle switches 3, 6, 9, and so on. You repeat this process and keep going until you have been through n repetitions.
 
-Write a method that takes an integer as argument, and returns the maximum rotation of that argument. You can (and probably should) use the rotate_rightmost_digits method from the previous exercise.
+Write a method that takes one argument, the total number of switches, and returns an Array that identifies which lights are on after n repetitions.
 
-Note that you do not have to handle multiple 0s.
+Example with n = 5 lights:
+
+    round 1: every light is turned on
+    round 2: lights 2 and 4 are now off; 1, 3, 5 are on
+    round 3: lights 2, 3, and 4 are now off; 1 and 5 are on
+    round 4: lights 2 and 3 are now off; 1, 4, and 5 are on
+    round 5: lights 2, 3, and 5 are now off; 1 and 4 are on
+
+The result is that 2 lights are left on, lights 1 and 4. The return value is [1, 4].
+
+With 10 lights, 3 lights are left on: lights 1, 4, and 9. The return value is [1, 4, 9].
+
 
   Input: integer
-    - will not have multiple zeros in a row
-  Output: integer
-    - a leading zero will get dropped during the rotation:
-      - 105 => 051 --> 51 => 15
+    - input integer represents the number of switches, AND the number of repetitions to perform
+
+  Output: array
+    - output array represents the switches that are left in the 'on' position once all repetitions are performed
 
   ## Rules
   ### explicit
   
   ### implicit
-  - number of rotations will be (input integer's length in digits - 1)
-  - if input integer only has 1 digit, return that digit
+
+
   ## Questions
 
 
 # EXAMPLES
-max_rotation(735291) == 321579
-max_rotation(3) == 3
-max_rotation(35) == 53
-max_rotation(105) == 15 # the leading zero gets dropped
-max_rotation(8_703_529_146) == 7_321_609_845
+
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- iterate over the input integer: number of times = integer length - 1
-  - on each iteration, pass the array to `rotate_rightmost_digits`
-    - start the value of n at the length of the input integer in digits
-      - length - idx
-    - decrease the value of n on each iteration
-    - save the result
- - return the rotated integer
-  
 
 
 

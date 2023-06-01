@@ -1,4 +1,13 @@
-### ROTATION III
+### 4 1000 LIGHTS
+def lights(switches)
+
+end
+
+p lights(5)  == [1, 4]
+p lights(10) == [1, 4, 9]
+
+
+### 3 ROTATION III
 # # initial solution, with a helper method
 # def rotate_rightmost_digits(num, n)
 #   digits = num.digits.reverse
@@ -58,13 +67,13 @@
 # end
 
 #### Without a helper method
-def max_rotation_with_zeros(integer)
-  digits = integer.digits.reverse
-  digits.each_index do |idx|
-    digits << digits.delete_at(idx)
-  end
-  digits[0] == 0 ? digits.join : digits.join.to_i
-end
+# def max_rotation_with_zeros(integer)
+#   digits = integer.digits.reverse
+#   digits.each_index do |idx|
+#     digits << digits.delete_at(idx)
+#   end
+#   digits[0] == 0 ? digits.join : digits.join.to_i
+# end
 
 ######### Daniel Chae vvv
 # FE one-liner; works for consecutive zeros in input arg
@@ -94,17 +103,17 @@ end
 # end
 ######## Daniel Chae ^^^
 
-p max_rotation_with_zeros(735291) == 321579
-p max_rotation_with_zeros(3) == 3
-p max_rotation_with_zeros(35) == 53
-p max_rotation_with_zeros(105) == '015'
-p max_rotation_with_zeros(8_703_529_146) == 7_321_609_845
-p max_rotation_with_zeros(10023) == '02130'
-p max_rotation_with_zeros(10003) == '00130'
+# p max_rotation_with_zeros(735291) == 321579
+# p max_rotation_with_zeros(3) == 3
+# p max_rotation_with_zeros(35) == 53
+# p max_rotation_with_zeros(105) == '015'
+# p max_rotation_with_zeros(8_703_529_146) == 7_321_609_845
+# p max_rotation_with_zeros(10023) == '02130'
+# p max_rotation_with_zeros(10003) == '00130'
 ######################## ^^^ preserve zeros ^^^
 
 
-### ROTATION II
+### 2 ROTATION II
 ######################## vvv using helper method vvv
 
 # def rotate_array(array)
@@ -196,7 +205,8 @@ p max_rotation_with_zeros(10003) == '00130'
 # p rotate_rightmost_digits(735291, 6) == 352917
 # p rotate_rightmost_digits(735291, 7) == 352917
 
-### ROTATION I
+
+### 1 ROTATION I
 # initial solution
 # def rotate_array(array)
 #   array.each_index.map { |idx| array[(idx == array.size - 1) ? 0 : idx + 1] }
