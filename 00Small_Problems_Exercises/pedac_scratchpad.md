@@ -16,17 +16,21 @@ The result is that 2 lights are left on, lights 1 and 4. The return value is [1,
 With 10 lights, 3 lights are left on: lights 1, 4, and 9. The return value is [1, 4, 9].
 
 
-  Input: integer
+  # Input: integer
     - input integer represents the number of switches, AND the number of repetitions to perform
 
-  Output: array
+  # Output: array
     - output array represents the switches that are left in the 'on' position once all repetitions are performed
 
   ## Rules
   ### explicit
+  - each switch is toggled between on and off each time it is "visited"
   
   ### implicit
-
+  - all switches start in the off position, but then are all switched on after the first iteration
+  - once the number of the round exceeds the number of a particular switch, that switch's toggle will not change for the remaining iterations
+  - once the number of the round exceeds half the total number of iterations, only the switch at the number of the round will change
+    - e.g. with ten iterations, on round 6 only switch 6 changes, on round 7 only switch 7 changes, etc
 
   ## Questions
 
@@ -38,7 +42,15 @@ With 10 lights, 3 lights are left on: lights 1, 4, and 9. The return value is [1
 
 
 # ALGORITHM
-
+- `reps` = the number of switches and number of reps to perform
+- set up a hash `switches` to represent the switches and their current state:
+  - keys are the numbers 1 up to `reps`
+  - values all start at -1 (i.e. off)
+- iterate over `switches`
+  - on each iteration, start at the key that has the same number as the `rep` number
+    - visit every switch that is a multiple of that number
+    - flip the sign of every key visited (1 to -1 or vice versa)
+- once all iterations are complete, return an array of the keys that equal 1 (on)
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #

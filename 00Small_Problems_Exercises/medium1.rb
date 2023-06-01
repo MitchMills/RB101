@@ -1,10 +1,63 @@
 ### 4 1000 LIGHTS
-def lights(switches)
+### initial solution
+# def lights(number_of_lights)
+#   switch_numbers = (1..number_of_lights)
+#   statuses = Array.new(number_of_lights, -1) # -1 means "off", 1 means "on"
+#   switches = switch_numbers.zip(statuses).to_h
+
+#   1.upto(number_of_lights) do |position|
+#     (position..number_of_lights).step(position) do |switch_number|
+#       switches[switch_number] = -switches[switch_number]
+#     end
+#   end
+#   switches.keys.select { |switch_number| switches[switch_number] == 1 }
+# end
+###
+
+### refactored, with helper methods
+# def lights(number_of_lights)
+#   switches = initialize_switches(number_of_lights)
+#   toggle_switches!(switches)
+#   on_lights(switches)
+# end
+
+# def initialize_switches(number_of_lights)
+#   switch_numbers = (1..number_of_lights)
+#   statuses = Array.new(number_of_lights, -1) # -1 means "off", 1 means "on"
+#   switches = switch_numbers.zip(statuses).to_h
+# end
+
+# def toggle_switches!(switches)
+#   1.upto(switches.size) do |position|
+#     (position..switches.size).step(position) do |switch_number|
+#       switches[switch_number] = -switches[switch_number]
+#     end
+#   end
+# end
+
+# def on_lights(switches)
+#   switches.keys.select { |switch_number| switches[switch_number] == 1 }
+# end
+###
+
+### pattern solution
+# def lights(number_of_lights)
+#   (1..number_of_lights).each_with_object([]) do |num, result|
+#     result << num**2 if (num**2 < number_of_lights)
+#   end
+###end
+
+### using array instead of hash
+def lights(number_of_lights)
+  switches = Array.new(number_of_lights, -1) # -1 = off, 1 = on
+  switches.each_with_index.map do |switch, status|
+    
+  end
 
 end
 
-p lights(5)  == [1, 4]
-p lights(10) == [1, 4, 9]
+p lights(5)  #== [1, 4]
+p lights(10) #== [1, 4, 9]
 
 
 ### 3 ROTATION III
