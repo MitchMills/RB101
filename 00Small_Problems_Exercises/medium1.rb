@@ -1,18 +1,17 @@
+
 ### 4 1000 LIGHTS
 ### initial solution
 # def lights(number_of_lights)
-#   switch_numbers = (1..number_of_lights)
-#   statuses = Array.new(number_of_lights, -1) # -1 means "off", 1 means "on"
-#   switches = switch_numbers.zip(statuses).to_h
+#   switches = (1..number_of_lights).map { |num| [num, false] }.to_h # false means off, true means on
 
 #   1.upto(number_of_lights) do |position|
-#     (position..number_of_lights).step(position) do |switch_number|
-#       switches[switch_number] = -switches[switch_number]
+#     (position..number_of_lights).step(position) do |switch|
+#       switches[switch] = !switches[switch]
 #     end
 #   end
-#   switches.keys.select { |switch_number| switches[switch_number] == 1 }
+#   switches.keys.select { |switch| switches[switch] }
 # end
-###
+##
 
 ### refactored, with helper methods
 # def lights(number_of_lights)
@@ -22,78 +21,74 @@
 # end
 
 # def initialize_switches(number_of_lights)
-#   switch_numbers = (1..number_of_lights)
-#   statuses = Array.new(number_of_lights, -1) # -1 means "off", 1 means "on"
-#   switches = switch_numbers.zip(statuses).to_h
+#   (1..number_of_lights).map { |num| [num, false] }.to_h
 # end
 
 # def toggle_switches!(switches)
 #   1.upto(switches.size) do |position|
-#     (position..switches.size).step(position) do |switch_number|
-#       switches[switch_number] = -switches[switch_number]
+#     (position..switches.size).step(position) do |switch|
+#       switches[switch] = !switches[switch]
 #     end
 #   end
 # end
 
 # def on_lights(switches)
-#   switches.keys.select { |switch_number| switches[switch_number] == 1 }
+#   switches.keys.select { |switch| switches[switch] }
 # end
 ###
 
 ### pattern solution
 # def lights(number_of_lights)
-#   (1..number_of_lights).each_with_object([]) do |num, result|
-#     result << num**2 if (num**2 < number_of_lights)
+#   (1..number_of_lights).filter_map do |number|
+#     number**2 if (number**2 < number_of_lights)
 #   end
 # end
 ###
 
 ### using array instead of hash
 # def lights(number_of_lights)
-#   switches = Array.new(number_of_lights, -1) # -1 = off, 1 = on
+#   switches = Array.new(number_of_lights, false) # false means off, true means on
 
 #   1.upto(switches.size) do |position|
 #     switches = switches.map.with_index do |status, idx|
-#       (idx + 1) % position == 0 ? -status : status
+#       (idx + 1) % position == 0 ? !status : status
 #     end
 #   end
 
 #   switches.map.with_index do |status, idx|
-#     status == 1 ? (idx + 1) : nil
+#     status ? (idx + 1) : nil
 #   end.compact
-
 # end
 
 # def lights(number_of_lights)
-#   switches = Array.new(number_of_lights, -1) # -1 = off, 1 = on
+#   switches = Array.new(number_of_lights, false) # false means off, true means on
 
 #   1.upto(switches.size) do |position|
 #     switches = switches.map.with_index do |status, idx|
-#       (idx + 1) % position == 0 ? -status : status
+#       (idx + 1) % position == 0 ? !status : status
 #     end
 #   end
 
 #   switches.filter_map.with_index do |status, idx|
-#     status == 1 ? idx + 1 : false
+#     status ? (idx + 1) : false
 #   end
-
 # end
 ###
 
 ### with text display
 def lights(number_of_lights)
+  system 'clear'
   switches = initialize_switches(number_of_lights)
-  display_repetitions(switches)
-  
+  display_rounds(switches)
+  display_final_result(switches)
 end
 
 def initialize_switches(number_of_lights)
-  switch_numbers = (1..number_of_lights)
-  statuses = Array.new(number_of_lights, -1) # -1 means "off", 1 means "on"
-  switches = switch_numbers.zip(statuses).to_h
+  (1..number_of_lights).map { |num| [num, false] }.to_h # false means off, true means on
 end
 
-def display_repetitions(switches)
+def display_rounds(switches)
+  puts "All lights start in the off position."
   1.upto(switches.size) do |position|
     toggle_switches!(switches, position)
     display_current_status(switches, position)
@@ -102,21 +97,70 @@ end
 
 def toggle_switches!(switches, position)
   (position..switches.size).step(position) do |switch|
-    switches[switch] = -switches[switch]
+    switches[switch] = !switches[switch]
   end
 end
 
 def display_current_status(switches, position)
-  on, off = switches.keys.partition {|switch| switches[switch] == 1 }
-  on_message = "lights #{on[0..-2].join(", ")} and #{on.last} are now on."
-  puts "Round #{position}: #{on_message}"
+  off, on = switches.keys.partition {|switch| !switches[switch] }
+  off_message = compose_off_message(switches, off)
+  on_message = compose_on_message(switches, on)
+  puts "Round #{position}: #{off_message}#{on_message}"
+end
+
+def compose_off_message(switches, off)
+  case off.size
+  when 0 then ""
+  when switches.size then "every light is turned off"
+  when 1 then "light #{off.last} is now off"
+  when 2 then "lights #{off.join(" and ")} are now off"
+  else "lights #{off[0..-2].join", "}, and #{off.last} are now off"
+  end
+end
+
+def compose_on_message(switches, on)
+  case on.size
+  when switches.size then "every light is turned on."
+  when 1 then "; light #{on.last} is on."
+  when 2 then "; lights #{on.join(" and ")} are on."
+  else "; lights #{on[0..-2].join", "}, and #{on.last} are on."
+  end
+end
+
+def display_final_result(switches)
+  on = switches.keys.select {|switch| switches[switch] }
+  number_left_on = number_left_on(on)
+  lights_on = lights_on(on)
+  puts
+  puts "With #{switches.size} lights, the result is that #{number_left_on} left on#{lights_on}"
+  puts "The return value is: #{on}"
+end
+
+def number_left_on(on)
+  case on.size
+  when 0 then "no lights are"
+  when 1 then "one light is"
+  else "#{on.size} lights are"
+  end
+end
+
+def lights_on(on)
+  case on.size
+  when 0 then "."
+  when 1 then ": light #{on.first}."
+  when 2 then ": lights #{on.join(" and ")}."
+  else ": lights #{on[0..-2].join", "}, and #{on.last}."
+  end
 end
 ###
-p lights(5)  #== [1, 4]
+
+# lights(10)  #== [1, 4]
 # p lights(10) #== [1, 4, 9]
 
-# switches = {  1=>1,   2=>-1,  3=>-1,  4=>1,   5=>-1,
-#               6=>-1,  7=>-1,  8=>-1,  9=>1, 10=>-1  }
+# switches = {  1=> 1,   2=> 1,  3=> 1,  4=>-1,   5=>-1,
+              # 6=>-1,  7=>-1,  8=>-1,  9=>-1, 10=>-1  }
+
+####
 
 ### 3 ROTATION III
 # # initial solution, with a helper method
