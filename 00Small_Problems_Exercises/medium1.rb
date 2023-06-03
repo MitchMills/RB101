@@ -17,7 +17,7 @@
 # def lights(number_of_lights)
 #   switches = initialize_switches(number_of_lights)
 #   toggle_switches!(switches)
-#   on_lights(switches)
+#   get_on_lights(switches)
 # end
 
 # def initialize_switches(number_of_lights)
@@ -32,7 +32,7 @@
 #   end
 # end
 
-# def on_lights(switches)
+# def get_on_lights(switches)
 #   switches.keys.select { |switch| switches[switch] }
 # end
 ###
@@ -101,29 +101,49 @@ def toggle_switches!(switches, position)
   end
 end
 
-def display_current_status(switches, position)
-  off, on = switches.keys.partition {|switch| !switches[switch] }
-  off_message = compose_off_message(switches, off)
-  on_message = compose_on_message(switches, on)
+# def display_current_status(switches, position)
+#   off, on = switches.keys.partition {|switch| !switches[switch] }
+#   off_message = compose_off_message(switches, off)
+#   on_message = compose_on_message(switches, on)
+#   puts "Round #{position}: #{off_message}#{on_message}"
+# end
+
+# def compose_off_message(switches, off)
+#   case off.size
+#   when 0 then ""
+#   when switches.size then "every light is now off"
+#   when 1 then "light #{off.last} is now off"
+#   when 2 then "lights #{off.join(" and ")} are now off"
+#   else "lights #{off[0..-2].join", "}, and #{off.last} are now off"
+#   end
+# end
+
+# def compose_on_message(switches, on)
+#   case on.size
+#   when switches.size then "every light is turned on."
+#   when 1 then "; light #{on.last} is on."
+#   when 2 then "; lights #{on.join(" and ")} are on."
+#   else "; lights #{on[0..-2].join", "}, and #{on.last} are on."
+#   end
+# end
+
+def display_current_status(switches, position) ###########
+  off_message = compose_message(switches, 'off')
+  on_message = compose_message(switches, 'on')
   puts "Round #{position}: #{off_message}#{on_message}"
 end
 
-def compose_off_message(switches, off)
-  case off.size
-  when 0 then ""
-  when switches.size then "every light is turned off"
-  when 1 then "light #{off.last} is now off"
-  when 2 then "lights #{off.join(" and ")} are now off"
-  else "lights #{off[0..-2].join", "}, and #{off.last} are now off"
-  end
-end
+def compose_message(switches, status) #########
+  off, on = switches.keys.partition {|switch| !switches[switch] }
+  set = status == 'off' ? off : on
+  case status.size
 
-def compose_on_message(switches, on)
-  case on.size
-  when switches.size then "every light is turned on."
-  when 1 then "; light #{on.last} is on."
-  when 2 then "; lights #{on.join(" and ")} are on."
-  else "; lights #{on[0..-2].join", "}, and #{on.last} are on."
+  when 0 then "" # need to fix this line
+
+  when switches.size then "every light is now #{status}."
+  when 1 then "; light #{set.last} is now #{status}."
+  when 2 then "; lights #{set.join(" and ")} are now #{status}."
+  else "; lights #{set[0..-2].join", "}, and #{on.last} are now #{status}."
   end
 end
 
@@ -136,7 +156,7 @@ def display_final_result(switches)
   puts "The return value is: #{on}"
 end
 
-def number_left_on(on)
+def number_left_on(on) # combine with lights_on, maybe as nested array
   case on.size
   when 0 then "no lights are"
   when 1 then "one light is"
@@ -144,7 +164,7 @@ def number_left_on(on)
   end
 end
 
-def lights_on(on)
+def lights_on(on) # combine with number_left_on, maybe as nested array
   case on.size
   when 0 then "."
   when 1 then ": light #{on.first}."
@@ -154,7 +174,7 @@ def lights_on(on)
 end
 ###
 
-# lights(10)  #== [1, 4]
+lights(10)
 # p lights(10) #== [1, 4, 9]
 
 # switches = {  1=> 1,   2=> 1,  3=> 1,  4=>-1,   5=>-1,
