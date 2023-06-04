@@ -75,8 +75,8 @@
 # end
 ###
 
-### with text display
-def lights(number_of_lights)
+### with text display ######################### vvvvv
+def lights(number_of_lights) # add number of rounds
   system 'clear'
   switches = initialize_switches(number_of_lights)
   display_rounds(switches)
@@ -101,32 +101,6 @@ def toggle_switches!(switches, position)
   end
 end
 
-# def display_current_status(switches, position)
-#   off, on = switches.keys.partition {|switch| !switches[switch] }
-#   off_message = compose_off_message(switches, off)
-#   on_message = compose_on_message(switches, on)
-#   puts "Round #{position}: #{off_message}#{on_message}"
-# end
-
-# def compose_off_message(switches, off)
-#   case off.size
-#   when 0 then ""
-#   when switches.size then "every light is now off"
-#   when 1 then "light #{off.last} is now off"
-#   when 2 then "lights #{off.join(" and ")} are now off"
-#   else "lights #{off[0..-2].join", "}, and #{off.last} are now off"
-#   end
-# end
-
-# def compose_on_message(switches, on)
-#   case on.size
-#   when switches.size then "every light is turned on."
-#   when 1 then "; light #{on.last} is on."
-#   when 2 then "; lights #{on.join(" and ")} are on."
-#   else "; lights #{on[0..-2].join", "}, and #{on.last} are on."
-#   end
-# end
-
 def display_current_status(switches, position) ###########
   off_message = compose_message(switches, 'off')
   on_message = compose_message(switches, 'on')
@@ -135,15 +109,13 @@ end
 
 def compose_message(switches, status) #########
   off, on = switches.keys.partition {|switch| !switches[switch] }
-  set = status == 'off' ? off : on
-  case status.size
-
-  when 0 then "" # need to fix this line
-
-  when switches.size then "every light is now #{status}."
-  when 1 then "; light #{set.last} is now #{status}."
-  when 2 then "; lights #{set.join(" and ")} are now #{status}."
-  else "; lights #{set[0..-2].join", "}, and #{on.last} are now #{status}."
+  group = (status == 'off' ? off : on)
+  case group.size
+  when 0 then ""
+  when switches.size then "Every light is now #{status}. "
+  when 1 then "Light #{group.last} is now #{status}. "
+  when 2 then "Lights #{group.join(" and ")} are now #{status}. "
+  else "Lights #{group[0..-2].join", "}, and #{group.last} are now #{status}. "
   end
 end
 
@@ -172,13 +144,12 @@ def lights_on(on) # combine with number_left_on, maybe as nested array
   else ": lights #{on[0..-2].join", "}, and #{on.last}."
   end
 end
-###
+### with text display ######################### ^^^^^
 
 lights(10)
-# p lights(10) #== [1, 4, 9]
 
-# switches = {  1=> 1,   2=> 1,  3=> 1,  4=>-1,   5=>-1,
-              # 6=>-1,  7=>-1,  8=>-1,  9=>-1, 10=>-1  }
+# switches = {  1=>false, 2=>false, 3=>false, 4=>true,  5=>true,
+#               6=>true, 7=>true, 8=>true, 9=>true, 10=>true  }
 
 ####
 
