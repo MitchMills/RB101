@@ -75,21 +75,21 @@
 # end
 ###
 
-### with text display ######################### vvvvv
-def lights(number_of_lights) # add number of rounds
+### with text display and rounds ######################### vvvvv
+def lights(number_of_lights, rounds)
   system 'clear'
   switches = initialize_switches(number_of_lights)
-  display_rounds(switches)
-  display_final_result(switches)
+  display_rounds(switches, rounds)
+  display_final_result(switches, rounds)
 end
 
 def initialize_switches(number_of_lights)
   (1..number_of_lights).map { |num| [num, false] }.to_h # false means off, true means on
 end
 
-def display_rounds(switches)
+def display_rounds(switches, rounds)
   puts "All lights start in the off position."
-  1.upto(switches.size) do |position|
+  1.upto(rounds) do |position|
     toggle_switches!(switches, position)
     display_current_status(switches, position)
   end
@@ -119,34 +119,27 @@ def compose_message(switches, status) #########
   end
 end
 
-def display_final_result(switches)
+def display_final_result(switches, rounds)
   on = switches.keys.select {|switch| switches[switch] }
-  number_left_on = number_left_on(on)
-  lights_on = lights_on(on)
+  lights = "#{switches.size} " + (switches.size == 1 ? "light" : "lights")
+  rounds = "#{rounds} " + (rounds == 1 ? "round" : "rounds")
+  result = result(on)
   puts
-  puts "With #{switches.size} lights, the result is that #{number_left_on} left on#{lights_on}"
+  puts "With #{lights} and #{rounds}, the result is that #{result}."
   puts "The return value is: #{on}"
 end
 
-def number_left_on(on) # combine with lights_on, maybe as nested array
+def result(on)
   case on.size
-  when 0 then "no lights are"
-  when 1 then "one light is"
-  else "#{on.size} lights are"
+  when 0 then "no lights are left on"
+  when 1 then "one light is left on: light #{on.first}"
+  when 2 then "#{on.size} lights are left on: lights #{on.join(" and ")}"
+  else "#{on.size} lights are left on: lights #{on[0..-2].join", "}, and #{on.last}"
   end
 end
 
-def lights_on(on) # combine with number_left_on, maybe as nested array
-  case on.size
-  when 0 then "."
-  when 1 then ": light #{on.first}."
-  when 2 then ": lights #{on.join(" and ")}."
-  else ": lights #{on[0..-2].join", "}, and #{on.last}."
-  end
-end
-### with text display ######################### ^^^^^
-
-lights(10)
+lights(1, 1)
+### with text display and rounds ######################### ^^^^^
 
 # switches = {  1=>false, 2=>false, 3=>false, 4=>true,  5=>true,
 #               6=>true, 7=>true, 8=>true, 9=>true, 10=>true  }
