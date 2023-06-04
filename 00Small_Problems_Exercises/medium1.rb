@@ -88,7 +88,7 @@ def initialize_switches(number_of_lights)
 end
 
 def display_rounds(switches, rounds)
-  puts "All lights start in the off position."
+  puts "Begin: All lights start in the off position."
   1.upto(rounds) do |position|
     toggle_switches!(switches, position)
     display_current_status(switches, position)
@@ -101,15 +101,14 @@ def toggle_switches!(switches, position)
   end
 end
 
-def display_current_status(switches, position) ###########
+def display_current_status(switches, position)
   off_message = compose_message(switches, 'off')
   on_message = compose_message(switches, 'on')
   puts "Round #{position}: #{off_message}#{on_message}"
 end
 
-def compose_message(switches, status) #########
-  off, on = switches.keys.partition {|switch| !switches[switch] }
-  group = (status == 'off' ? off : on)
+def compose_message(switches, status)
+  group = get_group(switches, status)
   case group.size
   when 0 then ""
   when switches.size then "Every light is now #{status}. "
@@ -119,26 +118,33 @@ def compose_message(switches, status) #########
   end
 end
 
-def display_final_result(switches, rounds)
-  on = switches.keys.select {|switch| switches[switch] }
-  lights = "#{switches.size} " + (switches.size == 1 ? "light" : "lights")
-  rounds = "#{rounds} " + (rounds == 1 ? "round" : "rounds")
-  result = result(on)
-  puts
-  puts "With #{lights} and #{rounds}, the result is that #{result}."
-  puts "The return value is: #{on}"
-end
-
-def result(on)
-  case on.size
-  when 0 then "no lights are left on"
-  when 1 then "one light is left on: light #{on.first}"
-  when 2 then "#{on.size} lights are left on: lights #{on.join(" and ")}"
-  else "#{on.size} lights are left on: lights #{on[0..-2].join", "}, and #{on.last}"
+def get_group(switches, status)
+  switches.keys.select do |switch|
+    switches[status == 'off' ? !switch : switch]
   end
 end
 
-lights(1, 1)
+def display_final_result(switches, rounds)
+  on_group = switches.keys.select {|switch| switches[switch] }
+  lights = "#{switches.size} " + (switches.size == 1 ? "light" : "lights")
+  rounds = "#{rounds} " + (rounds == 1 ? "round" : "rounds")
+  result = result(on_group, 'on')
+  puts
+  puts "With #{lights} and #{rounds}, the result is that #{result}."
+  puts "The return value is: #{on_group}"
+end
+
+def result(group, status)
+  case group.size
+  when 0 then "no lights are left on"
+  when 1 then "one light is left #{status}: light #{group.first}"
+  when 2 then "#{group.size} lights are left on: lights #{group.join(" and ")}"
+  else "#{group.size} lights are left on: lights #{group[0..-2].join", "}, " +
+    "and #{group.last}"
+  end
+end
+
+lights(5, 1)
 ### with text display and rounds ######################### ^^^^^
 
 # switches = {  1=>false, 2=>false, 3=>false, 4=>true,  5=>true,
