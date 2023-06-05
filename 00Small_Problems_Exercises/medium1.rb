@@ -46,26 +46,26 @@
 ###
 
 ### using array instead of hash
+def lights(number_of_lights)
+  switches = Array.new(number_of_lights, false) # false means off, true means on
+
+  1.upto(switches.size) do |position|
+    (position..switches.size).step(position) do |switch|
+      switches[switch - 1] = !switches[switch - 1]
+    end
+  end
+
+  switches.map.with_index do |status, idx|
+    status ? (idx + 1) : nil
+  end.compact
+end
+
 # def lights(number_of_lights)
 #   switches = Array.new(number_of_lights, false) # false means off, true means on
 
 #   1.upto(switches.size) do |position|
-#     switches = switches.map.with_index do |status, idx|
-#       (idx + 1) % position == 0 ? !status : status
-#     end
-#   end
-
-#   switches.map.with_index do |status, idx|
-#     status ? (idx + 1) : nil
-#   end.compact
-# end
-
-# def lights(number_of_lights)
-#   switches = Array.new(number_of_lights, false) # false means off, true means on
-
-#   1.upto(switches.size) do |position|
-#     switches = switches.map.with_index do |status, idx|
-#       (idx + 1) % position == 0 ? !status : status
+#     (position..switches.size).step(position) do |switch|
+#       switches[switch - 1] = !switches[switch - 1]
 #     end
 #   end
 
@@ -74,29 +74,7 @@
 #   end
 # end
 
-def lights(number_of_lights)
-  switches = Array.new(number_of_lights, false) # false means off, true means on
-
-  1.upto(switches.size) do |position|
-    # try to implement step solution (see below)
-
-    switches = switches.map.with_index do |status, idx|
-      (idx + 1) % position == 0 ? !status : status
-    end
-  end
-
-  switches.filter_map.with_index do |status, idx|
-    status ? (idx + 1) : false
-  end
-end
-
 p lights(10)
-
-  # 1.upto(switches.size) do |position| ### STEP SOLUTION (Hash)
-  #   (position..switches.size).step(position) do |switch|
-  #     switches[switch] = !switches[switch]
-  #   end
-  # end
 ###
 
 ### with text display and rounds ######################### vvvvv
