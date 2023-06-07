@@ -12,9 +12,10 @@
 #   end
 #   switches.keys.select { |switch| switches[switch] }
 # end
-###
+# ##
 
-### refactored, with helper methods
+
+# ## refactored, with helper methods
 # def toggle_lights(number_of_lights)
 #   switches = initialize_switches(number_of_lights)
 #   toggle_switches!(switches)
@@ -38,49 +39,43 @@
 # end
 ###
 
-### pattern solution
-# def toggle_lights(number_of_lights)
-#   (1..number_of_lights).filter_map do |number|
-#     number**2 if (number**2 < number_of_lights)
-#   end
+
+### pattern solutions
+# def toggle_lights(lights)
+#   (1..lights).filter_map { |num| num**2 if (num**2 < lights) }
 # end
 
-# def lights(num)
-#   (1..Integer.sqrt(num)).map(&:abs2)
+# def toggle_lights(number_of_lights)
+#   (1..Integer.sqrt(number_of_lights)).map(&:abs2)
 # end
 ###
+
 
 ### using array instead of hash
 # def toggle_lights(number_of_lights)
 #   switches = Array.new(number_of_lights, false) # false means off, true means on
 
-#   1.upto(switches.size) do |position|
-#     (position..switches.size).step(position) do |switch|
+#   1.upto(switches.size) do |start|
+#     (start..switches.size).step(start) do |switch|
 #       switches[switch - 1] = !switches[switch - 1]
 #     end
 #   end
-
-#   switches.map.with_index do |status, idx|
-#     status ? (idx + 1) : nil
-#   end.compact
+#   switches.map.with_index { |status, idx| status ? (idx + 1) : nil }.compact
 # end
 
 # def toggle_lights(number_of_lights)
 #   switches = Array.new(number_of_lights, false) # false means off, true means on
 
-#   1.upto(switches.size) do |position|
-#     (position..switches.size).step(position) do |switch|
+#   1.upto(switches.size) do |start|
+#     (start..switches.size).step(start) do |switch|
 #       switches[switch - 1] = !switches[switch - 1]
 #     end
 #   end
 
-#   switches.filter_map.with_index do |status, idx|
-#     status ? (idx + 1) : false
-#   end
+#   switches.filter_map.with_index { |status, idx| status ? (idx + 1) : false }
 # end
-
-# p toggle_lights(10)
 ###
+
 
 ### with text display and rounds ######################### vvvvv
 # def toggle_lights(number_of_lights, rounds)
@@ -96,14 +91,14 @@
 
 # def display_rounds(switches, rounds)
 #   puts "Begin: All lights start in the off position."
-#   1.upto(rounds) do |position|
-#     toggle_switches!(switches, position)
-#     display_current_status(switches, position)
+#   1.upto(rounds) do |start|
+#     toggle_switches!(switches, start)
+#     display_current_status(switches, start)
 #   end
 # end
 
-# def toggle_switches!(switches, position)
-#   (position..switches.size).step(position) do |switch|
+# def toggle_switches!(switches, start)
+#   (start..switches.size).step(start) do |switch|
 #     switches[switch] = !switches[switch]
 #   end
 # end
@@ -145,14 +140,14 @@
 #   case group.size
 #   when 0 then "no lights are left #{status}"
 #   when 1 then "one light is left #{status}: light #{group.first}"
-#   when 2 then "#{group.size} lights are left #{status}: " +
+#   when 2 then "2 lights are left #{status}: " +
 #     "lights #{group.join(" and ")}"
 #   else "#{group.size} lights are left #{status}: " + 
 #     "lights #{group[0..-2].join", "}, and #{group.last}"
 #   end
 # end
 
-# toggle_lights(10, 6)
+# toggle_lights(5, 5)
 ### with text display and rounds ######################### ^^^^^
 
 # switches = {  1=>false, 2=>false, 3=>false, 4=>true,  5=>true,
