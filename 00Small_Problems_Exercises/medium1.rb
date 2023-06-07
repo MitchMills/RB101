@@ -1,18 +1,28 @@
+# def factors(number)
+#   factors = (1..number).select { |num| number % num == 0 }
+#   puts "#{number} has #{factors.size} unique factors: #{factors}"
+#   (factors.size / 2.0).ceil.times do |idx|
+#     puts "#{factors[idx]} x #{factors[-(idx + 1)]}"
+#   end
+# end
+
+# factors(36)
+# puts
+# factors(30)
+
 
 ### 4 1000 LIGHTS
 ### initial solution
 # def toggle_lights(number_of_lights)
-#   switches = (1..number_of_lights).map { |num| [num, false] }.to_h # false means off, true means on
-#   # switches = (1..number_of_lights).to_a.product([false]).to_h
-
-#   1.upto(number_of_lights) do |position|
-#     (position..number_of_lights).step(position) do |switch|
+#   switches = Hash[(1..number_of_lights).map { |switch| [switch, false]}]
+#   1.upto(number_of_lights) do |start|
+#     (start..number_of_lights).step(start) do |switch|
 #       switches[switch] = !switches[switch]
 #     end
 #   end
 #   switches.keys.select { |switch| switches[switch] }
 # end
-# ##
+###
 
 
 # ## refactored, with helper methods
@@ -23,12 +33,12 @@
 # end
 
 # def initialize_switches(number_of_lights)
-#   (1..number_of_lights).map { |num| [num, false] }.to_h
+#   Hash[(1..number_of_lights).map { |switch| [switch, false]}]
 # end
 
 # def toggle_switches!(switches)
-#   1.upto(switches.size) do |position|
-#     (position..switches.size).step(position) do |switch|
+#   1.upto(switches.size) do |start|
+#     (start..switches.size).step(start) do |switch|
 #       switches[switch] = !switches[switch]
 #     end
 #   end
@@ -53,7 +63,7 @@
 
 ### using array instead of hash
 # def toggle_lights(number_of_lights)
-#   switches = Array.new(number_of_lights, false) # false means off, true means on
+#   switches = Array.new(number_of_lights, false)
 
 #   1.upto(switches.size) do |start|
 #     (start..switches.size).step(start) do |switch|
@@ -64,7 +74,7 @@
 # end
 
 # def toggle_lights(number_of_lights)
-#   switches = Array.new(number_of_lights, false) # false means off, true means on
+#   switches = Array.new(number_of_lights, false)
 
 #   1.upto(switches.size) do |start|
 #     (start..switches.size).step(start) do |switch|
@@ -86,7 +96,7 @@
 # end
 
 # def initialize_switches(number_of_lights)
-#   (1..number_of_lights).map { |num| [num, false] }.to_h # false means off, true means on
+#   Hash[(1..number_of_lights).map { |switch| [switch, false]}]
 # end
 
 # def display_rounds(switches, rounds)
