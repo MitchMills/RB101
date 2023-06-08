@@ -12,6 +12,8 @@
 
 
 
+
+
 ### 4 1000 LIGHTS
 ### initial solution
 # def toggle_lights(number_of_lights)
