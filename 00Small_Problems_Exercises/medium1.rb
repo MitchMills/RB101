@@ -8,15 +8,14 @@
 
 # factors(36)
 # puts
-# factors(30)
-
+# factors(48)
 
 
 
 ### 4 1000 LIGHTS
 ### initial solution
 # def toggle_lights(number_of_lights)
-#   switches = Hash[(1..number_of_lights).map { |switch| [switch, false]}]
+#   switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h
 #   1.upto(number_of_lights) do |start|
 #     (start..number_of_lights).step(start) do |switch|
 #       switches[switch] = !switches[switch]
@@ -35,7 +34,7 @@
 # end
 
 # def initialize_switches(number_of_lights)
-#   Hash[(1..number_of_lights).map { |switch| [switch, false]}]
+#   (1..number_of_lights).map { |switch| [switch, false]}.to_h
 # end
 
 # def toggle_switches!(switches)
@@ -66,7 +65,6 @@
 ### using array instead of hash
 # def toggle_lights(number_of_lights)
 #   switches = Array.new(number_of_lights, false)
-
 #   1.upto(switches.size) do |start|
 #     (start..switches.size).step(start) do |switch|
 #       switches[switch - 1] = !switches[switch - 1]
@@ -77,13 +75,11 @@
 
 # def toggle_lights(number_of_lights)
 #   switches = Array.new(number_of_lights, false)
-
 #   1.upto(switches.size) do |start|
 #     (start..switches.size).step(start) do |switch|
 #       switches[switch - 1] = !switches[switch - 1]
 #     end
 #   end
-
 #   switches.filter_map.with_index { |status, idx| status ? (idx + 1) : false }
 # end
 ###
@@ -98,7 +94,7 @@
 # end
 
 # def initialize_switches(number_of_lights)
-#   Hash[(1..number_of_lights).map { |switch| [switch, false]}]
+#   (1..number_of_lights).map { |switch| [switch, false]}.to_h
 # end
 
 # def display_rounds(switches, rounds)
