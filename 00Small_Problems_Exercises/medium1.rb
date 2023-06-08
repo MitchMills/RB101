@@ -10,6 +10,21 @@
 # puts
 # factors(48)
 
+# This problem is functionally equivalent to returning an Array of
+#   all square numbers less than or equal to n
+# Proof of assertion - any number that is a multiple will be the product of two
+#   numbers. One turns on the light and the other turns it off. The only
+#   exception is a square, which is the product of two identical numbers, so
+#   the light get turned on, but does not get turned off again.
+
+# def number_of_factors(n)
+#   1.upto(n).reduce(0) { |obj, i| n % i == 0 ? obj + 1 : obj }
+# end
+
+# def lights_on(n)
+#   (1..n).select { |i| number_of_factors(i).odd? }
+# end
+
 
 
 
