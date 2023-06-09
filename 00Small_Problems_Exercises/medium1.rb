@@ -60,15 +60,11 @@
 # end
 
 # def toggle_switches!(switches)
-#   1.upto(switches.size) do |start|
-#     step_through_switches(start, switches)
-#   end
+#   1.upto(switches.size) { |start| step_through_switches(start, switches) }
 # end
 
 # def step_through_switches(start, switches)
-#   (start..switches.size).step(start) do |switch|
-#     toggle(switches, switch)
-#   end
+#   (start..switches.size).step(start) { |switch| toggle(switches, switch) }
 # end
 
 # def toggle(switches, switch)
@@ -97,20 +93,22 @@
 #   switches = Array.new(number_of_lights, false)
 #   1.upto(switches.size) do |start|
 #     (start..switches.size).step(start) do |switch|
-#       switches[switch - 1] = !switches[switch - 1]
+#       index = switch - 1
+#       switches[index] = !switches[index]
 #     end
 #   end
-#   switches.map.with_index { |status, idx| status ? (idx + 1) : nil }.compact
+#   switches.map.with_index { |status, idx| idx + 1 if status }.compact
 # end
 
 # def toggle_lights(number_of_lights)
 #   switches = Array.new(number_of_lights, false)
 #   1.upto(switches.size) do |start|
 #     (start..switches.size).step(start) do |switch|
-#       switches[switch - 1] = !switches[switch - 1]
+#       index = switch - 1
+#       switches[index] = !switches[index]
 #     end
 #   end
-#   switches.filter_map.with_index { |status, idx| status ? (idx + 1) : false }
+#   switches.filter_map.with_index { |status, idx| idx + 1 if status }
 # end
 ###
 
