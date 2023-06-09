@@ -6,9 +6,13 @@
 #   end
 # end
 
-# factors(36)
+# # factors(36)
+# # puts
+# # factors(48)
+
+# factors(16)
 # puts
-# factors(48)
+# factors(18)
 
 # This problem is functionally equivalent to returning an Array of
 #   all square numbers less than or equal to n
@@ -16,6 +20,7 @@
 #   numbers. One turns on the light and the other turns it off. The only
 #   exception is a square, which is the product of two identical numbers, so
 #   the light get turned on, but does not get turned off again.
+
 
 # def number_of_factors(n)
 #   1.upto(n).reduce(0) { |obj, i| n % i == 0 ? obj + 1 : obj }
@@ -56,10 +61,18 @@
 
 # def toggle_switches!(switches)
 #   1.upto(switches.size) do |start|
-#     (start..switches.size).step(start) do |switch|
-#       switches[switch] = !switches[switch]
-#     end
+#     step_through_switches(start, switches)
 #   end
+# end
+
+# def step_through_switches(start, switches)
+#   (start..switches.size).step(start) do |switch|
+#     toggle(switches, switch)
+#   end
+# end
+
+# def toggle(switches, switch)
+#   switches[switch] = !switches[switch]
 # end
 
 # def get_on_lights(switches)
