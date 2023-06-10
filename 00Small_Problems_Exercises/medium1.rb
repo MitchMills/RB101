@@ -48,7 +48,7 @@
 ###
 
 
-# ## refactored, with helper methods
+# ## refactored, with (a lot of) helper methods
 # def toggle_lights(number_of_lights)
 #   switches = initialize_switches(number_of_lights)
 #   toggle_switches!(switches)
