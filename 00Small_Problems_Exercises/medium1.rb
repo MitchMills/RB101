@@ -41,7 +41,7 @@
 ### 4 1000 LIGHTS
 ### initial solution
 # def toggle_lights(number_of_lights)
-#   switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h
+#   switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h # false means off, true means on
 #   1.upto(number_of_lights) do |round|
 #     (round..number_of_lights).step(round) do |switch|
 #       switches[switch] = !switches[switch]
@@ -86,13 +86,19 @@
 
 
 ### pattern solutions
-# def toggle_lights(lights)
-#   (1..lights).filter_map { |num| num**2 if (num**2 < lights) }
+# def toggle_lights(number_of_lights)
+#   (1..number_of_lights).filter_map { |num| num**2 if (num**2 < number_of_lights) }
+# end
+
+# def toggle_lights(number_of_lights)
+#   (1..Integer.sqrt(number_of_lights)).map { |num| num**2 }
 # end
 
 # def toggle_lights(number_of_lights)
 #   (1..Integer.sqrt(number_of_lights)).map(&:abs2)
 # end
+
+# p toggle_lights(100)
 ###
 
 
