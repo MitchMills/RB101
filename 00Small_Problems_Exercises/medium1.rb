@@ -2,21 +2,21 @@
 
 
 
-# def factors(number)
-#   factors = (1..number).select { |num| number % num == 0 }
-#   puts "#{number} has #{factors.size} unique factors: #{factors}"
-#   (factors.size / 2.0).ceil.times do |idx|
-#     puts "#{factors[idx]} x #{factors[-(idx + 1)]}"
-#   end
-# end
+def factors(number)
+  factors = (1..number).select { |num| number % num == 0 }
+  puts "#{number} has #{factors.size} unique factors: #{factors}"
+  (factors.size / 2.0).ceil.times do |idx|
+    puts "#{factors[idx]} x #{factors[-(idx + 1)]}"
+  end
+end
 
 # # factors(36)
 # # puts
 # # factors(48)
 
-# factors(16)
-# puts
-# factors(18)
+factors(16)
+puts
+factors(18)
 
 # This problem is functionally equivalent to returning an Array of
 #   all square numbers less than or equal to n
