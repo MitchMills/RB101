@@ -1,5 +1,26 @@
+# def lights(n)
+#   all_flipped = []
+#   1.upto(n) do |round|
+#     all_flipped += (1..n/round).to_a.map {|el| el*round}
+#   end
+#   all_flipped.select {|num| all_flipped.count(num).odd?}.uniq
+# end
 
+def toggle_lights(number_of_lights)
+  switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h
 
+  to_be_toggled = (1..number_of_lights).map do |round|
+    (1..number_of_lights/round).map { |num| num * round }
+  end
+  
+  to_be_toggled.each do |sub_array|
+    sub_array.each { |switch| switches[switch] = !switches[switch] }
+  end
+
+  switches.keys.select { |switch| switches[switch] }
+end
+
+p toggle_lights(10)
 
 
 # def factors(number)
@@ -192,7 +213,7 @@ def result(switches, group, status)
   end
 end
 
-toggle_lights(10, 6)
+# toggle_lights(10, 6)
 ### with text display and rounds ######################### ^^^^^
 
 # switches = {  1=>false, 2=>false, 3=>false, 4=>true,  5=>true,
