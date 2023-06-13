@@ -2,28 +2,22 @@
 
 
 
-def factors(number)
-  factors = (1..number).select { |num| number % num == 0 }
-  puts "#{number} has #{factors.size} unique factors: #{factors}"
-  (factors.size / 2.0).ceil.times do |idx|
-    puts "#{factors[idx]} x #{factors[-(idx + 1)]}"
-  end
-end
+# def factors(number)
+#   factors = (1..number).select { |num| number % num == 0 }
+#   puts "#{number} has #{factors.size} unique factors: #{factors}"
+#   (factors.size / 2.0).ceil.times do |idx|
+#     puts "#{factors[idx]} x #{factors[-(idx + 1)]}"
+#   end
+# end
 
 # # factors(36)
 # # puts
 # # factors(48)
 
-factors(16)
-puts
-factors(18)
+# factors(16)
+# puts
+# factors(12)
 
-# This problem is functionally equivalent to returning an Array of
-#   all square numbers less than or equal to n
-# Proof of assertion - any number that is a multiple will be the product of two
-#   numbers. One turns on the light and the other turns it off. The only
-#   exception is a square, which is the product of two identical numbers, so
-#   the light get turned on, but does not get turned off again.
 
 
 # def number_of_factors(n)
