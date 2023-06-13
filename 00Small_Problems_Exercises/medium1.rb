@@ -192,7 +192,7 @@ def result(switches, group, status)
   end
 end
 
-# toggle_lights(10, 6)
+toggle_lights(10, 6)
 ### with text display and rounds ######################### ^^^^^
 
 # switches = {  1=>false, 2=>false, 3=>false, 4=>true,  5=>true,
