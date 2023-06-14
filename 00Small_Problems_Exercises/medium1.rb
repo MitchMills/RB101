@@ -6,21 +6,21 @@
 #   all_flipped.select {|num| all_flipped.count(num).odd?}.uniq
 # end
 
-def toggle_lights(number_of_lights)
-  switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h
+# def toggle_lights(number_of_lights)
+#   switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h
 
-  to_be_toggled = (1..number_of_lights).map do |round|
-    (1..number_of_lights/round).map { |num| num * round }
-  end
+#   to_be_toggled = (1..number_of_lights).map do |round|
+#     (1..number_of_lights/round).map { |num| num * round }
+#   end
   
-  to_be_toggled.each do |sub_array|
-    sub_array.each { |switch| switches[switch] = !switches[switch] }
-  end
+#   to_be_toggled.each do |sub_array|
+#     sub_array.each { |switch| switches[switch] = !switches[switch] }
+#   end
 
-  switches.keys.select { |switch| switches[switch] }
-end
+#   switches.keys.select { |switch| switches[switch] }
+# end
 
-p toggle_lights(10)
+# p toggle_lights(10)
 
 
 # def factors(number)
@@ -102,8 +102,19 @@ p toggle_lights(10)
 
 ### pattern solutions
 # def toggle_lights(number_of_lights)
+#   lights_on = []
+#   start = 1
+#   until start ** 2 > number_of_lights
+#     lights_on << start ** 2
+#     start += 1
+#   end
+#   lights_on
+# end
+
+# def toggle_lights(number_of_lights)
 #   (1..number_of_lights).filter_map { |num| num**2 if (num**2 < number_of_lights) }
 # end
+
 
 # def toggle_lights(number_of_lights)
 #   (1..Integer.sqrt(number_of_lights)).map { |num| num**2 }
@@ -113,7 +124,15 @@ p toggle_lights(10)
 #   (1..Integer.sqrt(number_of_lights)).map(&:abs2)
 # end
 
-# p toggle_lights(100)
+
+# selects the light numbers with an odd number of unique factors
+# def toggle_lights(number_of_lights)
+#   (1..number_of_lights).select do |light_number|
+#     (1..light_number).select { |num| light_number % num == 0 }.size.odd?
+#   end
+# end
+
+p toggle_lights(100)
 ###
 
 
