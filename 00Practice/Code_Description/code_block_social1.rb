@@ -10,7 +10,11 @@ p s # => "STRING!"
 p t # => "STRING!"
 
 =begin
+On line 9, the `Kernel#p` method is called and  local variable `s` is passed in as an argument. On line 10, the `Kernel#p` method is again called and local variable `t` is passed in as an argument. Both these method calls will output the value referenced by the local variable to the terminal and return that value, as `Kernel#p` always returns the object passed in as an argument.
 
+Local variable `s` was initialized and assigned to the string object "string" on line 6. On line 7, `s` was passed in as an argument to the `whats_my_value` method. This method is defined on lines 1 through 4.
+
+On line 1,
 =end
 
 ###### NIKHIL FERNANDES, JUNE 12
