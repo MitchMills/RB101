@@ -10,23 +10,23 @@ p s # => "STRING!"
 p t # => "STRING!"
 
 =begin
-On line 9, the `Kernel#p` method is called and  local variable `s` is passed in as an argument. On line 10, the `Kernel#p` method is again called and local variable `t` is passed in as an argument. Both these method calls will output the value referenced by the local variable to the terminal and return that value, as `Kernel#p` always returns the object passed in as an argument. So to determine what is output and returned by these method calls to `#p`, we need to find what the current values referenced by `s` and `t` are. 
+When we run this code, the `Kernel#p` method is called on line 9 and local variable `s` is passed in as an argument. On line 10, the `Kernel#p` method is again called and local variable `t` is passed in as an argument. Both these method calls will output the value referenced by the local variable to the terminal and return that value, as `Kernel#p` always returns the object passed in as an argument. So to determine what is output and returned by these method calls to `#p`, we need to find what the values referenced by `s` and `t` are at that point. 
 
-Local variable `s` was initialized and assigned to the string object "string" on line 6. On line 7, `s` was passed in as an argument to the `whats_my_value` method.
+Local variable `s` is initialized and assigned to the string object "string" on line 6. On line 7, `s` is passed in as an argument to the `whats_my_value` method.
 
-The whats_my_value method is defined on lines 1 through 4. On line 1 method variable `value` is assigned to the value of the passed in argument. So at this point `value` references the same thing as `s`, namely a string object with the value "string".
+On line 1 of `whats_my_value` the method variable `value` is assigned to the same value as the passed-in argument. So at this point `value` references the same thing as `s`, namely a string object with the value "string".
 
 On line 2 `value` is reassigned to the return value of the expression `value.upcase!`. In this expression, the `String#upcase!` method is called on `value`. `String#upcase!` mutates the calling object, so the string object referenced by `value` now has the value `"STRING"`.
 
 On line 3, the `String#concat` method is called on `value` and the string object `!` is passed in as an argument. This method also mutates the calling object, so the string object referenced by `value` now has the value `"STRING!"`.
 
-This is also the last evaluated line in the method definition, so the implicit return value of the method in this case is the string object "STRING!". Because the string object originally referenced by `s` was mutated within the method, `s` still references that same string object, but its value is now "STRING!".
+This is also the last evaluated expression in the method definition, so the implicit return value of the method in this case is the string object "STRING!". Because the string object originally referenced by `s` was mutated within the method, `s` still references that same string object, with its value now "STRING!".
   
-On line 7 local variable `t` was initialized and assigned to the return value of the expression `whats_my_value(s)`. `t` thus also references the same string object as `s`.
+On line 7 local variable `t` is initialized and assigned to the return value of the expression `whats_my_value(s)`. `t` thus also references the same string object as `s`.
 
 So the two calls to `Kernel#p` on lines 9 and 10 will both output "STRING!" to the terminal and will both return "STRING!".
 
-This code demonstrates the concept of "pass by reference" with respect to mutating methods. In this case, Ruby behaves as if it is passing a reference or pointer to the string object into the `whats_my_value` method, since the methods within mutate that object directly. If non-mutating methods had been used instead, then the behavior would have resembled "pass by value", and `s` and `t` would have ended up pointing to different objects.
+This code demonstrates the concept of "pass by reference" with respect to mutating methods. In this case, Ruby behaves as if it is passing a reference or pointer to the string object into the methods inside the `whats_my_value` method, since those methods mutate that object directly. If non-mutating methods had been used instead, then the behavior would have resembled "pass by value", and `s` and `t` would have ended up pointing to different objects.
 =end
 
 ###### NIKHIL FERNANDES, JUNE 12
