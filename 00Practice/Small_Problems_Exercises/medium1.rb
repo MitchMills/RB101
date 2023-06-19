@@ -34,7 +34,7 @@
 #   switches.keys.select { |switch| switches[switch] }
 # end
 
-# p toggle_lights(99)
+# p toggle_lights(100)
 ###
 
 
