@@ -1,39 +1,37 @@
 ##### CODE BLOCK SOCIAL
 # JUNE 19 #
 ### 1
-int = 7
-array = [2, 4, 6]
+# int = 7
+# array = [2, 4, 6]
  
-array.each do |element|
-  int = element
-end
+# array.each do |element|
+#   int = element
+# end
  
-puts int
+# puts int
 
-### 2
-int = 6
-array = [3, 2, 1]
+# ### 2
+# int = 6
+# array = [3, 2, 1]
  
-array.each do |int|
-  int += 1
-end
+# array.each do |int|
+#   int += 1
+# end
  
-puts int
+# puts int
 
-### 3
-int = 4
-array = [2, 5, 9]
+# ### 3
+# int = 4
+# array = [2, 5, 9]
  
-def my_value(ary)
-  ary.each do |element|
-    int += element
-  end
+# def my_value(ary)
+#   ary.each do |element|
+#     int += element
+#   end
 end
  
 my_value(array)
 puts int
-
-
 
 # June 12 #
 ### 1
