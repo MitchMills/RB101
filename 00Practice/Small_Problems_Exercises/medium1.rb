@@ -24,17 +24,17 @@
 
 ### 4 1000 LIGHTS
 ### initial solution
-# def toggle_lights(number_of_lights)
-#   switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h  # false means off, true means on
-#   1.upto(number_of_lights) do |round|
-#     (round..number_of_lights).step(round) do |switch|
-#       switches[switch] = !switches[switch]
-#     end
-#   end
-#   switches.keys.select { |switch| switches[switch] }
-# end
+def toggle_lights(number_of_lights)
+  switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h  # false means off, true means on
+  1.upto(number_of_lights) do |round|
+    (round..number_of_lights).step(round) do |switch|
+      switches[switch] = !switches[switch]
+    end
+  end
+  switches.keys.select { |switch| switches[switch] }
+end
 
-# p toggle_lights(100)
+p toggle_lights(100)
 ###
 
 
@@ -55,11 +55,11 @@
 
 #     def step_through_switches(factor, switches)
 #       (factor..switches.size).step(factor) do |switch|
-#         toggle_one_switch(switches, switch)
+#         toggle_one_switch!(switches, switch)
 #       end
 #     end
 
-#     def toggle_one_switch(switches, switch)
+#     def toggle_one_switch!(switches, switch)
 #       switches[switch] = !switches[switch]
 #     end
 
