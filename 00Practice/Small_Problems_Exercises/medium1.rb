@@ -1,5 +1,6 @@
 
 
+
 # def factors(number)
 #   factors = (1..number).select { |num| number % num == 0 }
 #   puts "#{number} has #{factors.size} unique factors: #{factors}"
@@ -24,17 +25,17 @@
 
 ### 4 1000 LIGHTS
 ### initial solution
-def toggle_lights(number_of_lights)
-  switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h  # false means off, true means on
-  1.upto(number_of_lights) do |round|
-    (round..number_of_lights).step(round) do |switch|
-      switches[switch] = !switches[switch]
-    end
-  end
-  switches.keys.select { |switch| switches[switch] }
-end
+# def toggle_lights(number_of_lights)
+#   switches = (1..number_of_lights).map { |switch| [switch, false]}.to_h
+#   1.upto(number_of_lights) do |round_number|
+#     (round_number..number_of_lights).step(round_number) do |switch|
+#       switches[switch] = !switches[switch]
+#     end
+#   end
+#   switches.keys.select { |switch| switches[switch] }
+# end
 
-p toggle_lights(100)
+# p toggle_lights(100)
 ###
 
 
@@ -50,7 +51,9 @@ p toggle_lights(100)
 # end
 
 # def toggle_switches!(switches)
-#   1.upto(switches.size) { |round| step_through_switches(round, switches) }
+#   1.upto(switches.size) do |round_number|
+#     step_through_switches(round_number, switches)
+#   end
 # end
 
 #     def step_through_switches(factor, switches)
