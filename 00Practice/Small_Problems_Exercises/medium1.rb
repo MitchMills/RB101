@@ -54,10 +54,12 @@
 # end
 
 #     def step_through_switches(factor, switches)
-#       (factor..switches.size).step(factor) { |switch| toggle(switches, switch) }
+#       (factor..switches.size).step(factor) do |switch|
+#         toggle_one_switch(switches, switch)
+#       end
 #     end
 
-#     def toggle(switches, switch)
+#     def toggle_one_switch(switches, switch)
 #       switches[switch] = !switches[switch]
 #     end
 
