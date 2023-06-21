@@ -104,8 +104,18 @@
 # selects the light numbers with an odd number of unique factors
 # def toggle_lights(number_of_lights)
 #   (1..number_of_lights).select do |light_number|
-#     factors = (1..light_number).select { |num| light_number % num == 0 }
+#     factors = (1..light_number).select { |factor| light_number % factor == 0 }
 #     factors.size.odd?
+#   end
+# end
+
+# def toggle_lights(number_of_lights)
+#   (1..number_of_lights).select do |light_number|
+#     light_on = false
+#     1.upto(light_number) do |factor|
+#       light_on = !light_on if light_number % factor == 0
+#     end
+#     light_on
 #   end
 # end
 
