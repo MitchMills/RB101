@@ -1,6 +1,7 @@
 
 
 
+
 # def factors(number)
 #   factors = (1..number).select { |num| number % num == 0 }
 #   puts "#{number} has #{factors.size} unique factors: #{factors}"
@@ -90,7 +91,6 @@
 #     current_light ** 2 if (current_light ** 2 <= number_of_lights)
 #   end
 # end
-
 
 # def toggle_lights(number_of_lights)
 #   (1..Integer.sqrt(number_of_lights)).map { |current_light| current_light ** 2 }
