@@ -57,15 +57,15 @@
 #   end
 # end
 
-#     def step_through_switches(factor, switches)
-#       (factor..switches.size).step(factor) do |switch|
-#         toggle_one_switch!(switches, switch)
-#       end
-#     end
+# def step_through_switches(factor, switches)
+#   (factor..switches.size).step(factor) do |switch|
+#     toggle_one_switch!(switches, switch)
+#   end
+# end
 
-#     def toggle_one_switch!(switches, switch)
-#       switches[switch] = !switches[switch]
-#     end
+# def toggle_one_switch!(switches, switch)
+#   switches[switch] = !switches[switch]
+# end
 
 # def get_on_lights(switches)
 #   switches.keys.select { |switch| switches[switch] }
