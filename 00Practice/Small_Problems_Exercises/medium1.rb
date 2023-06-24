@@ -1,40 +1,9 @@
-int = 4
-array = [2, 5, 9]
+### 5 DIAMONDS!
+def diamond(int)
 
-def my_value(ary)
-  ary.each do |element|
-    p int
-  end
 end
- 
-my_value(array)
-puts int
 
-
-
-
-
-
-# def factors(number)
-#   factors = (1..number).select { |num| number % num == 0 }
-#   puts "#{number} has #{factors.size} unique factors: #{factors}"
-#   (factors.size / 2.0).ceil.times do |idx|
-#     puts "#{factors[idx]} x #{factors[-(idx + 1)]}"
-#   end
-# end
-
-# # factors(36)
-# # puts
-# # factors(48)
-
-# factors(16)
-# puts
-# factors(12)
-
-
-
-
-
+diamond(9)
 
 
 ### 4 1000 LIGHTS
@@ -184,59 +153,59 @@ puts int
 #   end
 # end
 
-#     def toggle_switches!(switches, round)
-#       (round..switches.size).step(round) do |switch|
-#         switches[switch] = !switches[switch]
-#       end
-#     end
+# def toggle_switches!(switches, round)
+#   (round..switches.size).step(round) do |switch|
+#     switches[switch] = !switches[switch]
+#   end
+# end
 
-#     def display_current_status(switches, round)
-#       toggled_message = toggled_message(switches, round)
-#       off_message = compose_lights_message(switches, 'off')
-#       on_message = compose_lights_message(switches, 'on')
-#       puts "Round #{round}: #{toggled_message}"
-#       puts "  #{off_message}" unless off_message.empty?
-#       puts "  #{on_message}" unless on_message.empty?
-#     end
+# def display_current_status(switches, round)
+#   toggled_message = toggled_message(switches, round)
+#   off_message = compose_lights_message(switches, 'off')
+#   on_message = compose_lights_message(switches, 'on')
+#   puts "Round #{round}: #{toggled_message}"
+#   puts "  #{off_message}" unless off_message.empty?
+#   puts "  #{on_message}" unless on_message.empty?
+# end
 
-#         def toggled_message(switches, round)
-#           toggled_switches = get_toggled_switches(switches, round)
-#           toggled_message = compose_toggled_message(toggled_switches)
-#           (toggled_switches.empty? ? "No switches are" : "Switch#{toggled_message}") +
-#           " toggled."
-#         end
+# def toggled_message(switches, round)
+#   toggled_switches = get_toggled_switches(switches, round)
+#   toggled_message = compose_toggled_message(toggled_switches)
+#   (toggled_switches.empty? ? "No switches are" : "Switch#{toggled_message}") +
+#     " toggled."
+# end
 
-#             def get_toggled_switches(switches, round)
-#               (round..switches.size).step(round).map(&:itself)
-#             end
-            
-#             def compose_toggled_message(toggled_switches)
-#               case toggled_switches.size
-#               when 0 then ""
-#               when 1 then " #{toggled_switches.first} is"
-#               when 2 then "es #{toggled_switches.join(" and ")} are"
-#               else "es #{toggled_switches[0..-2].join(", ")}, " +
-#                 "and #{toggled_switches.last} are"
-#               end
-#             end
+# def get_toggled_switches(switches, round)
+#   (round..switches.size).step(round).map(&:itself)
+# end
 
-#         def compose_lights_message(switches, status)
-#           group = get_group(switches, status)
-#           case group.size
-#           when 0 then ""
-#           when switches.size then "Every light is now #{status}. "
-#           when 1 then "1 light is now #{status}: #{group.last}. "
-#           when 2 then "2 lights are now #{status}: #{group.join(" and ")}. "
-#           else "#{group.size} lights are now #{status}: " + 
-#             "#{group[0..-2].join(", ")}, and #{group.last}. "
-#           end
-#         end
+# def compose_toggled_message(toggled_switches)
+#   case toggled_switches.size
+#   when 0 then ""
+#   when 1 then " #{toggled_switches.first} is"
+#   when 2 then "es #{toggled_switches.join(" and ")} are"
+#   else "es #{toggled_switches[0..-2].join(", ")}, " +
+#     "and #{toggled_switches.last} are"
+#   end
+# end
 
-#             def get_group(switches, status)
-#               switches.keys.select do |switch|
-#                 status == 'off' ? !switches[switch] : switches[switch]
-#               end
-#             end
+# def compose_lights_message(switches, status)
+#   group = get_group(switches, status)
+#   case group.size
+#   when 0 then ""
+#   when switches.size then "Every light is now #{status}. "
+#   when 1 then "1 light is now #{status}: #{group.last}. "
+#   when 2 then "2 lights are now #{status}: #{group.join(" and ")}. "
+#   else "#{group.size} lights are now #{status}: " + 
+#     "#{group[0..-2].join(", ")}, and #{group.last}. "
+#   end
+# end
+
+# def get_group(switches, status)
+#   switches.keys.select do |switch|
+#     status == 'off' ? !switches[switch] : switches[switch]
+#   end
+# end
 
 # def display_final_result(switches, rounds)
 #   on_group = get_group(switches, 'on')
@@ -248,16 +217,16 @@ puts int
 #   puts "The return value is: #{on_group}."
 # end
 
-#     def result(switches, group, status)
-#       case group.size
-#       when 0 then "no lights are left #{status}"
-#       when switches.size then "every light is left #{status}"
-#       when 1 then "1 light is left #{status}: #{group.first}"
-#       when 2 then "2 lights are left #{status}: #{group.join(" and ")}"
-#       else "#{group.size} lights are left #{status}: " + 
-#         "#{group[0..-2].join", "}, and #{group.last}"
-#       end
-#     end
+# def result(switches, group, status)
+#   case group.size
+#   when 0 then "no lights are left #{status}"
+#   when switches.size then "every light is left #{status}"
+#   when 1 then "1 light is left #{status}: #{group.first}"
+#   when 2 then "2 lights are left #{status}: #{group.join(" and ")}"
+#   else "#{group.size} lights are left #{status}: " + 
+#     "#{group[0..-2].join", "}, and #{group.last}"
+#   end
+# end
 
 # toggle_lights(10, 6)
 ### with text display and rounds ######################### ^^^^^
