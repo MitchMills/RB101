@@ -1,3 +1,6 @@
+
+
+
 ### 5 DIAMONDS!
 def diamond(int)
 
