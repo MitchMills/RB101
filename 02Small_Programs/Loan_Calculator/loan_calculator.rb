@@ -41,7 +41,7 @@ end
 # INTRO METHODS
 def welcome(user_data)
   prompt('welcome')
-  user_data[:name] = get_name
+  user_data[:name] = get_name()
   prompt('get_started', data: user_data[:name])
 end
 
@@ -62,21 +62,42 @@ def intro
   gets
 end
 
-
+# USER INPUT METHODS
 def get_user_inputs(user_data)
-  loan_amount = get_loan_amount()
-  monthly_rate = get_loan_rate()
-  loan_months = get_loan_duration()
-
-  user_data[:loan_amount] = loan_amount
-  user_data[:monthly_rate] = monthly_rate
-  user_data[:loan_months] = loan_months
+  user_data[:loan_amount] = get_loan_amount(user_data)
+  user_data[:monthly_rate] = get_loan_rate()
+  user_data[:loan_months] = get_loan_duration()
 end
 
-def get_loan_amount
-  prompt('loan_amount?', action: 'print')
-  loan_amount = gets.chomp.to_f
+
+
+def get_loan_amount(user_data)
+  loop do
+    prompt('loan_amount?', action: 'print')
+    loan_amount = gets.chomp.to_f
+    confirm_loan_amount(loan_amount)
+    confirmation = gets.chomp.downcase
+    return loan_amount if confirmation == 'y'
+    prompt('try_again', data: user_data[:name])
+  end
 end
+
+def confirm_loan_amount(loan_amount)
+  formatted_loan_amount = sprintf('$%.2f', loan_amount)
+  prompt('amount_correct?', data: formatted_loan_amount)
+end
+
+user_data = {
+  name: '',
+  loan_amount: 0, 
+  monthly_rate: 0, 
+  loan_months: 0
+}
+
+p get_loan_amount(user_data)
+
+
+
 
 def get_loan_rate
   prompt('loan_rate?', action: 'print')
@@ -91,7 +112,11 @@ def get_loan_duration
 end
 
 def get_results(user_data)
-  monthly_payment = user_data[:loan_amount] * (user_data[:monthly_rate] / (1 - (1 + user_data[:monthly_rate])**(-user_data[:loan_months])))
+  monthly_payment = 
+  user_data[:loan_amount] * 
+    (user_data[:monthly_rate] / 
+    (1 - (1 + user_data[:monthly_rate])**
+    (-user_data[:loan_months])))
 end
 
 def display_results(results)
@@ -104,18 +129,19 @@ end
 # MAIN PROGRAM LOOP
 
 # system 'clear'
-user_data = {
-    name: '',
-    loan_amount: 0, 
-    monthly_rate: 0, 
-    loan_months: 0
-  }
-welcome(user_data)
-intro()
+# user_data = {
+#     name: '',
+#     loan_amount: 0, 
+#     monthly_rate: 0, 
+#     loan_months: 0
+#   }
+# welcome(user_data)
+# intro()
 
-get_user_inputs(user_data)
-results = get_results(user_data)
-p results
+# get_user_inputs(user_data)
+# results = get_results(user_data)
+# p results
+# p user_data
 # display_results(results)
 
 

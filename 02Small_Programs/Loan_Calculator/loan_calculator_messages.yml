@@ -2,7 +2,7 @@ en:
   welcome: "Welcome to the Loan Calculator!"
   enter_name: "Please enter your name: "
   name_error: "You didn't enter anything."
-  get_started: "Great! Let's get started, %{data}."
+  get_started: "Thanks, %{data}. Let's get started."
 
   intro: "This program will calculate the monthly payments for your loan."
   needed_info: >
@@ -13,6 +13,9 @@ en:
   ready?: "Once you've gathered that information, enter any key to continue."
 
   loan_amount?: "Please enter the loan amount: "
+  amount_correct?: "Your loan amount is %{data}. Is that correct?"
+  try_again: "Okay, %{data}, let's try again."
+  
   loan_rate?: "Please enter the annual percentage rate (APR): "
   loan_duration?: "Please enter the loan duration: "
 
