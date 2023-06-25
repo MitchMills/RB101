@@ -71,12 +71,12 @@ end
 
 
 
+##### Add number validation
 def get_loan_amount(user_data)
   loop do
     prompt('loan_amount?', action: 'print')
     loan_amount = gets.chomp.to_f
-    confirm_loan_amount(loan_amount)
-    confirmation = gets.chomp.downcase
+    confirmation = confirm_loan_amount(loan_amount)
     return loan_amount if confirmation == 'y'
     prompt('try_again', data: user_data[:name])
   end
@@ -85,10 +85,12 @@ end
 def confirm_loan_amount(loan_amount)
   formatted_loan_amount = sprintf('$%.2f', loan_amount)
   prompt('amount_correct?', data: formatted_loan_amount)
+  prompt('yes_or_no', action: 'print')
+  confirmation = gets.chomp.downcase
 end
 
 user_data = {
-  name: '',
+  name: 'Herbert',
   loan_amount: 0, 
   monthly_rate: 0, 
   loan_months: 0

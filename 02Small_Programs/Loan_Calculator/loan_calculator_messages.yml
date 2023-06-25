@@ -14,6 +14,7 @@ en:
 
   loan_amount?: "Please enter the loan amount: "
   amount_correct?: "Your loan amount is %{data}. Is that correct?"
+  yes_or_no: "Enter y to confirm. Enter any other key to try again: "
   try_again: "Okay, %{data}, let's try again."
   
   loan_rate?: "Please enter the annual percentage rate (APR): "
