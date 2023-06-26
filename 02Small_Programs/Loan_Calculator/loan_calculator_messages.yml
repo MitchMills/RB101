@@ -12,12 +12,20 @@ en:
         3) the loan duration
   ready?: "Once you've gathered that information, enter any key to continue."
 
-  loan_amount?: "Please enter the loan amount: "
-  amount_correct?: "Your loan amount is %{data}. Is that correct?"
   yes_or_no: "Enter y to confirm. Enter any other key to try again: "
   try_again: "Okay, %{data}, let's try again."
+  invalid_number: "I'm sorry, %{data}, that's not a valid entry."
+  
+  loan_amount_instructions: |
+    To enter the loan amount, use only numbers (and a decimal place if necessary).
+       For example, if your loan amount is $10,500.75, enter that as: 10500.75
+  loan_amount?: "Please enter your loan amount: "
+  amount_correct?: "Your loan amount is %{data}. Is that correct?"
+  
+  
   
   loan_rate?: "Please enter the annual percentage rate (APR): "
+
   loan_duration?: "Please enter the loan duration: "
 
 

@@ -19,15 +19,15 @@ end
 
 # INPUT VALIDATION METHODS
 def valid_integer?(input)
-  (input.to_i.to_s == input) && non_negative?(input)
+  (input.to_i.to_s == input) && non_negative?(input.to_i)
 end
 
 def valid_float?(input)
-  (input.to_f.to_s == input) && non_negative?(input)
+  (input.to_f.to_s == input) && non_negative?(input.to_f)
 end
 
 def non_negative?(input)
-  input.abs == input
+  input.to_f.abs == input.to_f
 end
 
 def valid_number?(input, type: 'number')
@@ -37,6 +37,7 @@ def valid_number?(input, type: 'number')
    valid_integer?(input) || valid_float?(input)
   end
 end
+
 
 # INTRO METHODS
 def welcome(user_data)
@@ -62,6 +63,7 @@ def intro
   gets
 end
 
+
 # USER INPUT METHODS
 def get_user_inputs(user_data)
   user_data[:loan_amount] = get_loan_amount(user_data)
@@ -71,11 +73,15 @@ end
 
 
 
-##### Add number validation
+#### explore additional helper methods: get_loan_input, ...
 def get_loan_amount(user_data)
+  prompt('loan_amount_instructions')
   loop do
     prompt('loan_amount?', action: 'print')
-    loan_amount = gets.chomp.to_f
+    loan_input = gets.chomp
+    next prompt('invalid_number') unless valid_number?(loan_input)
+
+    loan_amount = loan_input.to_f
     confirmation = confirm_loan_amount(loan_amount)
     return loan_amount if confirmation == 'y'
     prompt('try_again', data: user_data[:name])
