@@ -20,11 +20,15 @@ en:
     To enter the loan amount, use only numbers (and a decimal place if necessary).
        For example, if your loan amount is $10,500.75, enter that as: 10500.75
   loan_amount?: "Please enter your loan amount: "
-  amount_correct?: "Your loan amount is %{data}. Is that correct?"
+  loan_amount_correct?: "Your loan amount is %{data}. Is that correct?"
   
   
-  
-  loan_rate?: "Please enter the annual percentage rate (APR): "
+  loan_rate_instructions: |
+    To enter the annual percentage rate (APR), use only numbers (and
+    a decimal place if necessary).
+       For example, if your loan rate is 7.4%, enter that as: 7.4
+  loan_rate?: "Please enter your annual percentage rate: "
+  loan_rate_correct?: "Your APR is %{data}. Is that correct?"
 
   loan_duration?: "Please enter the loan duration: "
 

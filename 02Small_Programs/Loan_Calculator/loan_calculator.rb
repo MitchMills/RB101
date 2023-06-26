@@ -71,16 +71,11 @@ def get_user_inputs(user_data)
   user_data[:loan_months] = get_loan_duration()
 end
 
-
-
-#### explore additional helper methods: get_loan_input, ...
+# Loan Amount
 def get_loan_amount(user_data)
   prompt('loan_amount_instructions')
   loop do
-    prompt('loan_amount?', action: 'print')
-    loan_input = gets.chomp
-    next prompt('invalid_number') unless valid_number?(loan_input)
-
+    loan_input = get_loan_input(user_data)
     loan_amount = loan_input.to_f
     confirmation = confirm_loan_amount(loan_amount)
     return loan_amount if confirmation == 'y'
@@ -88,30 +83,70 @@ def get_loan_amount(user_data)
   end
 end
 
+def get_loan_input(user_data)
+  loop do
+    prompt('loan_amount?', action: 'print')
+    loan_input = gets.chomp
+    return loan_input if valid_number?(loan_input)
+    prompt('invalid_number', data: user_data[:name])
+  end
+end
+
 def confirm_loan_amount(loan_amount)
   formatted_loan_amount = sprintf('$%.2f', loan_amount)
-  prompt('amount_correct?', data: formatted_loan_amount)
+  prompt('loan_amount_correct?', data: formatted_loan_amount)
   prompt('yes_or_no', action: 'print')
   confirmation = gets.chomp.downcase
 end
 
+
+
+
+
+# Loan Rate: decide precision & rounding of percentage desired
+def get_loan_rate(user_data)
+  prompt('loan_rate_instructions')
+  loop do
+    rate_input = get_rate_input(user_data)
+    yearly_rate = rate_input.to_f
+    confirmation = confirm_loan_rate(yearly_rate)
+    return yearly_rate if confirmation == 'y'
+    prompt('try_again', data: user_data[:name])
+  end
+end
+
+def get_rate_input(user_data)
+  loop do
+    prompt('loan_rate?', action: 'print')
+    rate_input = gets.chomp
+    return rate_input if valid_number?(rate_input)
+    prompt('invalid_number', data: user_data[:name])
+  end
+end
+
+def confirm_loan_rate(yearly_rate)
+  formatted_loan_rate = sprintf('%.2f', yearly_rate) #######
+  prompt('loan_rate_correct?', data: formatted_loan_rate)
+  prompt('yes_or_no', action: 'print')
+  confirmation = gets.chomp.downcase
+end
+
+
+
 user_data = {
-  name: 'Herbert',
+  name: '',
   loan_amount: 0, 
   monthly_rate: 0, 
   loan_months: 0
 }
 
-p get_loan_amount(user_data)
+yearly_rate = 7.4
+p sprintf('%f%%', yearly_rate) ######
+# p get_loan_rate(user_data)
 
 
 
 
-def get_loan_rate
-  prompt('loan_rate?', action: 'print')
-  annual_percentage_rate = gets.chomp.to_f
-  monthly_percentage_rate = annual_percentage_rate / MONTHS_PER_YEAR
-end
 
 def get_loan_duration
   prompt('loan_duration?', action: 'print')
