@@ -76,12 +76,15 @@ end
 # Loan Amount Methods
 def get_loan_amount(user_data)
   prompt('loan_amount_instructions')
+  blank_line
   loop do
     amount_input = get_amount_input(user_data)
     loan_amount = amount_input.to_f
+    blank_line
     confirmation = confirm_loan_amount(loan_amount)
     return loan_amount if confirmation == 'y'
     prompt('try_again', data: user_data[:name])
+    blank_line
   end
 end
 
@@ -91,26 +94,36 @@ def get_amount_input(user_data)
     amount_input = gets.chomp
     return amount_input if valid_number?(amount_input)
     prompt('invalid_number', data: user_data[:name])
+    blank_line
   end
 end
 
 def confirm_loan_amount(loan_amount)
-  formatted_loan_amount = sprintf('$%.2f', loan_amount)
+  formatted_loan_amount = format_currency(loan_amount)
   prompt('loan_amount_correct?', data: formatted_loan_amount)
   prompt('yes_or_no', action: 'print')
   confirmation = gets.chomp.downcase
 end
 
+def format_currency(amount)
+  basic = sprintf('%.2f', amount).gsub('.00','')
+  with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
+  final = with_commas.prepend('$')
+end
+
 # Loan Rate Methods
 def get_loan_rate(user_data)
   prompt('loan_rate_instructions')
+  blank_line
   loop do
     rate_input = get_rate_input(user_data)
     annual_percentage_rate = rate_input.to_f
+    blank_line
     confirmation = confirm_loan_rate(annual_percentage_rate)
     monthly_rate = (annual_percentage_rate / 100) / MONTHS_PER_YEAR
     return monthly_rate if confirmation == 'y'
     prompt('try_again', data: user_data[:name])
+    blank_line
   end
 end
 
@@ -120,6 +133,7 @@ def get_rate_input(user_data)
     rate_input = gets.chomp
     return rate_input if valid_number?(rate_input)
     prompt('invalid_number', data: user_data[:name])
+    blank_line
   end
 end
 
@@ -130,51 +144,45 @@ def confirm_loan_rate(rate)
   confirmation = gets.chomp.downcase
 end
 
-
-
-
 # Loan Duration Methods
-# def get_loan_duration
-#   prompt('loan_duration?', action: 'print')
-#   loan_years = gets.chomp.to_i
-#   loan_months = loan_years * MONTHS_PER_YEAR
-# end
-
 def get_loan_duration(user_data)
-  prompt('loan_amount_instructions')
+  prompt('loan_duration_instructions')
+  blank_line
   loop do
-    amount_input = get_amount_input(user_data)
-    loan_amount = amount_input.to_f
-    confirmation = confirm_loan_amount(loan_amount)
-    return loan_amount if confirmation == 'y'
+    duration_input = get_duration_input(user_data)
+    loan_duration = (duration_input[0].to_i * 12) + duration_input[1].to_i
+    blank_line
+    confirmation = confirm_loan_duration(duration_input)
+    return loan_duration if confirmation == 'y'
     prompt('try_again', data: user_data[:name])
+    blank_line
   end
 end
 
 def get_duration_input(user_data)
+  years_input = get_input('full years', user_data)
+  months_input = get_input('additional months, if any', user_data)
+  [years_input, months_input]
+end
+
+def get_input(type, user_data)
   loop do
-    prompt('loan_amount?', action: 'print')
-    amount_input = gets.chomp
-    return amount_input if valid_number?(amount_input)
+    prompt('loan_duration?', action: 'print', data: type)
+    input = gets.chomp
+    return input if valid_number?(input, type: 'integer')
     prompt('invalid_number', data: user_data[:name])
+    blank_line
   end
 end
 
-def confirm_loan_duration(loan_amount)
-  formatted_loan_amount = sprintf('$%.2f', loan_amount)
-  prompt('loan_amount_correct?', data: formatted_loan_amount)
+def confirm_loan_duration(duration_input)
+  formatted_loan_duration = "#{duration_input[0]} years and #{duration_input[1]} months"
+  prompt('loan_duration_correct?', data: formatted_loan_duration)
   prompt('yes_or_no', action: 'print')
   confirmation = gets.chomp.downcase
 end
 
-user_data = {
-  name: 'Herbert',
-  loan_amount: 0, 
-  monthly_rate: 0, 
-  loan_months: 0
-}
 
-p get_loan_duration(user_data)
 
 
 
@@ -195,21 +203,23 @@ end
 
 
 
-
 # MAIN PROGRAM LOOP
 
-# system 'clear'
-# user_data = {
-#     name: '',
-#     loan_amount: 0, 
-#     monthly_rate: 0, 
-#     loan_months: 0
-#   }
-# welcome(user_data)
-# intro()
+system 'clear'
+user_data = {
+    name: '',
+    loan_amount: 0, 
+    monthly_rate: 0, 
+    loan_months: 0
+  }
+welcome(user_data)
+intro()
 
-# get_user_inputs(user_data)
-# results = get_results(user_data)
+get_user_inputs(user_data)
+results = get_results(user_data)
+
+p user_data
+p results
 # p results
 # p user_data
 # display_results(results)

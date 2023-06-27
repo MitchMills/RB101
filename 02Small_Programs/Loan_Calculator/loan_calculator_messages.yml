@@ -29,8 +29,14 @@ en:
   loan_rate?: "Please enter your annual percentage rate: "
   loan_rate_correct?: "You entered an APR of %{data}. Is that correct?"
 
-  loan_duration?: "Please enter the loan duration: "
-
-
-es:
-  welcome: "In Spanish: Welcome to the Loan Calculator, %{data}!"
+  
+  loan_duration_instructions: |
+    To enter the loan duration, use only numbers. First you will enter the
+       number of full years in your loan duration. After that you will enter any
+       additional months.
+       
+       For example, if your loan duration is 8 1/2 years, you will first enter
+       the number of full years: 8
+       Then you will enter the number of additional months: 6
+  loan_duration?: "Please enter the number of %{data}: "
+  loan_duration_correct?: "You entered a loan duration of %{data}, is that correct?"
