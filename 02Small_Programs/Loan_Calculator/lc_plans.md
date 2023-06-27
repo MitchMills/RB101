@@ -21,5 +21,13 @@
   - get loan duration
 
 - display results
+  - loan amount
+  - apr
+  - loan duration
+
+  - number of payments
+  - monthly payment
+  - total payment / interest amount
+
 
 - again?

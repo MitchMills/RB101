@@ -4,7 +4,7 @@ en:
   name_error: "You didn't enter anything."
   get_started: "Thanks, %{data}. Let's get started."
 
-  intro: "This program will calculate the monthly payments for your loan."
+  intro: "This program will calculate the repayment information for a loan."
   needed_info: >
     To do that, we'll need three pieces of information from you:
         1) the loan amount
@@ -17,13 +17,15 @@ en:
   invalid_number: "I'm sorry, %{data}, that's not a valid entry."
   
   loan_amount_instructions: |
-    To enter the loan amount, use only numbers (and a decimal place if necessary).
+    LOAN AMOUNT
+       To enter the loan amount, use only numbers (and a decimal place if necessary).
        For example, if your loan amount is $10,500.75, enter that as: 10500.75
   loan_amount?: "Please enter your loan amount: "
   loan_amount_correct?: "You entered a loan amount of %{data}. Is that correct?"
   
   loan_rate_instructions: |
-    To enter the annual percentage rate (APR), use only numbers (and
+    ANNUAL PERCENTAGE RATE
+       To enter the annual percentage rate (APR), use only numbers (and
        a decimal place if necessary).
        For example, if your APR is 7.4 %%, enter that as: 7.4
   loan_rate?: "Please enter your annual percentage rate: "
@@ -31,7 +33,8 @@ en:
 
   
   loan_duration_instructions: |
-    To enter the loan duration, use only numbers. First you will enter the
+    LOAN DURATION
+       To enter the loan duration, use only numbers. First you will enter the
        number of full years in your loan duration. After that you will enter any
        additional months.
        
@@ -40,3 +43,24 @@ en:
        Then you will enter the number of additional months: 6
   loan_duration?: "Please enter the number of %{data}: "
   loan_duration_correct?: "You entered a loan duration of %{data}, is that correct?"
+
+  summary: |
+    Okay %{name}, given this loan information:
+       LOAN INFORMATION
+         Loan Amount: %{loan_amount}
+         APR: %{apr}
+         Loan Duration: %{loan_duration}
+  results: |
+    Your repayment information is:
+       REPAYMENT INFORMATION
+         Monthly Payment: %{monthly_payment}
+         Number of Payments: %{number_of_payments}
+         Total Payment: %{total_repayed}
+         Total Interest Paid: %{interest_paid}
+
+  continue?: "%{data}, would you like to calculate repayment information for another loan?"
+  answer: "Enter 'y' to continue, enter any other key to exit the program: "
+  
+  goodbye: "Thank you for using Loan Calculator, %{data}! Goodbye."
+
+

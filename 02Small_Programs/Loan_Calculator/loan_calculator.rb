@@ -66,10 +66,11 @@ end
 
 # USER INPUT METHODS
 def get_user_inputs(user_data)
+  system 'clear'
   user_data[:loan_amount] = get_loan_amount(user_data)
-  blank_line
+  system 'clear'
   user_data[:monthly_rate] = get_loan_rate(user_data)
-  blank_line
+  system 'clear'
   user_data[:loan_months] = get_loan_duration(user_data)
 end
 
@@ -176,35 +177,65 @@ def get_input(type, user_data)
 end
 
 def confirm_loan_duration(duration_input)
-  formatted_loan_duration = "#{duration_input[0]} years and #{duration_input[1]} months"
+  formatted_loan_duration = "#{duration_input[0]} years" +
+    (duration_input[1] == 0 ? "" : " and #{duration_input[1]} months.")
   prompt('loan_duration_correct?', data: formatted_loan_duration)
   prompt('yes_or_no', action: 'print')
   confirmation = gets.chomp.downcase
 end
 
+# DISPLAY RESULTS METHODS
+def display_results(user_data)
+  system 'clear'
+  display_summary(user_data)
+  blank_line
+  display_repayment_info(user_data)
+  blank_line
+end
 
+def display_summary(user_data)
+  name = user_data[:name]
+  loan_amount = format_currency(user_data[:loan_amount])
+  apr = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * MONTHS_PER_YEAR)
+  full_years, additional_months = (user_data[:loan_months]).divmod(MONTHS_PER_YEAR)
+  loan_duration = "#{full_years} years" +
+    (additional_months == 0 ? "" : " and #{additional_months} months")
 
+  summary = format(MESSAGES[LANGUAGE]['summary'], name: name, 
+    loan_amount: loan_amount, apr: apr, loan_duration: loan_duration)
+  puts "=> #{summary}"
+end
 
+def display_repayment_info(user_data)
+  monthly_payment = calculate_monthly_payment(user_data)
+  number_of_payments = user_data[:loan_months]
+  total_repayed = monthly_payment * number_of_payments
+  interest_paid = total_repayed - user_data[:loan_amount]
 
+  results = format(MESSAGES[LANGUAGE]['results'],
+    monthly_payment: format_currency(monthly_payment), number_of_payments: number_of_payments,
+    total_repayed: format_currency(total_repayed), interest_paid: format_currency(interest_paid))
+  puts "=> #{results}"
+end
 
-
-
-def get_results(user_data)
-  monthly_payment = 
+def calculate_monthly_payment(user_data)
   user_data[:loan_amount] * 
     (user_data[:monthly_rate] / 
     (1 - (1 + user_data[:monthly_rate])**
     (-user_data[:loan_months])))
 end
 
-def display_results(results)
-
+# OUTRO
+def continue?(user_data)
+  prompt('continue?', data: user_data[:name])
+  prompt('answer', action: 'print')
+  answer = gets.chomp.downcase
+  answer == 'y'
 end
 
 
 
 # MAIN PROGRAM LOOP
-
 system 'clear'
 user_data = {
     name: '',
@@ -214,15 +245,10 @@ user_data = {
   }
 welcome(user_data)
 intro()
-
-get_user_inputs(user_data)
-results = get_results(user_data)
-
-p user_data
-p results
-# p results
-# p user_data
-# display_results(results)
-
-
-# p get_results(user_data)
+loop do
+  get_user_inputs(user_data)
+  display_results(user_data)
+  break unless continue?(user_data)
+end
+blank_line
+prompt('goodbye', data: user_data[:name])
