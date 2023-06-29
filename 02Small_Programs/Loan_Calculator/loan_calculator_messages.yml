@@ -5,37 +5,32 @@ en:
   name_error: "You didn't enter anything."
   get_started: "Thanks, %{data}. Let's get started."
 
-  intro: "This program will calculate the repayment information for a loan."
+  intro: "This program will calculate repayment information for a loan."
   needed_info: >
     To do that, we'll need three pieces of information from you:
         1) the loan amount
         2) the annual percentage rate (APR)
         3) the loan duration
-  ready?: "Once you've gathered that information, enter any key to continue."
+  ready?: "Once you've gathered that information, %{data}, enter any key to continue."
 
   yes_or_no: "Enter y to confirm and continue. Enter any other key to try again: "
-  try_again: |
-    Okay, %{data}, let's try again.
+  try_again: "Okay, %{data}, let's try again."
      
-  invalid_number: |
-    I'm sorry, %{data}, that's not a valid entry.
-     
+  invalid_number: "I'm sorry, %{data}, that's not a valid entry."
   
   loan_amount_instructions: |
     LOAN AMOUNT
-       To enter the loan amount, use only numbers (and a decimal place if necessary).
+       For the loan amount, enter only numbers (and a decimal place if necessary).
        For example, if your loan amount is $10,500.75, enter that as: 10500.75
-       
   loan_amount?: "Please enter your loan amount: "
   loan_amount_correct?: "You entered a loan amount of %{data}. Is that correct?"
   loan_amount: "Loan Amount: %{data}"
 
   loan_rate_instructions: |
     ANNUAL PERCENTAGE RATE
-       To enter the annual percentage rate (APR), use only numbers (and
+       For the annual percentage rate (APR), enter only numbers (and
        a decimal place if necessary).
        For example, if your APR is 7.4 %%, enter that as: 7.4
-        
   loan_rate?: "Please enter your annual percentage rate: "
   loan_rate_correct?: "You entered an APR of %{data}. Is that correct?"
   loan_rate: "APR: %{data}"
@@ -43,36 +38,36 @@ en:
   
   loan_duration_instructions: |
     LOAN DURATION
-       To enter the loan duration, use only numbers.
-       First you'll enter the number of full years in the loan duration.
+       For the loan duration, enter only whole numbers.
+       First you'll enter the number of full years.
        After that you'll enter any additional months.
        
        For example, if your loan duration is 8 1/2 years:
          First enter the number of full years: 8
          Then enter the number of additional months: 6
-          
   loan_duration?: "Please enter the number of %{data}: "
   loan_duration_correct?: "You entered a loan duration of %{data}, is that correct?"
 
-  summary: |
-    Okay %{name}, given this loan information:
+  
 
-       LOAN INFORMATION
-         Loan Amount: %{loan_amount}
-         APR: %{apr}
-         Loan Duration: %{loan_duration}
+  summary: |
+    Okay %{data}, given this loan information:
+
+    => LOAN INFORMATION
+  summary_loan_amount:    "  Loan Amount: %{data}"
+  summary_apr:            "  APR: %{data}"
+  summary_loan_duration:  "  Loan Duration: %{data}"
+
   results: |
     Your repayment information is:
 
-       REPAYMENT INFORMATION
-         Monthly Payment: %{monthly_payment}
-         Number of Payments: %{number_of_payments}
-         Total Payment: %{total_repayed}
-         Total Interest Charged: %{interest_paid}
+    => REPAYMENT INFORMATION
+  monthly_payment:    "  Monthly Payment: %{data}"
+  number_of_payments: "  Number of Payments: %{data}"
+  total_payment:      "  Total Payment: %{data}"
+  interest_charged:   "  Total Interest Charged: %{data}"
 
   continue?: "%{data}, would you like to calculate repayment information for another loan?"
   answer: "Enter 'y' to continue, enter any other key to exit the program: "
   
   goodbye: "Thank you for using Loan Calculator, %{data}! Goodbye."
-
-
