@@ -25,8 +25,9 @@ Write a method that takes one argument, a positive integer, and returns a string
 
 # ALGORITHM
 - initialize an empty string `output`
+- set a counter to 0
 - iterate `input` number of times:
-  - if index is even, add a `1`
+  - if counter is even, add a `1`
   - if index is odd, add a `0`
 
 
