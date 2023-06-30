@@ -297,6 +297,7 @@ display_intro(user_data)
 loop do
   get_user_inputs(user_data)
   display_results(user_data)
+  p user_data
   break unless continue?(user_data)
 end
 blank_line

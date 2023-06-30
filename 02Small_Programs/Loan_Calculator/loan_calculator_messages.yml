@@ -54,18 +54,22 @@ en:
     Okay %{data}, given this loan information:
 
     => LOAN INFORMATION
-  summary_loan_amount:    "  Loan Amount: %{data}"
-  summary_apr:            "  APR: %{data}"
-  summary_loan_duration:  "  Loan Duration: %{data}"
-
+  Loan Amount:    "  Loan Amount: %{data}"
+  APR:            "  APR: %{data}"
+  Loan Duration:  "  Loan Duration: %{data}"
+  
+  
+  
+  
+  
   results: |
     Your repayment information is:
 
     => REPAYMENT INFORMATION
-  monthly_payment:    "  Monthly Payment: %{data}"
-  number_of_payments: "  Number of Payments: %{data}"
-  total_payment:      "  Total Payment: %{data}"
-  interest_charged:   "  Total Interest Charged: %{data}"
+  Monthly Payment:    "  Monthly Payment: %{data}"
+  Number of Payments: "  Number of Payments: %{data}"
+  Total Payment:      "  Total Payment: %{data}"
+  Interest Charged:   "  Total Interest Charged: %{data}"
 
   continue?: "%{data}, would you like to calculate repayment information for another loan?"
   answer: "Enter 'y' to continue, enter any other key to exit the program: "
