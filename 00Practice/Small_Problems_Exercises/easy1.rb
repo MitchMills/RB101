@@ -1,20 +1,42 @@
-### 9 GET MIDDLE CHARACTER
-def center_of(string)
-  return string if string.length <= 2
-  midpoint = (string.length / 2)
-  string.length.odd? ? string[midpoint] : string[midpoint - 1, 2]
+### 2.2 ODD
+def is_odd?(number)
+  number % 2 != 0
 end
+
+
+puts is_odd?(2)    # => false
+puts is_odd?(5)    # => true
+puts is_odd?(-17)  # => true
+puts is_odd?(-8)   # => false
+puts is_odd?(0)    # => false
+puts is_odd?(7)    # => true
+
+
+### 1.2 REPEAT YOURSELF
+# def repeat(string, reps)
+#   1.upto(reps) {puts string}
+#   # reps.times { puts string }
+# end
+
+# repeat('Hello', 3)
+
+### 9 GET MIDDLE CHARACTER
+# def center_of(string)
+#   return string if string.length <= 2
+#   midpoint = (string.length / 2)
+#   string.length.odd? ? string[midpoint] : string[midpoint - 1, 2]
+# end
 
 # def center_of(string)
 #   array = string.size.divmod(2)
 #   string[(array[0] + array[1] - 1)..array[0]]
 # end
 
-p center_of('I love ruby') == 'e'
-p center_of('Launch School') == ' '
-p center_of('Launch') == 'un'
-p center_of('Launchschool') == 'hs'
-p center_of('x') == 'x'
+# p center_of('I love ruby') == 'e'
+# p center_of('Launch School') == ' '
+# p center_of('Launch') == 'un'
+# p center_of('Launchschool') == 'hs'
+# p center_of('x') == 'x'
 
 ### 8 REVERSE THE DIGITS
 # def reversed_number(num)
