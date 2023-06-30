@@ -1,9 +1,12 @@
 # PROBLEM
-Write a method that displays a 4-pointed diamond in an n x n grid, where n is an odd integer that is supplied as an argument to the method. You may assume that the argument will always be an odd integer.
+Write a method that takes one argument, a positive integer, and returns a string of alternating 1s and 0s, always starting with 1. The length of the string should match the given integer.
 
-  Input: 
+  Input: positive integer
 
-  Output:
+  Output: string
+    - alternating 1s and 0s
+    - always starts with 1
+    - length matches input integer
 
   ## Rules
   ### explicit
@@ -15,29 +18,16 @@ Write a method that displays a 4-pointed diamond in an n x n grid, where n is an
 
 
 # EXAMPLES
-diamond(1)
-*
 
-diamond(3)
- *
-***
- *
-
-diamond(9)
-    *
-   ***
-  *****
- *******
-*********
- *******
-  *****
-   ***
-    *
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
+- initialize an empty string `output`
+- iterate `input` number of times:
+  - if index is even, add a `1`
+  - if index is odd, add a `0`
 
 
 

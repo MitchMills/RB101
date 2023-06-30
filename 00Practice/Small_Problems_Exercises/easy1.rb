@@ -1,15 +1,44 @@
-### 2.2 ODD
-def is_odd?(number)
-  number % 2 != 0
+### 3.2 STRINGY STRINGS
+def stringy(length)
+  (1..length).map {|num| num.odd? ? '1' : '0' }.join
+end
+
+def stringy(length, start_number = 1)
+  (1..length).map { |num| num.odd? ? start_number : 1 - start_number }.join
+end
+
+def stringy(length, start_number = 1)
+  pattern = [start_number, 1 - start_number]
+  pattern.cycle.first(length).join
 end
 
 
-puts is_odd?(2)    # => false
-puts is_odd?(5)    # => true
-puts is_odd?(-17)  # => true
-puts is_odd?(-8)   # => false
-puts is_odd?(0)    # => false
-puts is_odd?(7)    # => true
+puts stringy(6) == '101010'
+puts stringy(9) == '101010101'
+puts stringy(4) == '1010'
+puts stringy(7) == '1010101'
+puts
+puts stringy(6, 1) == '101010'
+puts stringy(9, 1) == '101010101'
+puts stringy(4, 1) == '1010'
+puts stringy(7, 1) == '1010101'
+puts
+puts stringy(6, 0) == '010101'
+puts stringy(9, 0) == '010101010'
+puts stringy(4, 0) == '0101'
+puts stringy(7, 0) == '0101010'
+
+### 2.2 ODD
+# def is_odd?(number)
+#   number % 2 == 1
+# end
+
+# puts is_odd?(2)    # => false
+# puts is_odd?(5)    # => true
+# puts is_odd?(-17)  # => true
+# puts is_odd?(-8)   # => false
+# puts is_odd?(0)    # => false
+# puts is_odd?(7)    # => true
 
 
 ### 1.2 REPEAT YOURSELF
