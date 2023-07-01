@@ -266,9 +266,9 @@ def get_repayment_info(user_data)
   repayment_info = {}
   repayment_info["Monthly Payment"] = calculate_monthly_payment(user_data)
   repayment_info["Number of Payments"] = user_data[:loan_months]
-  repayment_info["Total Payed"] = repayment_info["Monthly Payment"] * 
+  repayment_info["Total Payment"] = repayment_info["Monthly Payment"] * 
     repayment_info["Number of Payments"]
-  repayment_info["Interest Charged"] = repayment_info["Total Payed"] - 
+  repayment_info["Interest Charged"] = repayment_info["Total Payment"] - 
     user_data[:loan_amount]
   repayment_info
 end
@@ -282,7 +282,7 @@ end
 
 def format_repayment_info(repayment_info)
   repayment_info.each do |label, value|
-    repayment_info[label] = format_currency(value) if value.is_a?(Float)
+    repayment_info[label] = format_currency(value) unless label == "Number of Payments"
   end
 end
 
@@ -298,7 +298,7 @@ end
 
 def reset_loan_info(user_data) ### TODO: make sure this works with generic display method
   user_data.each do |label, value|
-    user_data.delete(label) unless value.is_a?(String)
+    user_data.delete(label) unless label == :name
   end
 end
 
@@ -313,9 +313,7 @@ loop do
   get_user_inputs(user_data)
   display_results(user_data)
   break unless continue?(user_data)
-  p user_data
   reset_loan_info(user_data)
-  p user_data
 end
 blank_line
 prompt('goodbye', data: user_data[:name])

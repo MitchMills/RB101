@@ -1,5 +1,5 @@
 en:
-  no_message: ""
+  no_message: "hi"
   welcome: "Welcome to the Loan Calculator!"
   enter_name: "Please enter your name: "
   name_error: "You didn't enter anything."
@@ -58,21 +58,14 @@ en:
   APR:            "  APR: %{data}"
   Loan Duration:  "  Loan Duration: %{data}"
   
-  
-  
-  
-  
   results: |
     The repayment information for your loan is:
 
     => REPAYMENT INFORMATION
   Monthly Payment:    "  Monthly Payment: %{data}"
   Number of Payments: "  Number of Payments: %{data}"
-  Total Payed:      "  Total Payed: %{data}"
+  Total Payment:      "  Total Amount to Repay: %{data}"
   Interest Charged:   "  Total Interest Charged: %{data}"
-
-
-
 
   continue?: "%{data}, would you like to calculate repayment information for another loan?"
   answer: "Enter 'y' to continue, enter any other key to exit the program: "

@@ -15,11 +15,30 @@ def prompt(key = 'no_message', action: 'puts', data: '', lang: LANGUAGE)
 end
 
 
+def format_currency(amount)
+  basic = sprintf('%.2f', amount).gsub('.00','')
+  with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
+  final = with_commas.prepend('$')
+end
+
+
+
+def display_loan_info(user_data)
+  user_data.each do |label, value|
+    p label
+    # prompt(label.to_s, data: value)
+  end
+  
+  # prompt(:loan_amount.to_s, data: format_currency(user_data[:loan_amount]))
+end
 
 
 user_data = {
-  :name=>"Mitch", 
+  # :name=>"Mitch", 
   :loan_amount=>10000.0, 
   :monthly_rate=>0.008333333333333333, 
   :loan_months=>120
 }
+
+display_loan_info(user_data)
+
