@@ -36,6 +36,7 @@ def non_negative?(input)
   input.to_f.abs == input.to_f
 end
 
+
 # INTRO METHODS
 def welcome_user(user_data)
   prompt('welcome')
@@ -115,7 +116,7 @@ def format_currency(amount)
   final = with_commas.prepend('$')
 end
 
-def display_loan_amount(user_data)
+def display_loan_amount(user_data) ### TODO: make a generic display method
   prompt('loan_amount', data: format_currency(user_data[:loan_amount]))
 end
 
@@ -123,7 +124,7 @@ end
 # Loan Rate Methods
 def loan_rate(user_data)
   system 'clear'
-  display_loan_amount(user_data)
+  display_loan_amount(user_data) ### TODO: make a generic display method
   blank_line
 
   prompt('loan_rate_instructions')
@@ -163,7 +164,7 @@ def confirm_loan_rate(rate)
   confirmation = gets.chomp.downcase
 end
 
-def display_loan_rate(user_data)
+def display_loan_rate(user_data) ### TODO: make a generic display method
   apr = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * MONTHS_PER_YEAR)
   prompt('loan_rate', data: apr)
 end
@@ -171,7 +172,7 @@ end
 # Loan Duration Methods
 def loan_duration(user_data)
   system 'clear'
-  display_loan_amount(user_data)
+  display_loan_amount(user_data) ### TODO: make a generic display method
   display_loan_rate(user_data)
   blank_line
   
@@ -233,39 +234,41 @@ end
 def display_summary(user_data)
   summary_info = get_summary_info(user_data)
   prompt('summary', data: user_data[:name])
-  prompt('summary_loan_amount', data: summary_info[:loan_amount])
-  prompt('summary_apr', data: summary_info[:apr])
-  prompt('summary_loan_duration', data: summary_info[:loan_duration])
+  display_stats(summary_info)
 end
 
 def get_summary_info(user_data)
   summary_info = {}
   years, months = (user_data[:loan_months]).divmod(MONTHS_PER_YEAR)
   
-  summary_info[:loan_amount] = format_currency(user_data[:loan_amount])
-  summary_info[:apr] = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * 
+  summary_info["Loan Amount"] = format_currency(user_data[:loan_amount])
+  summary_info["APR"] = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * 
     MONTHS_PER_YEAR)
-  summary_info[:loan_duration] = "#{years} years" +
+  summary_info["Loan Duration"] = "#{years} years" +
     (months == 0 ? "" : " and #{months} months")
   summary_info
 end
 
+def display_stats(stats)
+  stats.each do |label, value|
+    prompt(label, data: value)
+  end
+end
+
 def display_repayment_info(user_data)
   repayment_info = get_repayment_info(user_data)
+  format_repayment_info(repayment_info)
   prompt('results')
-  prompt('monthly_payment', data: format_currency(repayment_info[:monthly_payment]))
-  prompt('number_of_payments', data: repayment_info[:number_of_payments])
-  prompt('total_payment', data: format_currency(repayment_info[:total_payment]))
-  prompt('interest_charged', data: format_currency(repayment_info[:interest_charged]))
+  display_stats(repayment_info)
 end
 
 def get_repayment_info(user_data)
   repayment_info = {}
-  repayment_info[:monthly_payment] = calculate_monthly_payment(user_data)
-  repayment_info[:number_of_payments] = user_data[:loan_months]
-  repayment_info[:total_payment] = repayment_info[:monthly_payment] * 
-    repayment_info[:number_of_payments]
-  repayment_info[:interest_charged] = repayment_info[:total_payment] - 
+  repayment_info["Monthly Payment"] = calculate_monthly_payment(user_data)
+  repayment_info["Number of Payments"] = user_data[:loan_months]
+  repayment_info["Total Payed"] = repayment_info["Monthly Payment"] * 
+    repayment_info["Number of Payments"]
+  repayment_info["Interest Charged"] = repayment_info["Total Payed"] - 
     user_data[:loan_amount]
   repayment_info
 end
@@ -277,6 +280,13 @@ def calculate_monthly_payment(user_data)
     (-user_data[:loan_months])))
 end
 
+def format_repayment_info(repayment_info)
+  repayment_info.each do |label, value|
+    repayment_info[label] = format_currency(value) if value.is_a?(Float)
+  end
+end
+
+
 
 # OUTRO
 def continue?(user_data)
@@ -286,6 +296,11 @@ def continue?(user_data)
   answer == 'y'
 end
 
+def reset_loan_info(user_data) ### TODO: make sure this works with generic display method
+  user_data.each do |label, value|
+    user_data.delete(label) unless value.is_a?(String)
+  end
+end
 
 
 # MAIN PROGRAM LOOP
@@ -297,8 +312,10 @@ display_intro(user_data)
 loop do
   get_user_inputs(user_data)
   display_results(user_data)
-  p user_data
   break unless continue?(user_data)
+  p user_data
+  reset_loan_info(user_data)
+  p user_data
 end
 blank_line
 prompt('goodbye', data: user_data[:name])
