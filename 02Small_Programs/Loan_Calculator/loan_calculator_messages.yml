@@ -15,7 +15,7 @@ en:
 
   yes_or_no: "Enter y to confirm and continue. Enter any other key to try again: "
   try_again: "Okay, %{data}, let's try again."
-     
+       
   invalid_number: "I'm sorry, %{data}, that's not a valid entry."
   
   loan_amount_instructions: |
