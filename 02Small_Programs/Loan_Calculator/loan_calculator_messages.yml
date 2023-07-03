@@ -71,3 +71,8 @@ en:
   answer: "Enter 'y' to continue, enter any other key to exit the program: "
   
   goodbye: "Thank you for using Loan Calculator, %{data}! Goodbye."
+
+
+
+  monthly_rate: "monthly rate %{data}"
+  loan_months: "loan months %{data}"

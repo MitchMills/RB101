@@ -25,7 +25,7 @@ end
 
 def display_loan_info(user_data)
   user_data.each do |label, value|
-    prompt(label.to_s, data: value)
+    prompt(label.to_s, data: value) unless label == :name
   end
   
   # prompt(:loan_amount.to_s, data: format_currency(user_data[:loan_amount]))
@@ -33,10 +33,10 @@ end
 
 
 user_data = {
-  # :name=>"Mitch", 
+  :name=>"Mitch", 
   :loan_amount=>10000.0, 
-  :monthly_rate=>0.008333333333333333, 
-  :loan_months=>120
+  # :monthly_rate=>0.008333333333333333, 
+  # :loan_months=>120
 }
 
 p user_data
