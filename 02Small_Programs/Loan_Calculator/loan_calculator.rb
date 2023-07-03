@@ -116,20 +116,35 @@ def format_currency(amount)
   final = with_commas.prepend('$')
 end
 
-def display_loan_amount(user_data) ### TODO: make a generic display method
-  prompt('loan_amount', data: format_currency(user_data[:loan_amount]))
-end
-
-
 # Loan Rate Methods
 def loan_rate(user_data)
   system 'clear'
-  display_loan_amount(user_data) ### TODO: make a generic display method
+  summary_info = get_summary_info(user_data)
+  prompt('loan_information')
+  display_stats(summary_info)
   blank_line
 
   prompt('loan_rate_instructions')
   blank_line
   get_and_confirm_loan_rate(user_data)
+end
+
+def get_summary_info(user_data)
+  summary_info = {}
+  years, months = (user_data[:loan_months]).divmod(MONTHS_PER_YEAR) if user_data[:loan_months]
+  
+  summary_info["Loan Amount"] = format_currency(user_data[:loan_amount])
+  summary_info["APR"] = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * 
+    MONTHS_PER_YEAR) if user_data[:monthly_rate]
+  summary_info["Loan Duration"] = "#{years} years" +
+    (months == 0 ? "" : " and #{months} months") if user_data[:loan_months]
+  summary_info
+end
+
+def display_stats(stats)
+  stats.each do |label, value|
+    prompt(label, data: value)
+  end
 end
 
 def get_and_confirm_loan_rate(user_data)
@@ -164,16 +179,12 @@ def confirm_loan_rate(rate)
   confirmation = gets.chomp.downcase
 end
 
-def display_loan_rate(user_data) ### TODO: make a generic display method
-  apr = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * MONTHS_PER_YEAR)
-  prompt('loan_rate', data: apr)
-end
-
 # Loan Duration Methods
 def loan_duration(user_data)
   system 'clear'
-  display_loan_amount(user_data) ### TODO: make a generic display method
-  display_loan_rate(user_data)
+  summary_info = get_summary_info(user_data)
+  prompt('loan_information')
+  display_stats(summary_info)
   blank_line
   
   prompt('loan_duration_instructions')
@@ -234,25 +245,8 @@ end
 def display_summary(user_data)
   summary_info = get_summary_info(user_data)
   prompt('summary', data: user_data[:name])
+  prompt('loan_information')
   display_stats(summary_info)
-end
-
-def get_summary_info(user_data)
-  summary_info = {}
-  years, months = (user_data[:loan_months]).divmod(MONTHS_PER_YEAR)
-  
-  summary_info["Loan Amount"] = format_currency(user_data[:loan_amount])
-  summary_info["APR"] = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * 
-    MONTHS_PER_YEAR)
-  summary_info["Loan Duration"] = "#{years} years" +
-    (months == 0 ? "" : " and #{months} months")
-  summary_info
-end
-
-def display_stats(stats)
-  stats.each do |label, value|
-    prompt(label, data: value)
-  end
 end
 
 def display_repayment_info(user_data)
@@ -296,7 +290,7 @@ def continue?(user_data)
   answer == 'y'
 end
 
-def reset_loan_info(user_data) ### TODO: make sure this works with generic display method
+def reset_loan_info(user_data)
   user_data.each do |label, value|
     user_data.delete(label) unless label == :name
   end
