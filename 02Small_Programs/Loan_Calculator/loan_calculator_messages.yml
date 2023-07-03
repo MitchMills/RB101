@@ -50,17 +50,14 @@ en:
 
   
 
-  summary: |
-    Okay %{data}, given this loan information:
-
-    => LOAN INFORMATION
+  summary: "Okay %{data}, given these terms:"
+  loan_information: "LOAN INFORMATION"
   Loan Amount:    "  Loan Amount: %{data}"
   APR:            "  APR: %{data}"
   Loan Duration:  "  Loan Duration: %{data}"
   
   results: |
     The repayment information for your loan is:
-
     => REPAYMENT INFORMATION
   Monthly Payment:    "  Monthly Payment: %{data}"
   Number of Payments: "  Number of Payments: %{data}"
