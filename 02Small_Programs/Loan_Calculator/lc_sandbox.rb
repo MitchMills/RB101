@@ -246,7 +246,6 @@ end
 
 def display_repayment_info(user_data) ### TODO: make generic display info method
   repayment_info = get_repayment_info(user_data)
-  format_repayment_info(repayment_info)
   prompt('results')
   display_stats(repayment_info)
 end
@@ -259,7 +258,7 @@ def get_repayment_info(user_data)
     repayment_info["Number of Payments"]
   repayment_info["Interest Charged"] = repayment_info["Total Payment"] - 
     user_data[:loan_amount]
-  repayment_info
+  format_repayment_info(repayment_info)
 end
 
 def calculate_monthly_payment(user_data)
@@ -317,4 +316,134 @@ prompt('goodbye', data: user_data[:name])
 # }
 
 
+### LOAN AMOUNT
+def loan_amount(user_data)
+  system 'clear'
+  prompt('loan_amount_instructions')
+  blank_line
+  get_and_confirm_loan_amount(user_data)
+end
 
+def get_and_confirm_loan_amount(user_data)
+  loop do
+    loan_amount = get_amount_input(user_data)
+    confirmation = confirm_loan_amount(loan_amount)
+    return loan_amount if confirmation == 'y'
+
+    blank_line
+    prompt('try_again', data: user_data[:name])
+  end
+end
+
+def get_amount_input(user_data)
+  loop do
+    prompt('loan_amount?', action: 'print')
+    amount_input = gets.chomp
+    return amount_input.to_f if valid_number?(amount_input)
+
+    blank_line
+    prompt('invalid_number', data: user_data[:name])
+  end
+end
+
+def confirm_loan_amount(loan_amount) #####
+  blank_line
+  prompt('loan_amount_correct?', data: format_currency(loan_amount))
+  prompt('yes_or_no', action: 'print')
+  gets.chomp.downcase
+end
+
+
+### LOAN RATE
+def loan_rate(user_data)
+  system 'clear'
+  display_summary(user_data)
+  blank_line
+  prompt('loan_rate_instructions')
+  blank_line
+  get_and_confirm_loan_rate(user_data)
+end
+
+def get_and_confirm_loan_rate(user_data)
+  loop do
+    annual_percentage_rate = get_rate_input(user_data)
+    confirmation = confirm_loan_rate(annual_percentage_rate)
+
+    monthly_rate = (annual_percentage_rate / 100) / MONTHS_PER_YEAR
+    return monthly_rate if confirmation == 'y'
+
+    blank_line
+    prompt('try_again', data: user_data[:name])
+  end
+end
+
+def get_rate_input(user_data)
+  loop do
+    prompt('loan_rate?', action: 'print')
+    rate_input = gets.chomp
+    return rate_input.to_f if valid_number?(rate_input)
+
+    blank_line
+    prompt('invalid_number', data: user_data[:name])
+  end
+end
+
+def confirm_loan_rate(rate) #####
+  blank_line
+  formatted_rate = sprintf('%.2f %%', rate)
+  prompt('loan_rate_correct?', data: formatted_rate)
+  prompt('yes_or_no', action: 'print')
+  confirmation = gets.chomp.downcase
+end
+
+
+### LOAN DURATION
+def loan_duration(user_data)
+  system 'clear'
+  display_summary(user_data)
+  blank_line
+  
+  prompt('loan_duration_instructions')
+  blank_line
+  get_and_confirm_loan_duration(user_data)  
+end
+
+def get_and_confirm_loan_duration(user_data)
+  loop do
+    duration_input = get_duration_input(user_data)
+    blank_line
+    
+    confirmation = confirm_loan_duration(duration_input)
+    loan_duration = (duration_input[0] * 12) + duration_input[1]
+    return loan_duration if confirmation == 'y'
+
+    blank_line
+    prompt('try_again', data: user_data[:name])
+  end
+end
+
+def get_duration_input(user_data)
+  years_input = get_sub_duration_input('full years', user_data)
+  blank_line
+  months_input = get_sub_duration_input('additional months, if any', user_data)
+  [years_input, months_input]
+end
+
+def get_sub_duration_input(type, user_data)
+  loop do
+    prompt('loan_duration?', action: 'print', data: type)
+    input = gets.chomp
+    return input.to_i if valid_number?(input, type: 'integer')
+
+    blank_line
+    prompt('invalid_number', data: user_data[:name])
+  end
+end
+
+def confirm_loan_duration(duration_input) #####
+  formatted_loan_duration = "#{duration_input[0]} years" +
+    (duration_input[1] == 0 ? "" : " and #{duration_input[1]} months")
+  prompt('loan_duration_correct?', data: formatted_loan_duration)
+  prompt('yes_or_no', action: 'print')
+  confirmation = gets.chomp.downcase
+end

@@ -72,7 +72,6 @@ def get_user_inputs(user_data)
   user_data[:loan_months] = loan_duration(user_data)
 end
 
-
 # Loan Amount Methods
 def loan_amount(user_data)
   system 'clear'
@@ -119,14 +118,17 @@ end
 # Loan Rate Methods
 def loan_rate(user_data)
   system 'clear'
-  summary_info = get_summary_info(user_data)
-  prompt('loan_information')
-  display_stats(summary_info)
+  display_summary(user_data)
   blank_line
-
   prompt('loan_rate_instructions')
   blank_line
   get_and_confirm_loan_rate(user_data)
+end
+
+def display_summary(user_data)
+  summary_info = get_summary_info(user_data)
+  prompt('loan_information')
+  display_stats(summary_info)
 end
 
 def get_summary_info(user_data)
@@ -182,9 +184,7 @@ end
 # Loan Duration Methods
 def loan_duration(user_data)
   system 'clear'
-  summary_info = get_summary_info(user_data)
-  prompt('loan_information')
-  display_stats(summary_info)
+  display_summary(user_data)
   blank_line
   
   prompt('loan_duration_instructions')
@@ -236,22 +236,15 @@ end
 # DISPLAY RESULTS METHODS
 def display_results(user_data)
   system 'clear'
+  prompt('summary', data: user_data[:name])
   display_summary(user_data)
   blank_line
   display_repayment_info(user_data)
   blank_line
 end
 
-def display_summary(user_data)
-  summary_info = get_summary_info(user_data)
-  prompt('summary', data: user_data[:name])
-  prompt('loan_information')
-  display_stats(summary_info)
-end
-
-def display_repayment_info(user_data)
+def display_repayment_info(user_data) ### TODO: make generic display info method
   repayment_info = get_repayment_info(user_data)
-  format_repayment_info(repayment_info)
   prompt('results')
   display_stats(repayment_info)
 end
@@ -264,7 +257,7 @@ def get_repayment_info(user_data)
     repayment_info["Number of Payments"]
   repayment_info["Interest Charged"] = repayment_info["Total Payment"] - 
     user_data[:loan_amount]
-  repayment_info
+  format_repayment_info(repayment_info)
 end
 
 def calculate_monthly_payment(user_data)
@@ -279,7 +272,6 @@ def format_repayment_info(repayment_info)
     repayment_info[label] = format_currency(value) unless label == "Number of Payments"
   end
 end
-
 
 
 # OUTRO
