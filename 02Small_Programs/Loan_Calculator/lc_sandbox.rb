@@ -16,7 +16,7 @@ end
 
 
 # INPUT VALIDATION METHODS
-def valid_number?(input, type: 'number')
+def valid_number?(type = 'number', input)
   if type == 'integer'
     valid_integer?(input)
   elsif type == 'number'
@@ -66,11 +66,11 @@ end
 
 
 # USER INPUT METHODS
-def get_user_inputs(user_data)
-  user_data[:loan_amount] = loan_amount(user_data)
-  user_data[:monthly_rate] = loan_rate(user_data)
-  user_data[:loan_months] = loan_duration(user_data)
-end
+# def get_user_inputs(user_data)
+#   user_data[:loan_amount] = loan_amount(user_data)
+#   user_data[:loan_rate] = loan_rate(user_data)
+#   user_data[:loan_duration] = loan_duration(user_data)
+# end
 
 # Loan Amount Methods
 def loan_amount(user_data)
@@ -218,15 +218,15 @@ end
 
 def get_summary_info(user_data)
   summary_info = {}
-  years, months = (user_data[:loan_months]).divmod(MONTHS_PER_YEAR) if
-    user_data[:loan_months]
+  years, months = (user_data[:loan_duration].to_i).divmod(MONTHS_PER_YEAR) if
+    user_data[:loan_duration]
   
-  summary_info["Loan Amount"] = format_currency(user_data[:loan_amount]) if 
+  summary_info["Loan Amount"] = format_currency(user_data[:loan_amount].to_f) if 
     user_data[:loan_amount]
-  summary_info["APR"] = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * 
-    MONTHS_PER_YEAR) if user_data[:monthly_rate]
+  summary_info["APR"] = sprintf('%.2f %%', user_data[:loan_rate].to_f * 100 * 
+    MONTHS_PER_YEAR) if user_data[:loan_rate]
   summary_info["Loan Duration"] = "#{years} years" +
-    (months == 0 ? "" : " and #{months} months") if user_data[:loan_months]
+    (months == 0 ? "" : " and #{months} months") if user_data[:loan_duration]
   summary_info
 end
 
@@ -255,7 +255,7 @@ end
 def get_repayment_info(user_data)
   repayment_info = {}
   repayment_info["Monthly Payment"] = calculate_monthly_payment(user_data)
-  repayment_info["Number of Payments"] = user_data[:loan_months]
+  repayment_info["Number of Payments"] = user_data[:loan_duration]
   repayment_info["Total Payment"] = repayment_info["Monthly Payment"] * 
     repayment_info["Number of Payments"]
   repayment_info["Interest Charged"] = repayment_info["Total Payment"] - 
@@ -265,9 +265,9 @@ end
 
 def calculate_monthly_payment(user_data)
   user_data[:loan_amount] * 
-    (user_data[:monthly_rate] / 
-    (1 - (1 + user_data[:monthly_rate])**
-    (-user_data[:loan_months])))
+    (user_data[:loan_rate] / 
+    (1 - (1 + user_data[:loan_rate])**
+    (-user_data[:loan_duration])))
 end
 
 def format_repayment_info(repayment_info)
@@ -420,7 +420,12 @@ def confirm_loan_duration(duration_input) #####
 end
 
 
-
+####################################
+def get_user_inputs(user_data)
+  user_data[:loan_amount] = loan_info('loan_amount', user_data)
+  user_data[:loan_rate] = loan_info('loan_rate', user_data)
+  user_data[:loan_duration] = loan_info('loan_duration', user_data)
+end
 
 def loan_info(type, user_data)
   system 'clear'
@@ -432,14 +437,59 @@ def loan_info(type, user_data)
 end
 
 def get_and_confirm_info(type, user_data)
-  type
+  loop do
+    input = get_input(type, user_data)
+    blank_line
+    confirmation = confirm_input(type, input)
+    return input if confirmation == 'y'
+
+    blank_line
+    prompt('try_again', data: user_data[:name])
+  end
 end
 
+def get_input(type, user_data)
+  loop do
+    prompt(type + '?', action: 'print')
+    input = gets.chomp
+
+    number_type = 'number'
+    number_type = 'integer' if type == 'loan_duration'
+    return input if valid_number?(number_type, input)
+
+    blank_line
+    prompt('invalid_number', data: user_data[:name])
+  end
+end
+
+def confirm_input(type, input)
+  input = (type == 'loan_duration' ? input.to_i : input.to_f)
+  prompt(type + '_correct?', data: format_input(type, input))
+  prompt('yes_or_no', action: 'print')
+  gets.chomp.downcase
+end
+
+def format_input(type, input)
+  case type
+  when 'loan_amount'
+    format_currency(input)
+  when 'loan_rate'
+    sprintf('%.2f %%', input)
+  when 'loan_duration'
+    "#{input[0]} years" + (input[1] == 0 ? "" : " and 
+      #{input[1]} months")
+  end
+end
+
+
+monthly_rate = (annual_percentage_rate / 100) / MONTHS_PER_YEAR
+
 user_data = {
-  # :name=>"Mitch", 
+  :name=>"Mitch", 
   # :loan_amount=>10000.0, 
-  # :monthly_rate=>0.008333333333333333, 
-  # :loan_months=>120
+  # :loan_rate=>0.008333333333333333, 
+  # :loan_duration=>120
 }
 
-p loan_info('loan_amount', user_data)
+get_user_inputs(user_data)
+p user_data
