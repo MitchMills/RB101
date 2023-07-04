@@ -72,7 +72,6 @@ def get_user_inputs(user_data)
   user_data[:loan_months] = loan_duration(user_data)
 end
 
-
 # Loan Amount Methods
 def loan_amount(user_data)
   system 'clear'
@@ -124,30 +123,6 @@ def loan_rate(user_data)
   prompt('loan_rate_instructions')
   blank_line
   get_and_confirm_loan_rate(user_data)
-end
-
-def display_summary(user_data)
-  summary_info = get_summary_info(user_data)
-  prompt('loan_information')
-  display_stats(summary_info)
-end
-
-def get_summary_info(user_data)
-  summary_info = {}
-  years, months = (user_data[:loan_months]).divmod(MONTHS_PER_YEAR) if user_data[:loan_months]
-  
-  summary_info["Loan Amount"] = format_currency(user_data[:loan_amount])
-  summary_info["APR"] = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * 
-    MONTHS_PER_YEAR) if user_data[:monthly_rate]
-  summary_info["Loan Duration"] = "#{years} years" +
-    (months == 0 ? "" : " and #{months} months") if user_data[:loan_months]
-  summary_info
-end
-
-def display_stats(stats)
-  stats.each do |label, value|
-    prompt(label, data: value)
-  end
 end
 
 def get_and_confirm_loan_rate(user_data)
@@ -233,6 +208,33 @@ def confirm_loan_duration(duration_input)
   confirmation = gets.chomp.downcase
 end
 
+# Input Summary Methods
+def display_summary(user_data)
+  summary_info = get_summary_info(user_data)
+  prompt('loan_information') if user_data.size > 1
+  display_stats(summary_info)
+  blank_line if summary_info.size > 0
+end
+
+def get_summary_info(user_data)
+  summary_info = {}
+  years, months = (user_data[:loan_months]).divmod(MONTHS_PER_YEAR) if
+    user_data[:loan_months]
+  
+  summary_info["Loan Amount"] = format_currency(user_data[:loan_amount]) if 
+    user_data[:loan_amount]
+  summary_info["APR"] = sprintf('%.2f %%', user_data[:monthly_rate] * 100 * 
+    MONTHS_PER_YEAR) if user_data[:monthly_rate]
+  summary_info["Loan Duration"] = "#{years} years" +
+    (months == 0 ? "" : " and #{months} months") if user_data[:loan_months]
+  summary_info
+end
+
+def display_stats(stats)
+  stats.each do |label, value|
+    prompt(label, data: value)
+  end
+end
 
 # DISPLAY RESULTS METHODS
 def display_results(user_data)
@@ -292,38 +294,26 @@ end
 
 
 # MAIN PROGRAM LOOP
-system 'clear'
-user_data = {}
+# system 'clear'
+# user_data = {}
 
-welcome_user(user_data)
-display_intro(user_data)
-loop do
-  get_user_inputs(user_data)
-  display_results(user_data)
-  break unless continue?(user_data)
-  reset_loan_info(user_data)
-end
-blank_line
-prompt('goodbye', data: user_data[:name])
+# welcome_user(user_data)
+# display_intro(user_data)
+# loop do
+#   get_user_inputs(user_data)
+#   display_results(user_data)
+#   break unless continue?(user_data)
+#   reset_loan_info(user_data)
+# end
+# blank_line
+# prompt('goodbye', data: user_data[:name])
 
 
 
-# user_data = {
-#   :name=>"Mitch", 
-#   :loan_amount=>10000.0, 
-#   :monthly_rate=>0.008333333333333333, 
-#   :loan_months=>120
-# }
+
 
 
 ### LOAN AMOUNT
-def loan_amount(user_data)
-  system 'clear'
-  prompt('loan_amount_instructions')
-  blank_line
-  get_and_confirm_loan_amount(user_data)
-end
-
 def get_and_confirm_loan_amount(user_data)
   loop do
     loan_amount = get_amount_input(user_data)
@@ -355,15 +345,6 @@ end
 
 
 ### LOAN RATE
-def loan_rate(user_data)
-  system 'clear'
-  display_summary(user_data)
-  blank_line
-  prompt('loan_rate_instructions')
-  blank_line
-  get_and_confirm_loan_rate(user_data)
-end
-
 def get_and_confirm_loan_rate(user_data)
   loop do
     annual_percentage_rate = get_rate_input(user_data)
@@ -398,23 +379,13 @@ end
 
 
 ### LOAN DURATION
-def loan_duration(user_data)
-  system 'clear'
-  display_summary(user_data)
-  blank_line
-  
-  prompt('loan_duration_instructions')
-  blank_line
-  get_and_confirm_loan_duration(user_data)  
-end
-
 def get_and_confirm_loan_duration(user_data)
   loop do
     duration_input = get_duration_input(user_data)
     blank_line
     
     confirmation = confirm_loan_duration(duration_input)
-    loan_duration = (duration_input[0] * 12) + duration_input[1]
+    loan_duration = (duration_input[0] * MONTHS_PER_YEAR) + duration_input[1]
     return loan_duration if confirmation == 'y'
 
     blank_line
@@ -447,3 +418,28 @@ def confirm_loan_duration(duration_input) #####
   prompt('yes_or_no', action: 'print')
   confirmation = gets.chomp.downcase
 end
+
+
+
+
+def loan_info(type, user_data)
+  system 'clear'
+  display_summary(user_data)
+  
+  prompt(type + '_instructions')
+  blank_line
+  get_and_confirm_info(type, user_data)
+end
+
+def get_and_confirm_info(type, user_data)
+  type
+end
+
+user_data = {
+  # :name=>"Mitch", 
+  # :loan_amount=>10000.0, 
+  # :monthly_rate=>0.008333333333333333, 
+  # :loan_months=>120
+}
+
+p loan_info('loan_amount', user_data)
