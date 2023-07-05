@@ -3,6 +3,7 @@ MESSAGES = YAML.load_file('loan_calculator_messages.yml')
 LANGUAGE = 'en'
 
 MONTHS_PER_YEAR = 12
+PERCENT_DIVISOR = 100.0
 
 # GENERAL USE METHODS
 def blank_line(lines = 1)
@@ -72,6 +73,8 @@ end
 #   user_data[:loan_duration] = loan_duration(user_data)
 # end
 
+
+
 # Input Summary Methods
 def display_summary(user_data)
   summary_info = get_summary_info(user_data)
@@ -87,8 +90,8 @@ def get_summary_info(user_data)
   
   summary_info["Loan Amount"] = format_currency(user_data[:loan_amount].to_f) if 
     user_data[:loan_amount]
-  summary_info["APR"] = sprintf('%.2f %%', user_data[:loan_rate].to_f * 100 * 
-    MONTHS_PER_YEAR) if user_data[:loan_rate]
+  summary_info["APR"] = sprintf('%.2f %%', user_data[:loan_rate].to_f * 
+    PERCENT_DIVISOR * MONTHS_PER_YEAR) if user_data[:loan_rate]
   summary_info["Loan Duration"] = "#{years} years" +
     (months == 0 ? "" : " and #{months} months") if user_data[:loan_duration]
   summary_info
@@ -141,7 +144,6 @@ def format_repayment_info(repayment_info)
 end
 
 
-
 # OUTRO
 def continue?(user_data)
   prompt('continue?', data: user_data[:name])
@@ -192,19 +194,13 @@ def loan_info(type, user_data)
   get_and_confirm_info(type, user_data)
 end
 
+
 def get_and_confirm_info(type, user_data)
   loop do
     input = get_input(type, user_data)
     blank_line
     confirmation = confirm_input(type, input)
-    if confirmation == 'y'
-      case type
-      when 'loan_amount' then return input.to_f
-      when 'loan_rate' then return convert_apr_to_monthly(input.to_f)
-      when 'loan_duration' then return convert_to_months(input)
-      end
-    end
-
+    return return_info(type, input) if confirmation == 'y'
     blank_line
     prompt('try_again', data: user_data[:name])
   end
@@ -220,7 +216,6 @@ def get_input(type, user_data)
     prompt('invalid_number', data: user_data[:name])
   end
 end
-
 
 def get_duration_input(user_data)
   years_input = get_sub_duration_input('full years', user_data)
@@ -240,7 +235,6 @@ def get_sub_duration_input(type, user_data)
   end
 end
 
-
 def confirm_input(type, input)
   prompt(type + '_correct?', data: format_input(type, input))
   prompt('yes_or_no', action: 'print')
@@ -254,17 +248,8 @@ def format_input(type, input)
   when 'loan_rate'
     sprintf('%.2f %%', input)
   when 'loan_duration'
-    "#{input[0]} years" + (input[1] == 0 ? "" : " and 
-      #{input[1]} months")
+    "#{input[0]} years" + (input[1] == 0 ? "" : " and #{input[1]} months")
   end
-end
-
-def convert_apr_to_monthly(apr)
-  apr / 100 / MONTHS_PER_YEAR
-end
-
-def convert_to_months(years_and_months)
-  (years_and_months[0] * MONTHS_PER_YEAR) + years_and_months[1]
 end
 
 def format_currency(amount)
@@ -272,6 +257,25 @@ def format_currency(amount)
   with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
   final = with_commas.prepend('$')
 end
+
+def return_info(type, input)
+  case type
+  when 'loan_amount' then input.to_f
+  when 'loan_rate' then convert_apr_to_monthly(input.to_f)
+  when 'loan_duration' then convert_to_months(input)
+  end
+end
+
+def convert_apr_to_monthly(apr)
+  apr / PERCENT_DIVISOR / MONTHS_PER_YEAR
+end
+
+def convert_to_months(years_and_months)
+  (years_and_months[0] * MONTHS_PER_YEAR) + years_and_months[1]
+end
+
+
+
 
 user_data = {
   :name=>"Mitch", 

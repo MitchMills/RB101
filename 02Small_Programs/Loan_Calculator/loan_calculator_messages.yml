@@ -46,7 +46,7 @@ en:
          First enter the number of full years: 8
          Then enter the number of additional months: 6
   loan_duration?: "Please enter the number of %{data}: "
-  loan_duration_correct?: "You entered a loan duration of %{data}, is that correct?"
+  loan_duration_correct?: "You entered a loan duration of %{data}. Is that correct?"
 
   
 
