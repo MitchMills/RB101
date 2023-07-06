@@ -1,32 +1,58 @@
+
+### 5.2 BANNERIZER
+def print_in_box(string)
+  order = ['line', 'side', 'text', 'side', 'line']
+  order.each { |type| print_line(type, string) }
+end
+
+def print_line(type, string)
+  end_character = (type == 'line' ? "+" : "|")
+  padding = (type == 'line' ? "-" : " ")
+  middle = (type == 'text' ? " #{string} ": "#{padding * (string.size + 2)}")
+  puts "#{end_character}#{middle}#{end_character}"
+end
+
+print_in_box('To boldly go where no one has gone before.')
+print_in_box('')
+
+### 4.2 WHAT'S MY BONUS?
+# def calculate_bonus(salary, eligible_for_bonus)
+#   eligible_for_bonus ? (salary / 2.0) : 0
+# end
+
+# p calculate_bonus(2800, true) == 1400
+# p calculate_bonus(1000, false) == 0
+# p calculate_bonus(50000, true) == 25000
+
 ### 3.2 STRINGY STRINGS
-def stringy(length)
-  (1..length).map {|num| num.odd? ? '1' : '0' }.join
-end
+# def stringy(length)
+#   (1..length).map {|num| num.odd? ? '1' : '0' }.join
+# end
 
-def stringy(length, start_number = 1)
-  (1..length).map { |num| num.odd? ? start_number : 1 - start_number }.join
-end
+# def stringy(length, start_number = 1)
+#   (1..length).map { |num| num.odd? ? start_number : 1 - start_number }.join
+# end
 
-def stringy(length, start_number = 1)
-  pattern = [start_number, 1 - start_number]
-  pattern.cycle.first(length).join
-end
+# def stringy(length, start_number = 1)
+#   pattern = [start_number, 1 - start_number]
+#   pattern.cycle.first(length).join
+# end
 
 
-puts stringy(6) == '101010'
-puts stringy(9) == '101010101'
-puts stringy(4) == '1010'
-puts stringy(7) == '1010101'
-puts
-puts stringy(6, 1) == '101010'
-puts stringy(9, 1) == '101010101'
-puts stringy(4, 1) == '1010'
-puts stringy(7, 1) == '1010101'
-puts
-puts stringy(6, 0) == '010101'
-puts stringy(9, 0) == '010101010'
-puts stringy(4, 0) == '0101'
-puts stringy(7, 0) == '0101010'
+# puts stringy(6) == '101010'
+# puts stringy(9) == '101010101'
+# puts stringy(4) == '1010'
+# puts stringy(7) == '1010101'
+# puts
+# puts stringy(6, 1) == '101010'
+# puts stringy(9, 1) == '101010101'
+# puts stringy(4, 1) == '1010'
+# puts stringy(7, 1) == '1010101'
+# puts
+# puts stringy(6, 0) == '010101'
+# puts stringy(9, 0) == '010101010'
+# puts stringy(4, 0) == '0101'
+# puts stringy(7, 0) == '0101010'
 
 ### 2.2 ODD
 # def is_odd?(number)

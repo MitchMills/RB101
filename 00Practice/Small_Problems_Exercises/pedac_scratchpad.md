@@ -1,12 +1,10 @@
 # PROBLEM
-Write a method that takes one argument, a positive integer, and returns a string of alternating 1s and 0s, always starting with 1. The length of the string should match the given integer.
+Write a method that will take a short line of text, and print it within a box.
+You may assume that the input will always fit in your terminal window.
 
-  Input: positive integer
+  Input: string
 
-  Output: string
-    - alternating 1s and 0s
-    - always starts with 1
-    - length matches input integer
+  Output: 5 strings
 
   ## Rules
   ### explicit
@@ -18,17 +16,37 @@ Write a method that takes one argument, a positive integer, and returns a string
 
 
 # EXAMPLES
+print_in_box('To boldly go where no one has gone before.')
++--------------------------------------------+
+|                                            |
+| To boldly go where no one has gone before. |
+|                                            |
++--------------------------------------------+
 
-
+print_in_box('')
++--+
+|  |
+|  |
+|  |
++--+
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- initialize an empty string `output`
-- set a counter to 0
-- iterate `input` number of times:
-  - if counter is even, add a `1`
-  - if index is odd, add a `0`
+- get the length of the input string
+- for the top and bottom lines (1 & 5):
+  - print '+'
+  - print '-' * (string.length + 2)
+  - print '+'
+- for the 2nd and 4th lines:
+  - print '|'
+  - print ' ' * (string.length + 2)
+  - print '|'
+- for the middle line (3):
+  - print '| '
+  - print input string
+  - print ' |'
+
 
 
 
