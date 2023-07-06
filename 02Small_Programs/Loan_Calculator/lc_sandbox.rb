@@ -10,11 +10,10 @@ def blank_line(lines = 1)
   lines.times { puts }
 end
 
-def prompt(key = 'no_message', action: 'puts', data: '', lang: LANGUAGE)
+def prompt(key, action: 'puts', data: '', lang: LANGUAGE)
   message = format(MESSAGES[lang][key], data: data)
   action == 'print' ? print("=> #{message}") : puts("=> #{message}")
 end
-
 
 # INPUT VALIDATION METHODS
 def valid_number?(type = 'number', input)
@@ -37,13 +36,14 @@ def non_negative?(input)
   input.to_f.abs == input.to_f
 end
 
-
 # INTRO METHODS
 def welcome_user(user_data)
   prompt('welcome')
   user_data[:name] = get_name()
   blank_line
   prompt('get_started', data: user_data[:name])
+  blank_line
+  display_intro(user_data)
 end
 
 def get_name
@@ -57,7 +57,6 @@ def get_name
 end
 
 def display_intro(user_data)
-  blank_line
   prompt('intro')
   prompt('needed_info')
   blank_line
@@ -65,17 +64,102 @@ def display_intro(user_data)
   gets
 end
 
-
 # USER INPUT METHODS
-# def get_user_inputs(user_data)
-#   user_data[:loan_amount] = loan_amount(user_data)
-#   user_data[:loan_rate] = loan_rate(user_data)
-#   user_data[:loan_duration] = loan_duration(user_data)
-# end
+def get_user_inputs(user_data)
+  user_data[:loan_amount] = loan_info('loan_amount', user_data)
+  user_data[:loan_rate] = loan_info('loan_rate', user_data)
+  user_data[:loan_duration] = loan_info('loan_duration', user_data)
+end
 
+def loan_info(type, user_data)
+  system 'clear'
+  display_summary(user_data)
+  
+  prompt(type + '_instructions')
+  blank_line
+  get_and_confirm_info(type, user_data)
+end
 
+def get_and_confirm_info(type, user_data)
+  loop do
+    input = get_input(type, user_data)
+    blank_line
+    confirmation = confirm_input(type, input)
+    return format_return_info(type, input) if confirmation == 'y'
+    blank_line
+    prompt('try_again', data: user_data[:name])
+  end
+end
 
-# Input Summary Methods
+def get_input(type, user_data)
+  loop do
+    prompt(type + '?', action: 'print') unless type == 'loan_duration'
+    input = (type == 'loan_duration' ? get_duration_input(user_data) : gets.chomp)
+    return input if type == 'loan_duration' || valid_number?('number', input)
+
+    blank_line
+    prompt('invalid_number', data: user_data[:name])
+  end
+end
+
+def get_duration_input(user_data)
+  years_input = get_subduration_input('full years', user_data)
+  blank_line
+  months_input = get_subduration_input('additional months, if any', user_data)
+  [years_input, months_input]
+end
+
+def get_subduration_input(type, user_data)
+  loop do
+    prompt('loan_duration?', action: 'print', data: type)
+    input = gets.chomp
+    return input.to_i if valid_number?('integer', input)
+
+    blank_line
+    prompt('invalid_number', data: user_data[:name])
+  end
+end
+
+def confirm_input(type, input)
+  prompt(type + '_correct?', data: format_input(type, input))
+  prompt('yes_or_no', action: 'print')
+  gets.chomp.downcase
+end
+
+def format_input(type, input)
+  case type
+  when 'loan_amount'
+    format_currency(input)
+  when 'loan_rate'
+    sprintf('%.2f %%', input)
+  when 'loan_duration'
+    "#{input[0]} years" + (input[1] == 0 ? "" : " and #{input[1]} months")
+  end
+end
+
+def format_currency(amount)
+  basic = sprintf('%.2f', amount).gsub('.00','')
+  with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
+  final = with_commas.prepend('$')
+end
+
+def format_return_info(type, input)
+  case type
+  when 'loan_amount' then input.to_f
+  when 'loan_rate' then convert_apr_to_monthly(input.to_f)
+  when 'loan_duration' then convert_to_months(input)
+  end
+end
+
+def convert_apr_to_monthly(apr)
+  apr / PERCENT_DIVISOR / MONTHS_PER_YEAR
+end
+
+def convert_to_months(years_and_months)
+  (years_and_months[0] * MONTHS_PER_YEAR) + years_and_months[1]
+end
+
+# DISPLAY SUMMARY METHODS
 def display_summary(user_data)
   summary_info = get_summary_info(user_data)
   prompt('loan_information') if user_data.size > 1
@@ -108,7 +192,6 @@ def display_results(user_data)
   system 'clear'
   prompt('summary', data: user_data[:name])
   display_summary(user_data)
-  blank_line
   display_repayment_info(user_data)
   blank_line
 end
@@ -143,7 +226,6 @@ def format_repayment_info(repayment_info)
   end
 end
 
-
 # OUTRO
 def continue?(user_data)
   prompt('continue?', data: user_data[:name])
@@ -158,131 +240,17 @@ def reset_loan_info(user_data)
   end
 end
 
-
 # MAIN PROGRAM LOOP
-# system 'clear'
-# user_data = {}
+system 'clear'
+user_data = {}
 
-# welcome_user(user_data)
-# display_intro(user_data)
-# loop do
-#   get_user_inputs(user_data)
-#   display_results(user_data)
-#   break unless continue?(user_data)
-#   reset_loan_info(user_data)
-# end
-# blank_line
-# prompt('goodbye', data: user_data[:name])
-
-
-
-
-
-####################################
-def get_user_inputs(user_data)
-  user_data[:loan_amount] = loan_info('loan_amount', user_data)
-  user_data[:loan_rate] = loan_info('loan_rate', user_data)
-  user_data[:loan_duration] = loan_info('loan_duration', user_data)
+welcome_user(user_data)
+loop do
+  get_user_inputs(user_data)
+  display_results(user_data)
+  break unless continue?(user_data)
+  reset_loan_info(user_data)
 end
 
-def loan_info(type, user_data)
-  system 'clear'
-  display_summary(user_data)
-  
-  prompt(type + '_instructions')
-  blank_line
-  get_and_confirm_info(type, user_data)
-end
-
-
-def get_and_confirm_info(type, user_data)
-  loop do
-    input = get_input(type, user_data)
-    blank_line
-    confirmation = confirm_input(type, input)
-    return return_info(type, input) if confirmation == 'y'
-    blank_line
-    prompt('try_again', data: user_data[:name])
-  end
-end
-
-def get_input(type, user_data)
-  loop do
-    prompt(type + '?', action: 'print') unless type == 'loan_duration'
-    input = (type == 'loan_duration' ? get_duration_input(user_data) : gets.chomp)
-    return input if type == 'loan_duration' || valid_number?('number', input)
-
-    blank_line
-    prompt('invalid_number', data: user_data[:name])
-  end
-end
-
-def get_duration_input(user_data)
-  years_input = get_sub_duration_input('full years', user_data)
-  blank_line
-  months_input = get_sub_duration_input('additional months, if any', user_data)
-  [years_input, months_input]
-end
-
-def get_sub_duration_input(type, user_data)
-  loop do
-    prompt('loan_duration?', action: 'print', data: type)
-    input = gets.chomp
-    return input.to_i if valid_number?('integer', input)
-
-    blank_line
-    prompt('invalid_number', data: user_data[:name])
-  end
-end
-
-def confirm_input(type, input)
-  prompt(type + '_correct?', data: format_input(type, input))
-  prompt('yes_or_no', action: 'print')
-  gets.chomp.downcase
-end
-
-def format_input(type, input)
-  case type
-  when 'loan_amount'
-    format_currency(input)
-  when 'loan_rate'
-    sprintf('%.2f %%', input)
-  when 'loan_duration'
-    "#{input[0]} years" + (input[1] == 0 ? "" : " and #{input[1]} months")
-  end
-end
-
-def format_currency(amount)
-  basic = sprintf('%.2f', amount).gsub('.00','')
-  with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
-  final = with_commas.prepend('$')
-end
-
-def return_info(type, input)
-  case type
-  when 'loan_amount' then input.to_f
-  when 'loan_rate' then convert_apr_to_monthly(input.to_f)
-  when 'loan_duration' then convert_to_months(input)
-  end
-end
-
-def convert_apr_to_monthly(apr)
-  apr / PERCENT_DIVISOR / MONTHS_PER_YEAR
-end
-
-def convert_to_months(years_and_months)
-  (years_and_months[0] * MONTHS_PER_YEAR) + years_and_months[1]
-end
-
-
-
-
-user_data = {
-  :name=>"Mitch", 
-  # :loan_amount=>10000.0, 
-  # :loan_rate=>0.008333333333333333, ####### WORK ON APR
-  # :loan_duration=>120
-}
-
-get_user_inputs(user_data)
-p user_data
+blank_line
+prompt('goodbye', data: user_data[:name])

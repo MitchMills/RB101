@@ -1,5 +1,4 @@
 en:
-  no_message: "hi"
   welcome: "Welcome to the Loan Calculator!"
   enter_name: "Please enter your name: "
   name_error: "You didn't enter anything."
@@ -28,14 +27,13 @@ en:
 
   loan_rate_instructions: |
     ANNUAL PERCENTAGE RATE
-       For the annual percentage rate (APR), enter only numbers (and
-       a decimal place if necessary).
+       For the annual percentage rate (APR), enter only numbers (and a
+       decimal place if necessary).
        For example, if your APR is 7.4 %%, enter that as: 7.4
   loan_rate?: "Please enter your annual percentage rate: "
   loan_rate_correct?: "You entered an APR of %{data}. Is that correct?"
   loan_rate: "APR: %{data}"
 
-  
   loan_duration_instructions: |
     LOAN DURATION
        For the loan duration, enter only whole numbers.
@@ -47,8 +45,6 @@ en:
          Then enter the number of additional months: 6
   loan_duration?: "Please enter the number of %{data}: "
   loan_duration_correct?: "You entered a loan duration of %{data}. Is that correct?"
-
-  
 
   summary: "Okay %{data}, given these terms:"
   loan_information: "LOAN INFORMATION"
@@ -71,5 +67,5 @@ en:
 
 
 
-  monthly_rate: "monthly rate %{data}"
-  loan_months: "loan months %{data}"
+  # monthly_rate: "monthly rate %{data}"
+  # loan_months: "loan months %{data}"
