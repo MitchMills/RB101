@@ -2,41 +2,48 @@
 ### 5.2 BANNERIZER
 # Basic Solutioin
 # def print_in_box(string)
-#   order = ['line', 'side', 'text', 'side', 'line']
-#   order.each { |type| print_line(type, string) }
+#   pattern = ['line', 'side', 'text', 'side', 'line']
+#   pattern.each { |line_type| print_line(line_type, string) }
 # end
 
-# def print_line(type, string)
-#   end_character = (type == 'line' ? "+" : "|")
-#   padding = (type == 'line' ? "-" : " ")
-#   middle = (type == 'text' ? " #{string} ": "#{padding * (string.size + 2)}")
+# def print_line(line_type, string)
+#   end_character = (line_type == 'line' ? "+" : "|")
+#   padding = (line_type == 'line' ? "-" : " ")
+#   middle = (line_type == 'text' ? " #{string} ": "#{padding * (string.size + 2)}")
 #   puts "#{end_character}#{middle}#{end_character}"
 # end
 
 # Further Exploration
-WRAP_POINT = 76 # 80 minus two characters before and two after for box
+WRAP_POINT = 76 # 80 minus two characters before and two characters after for box
 TRUNCATE_POINT = 73 # 76 minus three characters for ellipsis (...)
 
 def print_in_box(string, action = 'truncate')
-  order = get_order(string, action)
-  order.each { |type| print_line(string, type) }
+  pattern = get_pattern(string, action)
+  pattern.each { |line_type| print_line(string, action, line_type) }
 end
 
-def get_order(string, action)
-  order = get_wrapped_order(string) if action == 'wrap'
+def get_pattern(string, action)
+  return get_wrapped_pattern(string) if action == 'wrap'
   ['line', 'side', 'text', 'side', 'line']
 end
 
-def get_wrapped_order(string)
+def get_wrapped_pattern(string)
   
 end
 
-def print_line(string, type)
-  end_character = (type == 'line' ? "+" : "|")
-  padding = (type == 'line' ? "-" : " ")
-  middle = (type == 'text' ? " #{string} " : "#{padding * (string.size + 2)}")
+def print_line(string, action, line_type)
+  end_character = (line_type == 'line' ? "+" : "|")
+  padding = (line_type == 'line' ? "-" : " ")
+  substring = get_substring(string, action)
+  middle = (line_type == 'text' ? " #{substring} " : "#{padding * (substring.size + 2)}")
 
   puts "#{end_character}#{middle}#{end_character}"
+end
+
+def get_substring(string, action)
+  break_point = find_spaces(string, action).last
+  return string[0...break_point] + "..." if action == 'truncate'
+  
 end
 
 def wrap_line(string)
@@ -53,7 +60,7 @@ def find_spaces(string, action)
 end
 
 string = "the quick brown fox jumps over the lazy dog now is the time for all good men to come to the aid of their country"
-p wrap_line(string)
+p print_in_box(string)
 
 
 ### 4.2 WHAT'S MY BONUS?
