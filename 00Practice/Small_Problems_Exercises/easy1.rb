@@ -12,8 +12,17 @@ def print_line(type, string)
   puts "#{end_character}#{middle}#{end_character}"
 end
 
-print_in_box('To boldly go where no one has gone before.')
-print_in_box('')
+def find_spaces(string)
+  string.each_char.with_index.filter_map do |char, idx|
+    idx if char == " "
+  end
+end
+
+string = "the quick brown fox"
+p find_spaces(string)
+
+# print_in_box('To boldly go where no one has gone before.')
+# print_in_box('')
 
 ### 4.2 WHAT'S MY BONUS?
 # def calculate_bonus(salary, eligible_for_bonus)

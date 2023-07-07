@@ -4,7 +4,7 @@ You may assume that the input will always fit in your terminal window.
 
   Input: string
 
-  Output: 5 strings
+  Output: 5 or more strings
 
   ## Rules
   ### explicit
@@ -30,23 +30,27 @@ print_in_box('')
 |  |
 +--+
 # DATA STRUCTURES
-
+characters: 1..80
+indexes:    0..79
+spacing: 4
+ellipses: 3
+79 - 4 - 3 = 72
+1 2| 3 4 5 |6 7 8 |9 10
+     0 1 2  3 4 5
 
 # ALGORITHM
-- get the length of the input string
-- for the top and bottom lines (1 & 5):
-  - print '+'
-  - print '-' * (string.length + 2)
-  - print '+'
-- for the 2nd and 4th lines:
-  - print '|'
-  - print ' ' * (string.length + 2)
-  - print '|'
-- for the middle line (3):
-  - print '| '
-  - print input string
-  - print ' |'
+- If string length is less than 73 characters,
+  - print as usual
+- If string length is greater than 73 characters
+  - find all spaces in the string, and store their indexes
 
+  - if action is to TRUNCATE:
+    - find the last space index that is less than 73
+    - print the string up to that index plus "..."
+  - if action is to WRAP:
+    - find the last space index that is less than 76
+    - print the string up to that word
+    - repeat with remainder as many times as necessary
 
 
 
