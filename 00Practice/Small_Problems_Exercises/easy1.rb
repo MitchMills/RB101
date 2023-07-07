@@ -19,16 +19,16 @@ TRUNCATE_POINT = 73 # 76 minus three characters for ellipsis (...)
 
 def print_in_box(string, action = 'truncate')
   order = get_order(string, action)
-  order.each { |type| print_line(type, string) }
+  order.each { |type| print_line(string, type) }
 end
 
 def get_order(string, action)
-  break_point = (action == 'truncate' ? TRUNCATE_POINT : WRAP_POINT)
-  order = if string.size <= break_point
-            ['line', 'side', 'text', 'side', 'line']
-          else
-            
-          end
+  order = get_wrapped_order(string) if action == 'wrap'
+  ['line', 'side', 'text', 'side', 'line']
+end
+
+def get_wrapped_order(string)
+  
 end
 
 def print_line(string, type)
@@ -41,7 +41,7 @@ end
 
 def wrap_line(string)
   break_point = find_spaces(string, 'wrap').last
-  line = string[0..break_point]
+  line = string[0...break_point]
   
 end
 
@@ -53,7 +53,7 @@ def find_spaces(string, action)
 end
 
 string = "the quick brown fox jumps over the lazy dog now is the time for all good men to come to the aid of their country"
-p wrap_string(string)
+p wrap_line(string)
 
 
 ### 4.2 WHAT'S MY BONUS?
