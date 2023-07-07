@@ -1,4 +1,5 @@
 
+
 ### 5.2 BANNERIZER
 # Basic Solutioin
 # def print_in_box(string)
@@ -14,8 +15,8 @@
 # end
 
 # Further Exploration
-WRAP_POINT = 76 # 80 minus two characters before and two characters after for box
-TRUNCATE_POINT = 73 # 76 minus three characters for ellipsis (...)
+WRAP_LIMIT = 76 # 80 minus two characters before and two characters after for box
+TRUNCATE_LIMIT = 73 # 76 minus three characters for ellipsis (...)
 
 def print_in_box(string, action = 'truncate') # maybe default should be 'wrap'
   pattern = get_pattern(string, action)
@@ -23,46 +24,41 @@ def print_in_box(string, action = 'truncate') # maybe default should be 'wrap'
 end
 
 def get_pattern(string, action)
-  return get_wrapped_pattern(string) if action == 'wrap'
-  ['line', 'side', 'text', 'side', 'line']
-end
-
-def get_wrapped_pattern(string)
-  
+  pattern = ['line', 'side']
+  lines = (action == 'truncate' ? 1 : (string.size / WRAP_LIMIT.to_f).ceil)
+  lines.times { pattern << 'text' }
+  pattern += ['side', 'line']
 end
 
 def print_line(string, action, line_type)
   end_character = (line_type == 'line' ? "+" : "|")
   padding = (line_type == 'line' ? "-" : " ")
   substring = get_substring(string, action)
-
-  middle = (line_type == 'text' ? " #{substring} " : "#{padding * (substring.size + 2)}")
+  # how to get different lines of 'text' for wrapped?
+  middle = (line_type == 'text' ? " #{substring} " : 
+                                  "#{padding * (substring.size + 2)}") # may have uneven lines
 
   puts "#{end_character}#{middle}#{end_character}"
 end
 
 def get_substring(string, action)
+  return string unless string.size > WRAP_LIMIT
+  
   break_point = find_spaces(string, action).last
-  # need to account for non-truncated lines
   return string[0...break_point] + "..." if action == 'truncate'
   
-end
-
-def wrap_line(string)
-  break_point = find_spaces(string, 'wrap').last
-  line = string[0...break_point]
-  
+  string[0..break_point]
 end
 
 def find_spaces(string, action)
-  break_point = (action == 'truncate' ? TRUNCATE_POINT : WRAP_POINT)
+  break_limit = (action == 'truncate' ? TRUNCATE_LIMIT : WRAP_LIMIT)
   string.each_char.with_index.filter_map do |char, idx|
-    idx if char == " " && idx <= break_point
+    idx if char == " " && idx <= break_limit
   end
 end
 
 string = "the quick brown fox jumps over the lazy dog now is the time for all good men to come to the aid of their country"
-p print_in_box(string)
+print_in_box(string)
 
 
 ### 4.2 WHAT'S MY BONUS?
