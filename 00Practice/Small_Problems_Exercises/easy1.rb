@@ -18,7 +18,7 @@
 WRAP_LIMIT = 76 # 80 minus two characters before and two characters after for box
 TRUNCATE_LIMIT = 73 # 76 minus three characters for ellipsis (...)
 
-def print_in_box(string, action = 'truncate') # maybe default should be 'wrap'
+def print_in_box(string, action = 'truncate')
   pattern = get_pattern(string, action)
   pattern.each { |line_type| print_line(string, action, line_type) }
 end
@@ -33,21 +33,21 @@ end
 def print_line(string, action, line_type)
   end_character = (line_type == 'line' ? "+" : "|")
   padding = (line_type == 'line' ? "-" : " ")
-  substring = get_substring(string, action)
+  string = get_string(string, action)
   # how to get different lines of 'text' for wrapped?
-  middle = (line_type == 'text' ? " #{substring} " : 
-                                  "#{padding * (substring.size + 2)}") # may have uneven lines
+  middle = (line_type == 'text' ? " #{string} " : 
+                                  "#{padding * (string.size + 2)}") # may have uneven lines
 
   puts "#{end_character}#{middle}#{end_character}"
 end
 
-def get_substring(string, action)
-  return string unless string.size > WRAP_LIMIT
+def get_string(string, action)
+  return [string] unless string.size > WRAP_LIMIT
   
   break_point = find_spaces(string, action).last
-  return string[0...break_point] + "..." if action == 'truncate'
-  
-  string[0..break_point]
+  return [string[0...break_point] + "..."] if action == 'truncate'
+
+  get_wrapped_strings(string)
 end
 
 def find_spaces(string, action)
@@ -57,8 +57,25 @@ def find_spaces(string, action)
   end
 end
 
+
+# TODO deal with leading and trailing spaces
+def get_wrapped_strings(string)
+  lines = (string.size / WRAP_LIMIT.to_f).ceil
+
+  lines.times.with_object([]) do |_, strings|
+    break_point = (string.size < WRAP_LIMIT ? -1 : 
+      find_spaces(string, 'wrap').last)
+    substring = string[0..break_point]
+    strings << substring
+    string = string[break_point..-1]
+    p string
+  end
+end
+
+
+
 string = "the quick brown fox jumps over the lazy dog now is the time for all good men to come to the aid of their country"
-print_in_box(string)
+p get_string(string, 'wrap')
 
 
 ### 4.2 WHAT'S MY BONUS?
