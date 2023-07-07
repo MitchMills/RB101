@@ -47,6 +47,7 @@ ellipses: 3
   - if action is to TRUNCATE:
     - find the last space index that is less than 73
     - print the string up to that index plus "..."
+    
   - if action is to WRAP:
     - find the last space index that is less than 76
     - print the string up to that word

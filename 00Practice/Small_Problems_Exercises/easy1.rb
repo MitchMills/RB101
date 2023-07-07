@@ -1,28 +1,60 @@
 
 ### 5.2 BANNERIZER
-def print_in_box(string)
-  order = ['line', 'side', 'text', 'side', 'line']
+# Basic Solutioin
+# def print_in_box(string)
+#   order = ['line', 'side', 'text', 'side', 'line']
+#   order.each { |type| print_line(type, string) }
+# end
+
+# def print_line(type, string)
+#   end_character = (type == 'line' ? "+" : "|")
+#   padding = (type == 'line' ? "-" : " ")
+#   middle = (type == 'text' ? " #{string} ": "#{padding * (string.size + 2)}")
+#   puts "#{end_character}#{middle}#{end_character}"
+# end
+
+# Further Exploration
+WRAP_POINT = 76 # 80 minus two characters before and two after for box
+TRUNCATE_POINT = 73 # 76 minus three characters for ellipsis (...)
+
+def print_in_box(string, action = 'truncate')
+  order = get_order(string, action)
   order.each { |type| print_line(type, string) }
 end
 
-def print_line(type, string)
+def get_order(string, action)
+  break_point = (action == 'truncate' ? TRUNCATE_POINT : WRAP_POINT)
+  order = if string.size <= break_point
+            ['line', 'side', 'text', 'side', 'line']
+          else
+            
+          end
+end
+
+def print_line(string, type)
   end_character = (type == 'line' ? "+" : "|")
   padding = (type == 'line' ? "-" : " ")
-  middle = (type == 'text' ? " #{string} ": "#{padding * (string.size + 2)}")
+  middle = (type == 'text' ? " #{string} " : "#{padding * (string.size + 2)}")
+
   puts "#{end_character}#{middle}#{end_character}"
 end
 
-def find_spaces(string)
+def wrap_line(string)
+  break_point = find_spaces(string, 'wrap').last
+  line = string[0..break_point]
+  
+end
+
+def find_spaces(string, action)
+  break_point = (action == 'truncate' ? TRUNCATE_POINT : WRAP_POINT)
   string.each_char.with_index.filter_map do |char, idx|
-    idx if char == " "
+    idx if char == " " && idx <= break_point
   end
 end
 
-string = "the quick brown fox"
-p find_spaces(string)
+string = "the quick brown fox jumps over the lazy dog now is the time for all good men to come to the aid of their country"
+p wrap_string(string)
 
-# print_in_box('To boldly go where no one has gone before.')
-# print_in_box('')
 
 ### 4.2 WHAT'S MY BONUS?
 # def calculate_bonus(salary, eligible_for_bonus)
