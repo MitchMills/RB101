@@ -50,8 +50,10 @@ ellipses: 3
     
   - if action is to WRAP:
     - find the last space index that is less than 76
-    - print the string up to that word
-    - repeat with remainder as many times as necessary
+    - print the substring from index 0 up to that index
+    - subtract that substring from the original string
+    - find all spaces in the remaining string
+    - repeat as many times as necessary
 
 
 

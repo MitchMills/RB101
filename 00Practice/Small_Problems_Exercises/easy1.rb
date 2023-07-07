@@ -17,7 +17,7 @@
 WRAP_POINT = 76 # 80 minus two characters before and two characters after for box
 TRUNCATE_POINT = 73 # 76 minus three characters for ellipsis (...)
 
-def print_in_box(string, action = 'truncate')
+def print_in_box(string, action = 'truncate') # maybe default should be 'wrap'
   pattern = get_pattern(string, action)
   pattern.each { |line_type| print_line(string, action, line_type) }
 end
@@ -35,6 +35,7 @@ def print_line(string, action, line_type)
   end_character = (line_type == 'line' ? "+" : "|")
   padding = (line_type == 'line' ? "-" : " ")
   substring = get_substring(string, action)
+
   middle = (line_type == 'text' ? " #{substring} " : "#{padding * (substring.size + 2)}")
 
   puts "#{end_character}#{middle}#{end_character}"
@@ -42,6 +43,7 @@ end
 
 def get_substring(string, action)
   break_point = find_spaces(string, action).last
+  # need to account for non-truncated lines
   return string[0...break_point] + "..." if action == 'truncate'
   
 end
