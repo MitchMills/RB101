@@ -1,5 +1,4 @@
 
-
 ### 5.2 BANNERIZER
 # Basic Solutioin
 # def print_in_box(string)
@@ -33,21 +32,26 @@ end
 def print_line(string, action, line_type)
   end_character = (line_type == 'line' ? "+" : "|")
   padding = (line_type == 'line' ? "-" : " ")
-  string = get_string(string, action)
-  # how to get different lines of 'text' for wrapped?
-  middle = (line_type == 'text' ? " #{string} " : 
-                                  "#{padding * (string.size + 2)}") # may have uneven lines
 
-  puts "#{end_character}#{middle}#{end_character}"
+
+  text_lines = get_text_lines(string, action)
+  line_length = text_lines.sort.first.size
+  
+  text_lines.each do |substring|
+    spaces = line_length - substring.size
+    line = (line_type == 'text' ? " #{substring}#{" " * spaces} " : "#{padding * (line_length + 2)}")
+
+    puts "#{end_character}#{line}#{end_character}"
+  end
 end
 
-def get_string(string, action)
+def get_text_lines(string, action)
   return [string] unless string.size > WRAP_LIMIT
   
   break_point = find_spaces(string, action).last
   return [string[0...break_point] + "..."] if action == 'truncate'
 
-  get_wrapped_strings(string)
+  get_wrapped_lines(string)
 end
 
 def find_spaces(string, action)
@@ -57,25 +61,18 @@ def find_spaces(string, action)
   end
 end
 
+def get_wrapped_lines(string)
+  number_of_lines = (string.size / WRAP_LIMIT.to_f).ceil
 
-# TODO deal with leading and trailing spaces
-def get_wrapped_strings(string)
-  lines = (string.size / WRAP_LIMIT.to_f).ceil
-
-  lines.times.with_object([]) do |_, strings|
-    break_point = (string.size < WRAP_LIMIT ? -1 : 
-      find_spaces(string, 'wrap').last)
-    substring = string[0..break_point]
-    strings << substring
+  number_of_lines.times.with_object([]) do |_, strings|
+    break_point = (string.size < WRAP_LIMIT ? -1 : find_spaces(string, 'wrap').last)
+    strings << string[0..break_point].strip
     string = string[break_point..-1]
-    p string
   end
 end
 
-
-
 string = "the quick brown fox jumps over the lazy dog now is the time for all good men to come to the aid of their country"
-p get_string(string, 'wrap')
+print_line(string, 'wrap', 'text')
 
 
 ### 4.2 WHAT'S MY BONUS?
