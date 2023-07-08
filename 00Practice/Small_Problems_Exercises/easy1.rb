@@ -1,6 +1,6 @@
 
 ### 5.2 BANNERIZER
-# Basic Solutioin
+# Basic Solution
 # def print_in_box(string)
 #   pattern = ['line', 'side', 'text', 'side', 'line']
 #   pattern.each { |line_type| print_line(line_type, string) }
@@ -13,66 +13,87 @@
 #   puts "#{end_character}#{middle}#{end_character}"
 # end
 
+# string = "The quick brown fox"
+# print_in_box(string)
+
 # Further Exploration
-WRAP_LIMIT = 76 # 80 minus two characters before and two characters after for box
+WRAP_LIMIT = 76 # Max line length 80 minus two characters before and two characters after for box sides
 TRUNCATE_LIMIT = 73 # 76 minus three characters for ellipsis (...)
+PATTERN = %w(line side text side line)
 
 def print_in_box(string, action = 'truncate')
-  pattern = get_pattern(string, action)
-  pattern.each { |line_type| print_line(string, action, line_type) }
-end
-
-def get_pattern(string, action)
-  pattern = ['line', 'side']
-  lines = (action == 'truncate' ? 1 : (string.size / WRAP_LIMIT.to_f).ceil)
-  lines.times { pattern << 'text' }
-  pattern += ['side', 'line']
+  PATTERN.each { |line_type| print_line(string, action, line_type) }
 end
 
 def print_line(string, action, line_type)
   end_character = (line_type == 'line' ? "+" : "|")
   padding = (line_type == 'line' ? "-" : " ")
 
-
   text_lines = get_text_lines(string, action)
-  line_length = text_lines.sort.first.size
-  
-  text_lines.each do |substring|
-    spaces = line_length - substring.size
-    line = (line_type == 'text' ? " #{substring}#{" " * spaces} " : "#{padding * (line_length + 2)}")
+  line_length = text_lines.max { |a, b| a.size <=> b.size }.size
 
-    puts "#{end_character}#{line}#{end_character}"
+  if line_type == 'text'
+    display_text_lines(text_lines, line_length)
+  else
+    puts end_character + "#{padding * (line_length + 2)}" + end_character
   end
 end
 
 def get_text_lines(string, action)
   return [string] unless string.size > WRAP_LIMIT
   
-  break_point = find_spaces(string, action).last
+  break_limit = (action == 'truncate' ? TRUNCATE_LIMIT : WRAP_LIMIT)
+  break_point = find_spaces(string, break_limit).last || break_limit # if no spaces in string, find_spaces returns nil
   return [string[0...break_point] + "..."] if action == 'truncate'
 
   get_wrapped_lines(string)
 end
 
-def find_spaces(string, action)
-  break_limit = (action == 'truncate' ? TRUNCATE_LIMIT : WRAP_LIMIT)
+def find_spaces(string, break_limit)
   string.each_char.with_index.filter_map do |char, idx|
-    idx if char == " " && idx <= break_limit
+    idx if (char == " ") && (idx <= break_limit)
   end
 end
+
+
 
 def get_wrapped_lines(string)
-  number_of_lines = (string.size / WRAP_LIMIT.to_f).ceil
+  wrapped_lines = []
+  loop do
+    break_point = (string.size < WRAP_LIMIT ? -1 : 
+      (find_spaces(string, WRAP_LIMIT).last || WRAP_LIMIT))
 
-  number_of_lines.times.with_object([]) do |_, strings|
-    break_point = (string.size < WRAP_LIMIT ? -1 : find_spaces(string, 'wrap').last)
-    strings << string[0..break_point].strip
+    wrapped_lines << string[0..break_point].strip
     string = string[break_point..-1]
+    break if string.size == 1
+  end
+  wrapped_lines
+end
+
+
+
+def display_text_lines(text_lines, line_length)
+  text_lines.each do |substring|
+    spaces = line_length - substring.size
+    puts "| #{substring}#{" " * spaces} |"
   end
 end
 
-string = "the quick brown fox jumps over the lazy dog now is the time for all good men to come to the aid of their country"
-print_line(string, 'wrap', 'text')
+# string = "the quick brown fox jumps over the lazy dog"
+string = 
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod" +
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim" + 
+"veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea" + 
+"commodo consequat. Duis aute irure dolor in reprehenderit in voluptate" + 
+"velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat" + 
+"cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id" + 
+"est laborum."
+
+puts get_wrapped_lines(string)
+
+# string = "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+# print_in_box(string, 'truncate')
+# print_in_box(string, 'wrap')
 
 
 ### 4.2 WHAT'S MY BONUS?
