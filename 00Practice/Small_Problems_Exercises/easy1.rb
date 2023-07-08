@@ -1,4 +1,50 @@
-### 6.2
+### 6.2 RIGHT TRIANGLES
+# def triangle(size)
+#   stars = 1
+#   loop do
+#     puts "#{' ' * (size - stars)}#{'*' * stars}"
+#     stars += 1
+#     break if stars > size
+#   end
+# end
+
+# def triangle(size)
+#   stars = 1
+#   loop do
+#     puts ("*" * stars).rjust(size)
+#     stars += 1
+#     break if stars > size
+#   end
+# end
+
+# def triangle(size)
+#   (1..size).each do |stars|
+#     puts ("*" * stars).rjust(size)
+#   end
+# end
+
+# FE one-liner DANIEL CHAE
+# def triangle(n, o = 0)
+#   n.times { |i| puts ("*" * (o < 2 ? (n - i) : i + 1)).rjust(o.odd? ? n : 0).ljust(o.odd? ? 0 : n) }
+# end
+
+def triangle(size, orientation = 0)
+  size.times do |num|
+    stars = (orientation < 2 ? (size - num) : num + 1)
+    rjust_amount = orientation.odd? ? size : 0
+    ljust_amount = orientation.odd? ? 0 : size
+    puts ("*" * stars).rjust(rjust_amount).ljust(ljust_amount) 
+  end
+end
+
+# test
+4.times do |orientation|
+  puts "Orientation ##{orientation}\n\n"
+  triangle(5, orientation)
+  puts
+end
+
+# triangle(5)
 
 
 ### 5.2 BANNERIZER
@@ -92,8 +138,10 @@
 
 # string = "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
 
-print_in_box(string, 'truncate')
-print_in_box(string, 'wrap')
+# p string
+# print_in_box(string, 'truncate')
+# print_in_box(string, 'wrap')
+# p string
 
 
 ### 4.2 WHAT'S MY BONUS?
