@@ -1,3 +1,5 @@
+### 6.2
+
 
 ### 5.2 BANNERIZER
 # Basic Solution
@@ -17,83 +19,81 @@
 # print_in_box(string)
 
 # Further Exploration
-WRAP_LIMIT = 76 # Max line length 80 minus two characters before and two characters after for box sides
-TRUNCATE_LIMIT = 73 # 76 minus three characters for ellipsis (...)
-PATTERN = %w(line side text side line)
+# WRAP_LIMIT = 76 # Max line length 80 minus two characters before and two characters after for box sides
+# TRUNCATE_LIMIT = 73 # 76 minus three characters for ellipsis (...)
+# PATTERN = %w(line side text side line)
 
-def print_in_box(string, action = 'truncate')
-  PATTERN.each { |line_type| print_line(string, action, line_type) }
-end
+# def print_in_box(string, action = 'truncate')
+#   PATTERN.each { |line_type| print_line(string.strip, action, line_type) }
+# end
 
-def print_line(string, action, line_type)
-  end_character = (line_type == 'line' ? "+" : "|")
-  padding = (line_type == 'line' ? "-" : " ")
+# def print_line(string, action, line_type)
+#   text_lines = get_text_lines(string, action)
+#   line_length = text_lines.max { |a, b| a.size <=> b.size }.size
 
-  text_lines = get_text_lines(string, action)
-  line_length = text_lines.max { |a, b| a.size <=> b.size }.size
+#   if line_type == 'text'
+#     display_text_lines(text_lines, line_length)
+#   else
+#     display_line(line_type, line_length)
+#   end
+# end
 
-  if line_type == 'text'
-    display_text_lines(text_lines, line_length)
-  else
-    puts end_character + "#{padding * (line_length + 2)}" + end_character
-  end
-end
-
-def get_text_lines(string, action)
-  return [string] unless string.size > WRAP_LIMIT
+# def get_text_lines(string, action)
+#   return [string] unless string.size > WRAP_LIMIT
   
-  break_limit = (action == 'truncate' ? TRUNCATE_LIMIT : WRAP_LIMIT)
-  break_point = find_spaces(string, break_limit).last || break_limit # if no spaces in string, find_spaces returns nil
-  return [string[0...break_point] + "..."] if action == 'truncate'
+#   break_limit = (action == 'truncate' ? TRUNCATE_LIMIT : WRAP_LIMIT)
+#   break_point = find_spaces(string, break_limit).last || break_limit # if no spaces in string, find_spaces returns nil
+#   return [string[0...break_point] + "..."] if action == 'truncate'
 
-  get_wrapped_lines(string)
-end
+#   get_wrapped_lines(string)
+# end
 
-def find_spaces(string, break_limit)
-  string.each_char.with_index.filter_map do |char, idx|
-    idx if (char == " ") && (idx <= break_limit)
-  end
-end
+# def find_spaces(string, break_limit)
+#   string.each_char.with_index.filter_map do |char, idx|
+#     idx if (char == " ") && (idx <= break_limit)
+#   end
+# end
 
+# def get_wrapped_lines(string)
+#   wrapped_lines = []
+#   loop do
+#     last_space = find_spaces(string, WRAP_LIMIT).last || WRAP_LIMIT # if no spaces in string, find_spaces returns nil
+#     break_point = (string.size < WRAP_LIMIT ? -1 : last_space - 1)
+#     wrapped_lines << string[0..break_point].strip
+#     break if string.size < WRAP_LIMIT
+#     string = string[(break_point + 1)..-1]
+#   end
+#   wrapped_lines
+# end
 
+# def display_text_lines(text_lines, line_length)
+#   text_lines.each do |substring|
+#     spaces = line_length - substring.size
+#     puts "| #{substring}#{" " * spaces} |"
+#   end
+# end
 
-def get_wrapped_lines(string)
-  wrapped_lines = []
-  loop do
-    break_point = (string.size < WRAP_LIMIT ? -1 : 
-      (find_spaces(string, WRAP_LIMIT).last || WRAP_LIMIT))
-
-    wrapped_lines << string[0..break_point].strip
-    string = string[break_point..-1]
-    break if string.size == 1
-  end
-  wrapped_lines
-end
-
-
-
-def display_text_lines(text_lines, line_length)
-  text_lines.each do |substring|
-    spaces = line_length - substring.size
-    puts "| #{substring}#{" " * spaces} |"
-  end
-end
+# def display_line(line_type, line_length)
+#   end_character = (line_type == 'line' ? "+" : "|")
+#   padding = (line_type == 'line' ? "-" : " ")
+#   puts end_character + "#{padding * (line_length + 2)}" + end_character
+# end
 
 # string = "the quick brown fox jumps over the lazy dog"
-string = 
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod" +
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim" + 
-"veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea" + 
-"commodo consequat. Duis aute irure dolor in reprehenderit in voluptate" + 
-"velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat" + 
-"cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id" + 
-"est laborum."
 
-puts get_wrapped_lines(string)
+# string = 
+# "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
+# "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim " + 
+# "veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea " + 
+# "commodo consequat. Duis aute irure dolor in reprehenderit in voluptate " + 
+# "velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat " + 
+# "cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id " + 
+# "est laborum."
 
 # string = "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
-# print_in_box(string, 'truncate')
-# print_in_box(string, 'wrap')
+
+print_in_box(string, 'truncate')
+print_in_box(string, 'wrap')
 
 
 ### 4.2 WHAT'S MY BONUS?
