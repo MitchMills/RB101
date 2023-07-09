@@ -1,3 +1,11 @@
+def test(b)
+  b.map! { |letter| "I like #{letter}" }
+end
+
+a = ['a', 'b', 'c']
+a = test(a)
+p a
+
 ### 6.2 RIGHT TRIANGLES
 # def triangle(size)
 #   stars = 1
@@ -38,11 +46,11 @@ def triangle(size, orientation = 0)
 end
 
 # test
-4.times do |orientation|
-  puts "Orientation ##{orientation}\n\n"
-  triangle(5, orientation)
-  puts
-end
+# 4.times do |orientation|
+#   puts "Orientation ##{orientation}\n\n"
+#   triangle(5, orientation)
+#   puts
+# end
 
 # triangle(5)
 
