@@ -1,27 +1,23 @@
 
 
 ### 6.2 RIGHT TRIANGLES
-# def triangle(size)
-#   stars = 1
-#   loop do
-#     puts "#{' ' * (size - stars)}#{'*' * stars}"
-#     stars += 1
-#     break if stars > size
-#   end
-# end
-
-# def triangle(size)
-#   stars = 1
-#   loop do
-#     puts ("*" * stars).rjust(size)
-#     stars += 1
-#     break if stars > size
-#   end
-# end
-
+# # Initial Solution
 # def triangle(size)
 #   (1..size).each do |stars|
 #     puts ("*" * stars).rjust(size)
+#   end
+# end
+
+# triangle(5)
+
+# Further Exploration 1.0
+# def triangle(size, vertical = 'bottom', horizontal = 'right')
+#   size.times do |num|
+#     stars = (vertical == 'top' ? size - num : num + 1)
+#     spaces = (vertical == 'top' ? num : size - stars)
+#     characters = ['*' * stars, ' ' * spaces]
+#     first = horizontal == 'left' ? 0 : 1
+#     puts "#{characters[first]}#{characters[1 - first]}"
 #   end
 # end
 
@@ -30,25 +26,32 @@
 #   n.times { |i| puts ("*" * (o < 2 ? (n - i) : i + 1)).rjust(o.odd? ? n : 0).ljust(o.odd? ? 0 : n) }
 # end
 
-def tttriangle(size, orientation = 0)
-  size.times do |num|
-    stars = (orientation < 2 ? (size - num) : num + 1)
-    rjust_amount = orientation.odd? ? size : 0
-    ljust_amount = orientation.odd? ? 0 : size
-    puts ("*" * stars).rjust(rjust_amount).ljust(ljust_amount) 
-  end
-end
+# def triangle(size, orientation = 0)
+#   size.times do |num|
+#     stars = (orientation < 2 ? (size - num) : num + 1)
+#     rjust_amount = orientation.odd? ? size : 0
+#     # ljust_amount = orientation.odd? ? 0 : size
+#     puts ("*" * stars).rjust(rjust_amount).ljust(size - rjust_amount) 
+#   end
+# end
 
-def triangle(size, vertical = 'bottom', horizontal = 'right')
-  size.times do |num|                                 # 0
-    first = vertical == 'top' ? num + 1 : size - num  # 5
-    second = (size - first)                           # 0
-    order = (horizontal == 'left' ? ['*', ' '] : [' ', '*'] ) # [' ', '*']
-    puts "#{order[0] * first}" + "#{order[1] * second}"       # 5 & 0, should be 4 & 1
-  end
-end
+# 4.times do |num|
+#   triangle(5, num)
+# end
 
-triangle(5)
+# Further Exploration 2.0
+# def triangle(size, vertical = 'bottom', horizontal = 'right')
+#   size.times do |num|
+#     stars = (vertical == 'top' ? size - num : num + 1)
+#     spaces = (horizontal == 'left' ? size : 0)
+#     puts ('*' * stars).ljust(spaces).rjust(size - spaces)
+#   end
+# end
+
+# triangle(5, 'top', 'left')
+# triangle(5, 'top', 'right')
+# triangle(5, 'bottom', 'left')
+# triangle(5, 'bottom', 'right')
 
 
 
