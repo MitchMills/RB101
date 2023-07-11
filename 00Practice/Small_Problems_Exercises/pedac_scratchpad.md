@@ -1,12 +1,9 @@
 # PROBLEM
-Write a method that takes a positive integer as an argument and returns that number with its digits reversed.
+Write a method that takes a non-empty string argument, and returns the middle character or characters of the argument. If the argument has an odd length, you should return exactly one character. If the argument has an even length, you should return exactly two characters.
 
-Don't worry about arguments with leading zeros - Ruby sees those as octal numbers, which will cause confusing results. For similar reasons, the return value for our fourth example doesn't have any leading zeros.
+  Input: 
 
-  Input: positive integer
-
-  Output: positive integer
-    - same digits as input integer but reversed
+  Output:
 
   ## Rules
   ### explicit
@@ -18,12 +15,11 @@ Don't worry about arguments with leading zeros - Ruby sees those as octal number
 
 
 # EXAMPLES
-reversed_number(12345) == 54321
-reversed_number(12213) == 31221
-reversed_number(456) == 654
-reversed_number(12000) == 21 # No leading zeros in return value!
-reversed_number(12003) == 30021
-reversed_number(1) == 1
+center_of('I love ruby') == 'e'
+center_of('Launch School') == ' '
+center_of('Launch') == 'un'
+center_of('Launchschool') == 'hs'
+center_of('x') == 'x'
 
 # DATA STRUCTURES
 

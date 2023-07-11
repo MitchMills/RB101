@@ -1,3 +1,13 @@
+### 9.2 GET MIDDLE CHARACTER
+def center_of(string)
+
+end
+
+p center_of('I love ruby') == 'e'
+p center_of('Launch School') == ' '
+p center_of('Launch') == 'un'
+p center_of('Launchschool') == 'hs'
+p center_of('x') == 'x'
 
 ### 8.2 REVERSE DIGITS
 # def reversed_number(num)
@@ -9,34 +19,34 @@
 # end
 
 ###
-def reversed_number(num)
-  length = get_length(num)
-  reversed_num = 0
-  (length - 1).downto(0) do |power|
-    num, digit = num.divmod(10)
-    reversed_num += (digit * 10**power)
-  end
-  reversed_num
-end
+# def reversed_number(num)
+#   length = get_length(num)
+#   reversed_num = 0
+#   (length - 1).downto(0) do |power|
+#     num, digit = num.divmod(10)
+#     reversed_num += (digit * 10**power)
+#   end
+#   reversed_num
+# end
 
-def get_length(num)
-  digits = 0
-  while num > 0
-    num /= 10
-    digits += 1
-  end
-  digits
-end
-###
+# def get_length(num)
+#   digits = 0
+#   while num > 0
+#     num /= 10
+#     digits += 1
+#   end
+#   digits
+# end
+# ###
 
-def reversed_number(num)
-  reversed_num = 0
-  while num > 0
-    num, digit = num.divmod(10)
-    reversed_num = reversed_num * 10 + digit
-  end
-  reversed_num
-end
+# def reversed_number(num)
+#   reversed_num = 0
+#   while num > 0
+#     num, digit = num.divmod(10)
+#     reversed_num = reversed_num * 10 + digit
+#   end
+#   reversed_num
+# end
 
 ### Daniel Chae
 # one-liner with digits and reduce
@@ -49,16 +59,14 @@ end
 # end
 ### Daniel Chae
 
-p reversed_number(12345) #== 54321
-p reversed_number(12213) == 31221
-p reversed_number(456) == 654
-p reversed_number(12000) == 21 # No leading zeros in return value!
-p reversed_number(12003) == 30021
-p reversed_number(21) == 12
-p reversed_number(1) == 1
-p reversed_number(0) == 0
-
-
+# p reversed_number(12345) #== 54321
+# p reversed_number(12213) == 31221
+# p reversed_number(456) == 654
+# p reversed_number(12000) == 21 # No leading zeros in return value!
+# p reversed_number(12003) == 30021
+# p reversed_number(21) == 12
+# p reversed_number(1) == 1
+# p reversed_number(0) == 0
 
 ### 7.2 MADLIBS
 # CATEGORIES = %w(verb adjective noun adverb)
