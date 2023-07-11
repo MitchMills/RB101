@@ -1,15 +1,62 @@
 
 ### 8.2 REVERSE DIGITS
-def reversed_number(num)
+# def reversed_number(num)
+#   num.to_s.reverse.to_i
+# end
 
+# def reversed_number(num)
+#   num.digits.join.to_i
+# end
+
+###
+def reversed_number(num)
+  length = get_length(num)
+  reversed_num = 0
+  (length - 1).downto(0) do |power|
+    num, digit = num.divmod(10)
+    reversed_num += (digit * 10**power)
+  end
+  reversed_num
 end
 
-# p reversed_number(12345) #== 54321
-# reversed_number(12213) == 31221
-# reversed_number(456) == 654
-# reversed_number(12000) == 21 # No leading zeros in return value!
-# reversed_number(12003) == 30021
-# reversed_number(1) == 1
+def get_length(num)
+  digits = 0
+  while num > 0
+    num /= 10
+    digits += 1
+  end
+  digits
+end
+###
+
+def reversed_number(num)
+  reversed_num = 0
+  while num > 0
+    num, digit = num.divmod(10)
+    reversed_num = reversed_num * 10 + digit
+  end
+  reversed_num
+end
+
+### Daniel Chae
+# one-liner with digits and reduce
+# def reversed_number(n)
+#   n.digits.reduce { |r, d| r * 10 + d }
+# end
+
+# def reversed_number(num)
+#   num.digits.reduce { |rev_num, digit| rev_num * 10 + digit }
+# end
+### Daniel Chae
+
+p reversed_number(12345) #== 54321
+p reversed_number(12213) == 31221
+p reversed_number(456) == 654
+p reversed_number(12000) == 21 # No leading zeros in return value!
+p reversed_number(12003) == 30021
+p reversed_number(21) == 12
+p reversed_number(1) == 1
+p reversed_number(0) == 0
 
 
 

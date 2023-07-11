@@ -3,9 +3,10 @@ Write a method that takes a positive integer as an argument and returns that num
 
 Don't worry about arguments with leading zeros - Ruby sees those as octal numbers, which will cause confusing results. For similar reasons, the return value for our fourth example doesn't have any leading zeros.
 
-  Input: 
+  Input: positive integer
 
-  Output:
+  Output: positive integer
+    - same digits as input integer but reversed
 
   ## Rules
   ### explicit
