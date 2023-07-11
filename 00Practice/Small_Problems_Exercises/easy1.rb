@@ -1,5 +1,17 @@
 
 
+### 7.2 MADLIBS
+CATEGORIES = %w(verb adjective noun adverb)
+
+def get_words
+
+end
+
+def display_madlib
+  words = get_words
+
+end
+
 ### 6.2 RIGHT TRIANGLES
 # # Initial Solution
 # def triangle(size)
@@ -10,18 +22,18 @@
 
 # triangle(5)
 
-# Further Exploration 1.0
+### Further Exploration 1.0
 # def triangle(size, vertical = 'bottom', horizontal = 'right')
 #   size.times do |num|
 #     stars = (vertical == 'top' ? size - num : num + 1)
 #     spaces = (vertical == 'top' ? num : size - stars)
 #     characters = ['*' * stars, ' ' * spaces]
-#     first = horizontal == 'left' ? 0 : 1
+#     first = (horizontal == 'left') ? 0 : 1
 #     puts "#{characters[first]}#{characters[1 - first]}"
 #   end
 # end
 
-# FE one-liner DANIEL CHAE
+###### FE one-liner DANIEL CHAE
 # def triangle(n, o = 0)
 #   n.times { |i| puts ("*" * (o < 2 ? (n - i) : i + 1)).rjust(o.odd? ? n : 0).ljust(o.odd? ? 0 : n) }
 # end
@@ -38,8 +50,9 @@
 # 4.times do |num|
 #   triangle(5, num)
 # end
+###### FE one-liner DANIEL CHAE
 
-# Further Exploration 2.0
+### Further Exploration 2.0
 # def triangle(size, vertical = 'bottom', horizontal = 'right')
 #   size.times do |num|
 #     stars = (vertical == 'top' ? size - num : num + 1)
@@ -52,18 +65,6 @@
 # triangle(5, 'top', 'right')
 # triangle(5, 'bottom', 'left')
 # triangle(5, 'bottom', 'right')
-
-
-
-# test
-# 4.times do |orientation|
-#   puts "Orientation ##{orientation}\n\n"
-#   triangle(5, orientation)
-#   puts
-# end
-
-# triangle(5)
-
 
 ### 5.2 BANNERIZER
 # Basic Solution
@@ -301,9 +302,9 @@
 # end
 
 # def triangle(num)
-#   stars = 1
+#   line = 1
 #   until line > num
-#     puts ("*" * stars).ljust(num)
+#     puts ("*" * line).ljust(num)
 #     line += 1
 #   end
 # end

@@ -1,17 +1,11 @@
 # PROBLEM
-Write a method that takes a positive integer, n, as an argument, and displays a right triangle whose sides each have n stars. The hypotenuse of the triangle (the diagonal side in the images below) should have one end at the lower-left of the triangle, and the other end at the upper-right.
+Mad libs are a simple game where you create a story template with blanks for words. You, or another player, then construct a list of words and place them into the story, creating an often silly or funny story as a result.
 
-  Input: positive integer
+Create a simple mad-lib program that prompts for a noun, a verb, an adverb, and an adjective and injects those into a story that you create.
 
-  Output: rows of asterixes
-    - in shape of a right triangle
-    - hypotenuse: one end in upper right, other end in lower left
-    - number of rows == input integer
-    - first row has one asterix, next has two, etc, up to input integer
-    - spaces + asterixes == input integer
-      - e.g. first row has 4 spaces and 1 asterix
-        - second row has 3 spaces and 2 asterixes, etc
-    
+  Input: 
+
+  Output:
 
   ## Rules
   ### explicit
@@ -23,37 +17,17 @@ Write a method that takes a positive integer, n, as an argument, and displays a 
 
 
 # EXAMPLES
-triangle(5)
+Enter a noun: dog
+Enter a verb: walk
+Enter an adjective: blue
+Enter an adverb: quickly
 
-    *
-   **
-  ***
- ****
-*****
-
-triangle(9)
-
-        *
-       **
-      ***
-     ****
-    *****
-   ******
-  *******
- ********
-*********
-
+Do you walk your blue dog quickly? That's hilarious!
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- input integer: `size`
-- initialize a variable: `stars` = 1
-- start a loop
-  - print (`size` - `stars`) spaces and `stars` asterixes
-  - increment `stars`
-  - break when `stars` > `size`
 
 
 
