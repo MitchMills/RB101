@@ -1,16 +1,37 @@
 
+### 8.2 REVERSE DIGITS
+def reversed_number(num)
+
+end
+
+p reversed_number(12345) #== 54321
+# reversed_number(12213) == 31221
+# reversed_number(456) == 654
+# reversed_number(12000) == 21 # No leading zeros in return value!
+# reversed_number(12003) == 30021
+# reversed_number(1) == 1
+
+
 
 ### 7.2 MADLIBS
-CATEGORIES = %w(verb adjective noun adverb)
+# CATEGORIES = %w(verb adjective noun adverb)
 
-def get_words
+# def display_madlib
+#   words = get_words
+#   puts "Do you #{words['verb']} your #{words['adjective']} #{words['noun']} " +
+#     "#{words['adverb']}? That's hilarious."
+# end
 
-end
+# def get_words
+#   input = CATEGORIES.map do |category|
+#     article = 'aeiou'.include?(category.chr) ? 'an' : 'a'
+#     print "Enter #{article} #{category}: "
+#     gets.chomp
+#   end
+#   CATEGORIES.zip(input).to_h
+# end
 
-def display_madlib
-  words = get_words
-
-end
+# display_madlib
 
 ### 6.2 RIGHT TRIANGLES
 # # Initial Solution

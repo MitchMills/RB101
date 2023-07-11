@@ -1,7 +1,7 @@
 # PROBLEM
-Mad libs are a simple game where you create a story template with blanks for words. You, or another player, then construct a list of words and place them into the story, creating an often silly or funny story as a result.
+Write a method that takes a positive integer as an argument and returns that number with its digits reversed.
 
-Create a simple mad-lib program that prompts for a noun, a verb, an adverb, and an adjective and injects those into a story that you create.
+Don't worry about arguments with leading zeros - Ruby sees those as octal numbers, which will cause confusing results. For similar reasons, the return value for our fourth example doesn't have any leading zeros.
 
   Input: 
 
@@ -17,18 +17,17 @@ Create a simple mad-lib program that prompts for a noun, a verb, an adverb, and 
 
 
 # EXAMPLES
-Enter a noun: dog
-Enter a verb: walk
-Enter an adjective: blue
-Enter an adverb: quickly
-
-Do you walk your blue dog quickly? That's hilarious!
+reversed_number(12345) == 54321
+reversed_number(12213) == 31221
+reversed_number(456) == 654
+reversed_number(12000) == 21 # No leading zeros in return value!
+reversed_number(12003) == 30021
+reversed_number(1) == 1
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-
 
 
 
