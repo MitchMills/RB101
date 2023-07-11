@@ -4,7 +4,7 @@ def reversed_number(num)
 
 end
 
-p reversed_number(12345) #== 54321
+# p reversed_number(12345) #== 54321
 # reversed_number(12213) == 31221
 # reversed_number(456) == 654
 # reversed_number(12000) == 21 # No leading zeros in return value!
@@ -344,12 +344,8 @@ p reversed_number(12345) #== 54321
 #   stop = (right_angle[0] == 'b') ? (size + 1) : 0
   
 #   until start == stop
-#     if right_angle[1] == 'l'
-#       puts '*' * start
-#     else
-#       puts ('*' * start).rjust(size)
-#     end
-
+#     stars = '*' * start
+#     puts right_angle[1] == 'l' ? stars : stars.rjust(size)
 #     start += increment
 #   end
 # end
