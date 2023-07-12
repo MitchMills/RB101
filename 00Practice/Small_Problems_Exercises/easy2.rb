@@ -1,11 +1,19 @@
-### 10 ALWAYS RETURN NEGATIVE
-def negative(num)
-  num > 0 ? -num : num
+### 1.2 HOW OLD IS TEDDY?
+def get_age_of_teddy
+
 end
 
-p negative(5) == -5
-p negative(-3) == -3
-p negative(0) == 0
+p get_age_of_teddy
+
+
+### 10 ALWAYS RETURN NEGATIVE
+# def negative(num)
+#   num > 0 ? -num : num
+# end
+
+# p negative(5) == -5
+# p negative(-3) == -3
+# p negative(0) == 0
 
 ### 9 STRING ASSIGNMENT
 # name = 'Bob'

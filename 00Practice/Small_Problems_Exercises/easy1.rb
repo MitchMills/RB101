@@ -1,13 +1,15 @@
 ### 9.2 GET MIDDLE CHARACTER
-def center_of(string)
+# def center_of(string)
+#   middle = string.size / 2
+#   string.size.odd? ? string[middle] : string[(middle - 1), 2]
+# end
 
-end
-
-p center_of('I love ruby') == 'e'
-p center_of('Launch School') == ' '
-p center_of('Launch') == 'un'
-p center_of('Launchschool') == 'hs'
-p center_of('x') == 'x'
+# p center_of('I love ruby') == 'e'
+# p center_of('Launch School') == ' '
+# p center_of('Launch') == 'un'
+# p center_of('Launchschool') == 'hs'
+# p center_of('x') == 'x'
+# p center_of('ab') == 'ab'
 
 ### 8.2 REVERSE DIGITS
 # def reversed_number(num)
