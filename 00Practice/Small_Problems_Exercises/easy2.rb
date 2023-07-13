@@ -1,11 +1,20 @@
 ### HOW BIG IS THE ROOM?
+SQUARE_FEET_PER_SQUARE_METER = 10.7639
 SQUARE_INCHES_PER_SQUARE_FOOT = 144
 SQUARE_CENTIMETERS_PER_SQUARE_FOOT = 929.0304
+
+CONVERSIONS = {
+  'meters' => {'square feet' => SQUARE_FEET_PER_SQUARE_METER},
+  'feet' => {
+    'square inches' => SQUARE_INCHES_PER_SQUARE_FOOT,
+    'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_FOOT
+  }
+}
 
 def display_area(unit, target_units)
   area = get_input(unit)
   puts "The area of the room is #{area} square #{unit}."
-  display_conversions(area, target_units)
+  display_conversions(area, unit, target_units)
 end
 
 def get_input(unit)
@@ -20,21 +29,23 @@ def calculate_area(length, width)
   length * width
 end
 
-def display_conversions(area, target_units)
+def display_conversions(area, unit, target_units)
   target_units.each do |target_unit|
-    converted_area = convert_square_feet(area, target_unit)
+    converted_area = get_converted_area(area, unit, target_unit).round(2)
     puts "(#{converted_area} #{target_unit})"
   end
 end
 
-def convert_square_feet(area, target_unit)
-  case target_unit
-  when 'square inches' then (area * SQUARE_INCHES_PER_SQUARE_FOOT)
-  when 'square centimeters' then (area * SQUARE_CENTIMETERS_PER_SQUARE_FOOT)
-  else 'unable to convert'
-  end
+def get_converted_area(area, unit, target_unit)
+  converter = get_converter(unit, target_unit)
+  area * converter
 end
 
+def get_converter(unit, target_unit)
+  CONVERSIONS[unit][target_unit]
+end
+
+display_area('meters', ['square feet'])
 display_area('feet', ['square inches', 'square centimeters'])
 
 # SQUARE_FEET_PER_SQUARE_METER = 10.7639
