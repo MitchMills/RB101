@@ -1,10 +1,25 @@
-### 1.2 HOW OLD IS TEDDY?
-def get_age_of_teddy
+### HOW BIG IS THE ROOM?
+def
 
 end
 
-p get_age_of_teddy
 
+
+### 1.2 HOW OLD IS TEDDY?
+# def display_name_and_age
+#   name = get_name
+#   age = rand(20..200)
+#   puts "#{name} is #{age} years old!"
+# end
+
+# def get_name
+#   print "Please enter a name: "
+#   name = gets.chomp.strip
+#   name = 'Teddy' if name.empty?
+#   # name.empty? ? 'Teddy' : name
+# end
+
+# display_name_and_age
 
 ### 10 ALWAYS RETURN NEGATIVE
 # def negative(num)
