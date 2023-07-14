@@ -1,13 +1,25 @@
+
+
 ### HOW BIG IS THE ROOM?
 SQUARE_FEET_PER_SQUARE_METER = 10.7639
+SQUARE_INCHES_PER_SQUARE_METER = 1550.0031
+SQUARE_CENTIMETERS_PER_SQUARE_METER = 10000
+
+SQUARE_METERS_PER_SQUARE_FOOT = 0.0929
 SQUARE_INCHES_PER_SQUARE_FOOT = 144
 SQUARE_CENTIMETERS_PER_SQUARE_FOOT = 929.0304
 
+# keys in outer hash are starting unit; keys in inner hashes are target units
 CONVERSIONS = {
-  'meters' => {'square feet' => SQUARE_FEET_PER_SQUARE_METER},
+  'meters' => {
+    'square feet' => SQUARE_FEET_PER_SQUARE_METER
+    'square inches' => SQUARE_INCHES_PER_SQUARE_METER
+    'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_METER
+  },
   'feet' => {
     'square inches' => SQUARE_INCHES_PER_SQUARE_FOOT,
     'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_FOOT
+    'square meters' => SQUARE_METERS_PER_SQUARE_FOOT
   }
 }
 
@@ -48,32 +60,32 @@ end
 display_area('meters', ['square feet'])
 display_area('feet', ['square inches', 'square centimeters'])
 
-# SQUARE_FEET_PER_SQUARE_METER = 10.7639
+SQUARE_FEET_PER_SQUARE_METER = 10.7639
 
-# def display_area
-#   square_meters = get_input
-#   square_feet = convert_to_square_feet(square_meters).round(2)
-#   puts "The area of the room is #{square_meters} square meters " +
-#     "(#{square_feet} square feet)."
-# end
+def display_area
+  square_meters = get_input
+  square_feet = convert_to_square_feet(square_meters).round(2)
+  puts "The area of the room is #{square_meters} square meters " +
+    "(#{square_feet} square feet)."
+end
 
-# def get_input
-#   length, width = ['length', 'width'].map do |dimension|
-#     print "Enter the #{dimension} of the room in meters: "
-#     gets.chomp
-#   end
-#   area = calculate_area(length.to_f, width.to_f).round(2)
-# end
+def get_input
+  length, width = ['length', 'width'].map do |dimension|
+    print "Enter the #{dimension} of the room in meters: "
+    gets.chomp
+  end
+  area = calculate_area(length.to_f, width.to_f).round(2)
+end
 
-# def calculate_area(length, width)
-#   length * width
-# end
+def calculate_area(length, width)
+  length * width
+end
 
-# def convert_to_square_feet(square_meters)
-#   square_meters * SQUARE_FEET_PER_SQUARE_METER
-# end
+def convert_to_square_feet(square_meters)
+  square_meters * SQUARE_FEET_PER_SQUARE_METER
+end
 
-# display_area
+display_area
 
 
 
