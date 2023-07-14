@@ -1,9 +1,5 @@
- PROBLEM
-Build a program that asks a user for the length and width of a room in meters and then displays the area of the room in both square meters and square feet.
-
-Note: 1 square meter == 10.7639 square feet
-
-Do not worry about validating the input at this time.
+# PROBLEM
+Create a simple tip calculator. The program should prompt for a bill amount and a tip rate. The program must compute the tip and then display both the tip and the total amount of the bill.
 
   Input: 
 
@@ -19,11 +15,11 @@ Do not worry about validating the input at this time.
 
 
 # EXAMPLES
-Enter the length of the room in meters:
-10
-Enter the width of the room in meters:
-7
-The area of the room is 70.0 square meters (753.47 square feet).
+What is the bill? 200
+What is the tip percentage? 15
+
+The tip is $30.0
+The total is $230.0
 
 # DATA STRUCTURES
 
