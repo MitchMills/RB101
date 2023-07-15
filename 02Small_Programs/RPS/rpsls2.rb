@@ -1,4 +1,26 @@
-VALID_CHOICES = %w(rock paper scissors)
+=begin
+Rock crushes Scissors
+Rock crushes Lizard
+Paper covers Rock
+Paper disproves Spock
+Scissors cuts Paper
+Scissors decapitates Lizard
+Spock vaporizes Rock
+Spock smashes Scissors
+Lizard eats Paper
+Lizard poisons Spock
+
+=end
+
+RULES = {
+  'Rock' => {abbreviation: 'r', verbs: %(crushes crushes), defeats: %w(Scissors Lizard)},
+  'Paper' => {abbreviation: 'p', verbs: %(covers disproves), defeats: %w(Rock Spock)},
+  'Scissors' => {abbreviation: 'sc', verbs: %(cuts decapitates), defeats: %w(Paper Lizard)},
+  'Spock' => {abbreviation: 'sp', verbs: %(vaporizes smashes), defeats: %w(Rock Scissors)},
+  'Lizard' => {abbreviation: 'l', verbs: %(eats poisons), defeats: %w(Paper Spock)}
+}
+
+VALID_CHOICES = RULES.keys.map { |key| RULES[key][:abbreviation]}
 
 def prompt(message, action: 'puts')
   action == 'print' ? print("=> #{message}") : puts("=> #{message}")
@@ -74,11 +96,11 @@ def goodbye
 end
 
 # main program loop
-welcome()
-loop do
-  choices = get_choices()
-  display_choices(choices)
-  display_result(choices)
-  break unless play_again?()
-end
-goodbye()
+# welcome()
+# loop do
+#   choices = get_choices()
+#   display_choices(choices)
+#   display_result(choices)
+#   break unless play_again?()
+# end
+# goodbye()
