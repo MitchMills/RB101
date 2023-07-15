@@ -1,9 +1,11 @@
 # PROBLEM
 Create a simple tip calculator. The program should prompt for a bill amount and a tip rate. The program must compute the tip and then display both the tip and the total amount of the bill.
 
-  Input: 
+  Input: prompted from user:
+    - bill amount: float
+    - tip rate: float?
 
-  Output:
+  Output: two floats: tip amount, bill + tip
 
   ## Rules
   ### explicit
@@ -25,7 +27,13 @@ The total is $230.0
 
 
 # ALGORITHM
-
+- get input from user
+  - bill amount
+  - tip percentage
+- convert tip percentage into decimal: 20% -> .2
+- multiply bill amount times tip percentage
+- display tip
+- display total (bill + tip)
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #

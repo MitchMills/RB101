@@ -1,83 +1,109 @@
 ### 3.2 TIP CALCULATOR
-def tip_calculator
+PERCENT_DIVISOR = 100.0
 
+def tip_calculator
+  input = get_input
+  results = get_results(input)
+  display_results(results)
 end
 
 def get_input
-
+  ['bill', 'tip percentage'].map do |category|
+    print "What is the #{category}?: "
+    gets.chomp.to_f
+  end
 end
 
+def get_results(input)
+  bill, tip_percentage = input
+  tip = bill * (tip_percentage / PERCENT_DIVISOR)
+  total = bill + tip
+  ['tip', 'total'].zip([tip, total]).to_h
+end
 
+def display_results(results)
+  results.each do |label, result|
+    puts "The #{label} is #{format_currency(result)}"
+  end
+end
+
+def format_currency(amount)
+  basic = sprintf('%.2f', amount)
+  with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
+  final = with_commas.prepend('$')
+end
+
+tip_calculator
 
 ### 2.2 HOW BIG IS THE ROOM?
-SQUARE_FEET_PER_SQUARE_METER = 10.7639
-SQUARE_INCHES_PER_SQUARE_METER = 1550.0031
-SQUARE_CENTIMETERS_PER_SQUARE_METER = 10000
+# SQUARE_FEET_PER_SQUARE_METER = 10.7639
+# SQUARE_INCHES_PER_SQUARE_METER = 1550.0031
+# SQUARE_CENTIMETERS_PER_SQUARE_METER = 10000
 
-SQUARE_METERS_PER_SQUARE_FOOT = 0.0929
-SQUARE_INCHES_PER_SQUARE_FOOT = 144
-SQUARE_CENTIMETERS_PER_SQUARE_FOOT = 929.0304
+# SQUARE_METERS_PER_SQUARE_FOOT = 0.0929
+# SQUARE_INCHES_PER_SQUARE_FOOT = 144
+# SQUARE_CENTIMETERS_PER_SQUARE_FOOT = 929.0304
 
-# keys in outer hash are starting unit; keys in inner hashes are target units
-CONVERSIONS = {
-  'square meters' => {
-    'square feet' => SQUARE_FEET_PER_SQUARE_METER,
-    'square inches' => SQUARE_INCHES_PER_SQUARE_METER,
-    'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_METER
-  },
-  'square feet' => {
-    'square inches' => SQUARE_INCHES_PER_SQUARE_FOOT,
-    'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_FOOT,
-    'square meters' => SQUARE_METERS_PER_SQUARE_FOOT
-  }
-}
+# # keys in outer hash are starting unit; keys in inner hashes are target units
+# CONVERSIONS = {
+#   'square meters' => {
+#     'square feet' => SQUARE_FEET_PER_SQUARE_METER,
+#     'square inches' => SQUARE_INCHES_PER_SQUARE_METER,
+#     'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_METER
+#   },
+#   'square feet' => {
+#     'square inches' => SQUARE_INCHES_PER_SQUARE_FOOT,
+#     'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_FOOT,
+#     'square meters' => SQUARE_METERS_PER_SQUARE_FOOT
+#   }
+# }
 
-def find_area(start_unit, target_units)
-  length, width = get_input(start_unit)
-  area = calculate_area(length.to_f, width.to_f)
-  display_area(area, start_unit)
-  display_conversions(area, start_unit, target_units)
-end
+# def find_area(start_unit, target_units)
+#   length, width = get_input(start_unit)
+#   area = calculate_area(length.to_f, width.to_f)
+#   display_area(area, start_unit)
+#   display_conversions(area, start_unit, target_units)
+# end
 
-def get_input(start_unit)
-  base_unit = start_unit.split[1]
-  input = ['length', 'width'].map do |dimension|
-    print "Enter the #{dimension} of the room in #{base_unit}: "
-    gets.chomp
-  end
-end
+# def get_input(start_unit)
+#   base_unit = start_unit.split[1]
+#   input = ['length', 'width'].map do |dimension|
+#     print "Enter the #{dimension} of the room in #{base_unit}: "
+#     gets.chomp
+#   end
+# end
 
-def calculate_area(length, width)
-  length * width
-end
+# def calculate_area(length, width)
+#   length * width
+# end
 
-def display_area(area, start_unit)
-  puts "The area of the room is #{format_area(area)} #{start_unit}."
-end
+# def display_area(area, start_unit)
+#   puts "The area of the room is #{format_area(area)} #{start_unit}."
+# end
 
-def format_area(area)
-  sprintf('%.2f', area).reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
-end
+# def format_area(area)
+#   sprintf('%.2f', area).reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
+# end
 
-def display_conversions(area, start_unit, target_units)
-  target_units.each do |target_unit|
-    converted_area = get_converted_area(area, start_unit, target_unit)
-    puts "(#{format_area(converted_area)} #{target_unit})"
-  end
-end
+# def display_conversions(area, start_unit, target_units)
+#   target_units.each do |target_unit|
+#     converted_area = get_converted_area(area, start_unit, target_unit)
+#     puts "(#{format_area(converted_area)} #{target_unit})"
+#   end
+# end
 
-def get_converted_area(area, start_unit, target_unit)
-  converter = get_converter(start_unit, target_unit)
-  area * converter
-end
+# def get_converted_area(area, start_unit, target_unit)
+#   converter = get_converter(start_unit, target_unit)
+#   area * converter
+# end
 
-def get_converter(start_unit, target_unit)
-  CONVERSIONS[start_unit][target_unit]
-end
+# def get_converter(start_unit, target_unit)
+#   CONVERSIONS[start_unit][target_unit]
+# end
 
-find_area('square meters', ['square feet'])
-puts
-find_area('square feet', ['square inches', 'square centimeters'])
+# find_area('square meters', ['square feet'])
+# puts
+# find_area('square feet', ['square inches', 'square centimeters'])
 
 ### Initial Solution
 # SQUARE_FEET_PER_SQUARE_METER = 10.7639
