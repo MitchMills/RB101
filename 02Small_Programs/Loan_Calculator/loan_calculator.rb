@@ -80,6 +80,7 @@ def loan_info(type, user_data)
   get_and_confirm_info(type, user_data)
 end
 
+# TODO: maybe separate into two methods (get_input, confirm_input) and have a loop in loan_info
 def get_and_confirm_info(type, user_data)
   loop do
     input = get_input(type, user_data)
@@ -126,6 +127,7 @@ def confirm_input(type, input)
   gets.chomp.downcase
 end
 
+# TODO maybe account for single year or month: "1 year and 1 month" vs "1 years and 1 months"
 def format_input(type, input)
   case type
   when 'loan_amount'
@@ -133,7 +135,7 @@ def format_input(type, input)
   when 'loan_rate'
     sprintf('%.2f %%', input)
   when 'loan_duration'
-    "#{input[0]} years" + (input[1] == 0 ? "" : " and #{input[1]} months")
+    "#{input[0]} years" + (input[1] == 0 ? "" : " and #{input[1]} months") # TODO maybe extract to separate method
   end
 end
 
@@ -167,6 +169,7 @@ def display_summary(user_data)
   blank_line if summary_info.size > 0
 end
 
+# TODO maybe account for single year or month: "1 year and 1 month" vs "1 years and 1 months
 def get_summary_info(user_data)
   summary_info = {}
   years, months = (user_data[:loan_duration].to_i).divmod(MONTHS_PER_YEAR) if
@@ -177,7 +180,7 @@ def get_summary_info(user_data)
   summary_info["APR"] = sprintf('%.2f %%', user_data[:loan_rate].to_f * 
     PERCENT_DIVISOR * MONTHS_PER_YEAR) if user_data[:loan_rate]
   summary_info["Loan Duration"] = "#{years} years" +
-    (months == 0 ? "" : " and #{months} months") if user_data[:loan_duration]
+    (months == 0 ? "" : " and #{months} months") if user_data[:loan_duration] # TODO maybe extract to separate method
   summary_info
 end
 
