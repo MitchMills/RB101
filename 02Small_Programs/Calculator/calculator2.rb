@@ -70,7 +70,7 @@ def get_result(numbers, operator)
       numbers.map(&:to_f).reduce(operator.to_sym)
     end
   else
-    numbers.map(&:to_i).reduce(operator.to_sym)
+    numbers.map(&:to_f).reduce(operator.to_sym)
   end
 end
 
