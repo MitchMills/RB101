@@ -37,14 +37,19 @@ def display_choices(choices)
   prompt("You chose #{user_choice}. The computer chose #{computer_choice}.")
 end
 
+def display_result(choices)
+  prompt(determine_result(choices))
+  blank_line
+end
+
 def determine_result(choices)
   user, computer = choices
   if winner?(user, computer)
-    'You'
+    'You won!'
   elsif winner?(computer, user)
-    'The computer'
+    'The computer won!'
   else 
-    'tie'
+    "It's a tie!"
   end
 end
 
@@ -54,25 +59,16 @@ def winner?(player1, player2)
   (player1 == 'scissors'  && player2 == 'paper')
 end
 
-def display_result(result)
-  if result == 'tie'
-    prompt("It's a tie!")
-  else
-    prompt("#{result} won!")
-  end
-end
-
 def play_again?
   prompt("Would you like to play again?")
   prompt("Enter y to play again, or any other key to quit: ", action: 'print')
-  answer = gets.chomp.downcase
-  answer == 'y'
+  gets.chomp.downcase == 'y'
 end
 
 def goodbye
-  prompt("Thanks for playing Rock, Paper, Scissors! Goodbye.")
+  blank_line
+  prompt("Thank you for playing Rock, Paper, Scissors! Goodbye.")
 end
-
 
 # main program loop
 system('clear')
@@ -81,9 +77,7 @@ loop do
   system('clear')
   choices = get_choices()
   display_choices(choices)
-  result = determine_result(choices)
-  display_result(result)
-  blank_line
+  display_result(choices)
   break unless play_again?()
 end
 goodbye()
