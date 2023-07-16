@@ -1,0 +1,9 @@
+en:
+  welcome: >
+    Welcome to Rock, Paper, Scissors, Spock, Lizard!
+    You will play against the computer.
+  name: "Please enter your name: "
+  ready: "Okay, %{data}, let's get started!"
+  rules?: "If you would like to see the rules, enter 'r'."
+  continue: "Enter any other key to continue: "
+  rules:

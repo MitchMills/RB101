@@ -12,32 +12,42 @@ Lizard poisons Spock
 
 =end
 
-RULES = {
-  'Rock' => {abbreviation: 'r', verbs: %(crushes crushes), defeats: %w(Scissors Lizard)},
-  'Paper' => {abbreviation: 'p', verbs: %(covers disproves), defeats: %w(Rock Spock)},
-  'Scissors' => {abbreviation: 'sc', verbs: %(cuts decapitates), defeats: %w(Paper Lizard)},
-  'Spock' => {abbreviation: 'sp', verbs: %(vaporizes smashes), defeats: %w(Rock Scissors)},
-  'Lizard' => {abbreviation: 'l', verbs: %(eats poisons), defeats: %w(Paper Spock)}
+require 'yaml'
+MESSAGES = YAML.load_file('rpssl2_messages.yml')
+LANGUAGE = 'en'
+
+CHOICES = {
+  'rock' => {abbreviation: 'r', verbs: %(crushes crushes), defeats: %w(scissors lizard)},
+  'paper' => {abbreviation: 'p', verbs: %(covers disproves), defeats: %w(rock spock)},
+  'scissors' => {abbreviation: 'sc', verbs: %(cuts decapitates), defeats: %w(paper lizard)},
+  'spock' => {abbreviation: 'sp', verbs: %(vaporizes smashes), defeats: %w(rock scissors)},
+  'lizard' => {abbreviation: 'l', verbs: %(eats poisons), defeats: %w(paper spock)}
 }
 
-VALID_CHOICES = RULES.keys.map { |key| RULES[key][:abbreviation]}
+VALID_CHOICES = CHOICES.keys + CHOICES.keys.map { |choice| CHOICES[choice][:abbreviation]}
 
-def prompt(message, action: 'puts')
-  action == 'print' ? print("=> #{message}") : puts("=> #{message}")
-end
-
+# General Use Methods
 def blank_line(lines = 1)
   lines.times { puts }
 end
 
+def prompt(key, action: 'puts', data: '', lang: LANGUAGE)
+  message = format(MESSAGES[lang][key], data: data)
+  action == 'print' ? print("=> #{message}") : puts("=> #{message}")
+end
+
+# Intro Methods
 def welcome
   system('clear')
-  prompt("Welcome to Rock, Paper, Scissors!")
-  prompt("You will play against the computer.")
-  prompt("Enter any key to begin.")
+  prompt('welcome')
   gets
 end
 
+def get_name
+
+end
+
+# Choice Methods
 def get_choices
   system('clear')
   [get_user_choice, get_computer_choice]
@@ -62,6 +72,7 @@ def display_choices(choices)
   prompt("You chose #{user_choice}. The computer chose #{computer_choice}.")
 end
 
+# Results Methods
 def display_result(choices)
   prompt(determine_result(choices))
   blank_line
@@ -79,11 +90,12 @@ def determine_result(choices)
 end
 
 def winner?(player1, player2)
-  (player1 == 'rock' && player2 == 'scissors') ||
-    (player1 == 'paper' && player2 == 'rock') ||
-    (player1 == 'scissors' && player2 == 'paper')
+  CHOICES[player1][:defeats].include?(player2)
 end
 
+p winner?('rock', 'scissors')
+
+# Outro Methods
 def play_again?
   prompt("Would you like to play again?")
   prompt("Enter y to play again, or any other key to quit: ", action: 'print')
@@ -97,6 +109,10 @@ end
 
 # main program loop
 # welcome()
+# user_info = {
+#   name: '', 
+#   score: {user_wins: 0, computer_wins: 0, ties: 0}
+# }
 # loop do
 #   choices = get_choices()
 #   display_choices(choices)
