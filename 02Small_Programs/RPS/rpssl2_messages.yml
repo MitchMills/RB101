@@ -1,9 +1,13 @@
 en:
-  welcome: >
-    Welcome to Rock, Paper, Scissors, Spock, Lizard!
-    You will play against the computer.
+  welcome: "Welcome to Rock, Paper, Scissors, Spock, Lizard!"
   name: "Please enter your name: "
-  ready: "Okay, %{data}, let's get started!"
-  rules?: "If you would like to see the rules, enter 'r'."
-  continue: "Enter any other key to continue: "
-  rules:
+  start: "Okay, %{data}, let's get started!"
+  
+  intro: >
+    You will play against the computer.
+    The first player to win three games will win the match.
+  rules?: >
+    If you would like to display the rules, enter 'y'.
+    Enter any other key to continue: 
+  rules: "THE RULES:"
+  rule: "%{data}"

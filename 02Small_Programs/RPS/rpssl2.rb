@@ -1,14 +1,16 @@
 =begin
-Rock crushes Scissors
-Rock crushes Lizard
-Paper covers Rock
-Paper disproves Spock
-Scissors cuts Paper
-Scissors decapitates Lizard
-Spock vaporizes Rock
-Spock smashes Scissors
-Lizard eats Paper
-Lizard poisons Spock
+Rock crushes Scissors, Rock crushes Lizard
+Paper covers Rock, Paper disproves Spock
+Scissors cuts Paper, Scissors decapitates Lizard
+Spock vaporizes Rock, Spock smashes Scissors
+Lizard eats Paper, Lizard poisons Spock
+
+=> THE RULES:
+=> Rock (r) defeats:   lizard, scissors
+=> Paper (p) defeats:   rock, spock
+=> Scissors (sc) defeats:   paper, lizard
+=> Spock (sp) defeats:   scissors, rock
+=> Lizard (l) defeats:   spock, paper
 
 =end
 
@@ -37,15 +39,54 @@ def prompt(key, action: 'puts', data: '', lang: LANGUAGE)
 end
 
 # Intro Methods
-def welcome
+def welcome_player(user_info)
   system('clear')
-  prompt('welcome')
+  welcome(user_info)
+  intro(user_info)
   gets
 end
 
+def welcome(user_info)
+  prompt('welcome')
+  user_info[:name] = get_name()
+  prompt('start', data: user_info[:name])
+end
+
 def get_name
+  prompt('name', action: 'print')
+  gets.chomp
+end
+
+def intro(user_info)
+  blank_line
+  prompt('intro')
+  prompt('rules?', action: 'print')
+  display_rules if gets.chomp.downcase == 'y'
+  ready?(user_info)
+end
+
+def display_rules
+  rules = generate_rules
+  prompt('rules')
+  rules.each do |rule|
+    prompt('rule', data: rule)
+  end
+end
+
+def generate_rules
+  CHOICES.keys.map do |choice|
+    "#{choice.capitalize} (#{CHOICES[choice][:abbreviation]}) defeats: #{CHOICES[choice][:defeats].join(', ')}"
+  end
+end
+
+def ready?(user_info)
 
 end
+
+
+
+
+
 
 # Choice Methods
 def get_choices
@@ -93,8 +134,6 @@ def winner?(player1, player2)
   CHOICES[player1][:defeats].include?(player2)
 end
 
-p winner?('rock', 'scissors')
-
 # Outro Methods
 def play_again?
   prompt("Would you like to play again?")
@@ -108,15 +147,15 @@ def goodbye
 end
 
 # main program loop
-# welcome()
-# user_info = {
-#   name: '', 
-#   score: {user_wins: 0, computer_wins: 0, ties: 0}
-# }
-# loop do
-#   choices = get_choices()
-#   display_choices(choices)
-#   display_result(choices)
-#   break unless play_again?()
-# end
-# goodbye()
+user_info = {
+  name: '', 
+  score: {user_wins: 0, computer_wins: 0, ties: 0}
+}
+welcome_player(user_info)
+loop do
+  choices = get_choices()
+  display_choices(choices)
+  display_result(choices)
+  break unless play_again?()
+end
+goodbye()
