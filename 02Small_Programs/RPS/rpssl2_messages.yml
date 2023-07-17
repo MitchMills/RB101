@@ -1,13 +1,23 @@
 en:
   welcome: "Welcome to Rock, Paper, Scissors, Spock, Lizard!"
   name: "Please enter your name: "
+  invalid_name: "Please be sure to enter a name: "
   start: "Okay, %{data}, let's get started!"
   
-  intro: >
-    You will play against the computer.
-    The first player to win three games will win the match.
-  rules?: >
+  intro: |
+    You will play against the computer. 
+    => The first player to win three games will win the match.
+  rules?: |-
     If you would like to display the rules, enter 'y'.
-    Enter any other key to continue: 
+    => Enter any other key to start playing: 
   rules: "THE RULES:"
   rule: "%{data}"
+  start_playing: "Enter any key to start playing: "
+
+  choices: "CHOICES:"
+  choice: "%{data}"
+  user_choice?: "Enter your choice: "
+
+  play_again?: |-
+    If you would like to play another match, enter 'y'.
+    => Enter any other key to exit the program: 

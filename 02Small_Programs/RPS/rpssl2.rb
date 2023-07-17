@@ -38,53 +38,56 @@ def prompt(key, action: 'puts', data: '', lang: LANGUAGE)
   action == 'print' ? print("=> #{message}") : puts("=> #{message}")
 end
 
+
+
 # Intro Methods
-def welcome_player(user_info)
+def welcome_player(game_info)
   system('clear')
-  welcome(user_info)
-  intro(user_info)
-  gets
+  welcome(game_info)
+  intro(game_info)
 end
 
-def welcome(user_info)
+def welcome(game_info)
   prompt('welcome')
-  user_info[:name] = get_name()
-  prompt('start', data: user_info[:name])
+  game_info[:name] = get_name()
+  prompt('start', data: game_info[:name])
+  blank_line
 end
 
 def get_name
   prompt('name', action: 'print')
-  gets.chomp
+  loop do
+    name = gets.chomp
+    return name unless name.empty?
+    prompt('invalid_name', action: 'print')
+  end
 end
 
-def intro(user_info)
-  blank_line
+def intro(game_info)
   prompt('intro')
+  blank_line
   prompt('rules?', action: 'print')
   display_rules if gets.chomp.downcase == 'y'
-  ready?(user_info)
 end
 
 def display_rules
+  system('clear')
   rules = generate_rules
   prompt('rules')
   rules.each do |rule|
     prompt('rule', data: rule)
   end
+  blank_line
+  prompt('start_playing', action: 'print')
+  gets
 end
 
 def generate_rules
   CHOICES.keys.map do |choice|
-    "#{choice.capitalize} (#{CHOICES[choice][:abbreviation]}) defeats: #{CHOICES[choice][:defeats].join(', ')}"
+    "#{choice.capitalize} (#{CHOICES[choice][:abbreviation]}) defeats: " +
+    "#{CHOICES[choice][:defeats].join(', ')}"
   end
 end
-
-def ready?(user_info)
-
-end
-
-
-
 
 
 
@@ -95,14 +98,26 @@ def get_choices
 end
 
 def get_user_choice
+  display_choices()
   loop do
-    prompt("Choose one: #{VALID_CHOICES}: ", action: 'print')
+    prompt(choices)
+
     user_choice = gets.chomp
     return user_choice if VALID_CHOICES.include?(user_choice)
     
     prompt("That's not a valid choice.")
   end
 end
+
+
+
+def display_choices
+  CHOICES.keys each do |choice|
+    "#{}"
+  end
+end
+
+
 
 def get_computer_choice
   VALID_CHOICES.sample
@@ -121,23 +136,23 @@ end
 
 def determine_result(choices)
   user, computer = choices
-  if winner?(user, computer)
+  if game_winner?(user, computer)
     'You won!'
-  elsif winner?(computer, user)
+  elsif game_winner?(computer, user)
     'The computer won!'
   else
     "It's a tie!"
   end
 end
 
-def winner?(player1, player2)
+def game_winner?(player1, player2)
   CHOICES[player1][:defeats].include?(player2)
 end
 
+
 # Outro Methods
 def play_again?
-  prompt("Would you like to play again?")
-  prompt("Enter y to play again, or any other key to quit: ", action: 'print')
+  prompt("play_again?")
   gets.chomp.downcase == 'y'
 end
 
@@ -147,15 +162,20 @@ def goodbye
 end
 
 # main program loop
-user_info = {
+game_info = {
+  first_time?: true,
   name: '', 
   score: {user_wins: 0, computer_wins: 0, ties: 0}
 }
-welcome_player(user_info)
+welcome_player(game_info)
 loop do
-  choices = get_choices()
-  display_choices(choices)
-  display_result(choices)
+
+  loop do
+    choices = get_choices()
+    display_choices(choices)
+    display_result(choices)
+    break unless match_winner?()
+  end
   break unless play_again?()
 end
 goodbye()
