@@ -17,6 +17,14 @@ en:
   choices: "CHOICES:"
   choice: "%{data}"
   user_choice?: "Enter your choice: "
+  invalid_choice: "Sorry, that's not a valid choice."
+
+
+  display_choices: "%{data}"
+
+
+  user_choice: "You chose %{data}. "
+  computer_choice: "The computer chose %{data}."
 
   play_again?: |-
     If you would like to play another match, enter 'y'.

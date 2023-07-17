@@ -28,6 +28,7 @@ CHOICES = {
 
 VALID_CHOICES = CHOICES.keys + CHOICES.keys.map { |choice| CHOICES[choice][:abbreviation]}
 
+
 # General Use Methods
 def blank_line(lines = 1)
   lines.times { puts }
@@ -72,7 +73,7 @@ end
 
 def display_rules
   system('clear')
-  rules = generate_rules
+  rules = format_rules()
   prompt('rules')
   rules.each do |rule|
     prompt('rule', data: rule)
@@ -82,12 +83,13 @@ def display_rules
   gets
 end
 
-def generate_rules
+def format_rules
   CHOICES.keys.map do |choice|
     "#{choice.capitalize} (#{CHOICES[choice][:abbreviation]}) defeats: " +
     "#{CHOICES[choice][:defeats].join(', ')}"
   end
 end
+
 
 
 
@@ -98,35 +100,60 @@ def get_choices
 end
 
 def get_user_choice
-  display_choices()
+  display_user_choices()
+  user_choice = get_choice()
+  abbreviation_to_word(user_choice)
+end
+
+def display_user_choices
+  system('clear')
+  choices = format_user_choices()
+  prompt('choices')
+  choices.each { |choice| prompt('choice', data: choice) }
+end
+
+def format_user_choices
+  CHOICES.keys.map do |choice|
+    "To choose #{choice.capitalize}, enter: #{CHOICES[choice][:abbreviation]}"
+  end
+end
+
+def get_choice
   loop do
-    prompt(choices)
-
-    user_choice = gets.chomp
+    blank_line
+    prompt('user_choice?', action: 'print')
+    user_choice = gets.chomp.downcase
     return user_choice if VALID_CHOICES.include?(user_choice)
-    
-    prompt("That's not a valid choice.")
+    prompt("invalid_choice")
   end
 end
 
-
-
-def display_choices
-  CHOICES.keys each do |choice|
-    "#{}"
+def abbreviation_to_word(user_choice)
+  CHOICES.each do |choice, info|
+    return choice if (choice == user_choice) ||
+      (info[:abbreviation] == user_choice) 
   end
 end
-
-
 
 def get_computer_choice
-  VALID_CHOICES.sample
+  CHOICES.keys.sample
 end
 
 def display_choices(choices)
-  user_choice, computer_choice = choices
-  prompt("You chose #{user_choice}. The computer chose #{computer_choice}.")
+  blank_line
+  formatted_choices = format_choices(choices).join(' ')
+  prompt('display_choices', data: formatted_choices)
 end
+
+def format_choices(choices)
+  ['You', 'The computer'].map do |word|
+    "#{word} chose #{choices.shift.capitalize}."
+  end
+end
+
+display_choices(get_choices)
+
+
 
 # Results Methods
 def display_result(choices)
@@ -167,15 +194,15 @@ game_info = {
   name: '', 
   score: {user_wins: 0, computer_wins: 0, ties: 0}
 }
-welcome_player(game_info)
-loop do
+# welcome_player(game_info)
+# loop do
 
-  loop do
-    choices = get_choices()
-    display_choices(choices)
-    display_result(choices)
-    break unless match_winner?()
-  end
-  break unless play_again?()
-end
-goodbye()
+#   loop do
+#     choices = get_choices()
+#     display_choices(choices)
+#     display_result(choices)
+#     break unless match_winner?()
+#   end
+#   break unless play_again?()
+# end
+# goodbye()
