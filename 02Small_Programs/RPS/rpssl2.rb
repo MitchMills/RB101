@@ -6,11 +6,11 @@ Spock vaporizes Rock, Spock smashes Scissors
 Lizard eats Paper, Lizard poisons Spock
 
 => THE RULES:
-=> Rock (r) defeats:   lizard, scissors
-=> Paper (p) defeats:   rock, spock
-=> Scissors (sc) defeats:   paper, lizard
-=> Spock (sp) defeats:   scissors, rock
-=> Lizard (l) defeats:   spock, paper
+=> Rock (r) defeats:      lizard, scissors
+=> Paper (p) defeats:     rock, spock
+=> Scissors (sc) defeats: paper, lizard
+=> Spock (sp) defeats:    scissors, rock
+=> Lizard (l) defeats:    spock, paper
 
 =end
 
@@ -92,24 +92,46 @@ end
 
 
 
-
-# Choice Methods
-def get_choices
+# Display Score Methods
+def display_scores(game_info)
   system('clear')
-  [get_user_choice, get_computer_choice]
+  games_played = get_games_played(game_info)
+  scores = get_scores(game_info)
+  prompt("games_played", data: games_played)
+  prompt("scores", data: scores)
+  blank_line
 end
 
-def get_user_choice
+def get_games_played(game_info)
+  game_info[:scores].sum { |label, score| score}
+end
+
+def get_scores(game_info)
+  categories = game_info[:scores].keys
+  ['You', 'Computer', 'Ties'].map.with_index do |label, idx|
+    "#{label}: #{game_info[:scores][categories[idx]]}"
+  end.join(',  ')
+end
+
+
+
+# Get Choices Methods
+def get_choices(game_info)
+  [get_user_choice(game_info), get_computer_choice()]
+end
+
+def get_user_choice(game_info)
   display_user_choices()
+  prompt("game_number", data: (get_games_played(game_info) + 1))
   user_choice = get_choice()
   abbreviation_to_word(user_choice)
 end
 
 def display_user_choices
-  system('clear')
   choices = format_user_choices()
-  prompt('choices')
+  prompt('choices_banner')
   choices.each { |choice| prompt('choice', data: choice) }
+  blank_line
 end
 
 def format_user_choices
@@ -120,11 +142,12 @@ end
 
 def get_choice
   loop do
-    blank_line
     prompt('user_choice?', action: 'print')
     user_choice = gets.chomp.downcase
     return user_choice if VALID_CHOICES.include?(user_choice)
+    blank_line
     prompt("invalid_choice")
+    blank_line
   end
 end
 
@@ -145,19 +168,20 @@ def display_choices(choices)
   prompt('display_choices', data: formatted_choices)
 end
 
-def format_choices(choices)
+def format_choices(choices) ### TODO: deal with #shift problem
+  choices_dup = choices.dup
   ['You', 'The computer'].map do |word|
-    "#{word} chose #{choices.shift.capitalize}."
+    "#{word} chose #{choices_dup.shift.capitalize}."
   end
 end
 
-display_choices(get_choices)
+
 
 
 
 # Results Methods
 def display_result(choices)
-  prompt(determine_result(choices))
+  prompt(determine_result(choices)) #### TODO: FIX!
   blank_line
 end
 
@@ -190,19 +214,22 @@ end
 
 # main program loop
 game_info = {
-  first_time?: true,
   name: '', 
-  score: {user_wins: 0, computer_wins: 0, ties: 0}
+  scores: {user_wins: 1, computer_wins: 2, ties: 3}
 }
 # welcome_player(game_info)
 # loop do
 
 #   loop do
-#     choices = get_choices()
-#     display_choices(choices)
-#     display_result(choices)
-#     break unless match_winner?()
+    display_scores(game_info)
+    choices = get_choices(game_info)
+    display_choices(choices)
+    display_result(choices) #### TODO FIX!
+#     break if match_winner?()
 #   end
+
 #   break unless play_again?()
+#   welcome_back(player_info)
+#   reset_game_info(game_info)
 # end
 # goodbye()

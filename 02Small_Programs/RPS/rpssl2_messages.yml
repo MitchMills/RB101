@@ -14,8 +14,12 @@ en:
   rule: "%{data}"
   start_playing: "Enter any key to start playing: "
 
-  choices: "CHOICES:"
+  games_played: "GAMES PLAYED: %{data}"
+  scores: "SCORES: %{data}"
+  
+  choices_banner: "CHOICES:"
   choice: "%{data}"
+  game_number: "Game Number: %{data}"
   user_choice?: "Enter your choice: "
   invalid_choice: "Sorry, that's not a valid choice."
 
