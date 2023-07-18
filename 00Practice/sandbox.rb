@@ -1,20 +1,30 @@
-s = 'a, b, c'
-s[0].upcase!    # 'a, b, c'
-s[-1] << ', d'  # 'a, b, c'
-s[0] += 'b'     # 'ab, b, c'
-puts s
+# s = 'a, b, c'
+# s[0].upcase!    # 'a, b, c'
+# s[-1] << ', d'  # 'a, b, c'
+# s[0] += 'b'     # 'ab, b, c'
+# puts s
 
 =begin
-On line 5 the `Kernel#puts` method is invoked, with the object referenced by local variable `s` passed in as an argument. In order to determine the output, we have to first determine the value referenced by `s` when `puts` is invoked.
+On line 5 the `Kernel#puts` method is invoked, with the object referenced by local variable `s` passed in as an argument. In order to determine the output, we have to first determine the value of `s` when `puts` is invoked.
 
 Local variable `s` is initialized on line 1 and a string object with the value `'a, b, c'` is assigned to it.
 
-On line 2 the `String#upcase!` method is invoked on `s[0]`, which references a string object with the value 'a'. The `upcase!` method mutates this object in place and the expression returns 'A'. However, this does not affect the original string object referenced by 's', which still has the value `'a, b, c'`. This is because the expression `s[0]` only accesses a copy of the value at that index in `s`.
+On line 2 the `String#slice` method is called on `s`, with `0` passed in as the argument. `s[0]` returns a new string with a value of `'a'`. Then the `upcase!` method is called, which mutates this new string in place and returns 'A'. Because `s[0]` returned a new string, the value of `s` is not changed.
 
-On line 3, the `<<` operator is called on `s[-1]`, which references the string object 'c'. This expression also mutates this object in place and returns `'c, d'`. As with the expression on line 2, this use of element referencing does not affect the original string object referenced by `s`, so `s` still has a value of `'a, b, c'`.
+On line 3, the `String#slice` method is again called on `s`, with `-1` passed in. `s[-1]` returns a new string with a value of `'c'`. Then the `<<` method is called, with `', d'` passed in as an argument. This mutates the new string in place and returns `'c, d'`. As with the expression on line 2, since element referencing returns a new string, the subsequent mutation does not affect the original string object, so `s` still has a value of `'a, b, c'`.
 
-Finally, on line 4 the object referenced by `s[0]` is reassigned to the value of `'ab'`. This change does affect the original string object referenced by `s`, and so when `puts` is called on line 5, the output is `'ab, b, c'`. 
+Finally, on line 4, the `String#slice` method is again called on `s`, but in this case the return value is reassigned to the value of `'ab'`.
 =end
 
-# string = 'a, b, c'
+
+letters = 'abc'
+
+letters[0].object_id
+letters[0].object_id
+
+letters[0].upcase!
+p letters
+
+letters[0] = 'd'
+p letters
 
