@@ -1,3 +1,15 @@
+##### CODE SNIPPET 2 #####
+# total_tacos = 5
+# tacos_eaten = 5
+
+# if total_tacos - tacos_eaten
+#   puts "Keep eating tacos!"
+# else
+#   puts "There are no more tacos."
+# end
+
+
+##### CODE SNIPPET 1 #####
 # s = 'a, b, c'
 # s[0].upcase!    # 'a, b, c'
 # s[-1] << ', d'  # 'a, b, c'
@@ -16,15 +28,43 @@ On line 3, the `String#slice` method is again called on `s`, with `-1` passed in
 Finally, on line 4, the `String#slice` method is again called on `s`, but in this case the return value is reassigned to the value of `'ab'`.
 =end
 
+#### Question ####
+# letters = 'abc'
+
+# p letters[0].object_id
+# p letters[0].object_id
+
+# letters[0].upcase!
+# p letters
+
+# letters[0] = 'd'
+# p letters
+
+=begin
+I have a question about String objects in ruby, in particular the `String#slice` method. I know `String#slice` returns a new string:
 
 letters = 'abc'
+p letters[0].object_id # => 60
+p letters[0].object_id # => 80
 
-letters[0].object_id
-letters[0].object_id
+As a result, the original string isn't affected by mutating the slice:
 
-letters[0].upcase!
-p letters
+letters[0].upcase! # => 'A'
+p letters # => 'abc'
 
-letters[0] = 'd'
-p letters
+However, when you reassign the value of a slice, the original string IS affected. It seems to behave basically the same as array indexing:
 
+letters[0] = 'x' # => 'x'
+p letters # => 'xbc'
+
+My initial thinking would be that `letters[0]` returns a new string with a value of `'a'`. However, the expression `'a' = 'x'` doesn't make sense in ruby. 
+
+So, I'm guessing that the ruby interpreter first evaluates the `= 'x'` part of the expression? From that it determines that reassignment is happening, and so it looks for a "variable" to reassign. The closest thing is a reference to the first character of `letters`, and so it reassigns that, which affects the original string. Am I anywhere close? Thanks in advance for any insights into this.
+=end
+
+
+letters = 'abc'
+p letters.object_id
+
+p letters[0] = 'd'
+p letters.object_id
