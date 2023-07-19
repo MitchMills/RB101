@@ -19,7 +19,7 @@ en:
   
   choices_banner: "CHOICES:"
   choice: "%{data}"
-  game_number: "Game Number: %{data}"
+  game_number: "Game %{data}"
   user_choice?: "Enter your choice: "
   invalid_choice: "Sorry, that's not a valid choice."
 
@@ -29,6 +29,11 @@ en:
 
   user_choice: "You chose %{data}. "
   computer_choice: "The computer chose %{data}."
+  describe_result: "%{data}"
+
+  user_won: "You won, %{data}!"
+  computer_won: "The computer won!"
+  tie: "It's a tie!"
 
   play_again?: |-
     If you would like to play another match, enter 'y'.

@@ -19,11 +19,11 @@ MESSAGES = YAML.load_file('rpssl2_messages.yml')
 LANGUAGE = 'en'
 
 CHOICES = {
-  'rock' => {abbreviation: 'r', verbs: %(crushes crushes), defeats: %w(scissors lizard)},
-  'paper' => {abbreviation: 'p', verbs: %(covers disproves), defeats: %w(rock spock)},
-  'scissors' => {abbreviation: 'sc', verbs: %(cuts decapitates), defeats: %w(paper lizard)},
-  'spock' => {abbreviation: 'sp', verbs: %(vaporizes smashes), defeats: %w(rock scissors)},
-  'lizard' => {abbreviation: 'l', verbs: %(eats poisons), defeats: %w(paper spock)}
+  'rock' => {abbreviation: 'r', verbs: %w(crushes crushes), defeats: %w(scissors lizard)},
+  'paper' => {abbreviation: 'p', verbs: %w(covers disproves), defeats: %w(rock spock)},
+  'scissors' => {abbreviation: 'sc', verbs: %w(cuts decapitates), defeats: %w(paper lizard)},
+  'spock' => {abbreviation: 'sp', verbs: %w(vaporizes smashes), defeats: %w(rock scissors)},
+  'lizard' => {abbreviation: 'l', verbs: %w(eats poisons), defeats: %w(paper spock)}
 }
 
 VALID_CHOICES = CHOICES.keys + CHOICES.keys.map { |choice| CHOICES[choice][:abbreviation]}
@@ -95,10 +95,10 @@ end
 # Display Score Methods
 def display_scores(game_info)
   system('clear')
-  games_played = get_games_played(game_info)
-  scores = get_scores(game_info)
-  prompt("games_played", data: games_played)
-  prompt("scores", data: scores)
+  # games_played = get_games_played(game_info)
+  # scores = get_scores(game_info)
+  prompt("games_played", data: get_games_played(game_info))
+  prompt("scores", data: get_scores(game_info))
   blank_line
 end
 
@@ -108,7 +108,7 @@ end
 
 def get_scores(game_info)
   categories = game_info[:scores].keys
-  ['You', 'Computer', 'Ties'].map.with_index do |label, idx|
+  [game_info[:name], 'Computer', 'Ties'].map.with_index do |label, idx|
     "#{label}: #{game_info[:scores][categories[idx]]}"
   end.join(',  ')
 end
@@ -136,7 +136,7 @@ end
 
 def format_user_choices
   CHOICES.keys.map do |choice|
-    "To choose #{choice.capitalize}, enter: #{CHOICES[choice][:abbreviation]}"
+    "#{choice.capitalize}: enter '#{CHOICES[choice][:abbreviation]}'"
   end
 end
 
@@ -168,36 +168,49 @@ def display_choices(choices)
   prompt('display_choices', data: formatted_choices)
 end
 
-def format_choices(choices) ### TODO: deal with #shift problem
-  choices_dup = choices.dup
-  ['You', 'The computer'].map do |word|
-    "#{word} chose #{choices_dup.shift.capitalize}."
+def format_choices(choices)
+  ['You', 'The computer'].map.with_index do |word, idx|
+    "#{word} chose #{choices[idx].capitalize}."
   end
 end
 
 
 
-
-
 # Results Methods
-def display_result(choices)
-  prompt(determine_result(choices)) #### TODO: FIX!
+def display_result(choices, game_info)
+  result = determine_result(choices)
+  describe_result(choices, result)
+  prompt(result, data: game_info[:name] )
   blank_line
 end
 
 def determine_result(choices)
   user, computer = choices
   if game_winner?(user, computer)
-    'You won!'
+    'user_won'
   elsif game_winner?(computer, user)
-    'The computer won!'
+    'computer_won'
   else
-    "It's a tie!"
+    "tie"
   end
 end
 
 def game_winner?(player1, player2)
   CHOICES[player1][:defeats].include?(player2)
+end
+
+def describe_result(choices, result)
+  description = get_description(choices, result).join(' ')
+  prompt('describe_result', data: description)
+  blank_line
+end
+
+def get_description(choices, result)
+  ordered_choices = (result == 'computer_won' ? choices.reverse : choices)
+  winner, loser = ordered_choices
+  loser_index = CHOICES[winner][:defeats].index(loser)
+  verb = CHOICES[winner][:verbs][loser_index]
+  [winner.capitalize, verb, loser.capitalize]
 end
 
 
@@ -214,7 +227,7 @@ end
 
 # main program loop
 game_info = {
-  name: '', 
+  name: 'Clarence', 
   scores: {user_wins: 1, computer_wins: 2, ties: 3}
 }
 # welcome_player(game_info)
@@ -224,7 +237,7 @@ game_info = {
     display_scores(game_info)
     choices = get_choices(game_info)
     display_choices(choices)
-    display_result(choices) #### TODO FIX!
+    display_result(choices, game_info)
 #     break if match_winner?()
 #   end
 
