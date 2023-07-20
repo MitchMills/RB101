@@ -1,19 +1,3 @@
-=begin
-Rock crushes Scissors, Rock crushes Lizard
-Paper covers Rock, Paper disproves Spock
-Scissors cuts Paper, Scissors decapitates Lizard
-Spock vaporizes Rock, Spock smashes Scissors
-Lizard eats Paper, Lizard poisons Spock
-
-=> THE RULES:
-=> Rock (r) defeats:      lizard, scissors
-=> Paper (p) defeats:     rock, spock
-=> Scissors (sc) defeats: paper, lizard
-=> Spock (sp) defeats:    scissors, rock
-=> Lizard (l) defeats:    spock, paper
-
-=end
-
 require 'yaml'
 MESSAGES = YAML.load_file('rpssl2_messages.yml')
 LANGUAGE = 'en'
@@ -29,8 +13,6 @@ CHOICES = {
 VALID_CHOICES = CHOICES.keys + CHOICES.keys.map { |choice| CHOICES[choice][:abbreviation]}
 
 
-
-
 # General Use Methods
 def blank_line(lines = 1)
   lines.times { puts }
@@ -40,7 +22,6 @@ def prompt(key, action: 'puts', data: '', lang: LANGUAGE)
   message = format(MESSAGES[lang][key], data: data)
   action == 'print' ? print("=> #{message}") : puts("=> #{message}")
 end
-
 
 
 # Intro Methods
@@ -87,16 +68,14 @@ end
 
 def format_rules
   CHOICES.keys.map do |choice|
-    "#{choice.capitalize} defeats: " +
-    "#{CHOICES[choice][:defeats].map(&:capitalize).join(', ')}"
+    "#{choice.capitalize} defeats " +
+    "#{CHOICES[choice][:defeats].map(&:capitalize).join(' and ')}."
   end
 end
 
 
-
-# Display Score Methods
+# Display Scores Methods
 def display_scores(game_info)
-  system('clear')
   prompt("games_played", data: get_games_played(game_info))
   prompt("scores", data: get_scores(game_info))
   blank_line
@@ -112,7 +91,6 @@ def get_scores(game_info)
     "#{label}: #{game_info[:scores][categories[idx]]}"
   end.join(',  ')
 end
-
 
 
 # Get Choices Methods
@@ -145,6 +123,7 @@ def get_choice
     prompt('user_choice?', action: 'print')
     user_choice = gets.chomp.downcase
     return user_choice if VALID_CHOICES.include?(user_choice)
+
     blank_line
     prompt("invalid_choice")
     blank_line
@@ -162,26 +141,27 @@ def get_computer_choice
   CHOICES.keys.sample
 end
 
-def display_choices(choices)
+
+# Game Results Methods
+def display_game_result(choices, game_info)
+  system('clear')
+  display_both_choices(choices)
+  result = determine_result(choices)
+  describe_result(choices, result)
+  prompt(result, data: game_info[:name] )
   blank_line
+  update_scores(result, game_info)
+end
+
+def display_both_choices(choices)
   formatted_choices = format_choices(choices).join(' ')
-  prompt('display_choices', data: formatted_choices)
+  prompt('display_both_choices', data: formatted_choices)
 end
 
 def format_choices(choices)
   ['You', 'The computer'].map.with_index do |word, idx|
     "#{word} chose #{choices[idx].capitalize}."
   end
-end
-
-
-
-# Results Methods
-def display_result(choices, game_info)
-  result = determine_result(choices)
-  describe_result(choices, result)
-  prompt(result, data: game_info[:name] )
-  blank_line
 end
 
 def determine_result(choices)
@@ -206,47 +186,94 @@ def describe_result(choices, result)
 end
 
 def get_description(choices, result)
-  ordered_choices = (result == 'computer_won' ? choices.reverse : choices)
-  winner, loser = ordered_choices
-  return [winner.capitalize, "coexists with", loser.capitalize] if result == 'tie'
-
-  loser_index = ((CHOICES[winner][:defeats][0] == loser) ? 0 : 1)
-  [winner.capitalize, CHOICES[winner][:description][loser_index]]
+  if result == 'tie'
+    tied_choice = choices[0].capitalize
+    [tied_choice, "coexists with", tied_choice]
+  else
+    ordered_choices = (result == 'computer_won' ? choices.reverse : choices)
+    winner, loser = ordered_choices
+    loser_index = ((CHOICES[winner][:defeats][0] == loser) ? 0 : 1)
+    [winner.capitalize, CHOICES[winner][:description][loser_index]]
+  end
 end
 
+def update_scores(result, game_info)
+  case result
+  when 'user_won' then game_info[:scores][:user_wins] += 1
+  when 'computer_won' then game_info[:scores][:computer_wins] += 1
+  when 'tie' then game_info[:scores][:ties] += 1
+  end
+  display_scores(game_info)
+end
+
+
+# Match Results Methods
+def match_winner?(game_info)
+  game_info[:scores][:user_wins] == 3 ||
+    game_info[:scores][:computer_wins] == 3
+end
+
+def continue()
+  prompt('continue', action: 'print')
+  gets
+end
+
+def display_match_results(game_info)
+  if game_info[:scores][:user_wins] == 3
+    prompt('user_won_match', data: game_info[:name].upcase)
+  else
+    prompt('computer_won_match', data: game_info[:name])
+  end
+  blank_line
+end
 
 
 # Outro Methods
-def play_again?
-  prompt("play_again?")
+def another_match?(game_info)
+  prompt("another_match?", action: 'print')
   gets.chomp.downcase == 'y'
 end
 
-def goodbye
+def welcome_back(game_info)
+  reset_game_info(game_info)
+  system('clear')
+  prompt('welcome_back', data: game_info[:name])
   blank_line
-  prompt("Thank you for playing Rock, Paper, Scissors! Goodbye.")
+  prompt('rules_again?', action: 'print')
+  display_rules if gets.chomp.downcase == 'y'
+end
+
+def reset_game_info(game_info)
+  game_info[:scores].each do |label, score|
+    game_info[:scores][label] = 0
+  end
+end
+
+def goodbye(game_info)
+  blank_line
+  prompt('goodbye', data: game_info[:name])
 end
 
 
 
 # main program loop
 game_info = {
-  name: 'Clarence', 
-  scores: {user_wins: 1, computer_wins: 2, ties: 3}
+  name: '', 
+  scores: {user_wins: 0, computer_wins: 0, ties: 0}
 }
-# welcome_player(game_info)
-# loop do
 
-#   loop do
+welcome_player(game_info)
+loop do
+  loop do
+    system('clear')
     display_scores(game_info)
     choices = get_choices(game_info)
-    display_choices(choices)
-    display_result(choices, game_info)
-#     break if match_winner?()
-#   end
-
-#   break unless play_again?()
-#   welcome_back(player_info)
-#   reset_game_info(game_info)
-# end
-# goodbye()
+    display_game_result(choices, game_info)
+    break if match_winner?(game_info)
+    continue()
+  end
+  display_match_results(game_info)
+  break unless another_match?(game_info)
+  welcome_back(game_info)
+end
+goodbye(game_info)
