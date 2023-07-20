@@ -19,14 +19,16 @@ MESSAGES = YAML.load_file('rpssl2_messages.yml')
 LANGUAGE = 'en'
 
 CHOICES = {
-  'rock' => {abbreviation: 'r', verbs: %w(crushes crushes), defeats: %w(scissors lizard)},
-  'paper' => {abbreviation: 'p', verbs: %w(covers disproves), defeats: %w(rock spock)},
-  'scissors' => {abbreviation: 'sc', verbs: %w(cuts decapitates), defeats: %w(paper lizard)},
-  'spock' => {abbreviation: 'sp', verbs: %w(vaporizes smashes), defeats: %w(rock scissors)},
-  'lizard' => {abbreviation: 'l', verbs: %w(eats poisons), defeats: %w(paper spock)}
+  'rock' => {abbreviation: 'r', defeats: %w(scissors lizard), description: ['crushes Scissors', 'crushes Lizard']},
+  'paper' => {abbreviation: 'p', defeats: %w(rock spock), description: ['covers Rock', 'disproves Spock']},
+  'scissors' => {abbreviation: 'sc', defeats: %w(paper lizard), description: ['cuts Paper', 'decapitates Lizard']},
+  'spock' => {abbreviation: 'sp', defeats: %w(rock scissors), description: ['vaporizes Rock', 'smashes Scissors']},
+  'lizard' => {abbreviation: 'l', defeats: %w(paper spock), description: ['eats Paper', 'poisons Spock']}
 }
 
 VALID_CHOICES = CHOICES.keys + CHOICES.keys.map { |choice| CHOICES[choice][:abbreviation]}
+
+
 
 
 # General Use Methods
@@ -85,8 +87,8 @@ end
 
 def format_rules
   CHOICES.keys.map do |choice|
-    "#{choice.capitalize} (#{CHOICES[choice][:abbreviation]}) defeats: " +
-    "#{CHOICES[choice][:defeats].join(', ')}"
+    "#{choice.capitalize} defeats: " +
+    "#{CHOICES[choice][:defeats].map(&:capitalize).join(', ')}"
   end
 end
 
@@ -95,8 +97,6 @@ end
 # Display Score Methods
 def display_scores(game_info)
   system('clear')
-  # games_played = get_games_played(game_info)
-  # scores = get_scores(game_info)
   prompt("games_played", data: get_games_played(game_info))
   prompt("scores", data: get_scores(game_info))
   blank_line
@@ -208,10 +208,12 @@ end
 def get_description(choices, result)
   ordered_choices = (result == 'computer_won' ? choices.reverse : choices)
   winner, loser = ordered_choices
-  loser_index = CHOICES[winner][:defeats].index(loser)
-  verb = CHOICES[winner][:verbs][loser_index]
-  [winner.capitalize, verb, loser.capitalize]
+  return [winner.capitalize, "coexists with", loser.capitalize] if result == 'tie'
+
+  loser_index = ((CHOICES[winner][:defeats][0] == loser) ? 0 : 1)
+  [winner.capitalize, CHOICES[winner][:description][loser_index]]
 end
+
 
 
 # Outro Methods
@@ -224,6 +226,8 @@ def goodbye
   blank_line
   prompt("Thank you for playing Rock, Paper, Scissors! Goodbye.")
 end
+
+
 
 # main program loop
 game_info = {
