@@ -1,12 +1,26 @@
 en:
-  welcome: "Welcome to Rock, Paper, Scissors, Spock, Lizard!"
+  welcome: "Welcome to Rock, Paper, Scissors, Plus!"
   name: "Please enter your name: "
   invalid_name: "Please be sure to enter a name: "
   start: "Okay, %{data}, let's get started!"
-  
+
   intro: |
     You will play a match against the computer. 
     => The first player to win three games will win the match.
+
+  choice_of_rules: |
+    You can choose to play either:
+      1) Rock, Paper, Scissors, or
+      2) Rock, Paper, Scissors, Spock, Lizard.
+  choose_rules: |-
+    Enter '1' to play Rock, Paper Scissors.
+    => Enter '2' to play Rock, Paper, Scissors, Spock, Lizard.
+    => Enter your choice:  
+  invalid_choice: "Sorry, %{data}, that's not a valid choice."
+
+
+
+  
   rules?: |-
     If you would like to display the rules, enter 'y'.
     => Enter any other key to start playing: 
@@ -21,9 +35,7 @@ en:
   choice: "%{data}"
   game_number: "Game %{data}"
   user_choice?: "Enter your choice: "
-  invalid_choice: "Sorry, that's not a valid choice."
-
-
+  
   display_both_choices: "%{data}"
 
 
@@ -49,4 +61,3 @@ en:
     If you would like to display the rules again, enter 'y'.
     => Enter any other key to start the new match: 
   goodbye: "Thank you for playing, %{data}! Goodbye."
-  
