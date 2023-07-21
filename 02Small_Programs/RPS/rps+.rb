@@ -1,5 +1,5 @@
 require 'yaml'
-MESSAGES = YAML.load_file('rpssl2_messages.yml')
+MESSAGES = YAML.load_file('rps+_messages.yml')
 LANGUAGE = 'en'
 
 BASIC_CHOICES = {
@@ -38,7 +38,7 @@ end
 def welcome(game_info)
   prompt('welcome')
   game_info[:name] = get_name()
-  prompt('start', data: game_info[:name])
+  prompt('get_started', data: game_info[:name])
   blank_line
 end
 
@@ -56,22 +56,18 @@ def intro(game_info)
   blank_line
   prompt('choice_of_rules')
   blank_line
-  game_info[:rules] = set_rules(game_info)
-  # display_rules if gets.chomp.downcase == 'y'
+  set_rules(game_info)
+  system('clear')
+  game = (game_info[:rules] == 'rps' ? '' : ', Spock, Lizard')
+  prompt('ready', data: game)
+  blank_line
+  prompt('display_rules?', action: 'print')
+  display_rules if gets.chomp.downcase == 'y'
 end
-
-
-
-
-game_info = {
-  name: 'bob',
-  rules: 'rps',
-  scores: {user_wins: 0, computer_wins: 0, ties: 0}
-}
 
 def set_rules(game_info)
   choice = choose_rules(game_info)
-  choice == '1' ? 'rps' : 'rpssl'
+  game_info[:rules] = (choice == '1' ? 'rps' : 'rpssl')
 end
 
 def choose_rules(game_info)
@@ -79,13 +75,14 @@ def choose_rules(game_info)
     prompt('choose_rules', action: 'print')
     choice = gets.chomp
     return choice if ['1', '2'].include?(choice)
-    prompt("invalid_choice", data: game_info[:name])
+    blank_line
+    prompt('invalid_choice', data: game_info[:name])
     blank_line
   end
 end
 
 
-p choose_rules(game_info)
+
 
 
 
@@ -299,7 +296,7 @@ game_info = {
   scores: {user_wins: 0, computer_wins: 0, ties: 0}
 }
 
-# welcome_player(game_info)
+welcome_player(game_info)
 # loop do
 #   loop do
 #     system('clear')

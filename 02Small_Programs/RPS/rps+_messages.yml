@@ -2,7 +2,7 @@ en:
   welcome: "Welcome to Rock, Paper, Scissors, Plus!"
   name: "Please enter your name: "
   invalid_name: "Please be sure to enter a name: "
-  start: "Okay, %{data}, let's get started!"
+  get_started: "Okay, %{data}, let's get started!"
 
   intro: |
     You will play a match against the computer. 
@@ -18,10 +18,9 @@ en:
     => Enter your choice:  
   invalid_choice: "Sorry, %{data}, that's not a valid choice."
 
-
-
+  ready: "Okay, we're ready to start playing Rock, Paper, Scissors%{data}."
   
-  rules?: |-
+  display_rules?: |-
     If you would like to display the rules, enter 'y'.
     => Enter any other key to start playing: 
   rules: "THE RULES"
