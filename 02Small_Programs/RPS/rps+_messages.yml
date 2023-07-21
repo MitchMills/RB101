@@ -6,7 +6,7 @@ en:
 
   intro: |
     You will play a match against the computer. 
-    => The first player to win three games will win the match.
+    => The first player to win three games wins the match.
 
   choice_of_rules: |
     You can choose to play either:

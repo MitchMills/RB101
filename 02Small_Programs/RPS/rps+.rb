@@ -15,7 +15,7 @@ EXTRA_CHOICES = {
 
 # VALID_CHOICES = CHOICES.keys + CHOICES.keys.map { |choice| CHOICES[choice][:abbreviation]}
 
-
+###### TODO: create two rules sets: rps, rpssl
 
 # General Use Methods
 def blank_line(lines = 1)
@@ -55,17 +55,12 @@ def intro(game_info)
   prompt('intro')
   blank_line
   prompt('choice_of_rules')
-  blank_line
   set_rules(game_info)
-  system('clear')
-  game = (game_info[:rules] == 'rps' ? '' : ', Spock, Lizard')
-  prompt('ready', data: game)
-  blank_line
-  prompt('display_rules?', action: 'print')
-  display_rules if gets.chomp.downcase == 'y'
+  start_game(game_info)
 end
 
 def set_rules(game_info)
+  blank_line
   choice = choose_rules(game_info)
   game_info[:rules] = (choice == '1' ? 'rps' : 'rpssl')
 end
@@ -81,15 +76,18 @@ def choose_rules(game_info)
   end
 end
 
-
-
-
-
-
-
-def display_rules
+def start_game(game_info)
   system('clear')
-  rules = format_rules()
+  game = (game_info[:rules] == 'rps' ? '' : ', Spock, Lizard')
+  prompt('ready', data: game)
+  blank_line
+  prompt('display_rules?', action: 'print')
+  display_rules(game_info) if gets.chomp.downcase == 'y'
+end
+
+def display_rules(game_info)
+  system('clear')
+  rules = format_rules(game_info)
   prompt('rules')
   rules.each do |rule|
     prompt('rule', data: rule)
@@ -99,10 +97,16 @@ def display_rules
   gets
 end
 
-def format_rules
-  CHOICES.keys.map do |choice|
-    "#{choice.capitalize} defeats " +
-    "#{CHOICES[choice][:defeats].map(&:capitalize).join(' and ')}."
+def format_rules(game_info)
+  rules = (game_info[:rules] == 'rps' ? BASIC_CHOICES :
+    BASIC_CHOICES.merge(EXTRA_CHOICES))
+  rules.keys.map do |choice|
+    defeated =  if game_info[:rules] == 'rps'
+                  rules[choice][:defeats][0].capitalize
+                else
+                  rules[choice][:defeats].map(&:capitalize).join(' and ')
+                end
+    "#{choice.capitalize} defeats #{defeated}."
   end
 end
 
@@ -146,8 +150,10 @@ def display_user_choices
 end
 
 def format_user_choices
-  CHOICES.keys.map do |choice|
-    "#{choice.capitalize}: enter '#{CHOICES[choice][:abbreviation]}'"
+  rules = (game_info[:rules] == 'rps' ? BASIC_CHOICES :
+    BASIC_CHOICES.merge(EXTRA_CHOICES))
+  rules.keys.map do |choice|
+    "#{choice.capitalize}: enter '#{rules[choice][:abbreviation]}'"
   end
 end
 
