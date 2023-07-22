@@ -10,7 +10,7 @@ en:
 
   choice_of_rules: |
     You can choose to play either:
-      1) Rock, Paper, Scissors, or
+      1) Rock, Paper, Scissors,
       2) Rock, Paper, Scissors, Spock, Lizard.
   choose_rules: |-
     Enter '1' to play Rock, Paper Scissors.
@@ -18,7 +18,7 @@ en:
     => Enter your choice:  
   invalid_choice: "Sorry, %{data}, that's not a valid choice."
 
-  ready: "Okay, we're ready to start playing Rock, Paper, Scissors%{data}."
+  ready: "Okay, let's play Rock, Paper, Scissors%{data}."
   
   display_rules?: |-
     If you would like to display the rules, enter 'y'.
@@ -53,10 +53,5 @@ en:
     If you would like to play another match, enter 'y'.
     => Enter any other key to exit the program: 
 
-  welcome_back: |
-    Welcome back, %{data}!
-    => As before, the first player to win three games will win the match.
-  rules_again?: |-
-    If you would like to display the rules again, enter 'y'.
-    => Enter any other key to start the new match: 
+  welcome_back: "Welcome back, %{data}!"
   goodbye: "Thank you for playing, %{data}! Goodbye."
