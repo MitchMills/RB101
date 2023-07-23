@@ -18,12 +18,12 @@ en:
     => Enter your choice:  
   invalid_choice: "Sorry, %{data}, that's not a valid choice."
 
-  ready: "Okay, let's play Rock, Paper, Scissors%{data}."
+  ready: "Okay, let's play %{data}."
   
   display_rules?: |-
     If you would like to display the rules, enter 'y'.
     => Enter any other key to start playing: 
-  rules: "THE RULES"
+  rules_banner: "THE RULES"
   rule: "%{data}"
   start_playing: "Enter any key to start playing: "
 
