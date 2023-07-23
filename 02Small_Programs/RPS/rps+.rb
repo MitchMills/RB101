@@ -2,15 +2,26 @@ require 'yaml'
 MESSAGES = YAML.load_file('rps+_messages.yml')
 LANGUAGE = 'en'
 
+# BASIC_CHOICES = {
+#   'rock' => {abbreviation: 'r', defeats: %w(scissors lizard), description: ['crushes Scissors', 'crushes Lizard']},
+#   'paper' => {abbreviation: 'p', defeats: %w(rock spock), description: ['covers Rock', 'disproves Spock']},
+#   'scissors' => {abbreviation: 's', defeats: %w(paper lizard), description: ['cuts Paper', 'decapitates Lizard']}
+# }
+
+# EXTRA_CHOICES = {
+#   'spock' => {abbreviation: 'sp', defeats: %w(rock scissors), description: ['vaporizes Rock', 'smashes Scissors']},
+#   'lizard' => {abbreviation: 'l', defeats: %w(paper spock), description: ['eats Paper', 'poisons Spock']}
+# }
+
 BASIC_CHOICES = {
-  'rock' => {abbreviation: 'r', defeats: %w(scissors lizard), description: ['crushes Scissors', 'crushes Lizard']},
-  'paper' => {abbreviation: 'p', defeats: %w(rock spock), description: ['covers Rock', 'disproves Spock']},
-  'scissors' => {abbreviation: 's', defeats: %w(paper lizard), description: ['cuts Paper', 'decapitates Lizard']}
+  'rock' => {abbreviation: 'r', defeats: {'scissors' => 'crushes', 'lizard' => 'crushes'}},
+  'paper' => {abbreviation: 'p', defeats: {'rock' => 'covers', 'spock' => 'disproves'}},
+  'scissors' => {abbreviation: 's', defeats: {'paper' => 'cuts', 'lizard' => 'decapitates'}}
 }
 
 EXTRA_CHOICES = {
-  'spock' => {abbreviation: 'sp', defeats: %w(rock scissors), description: ['vaporizes Rock', 'smashes Scissors']},
-  'lizard' => {abbreviation: 'l', defeats: %w(paper spock), description: ['eats Paper', 'poisons Spock']}
+  'spock' => {abbreviation: 'sp', defeats: {'scissors' => 'smashes', 'rock' => 'vaporizes'}},
+  'lizard' => {abbreviation: 'l', defeats: {'paper' => 'eats', 'spock' => 'poisons'}}
 }
 
 # General Use Methods
@@ -55,10 +66,20 @@ def intro(game_info)
   start_game(game_info)
 end
 
+
+
+
+
+
 def set_rules(game_info)
   blank_line
   choice = choose_rules(game_info)
-  game_info[:rules] = (choice == '1' ? 'rps' : 'rpssl')
+  # game_info[:rules] = (choice == '1' ? 'rps' : 'rpssl')
+  game_info[:rules] = if choice == '1'
+
+  else
+
+  end
 end
 
 def choose_rules(game_info)
@@ -71,6 +92,11 @@ def choose_rules(game_info)
     blank_line
   end
 end
+
+
+
+
+
 
 def start_game(game_info)
   system('clear')
