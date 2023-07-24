@@ -38,13 +38,34 @@ def prompt(key, action: 'puts', data: '', lang: LANGUAGE)
   action == 'print' ? print("=> #{message}") : puts("=> #{message}")
 end
 
-# Intro Methods
+# Main Game Loop Methods
+def rps
+  game_info = {
+    name: '',
+    rules: BASIC_CHOICES,
+    scores: { user_wins: 0, computer_wins: 0, ties: 0 }
+  }
+  welcome_player(game_info)
+  play_rps(game_info)
+end
+
 def welcome_player(game_info)
   system('clear')
   welcome(game_info)
   intro(game_info)
 end
 
+def play_rps(game_info)
+  loop do
+    play_match(game_info)
+    display_match_results(game_info)
+    break unless another_match?
+    welcome_back(game_info)
+  end
+  goodbye(game_info)
+end
+
+# Welcome Methods
 def welcome(game_info)
   prompt('welcome')
   game_info[:name] = get_name()
@@ -69,6 +90,7 @@ def intro(game_info)
   start_game(game_info)
 end
 
+# Set Rules Methods
 def set_rules(game_info)
   choice = choose_rules(game_info)
   game_info[:rules] = if choice == '1'
@@ -99,6 +121,7 @@ def start_game(game_info)
   display_rules(game_info) if gets.chomp.downcase == 'y'
 end
 
+# Display Rules Methods
 def display_rules(game_info)
   system('clear')
   rules = format_rules(game_info)
@@ -123,7 +146,19 @@ def format_rules(game_info)
   end
 end
 
-# Display Scores Methods
+# MATCH METHODS
+def play_match(game_info)
+  loop do
+    system('clear')
+    display_scores(game_info)
+    choices = get_choices(game_info)
+    display_game_result(choices, game_info)
+    break if match_winner?(game_info)
+    continue()
+  end
+end
+
+# Scores Methods
 def display_scores(game_info)
   prompt("games_played", data: get_games_played(game_info))
   prompt("scores", data: get_scores(game_info))
@@ -141,7 +176,15 @@ def get_scores(game_info)
   end.join(',  ')
 end
 
-# Get Choices Methods
+def update_scores(choices, game_info)
+  case determine_result(choices, game_info)
+  when 'user_won' then game_info[:scores][:user_wins] += 1
+  when 'computer_won' then game_info[:scores][:computer_wins] += 1
+  when 'tie' then game_info[:scores][:ties] += 1
+  end
+end
+
+# Choices Methods
 def get_choices(game_info)
   [get_user_choice(game_info), get_computer_choice(game_info)]
 end
@@ -204,28 +247,13 @@ def display_game_result(choices, game_info)
 end
 
 def display_both_choices(choices)
-  formatted_choices = format_choices(choices).join(' ')
+  formatted_choices = format_both_choices(choices).join(' ')
   prompt('display_both_choices', data: formatted_choices)
 end
 
-def format_choices(choices)
+def format_both_choices(choices)
   ['You', 'The computer'].map.with_index do |word, idx|
     "#{word} chose #{choices[idx].capitalize}."
-  end
-end
-
-def describe_result(choices, game_info)
-  description = get_description(choices, game_info)
-  prompt('describe_result', data: description)
-  blank_line
-  prompt(determine_result(choices, game_info), data: game_info[:name])
-end
-
-def get_description(choices, game_info)
-  case determine_result(choices, game_info)
-  when 'tie' then get_tied_description(choices)
-  when 'user_won' then get_win_description(choices, game_info)
-  when 'computer_won' then get_win_description(choices.reverse, game_info)
   end
 end
 
@@ -244,6 +272,22 @@ def game_winner?(player_choices, game_info)
   game_info[:rules][player1][:defeats].keys.include?(player2)
 end
 
+# Describe Results Methods
+def describe_result(choices, game_info)
+  description = get_description(choices, game_info)
+  prompt('describe_result', data: description)
+  blank_line
+  prompt(determine_result(choices, game_info), data: game_info[:name])
+end
+
+def get_description(choices, game_info)
+  case determine_result(choices, game_info)
+  when 'tie' then get_tied_description(choices)
+  when 'user_won' then get_win_description(choices, game_info)
+  when 'computer_won' then get_win_description(choices.reverse, game_info)
+  end
+end
+
 def get_tied_description(choices)
   "#{choices[0].capitalize} coexists with #{choices[1].capitalize}"
 end
@@ -253,14 +297,6 @@ def get_win_description(choices, game_info)
   loser_index = game_info[:rules][winner][:defeats].keys[0] == loser ? 0 : 1
   verb = game_info[:rules][winner][:defeats].values[loser_index]
   "#{winner.capitalize} #{verb} #{loser.capitalize}"
-end
-
-def update_scores(choices, game_info)
-  case determine_result(choices, game_info)
-  when 'user_won' then game_info[:scores][:user_wins] += 1
-  when 'computer_won' then game_info[:scores][:computer_wins] += 1
-  when 'tie' then game_info[:scores][:ties] += 1
-  end
 end
 
 # Match Results Methods
@@ -307,25 +343,4 @@ def goodbye(game_info)
   prompt('goodbye', data: game_info[:name])
 end
 
-# main program loop
-game_info = {
-  name: '',
-  rules: BASIC_CHOICES,
-  scores: { user_wins: 0, computer_wins: 0, ties: 0 }
-}
-
-welcome_player(game_info)
-loop do
-  loop do
-    system('clear')
-    display_scores(game_info)
-    choices = get_choices(game_info)
-    display_game_result(choices, game_info)
-    break if match_winner?(game_info)
-    continue()
-  end
-  display_match_results(game_info)
-  break unless another_match?
-  welcome_back(game_info)
-end
-goodbye(game_info)
+rps
