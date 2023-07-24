@@ -3,16 +3,30 @@ MESSAGES = YAML.load_file('rps+_messages.yml')
 LANGUAGE = 'en'
 
 BASIC_CHOICES = {
-  'rock' => {abbreviation: 'r', defeats: {'scissors' => 'crushes', 'lizard' => 'crushes'}},
-  'paper' => {abbreviation: 'p', defeats: {'rock' => 'covers', 'spock' => 'disproves'}},
-  'scissors' => {abbreviation: 's', defeats: {'paper' => 'cuts', 'lizard' => 'decapitates'}}
+  'rock' => {
+    abbreviation: 'r',
+    defeats: { 'scissors' => 'crushes', 'lizard' => 'crushes' }
+  },
+  'paper' => {
+    abbreviation: 'p',
+    defeats: { 'rock' => 'covers', 'spock' => 'disproves' }
+  },
+  'scissors' => {
+    abbreviation: 's',
+    defeats: { 'paper' => 'cuts', 'lizard' => 'decapitates' }
+  }
 }
 
 EXTRA_CHOICES = {
-  'spock' => {abbreviation: 'sp', defeats: {'scissors' => 'smashes', 'rock' => 'vaporizes'}},
-  'lizard' => {abbreviation: 'l', defeats: {'paper' => 'eats', 'spock' => 'poisons'}}
+  'spock' => {
+    abbreviation: 'sp',
+    defeats: { 'scissors' => 'smashes', 'rock' => 'vaporizes' }
+  },
+  'lizard' => {
+    abbreviation: 'l',
+    defeats: { 'paper' => 'eats', 'spock' => 'poisons' }
+  }
 }
-
 
 # General Use Methods
 def blank_line(lines = 1)
@@ -23,7 +37,6 @@ def prompt(key, action: 'puts', data: '', lang: LANGUAGE)
   message = format(MESSAGES[lang][key], data: data)
   action == 'print' ? print("=> #{message}") : puts("=> #{message}")
 end
-
 
 # Intro Methods
 def welcome_player(game_info)
@@ -57,10 +70,12 @@ def intro(game_info)
 end
 
 def set_rules(game_info)
-  blank_line
   choice = choose_rules(game_info)
-  game_info[:rules] = (choice == '1' ? BASIC_CHOICES : 
-    BASIC_CHOICES.merge(EXTRA_CHOICES))
+  game_info[:rules] = if choice == '1'
+                        BASIC_CHOICES
+                      else
+                        BASIC_CHOICES.merge(EXTRA_CHOICES)
+                      end
 end
 
 def choose_rules(game_info)
@@ -98,15 +113,15 @@ end
 
 def format_rules(game_info)
   game_info[:rules].keys.map do |choice|
-    defeated =  if game_info[:rules] == BASIC_CHOICES
-      game_info[:rules][choice][:defeats].keys[0].capitalize
-    else
-      game_info[:rules][choice][:defeats].keys.map(&:capitalize).join(' and ')
-    end
+    defeats = game_info[:rules][choice][:defeats].keys
+    defeated = if game_info[:rules] == BASIC_CHOICES
+                 defeats[0].capitalize
+               else
+                 defeats.map(&:capitalize).join(' and ')
+               end
     "#{choice.capitalize} defeats #{defeated}."
   end
 end
-
 
 # Display Scores Methods
 def display_scores(game_info)
@@ -116,7 +131,7 @@ def display_scores(game_info)
 end
 
 def get_games_played(game_info)
-  game_info[:scores].sum { |label, score| score}
+  game_info[:scores].sum { |_label, score| score }
 end
 
 def get_scores(game_info)
@@ -125,7 +140,6 @@ def get_scores(game_info)
     "#{label}: #{game_info[:scores][categories[idx]]}"
   end.join(',  ')
 end
-
 
 # Get Choices Methods
 def get_choices(game_info)
@@ -136,7 +150,7 @@ def get_user_choice(game_info)
   display_user_choices(game_info)
   prompt("game_number", data: (get_games_played(game_info) + 1))
   user_choice = get_choice(game_info)
-  abbreviation_to_word(user_choice)
+  abbreviation_to_word(user_choice, game_info)
 end
 
 def display_user_choices(game_info)
@@ -156,7 +170,7 @@ def get_choice(game_info)
   loop do
     prompt('user_choice?', action: 'print')
     user_choice = gets.chomp.downcase
-    return user_choice if get_valid_choices(game_info).include?(user_choice)
+    return user_choice if valid_choices(game_info).include?(user_choice)
 
     blank_line
     prompt("invalid_choice", data: game_info[:name])
@@ -164,13 +178,14 @@ def get_choice(game_info)
   end
 end
 
-def get_valid_choices(game_info)
-  game_info[:rules].keys.map { |choice| game_info[:rules][choice][:abbreviation]}
+def valid_choices(game_info)
+  choices = game_info[:rules].keys
+  choices.map { |choice| game_info[:rules][choice][:abbreviation] }
 end
 
-def abbreviation_to_word(user_choice)
+def abbreviation_to_word(user_choice, game_info)
   game_info[:rules].each do |choice, info|
-    return choice if (info[:abbreviation] == user_choice) 
+    return choice if info[:abbreviation] == user_choice
   end
 end
 
@@ -178,16 +193,14 @@ def get_computer_choice(game_info)
   game_info[:rules].keys.sample
 end
 
-
 # Game Results Methods
 def display_game_result(choices, game_info)
   system('clear')
   display_both_choices(choices)
-  result = determine_result(choices, game_info)
-  describe_result(choices, result, game_info)
-  prompt(result, data: game_info[:name] )
+  describe_result(choices, game_info)
   blank_line
-  update_scores(result, game_info)
+  update_scores(choices, game_info)
+  display_scores(game_info)
 end
 
 def display_both_choices(choices)
@@ -198,6 +211,21 @@ end
 def format_choices(choices)
   ['You', 'The computer'].map.with_index do |word, idx|
     "#{word} chose #{choices[idx].capitalize}."
+  end
+end
+
+def describe_result(choices, game_info)
+  description = get_description(choices, game_info)
+  prompt('describe_result', data: description)
+  blank_line
+  prompt(determine_result(choices, game_info), data: game_info[:name])
+end
+
+def get_description(choices, game_info)
+  case determine_result(choices, game_info)
+  when 'tie' then get_tied_description(choices)
+  when 'user_won' then get_win_description(choices, game_info)
+  when 'computer_won' then get_win_description(choices.reverse, game_info)
   end
 end
 
@@ -216,43 +244,24 @@ def game_winner?(player_choices, game_info)
   game_info[:rules][player1][:defeats].keys.include?(player2)
 end
 
-def describe_result(choices, result, game_info)
-  description = get_description(choices, result, game_info)
-  prompt('describe_result', data: description)
-  blank_line
-end
-
-def get_description(choices, result, game_info)
-  if result == 'tie'
-    get_tied_description(choices)
-  else
-    get_won_description(choices, result, game_info)
-  end
-end
-
 def get_tied_description(choices)
   "#{choices[0].capitalize} coexists with #{choices[1].capitalize}"
 end
 
-def get_won_description(choices, result, game_info)
-  winner, loser = (result == 'user_won' ? choices : choices.reverse)
-  loser_index = ((game_info[:rules][winner][:defeats].keys[0] == loser) ? 0 : 1)
+def get_win_description(choices, game_info)
+  winner, loser = choices
+  loser_index = game_info[:rules][winner][:defeats].keys[0] == loser ? 0 : 1
   verb = game_info[:rules][winner][:defeats].values[loser_index]
   "#{winner.capitalize} #{verb} #{loser.capitalize}"
 end
 
-
-
-
-def update_scores(result, game_info)
-  case result
+def update_scores(choices, game_info)
+  case determine_result(choices, game_info)
   when 'user_won' then game_info[:scores][:user_wins] += 1
   when 'computer_won' then game_info[:scores][:computer_wins] += 1
   when 'tie' then game_info[:scores][:ties] += 1
   end
-  display_scores(game_info)
 end
-
 
 # Match Results Methods
 def match_winner?(game_info)
@@ -260,7 +269,7 @@ def match_winner?(game_info)
     game_info[:scores][:computer_wins] == 3
 end
 
-def continue()
+def continue
   prompt('continue', action: 'print')
   gets
 end
@@ -274,9 +283,8 @@ def display_match_results(game_info)
   blank_line
 end
 
-
 # Outro Methods
-def another_match?(game_info)
+def another_match?
   prompt("another_match?", action: 'print')
   gets.chomp.downcase == 'y'
 end
@@ -289,7 +297,7 @@ def welcome_back(game_info)
 end
 
 def reset_game_info(game_info)
-  game_info[:scores].each do |label, score|
+  game_info[:scores].each do |label, _score|
     game_info[:scores][label] = 0
   end
 end
@@ -299,27 +307,25 @@ def goodbye(game_info)
   prompt('goodbye', data: game_info[:name])
 end
 
-
-
 # main program loop
 game_info = {
   name: '',
-  rules: BASIC_CHOICES,#.merge(EXTRA_CHOICES),
-  scores: {user_wins: 0, computer_wins: 0, ties: 0}
+  rules: BASIC_CHOICES,
+  scores: { user_wins: 0, computer_wins: 0, ties: 0 }
 }
 
-# welcome_player(game_info)
-# loop do
-#   loop do
-#     system('clear')
-#     display_scores(game_info)
-#     choices = get_choices(game_info)
-#     display_game_result(choices, game_info)
-#     break if match_winner?(game_info)
-#     continue()
-#   end
-#   display_match_results(game_info)
-#   break unless another_match?(game_info)
-#   welcome_back(game_info)
-# end
-# goodbye(game_info)
+welcome_player(game_info)
+loop do
+  loop do
+    system('clear')
+    display_scores(game_info)
+    choices = get_choices(game_info)
+    display_game_result(choices, game_info)
+    break if match_winner?(game_info)
+    continue()
+  end
+  display_match_results(game_info)
+  break unless another_match?
+  welcome_back(game_info)
+end
+goodbye(game_info)

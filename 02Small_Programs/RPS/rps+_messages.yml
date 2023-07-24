@@ -8,13 +8,11 @@ en:
     You will play a match against the computer. 
     => The first player to win three games wins the match.
 
-  choice_of_rules: |
-    You can choose to play either:
-      1) Rock, Paper, Scissors,
-      2) Rock, Paper, Scissors, Spock, Lizard.
+  choice_of_rules: "You can choose which game to play:"
   choose_rules: |-
-    Enter '1' to play Rock, Paper Scissors.
-    => Enter '2' to play Rock, Paper, Scissors, Spock, Lizard.
+    1) Rock, Paper Scissors: enter '1'
+    => 2) Rock, Paper, Scissors, Spock, Lizard: enter '2'
+
     => Enter your choice:  
   invalid_choice: "Sorry, %{data}, that's not a valid choice."
 
@@ -36,7 +34,6 @@ en:
   user_choice?: "Enter your choice: "
   
   display_both_choices: "%{data}"
-
 
   user_choice: "You chose %{data}. "
   computer_choice: "The computer chose %{data}."
