@@ -1,3 +1,74 @@
+### JULY 25 ###
+### Question 3
+# s = "string"
+# arr = [s, 1, 2]
+# arr[0][0] = 'S'
+# puts s
+
+=begin
+What is the output on line 4?
+Why?
+What is the underlying concept?
+
+The output of line 4 will be "String". Local variable `s` was initialized and assigned a value of "string" on line 1. On line 2, an 'Array' object was assigned to local variable `arr`. The first element of that array was assigned to reference the same value as `s`. 
+
+On line 3, the first character of the first element of the array was reassigned to  the value `S` using indexed assignment (the `String#[]=` method). Indexed assignment is mutating with respect to the calling String itself, so `s` now references a value of "String", and this is what is output when `puts` is invoked on line 4 with `s` passed in as an argument.
+
+This example demonstrates the concept that indexed assignment mutates the calling object even though it involves reassignment of characters or elements within that object.
+
+=end
+
+### Question 2 ###
+# a = 10
+
+# while true do
+#   c = a
+#   break
+# end
+
+# puts c
+
+=begin
+What does this code output on line 8? Why?
+Explain the structure defined on lines 3-6.
+How does this structure affect the final output?
+What is the underlying concept?
+
+The code on line 8 will output 10. `c` was initialized on line 4, and the value referenced by local variable `a` was assigned to it. `a` was assigned a value of 10 when it was initialized on line 1. So `c` has a value of 10 when it is passed as an argument to the invocation of `puts` on line 8.
+
+The structure defined on lines 3 through 6 is a `while loop`. A `while loop` is a control expression in Ruby, not a method. The use of `while` on line 3 is therefore not a method invocation, and so the code between `do` and `end` that follows is not a block. Because of this, no new scope is created. That allows local variable `c`, initialized within the `while loop`, to be accessed outside it.
+
+This example demonstrates the concept that block scope can only be created following the invocation of a method. Because `while` (and `until` and `for`) loops are not methods, they do not introduce new scope.
+
+=end
+
+### Question 1
+# a = 4
+# b = 2
+
+# loop do
+#   c = 3
+#   a = c
+#   break
+# end
+
+# puts a
+# puts b
+
+=begin
+Explain why line 10 outputs 3 instead of 4.
+What structure is defined on lines 4 – 8?
+How does this structure affect a‘s final value?
+What is the underlying concept here?
+
+Local variable `a` was originally assigned a value of 4 on line 1 when it was initialized. It was reassigned to reference the same value as `c` on line 6, and `c` has a value of 3. So when `puts` is invoked on line 10, and `a` is passed in as an argument, the output is the current value of `a`: 3.
+
+The structure defined on lines 4 through 8 is an invocation of the `Kernel#loop` method, with a block passed in as an argument. Local variables initialized outside a block are accessible within it, which is why `a` can be reassigned on line 6.
+
+This demonstrates the concept of block scope (and of variables as pointers). Local variable `a`, initialized outside the block, is accessible within the block. Local variable `c`, initialized inside the block, is not accessible outside it. However, the value that `c` references can be assigned to `a`, and `a` will continue to reference that value outside the block.
+
+=end
+
 ##### CODE BLOCK SOCIAL
 # JUNE 19 #
 ### 1
@@ -28,10 +99,10 @@
 #   ary.each do |element|
 #     int += element
 #   end
-end
+# end
  
-my_value(array)
-puts int
+# my_value(array)
+# puts int
 
 # June 12 #
 ### 1
