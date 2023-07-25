@@ -1,7 +1,64 @@
+### Question 8.2
+flintstones = {
+  "Fred" => 0,
+  "Wilma" => 1,
+  "Barney" => 2,
+  "Betty" => 3,
+  "BamBam" => 4,
+  "Pebbles" => 5
+}
+
+p flintstones.assoc("Barney")
+
+### Question 7.2
+# flintstones = ["Fred", "Wilma"]
+# flintstones += ["Barney", "Betty"]
+# flintstones += ["BamBam", "Pebbles"]
+
+# p flintstones
+# p flintstones.flatten
+
+### Question 6.2
+# famous_words = "seven years ago..."
+
+# famous_words.prepend("Four score and ")
+# p "Four score and " + famous_words
+# famous_words.insert(0, "Four score and ")
+# famous_words[0] = "Four score and s"
+# p famous_words
+
+### Question 5.2
+# p (10..100).include?(42)
+# p 100.between?(10, 100)
+# p (10..100).cover?(100)
+
+### Question 4.2
+# numbers = [1, 2, 3, 4, 5]
+# p numbers.delete_at(1)
+# p numbers
+
+# numbers = [1, 2, 3, 4, 5]
+# p numbers.delete(1)
+# p numbers
+
+### Question 3.2
+# advice = "Few things in life are as important as house training your pet dinosaur."
+# p advice.gsub!('important', 'urgent')
+# p advice
+
+### Question 2.2
+
+### Question 1.2
+# numbers = [1, 2, 2, 3]
+# numbers.uniq
+
+# puts numbers
+
+
 # Question 8
-flintstones = { "Fred" => 0, "Wilma" => 1, "Barney" => 2, "Betty" => 3, "BamBam" => 4, "Pebbles" => 5 }
-barney = flintstones.assoc("Barney")
-p barney
+# flintstones = { "Fred" => 0, "Wilma" => 1, "Barney" => 2, "Betty" => 3, "BamBam" => 4, "Pebbles" => 5 }
+# barney = flintstones.assoc("Barney")
+# p barney
 
 # Question 7
 # flintstones = ["Fred", "Wilma"]
