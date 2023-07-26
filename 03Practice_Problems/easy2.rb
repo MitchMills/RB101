@@ -1,6 +1,20 @@
+### Question 2.2
+munsters_description = "The Munsters are creepy in a good way."
+"tHE mUNSTERS ARE CREEPY IN A GOOD WAY."
+"The munsters are creepy in a good way."
+"the munsters are creepy in a good way."
+"THE MUNSTERS ARE CREEPY IN A GOOD WAY."
+
+### Question 1.2
+# ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 402, "Eddie" => 10 }
+
+# p ages.slice("Spot")
+
+######################
+
 # Question 10
-title = "Flintstone Family Members"
-puts title.center(40)
+# title = "Flintstone Family Members"
+# puts title.center(40)
 
 # Question 9
 # statement = "The Flintstones Rock!"

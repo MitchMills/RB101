@@ -1,14 +1,14 @@
 ### Question 8.2
-flintstones = {
-  "Fred" => 0,
-  "Wilma" => 1,
-  "Barney" => 2,
-  "Betty" => 3,
-  "BamBam" => 4,
-  "Pebbles" => 5
-}
+# flintstones = {
+#   "Fred" => 0,
+#   "Wilma" => 1,
+#   "Barney" => 2,
+#   "Betty" => 3,
+#   "BamBam" => 4,
+#   "Pebbles" => 5
+# }
 
-p flintstones.assoc("Barney")
+# p flintstones.assoc("Barney")
 
 ### Question 7.2
 # flintstones = ["Fred", "Wilma"]
