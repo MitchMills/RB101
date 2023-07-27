@@ -1,31 +1,109 @@
 system('clear')
-
-# QUESTION 4
-
-def is_an_ip_number?(word)
-  word.to_i.between?(0, 255)
-end
-
+### QUESTIION 4.2
 def dot_separated_ip_address?(input_string)
   dot_separated_words = input_string.split(".")
 
   return false unless dot_separated_words.size == 4
 
-  dot_separated_words.each do |word|
-   if is_an_ip_number?(word)
-    next
-   else
-    return false
-   end
-
+  while dot_separated_words.size > 0 do
+    word = dot_separated_words.pop
+    return false unless is_an_ip_number?(word)
   end
 
-  return true
+  true
 end
 
-puts dot_separated_ip_address?("1.2.3.4")
-puts dot_separated_ip_address?("266.300.2.4")
-puts dot_separated_ip_address?("1.2.3")
+
+
+### QUESTION 3.2
+def mess_with_vars(one, two, three)
+  one.gsub!("one","two")
+  two.gsub!("two","three")
+  three.gsub!("three","one")
+end
+
+one = "one"
+two = "two"
+three = "three"
+
+mess_with_vars(one, two, three)
+
+puts "one is: #{one}"
+puts "two is: #{two}"
+puts "three is: #{three}"
+
+# def mess_with_vars(one, two, three)
+#   one = "two"
+#   two = "three"
+#   three = "one"
+# end
+
+# one = "one"
+# two = "two"
+# three = "three"
+
+# mess_with_vars(one, two, three)
+
+# puts "one is: #{one}"
+# puts "two is: #{two}"
+# puts "three is: #{three}"
+
+# def mess_with_vars(one, two, three)
+#   one = two
+#   two = three
+#   three = one
+# end
+
+# one = "one"
+# two = "two"
+# three = "three"
+
+# mess_with_vars(one, two, three)
+
+# puts "one is: #{one}" # => 'one'
+# puts "two is: #{two}" # => 'two'
+# puts "three is: #{three}" # => 'three'
+
+### QUESTION 2.2
+# greetings = { a: 'hi' }
+# informal_greeting = greetings[:a]
+# informal_greeting << ' there'
+
+# puts informal_greeting  #  => "hi there"
+# puts greetings
+
+### QUESTION 1.2
+# if false
+#   greeting = "hello world"
+# end
+
+# p greeting
+
+# QUESTION 4
+# def is_an_ip_number?(word)
+#   word.to_i.between?(0, 255)
+# end
+
+# def dot_separated_ip_address?(input_string)
+#   dot_separated_words = input_string.split(".")
+
+#   return false unless dot_separated_words.size == 4
+
+#   dot_separated_words.each do |word|
+#    if is_an_ip_number?(word)
+#     next
+#    else
+#     return false
+#    end
+
+#   end
+
+#   return true
+# end
+
+# puts dot_separated_ip_address?("1.2.3.4")
+# puts dot_separated_ip_address?("266.300.2.4")
+# puts dot_separated_ip_address?("1.2.3")
 
 # QUESTION 3
 
