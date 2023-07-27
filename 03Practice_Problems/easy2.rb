@@ -1,11 +1,24 @@
+### Question 10.2
+# title = "Flintstone Family Members"
+# p title.center(40)
+
+### Question 9.2
+# statement = "The Flintstones Rock!"
+# p statement.count('t')
+
+### Question 8.2
+# advice = "Few things in life are as important as house training your pet dinosaur."
+# p advice.slice!(0, advice.index('house'))
+# p advice
+
 ### Question 7.2
-flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
+# flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
 # flintstones << "Dino" << "Hoppy"
 # flintstones += %w(Dino Hoppy)
 # flintstones.concat(%w(Dino Hoppy))
 # flintstones.push("Dino", "Hoppy")
 # flintstones.append("Dino", "Hoppy")
-p flintstones
+# p flintstones
 
 ### Question 6.2
 # flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
