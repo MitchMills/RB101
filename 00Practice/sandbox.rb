@@ -1,8 +1,11 @@
-def extend_greeting(greeting)
-  greeting += " there"
+a = 4
+b = 2
+
+loop do |a|
+  c = 3
+  a = c
+  break
 end
 
-greeting = "hi"
-puts extend_greeting(greeting)
-
-# puts greeting
+puts a
+puts b
