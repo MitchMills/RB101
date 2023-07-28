@@ -1,3 +1,46 @@
+
+
+### JULY 28 ### 3
+# s = "string"
+# arr = [s, 1, 2]
+# arr[0] = 'S'
+# puts s
+
+=begin
+Line 4 will now output `string`. Line 2 assigns the first element of the array object assigned to `arr` to reference the same object as local variable `s`. Line 3 now reassigns that first element to reference a different object (the String object 'S'). So `s` still points to the original object assigned to it, and the first element of `arr` points to a different object.
+=end
+
+# ### JULY 28 ### 2
+# a = 10
+
+# while false do
+#   c = a
+#   break
+# end
+
+# puts c
+
+=begin
+With this change, there won't be anything output on line 8. Variable `c` is set to `nil`, and `puts` doesn't output anything when it is passed `nil` as an argument. `c` is set to `nil` because the `while` loop on lines 3 to 6 never executes due to the conditional on line 3 never being fulfilled. Despite never being executed, the assignment syntax on line 4 does result in variable `c` being defined. `c` does not get initialized, however, so the value referenced by `a` is not assigned to it, and instead it is set to `nil`.
+=end
+
+### JULY 28 ### 1
+# a = 4
+# b = 2
+
+# loop do |a|
+#   c = 3
+#   a = c
+#   break
+# end
+
+# puts a
+# puts b
+
+=begin
+The output on line 10 will be `4`. The addition of a block parameter with the same name prevents local variable `a` in the outer scope from being accessible within the block due to variable shadowing. Though they share the same name, the variable initialized on line 4 and reassigned on line 6 is a different variable from the one initialized on line 1. It is only accessible within the block, and prevents access to the variable named `a` in the outer scope. As a result line 6 has no effect on the outer scope variable.
+=end
+
 ### JULY 25 ###
 ### Question 3
 # s = "string"
