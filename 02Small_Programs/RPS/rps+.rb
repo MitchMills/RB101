@@ -294,8 +294,7 @@ end
 
 def get_win_description(choices, game_info)
   winner, loser = choices
-  loser_index = game_info[:rules][winner][:defeats].keys[0] == loser ? 0 : 1
-  verb = game_info[:rules][winner][:defeats].values[loser_index]
+  verb = game_info[:rules][winner][:defeats][loser]
   "#{winner.capitalize} #{verb} #{loser.capitalize}"
 end
 
