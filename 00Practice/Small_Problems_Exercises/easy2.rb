@@ -1,6 +1,59 @@
+### 8.2 SUM OR PRODUCT OF CONSECUTIVE INTEGERS
+
+
+### 7.2 EVEN NUMBERS
+# (2..98).step(2) { |num| puts num }
+
+# (2..98).%(2) { |num| puts num }
+
+# (1..49).each { |num| puts (num * 2) }
+
+# puts (1..99).select { |num| num.even? }
+
+# puts (1..99).select(&:even?)
+
+# 1.upto(99) { |num| puts num if num.even? }
+
+# 1.upto(49)  { |num| puts (num * 2) }
+
+# 49.times { |num| puts ((num + 1) * 2) }
+
 ### 6.2 ODD NUMBERS
+# (1..99).step(2) { |num| puts num }
+
+# (1..99).%(2) { |num| puts num }
+
+# (0..49).each { |num| puts (num * 2) + 1 }
+
+# puts (1..99).select { |num| num.odd? }
+
+# puts (1..99).select(&:odd?)
+
+# 1.upto(99) { |num| puts num if num.odd? }
+
+# 0.upto(49)  { |num| puts (num * 2) + 1 }
+
+# 50.times { |num| puts (num * 2) + 1 }
 
 
+
+# current_number = 1
+
+# loop do
+#   puts current_number
+#   current_number += 2
+#   break if current_number > 99
+# end
+
+# while current_number <= 99
+#   puts current_number
+#   current_number += 2
+# end
+
+# until current_number > 99
+#   puts current_number
+#   current_number += 2
+# end
 
 ### 5.2 GREETING A USER
 # def greet_user
