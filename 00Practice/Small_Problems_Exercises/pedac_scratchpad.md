@@ -1,11 +1,12 @@
 # PROBLEM
-Create a simple tip calculator. The program should prompt for a bill amount and a tip rate. The program must compute the tip and then display both the tip and the total amount of the bill.
+Build a program that displays when the user will retire and how many years she has to work till retirement.
 
-  Input: prompted from user:
-    - bill amount: float
-    - tip rate: float?
+  Input: from user: age (integer)
+                    age to retire (integer)
 
-  Output: two floats: tip amount, bill + tip
+  Output: current year
+          retirement year
+          years left to work (retirement year - current year)
 
   ## Rules
   ### explicit
@@ -17,23 +18,24 @@ Create a simple tip calculator. The program should prompt for a bill amount and 
 
 
 # EXAMPLES
-What is the bill? 200
-What is the tip percentage? 15
+What is your age? 30
+At what age would you like to retire? 70
 
-The tip is $30.0
-The total is $230.0
+It's 2016. You will retire in 2056.
+You have only 40 years of work to go!
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- get input from user
-  - bill amount
-  - tip percentage
-- convert tip percentage into decimal: 20% -> .2
-- multiply bill amount times tip percentage
-- display tip
-- display total (bill + tip)
+- get `current_age` from user
+- get `retirement_age` from user
+
+- calculate `years_to_retirement`: `retirement_age` - `current_age`
+- get `current_year`: Time.now.year
+- calculate `retirement_year`: `current_year` + `years_to_retirement`
+- display
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #

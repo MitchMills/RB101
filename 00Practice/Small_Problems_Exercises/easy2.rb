@@ -1,39 +1,73 @@
+### 4.2
+CURRENT_YEAR = Time.now.year
+
+def retirement_calculator
+  ages = get_ages
+  years = get_years(ages)
+  display_results(years)
+end
+
+def get_ages
+  questions = ["What is your age? ", "At what age would you like to retire? "]
+  questions.map do |question|
+    print question
+    gets.chomp.to_i
+  end
+end
+
+def get_years(ages)
+  current_age, retirement_age = ages
+  years_to_retirement = retirement_age - current_age
+  retirement_year = CURRENT_YEAR + years_to_retirement
+  [years_to_retirement, retirement_year]
+end
+
+def display_results(years)
+  years_to_retirement, retirement_year = years
+  puts
+  puts "It's #{CURRENT_YEAR}. You will retire in #{retirement_year}."
+  puts "You have only #{years_to_retirement} years of work to go!"
+end
+
+retirement_calculator
+
+
 ### 3.2 TIP CALCULATOR
-PERCENT_DIVISOR = 100.0
+# PERCENT_DIVISOR = 100.0
 
-def tip_calculator
-  input = get_input
-  results = get_results(input)
-  display_results(results)
-end
+# def tip_calculator
+#   input = get_input
+#   results = get_results(input)
+#   display_results(results)
+# end
 
-def get_input
-  ['bill', 'tip percentage'].map do |category|
-    print "What is the #{category}?: "
-    gets.chomp.to_f
-  end
-end
+# def get_input
+#   ['bill', 'tip percentage'].map do |category|
+#     print "What is the #{category}?: "
+#     gets.chomp.to_f
+#   end
+# end
 
-def get_results(input)
-  bill, tip_percentage = input
-  tip = bill * (tip_percentage / PERCENT_DIVISOR)
-  total = bill + tip
-  ['tip', 'total'].zip([tip, total]).to_h
-end
+# def get_results(input)
+#   bill, tip_percentage = input
+#   tip = bill * (tip_percentage / PERCENT_DIVISOR)
+#   total = bill + tip
+#   ['tip', 'total'].zip([tip, total]).to_h
+# end
 
-def display_results(results)
-  results.each do |label, result|
-    puts "The #{label} is #{format_currency(result)}"
-  end
-end
+# def display_results(results)
+#   results.each do |label, result|
+#     puts "The #{label} is #{format_currency(result)}"
+#   end
+# end
 
-def format_currency(amount)
-  basic = sprintf('%.2f', amount)
-  with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
-  final = with_commas.prepend('$')
-end
+# def format_currency(amount)
+#   basic = sprintf('%.2f', amount)
+#   with_commas = basic.reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
+#   final = with_commas.prepend('$')
+# end
 
-tip_calculator
+# tip_calculator
 
 ### 2.2 HOW BIG IS THE ROOM?
 # SQUARE_FEET_PER_SQUARE_METER = 10.7639
