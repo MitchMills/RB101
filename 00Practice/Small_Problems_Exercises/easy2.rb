@@ -1,35 +1,58 @@
-### 4.2
-CURRENT_YEAR = Time.now.year
+### 6.2 ODD NUMBERS
 
-def retirement_calculator
-  ages = get_ages
-  years = get_years(ages)
-  display_results(years)
-end
 
-def get_ages
-  questions = ["What is your age? ", "At what age would you like to retire? "]
-  questions.map do |question|
-    print question
-    gets.chomp.to_i
-  end
-end
 
-def get_years(ages)
-  current_age, retirement_age = ages
-  years_to_retirement = retirement_age - current_age
-  retirement_year = CURRENT_YEAR + years_to_retirement
-  [years_to_retirement, retirement_year]
-end
+### 5.2 GREETING A USER
+# def greet_user
+#   name = get_name
+#   display_response(name)
+# end
 
-def display_results(years)
-  years_to_retirement, retirement_year = years
-  puts
-  puts "It's #{CURRENT_YEAR}. You will retire in #{retirement_year}."
-  puts "You have only #{years_to_retirement} years of work to go!"
-end
+# def get_name
+#   print "What is your name? "
+#   gets.chomp
+# end
 
-retirement_calculator
+# def display_response(name)
+#   speak = "Hello #{name}."
+#   scream = "#{speak[0..-3].upcase}. WHY ARE WE SCREAMING?"
+#   puts (name[-1] == '!' ? scream : speak)
+# end
+
+# greet_user
+
+### 4.2 WHEN WILL I RETIRE?
+# CURRENT_YEAR = Time.now.year
+
+# def retirement_calculator
+#   ages = get_ages
+#   years = get_years(ages)
+#   display_results(years)
+# end
+
+# def get_ages
+#   questions = ["What is your age? ", "At what age would you like to retire? "]
+#   questions.map do |question|
+#     print question
+#     gets.chomp.to_i
+#   end
+# end
+
+# def get_years(ages)
+#   current_age, retirement_age = ages
+#   years_to_retirement = retirement_age - current_age
+#   retirement_year = CURRENT_YEAR + years_to_retirement
+#   [years_to_retirement, retirement_year]
+# end
+
+# def display_results(years)
+#   years_to_retirement, retirement_year = years
+#   puts
+#   puts "It's #{CURRENT_YEAR}. You will retire in #{retirement_year}."
+#   puts "You have only #{years_to_retirement} years of work to go!"
+# end
+
+# retirement_calculator
 
 
 ### 3.2 TIP CALCULATOR
