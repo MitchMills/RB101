@@ -1,4 +1,75 @@
+### 9.2 STRING ASSIGNMENT
+name = 'Bob'
+save_name = name
+name = 'Alice'
+puts name, save_name
+
+# name = 'Bob'
+# save_name = name
+# name.upcase!
+# puts name, save_name
+
+
 ### 8.2 SUM OR PRODUCT OF CONSECUTIVE INTEGERS
+# def sum_or_product
+#   system 'clear'
+#   inputs = get_inputs
+#   result = get_result(inputs)
+#   display_result(inputs, result)
+# end
+
+# def get_inputs
+#   integer = get_integer
+#   operation = get_operation
+#   [integer, operation]
+# end
+
+# def get_integer
+#   loop do
+#     print "Please enter an integer greater than 0: "
+#     input = gets.chomp
+#     return input.to_i if valid_integer?(input)
+#     invalid_entry
+#   end
+# end
+
+# def valid_integer?(input)
+#   (input.to_i.to_s == input) && (input.to_i > 0)
+# end
+
+# def invalid_entry
+#   puts "I'm sorry, that's not a valid entry."
+#   puts
+# end
+
+# def get_operation
+#   loop do
+#     print "Enter 's' to compute the sum, 'p' to compute the product: "
+#     choice = gets.chomp.downcase
+#     return get_operator(choice) if %w(s p).include?(choice)
+#     invalid_entry
+#   end
+# end
+
+# def get_operator(choice)
+#   case choice
+#   when 's' then [:+, 'sum']
+#   when 'p' then [:*, 'product']
+#   end
+# end
+
+# def get_result(inputs)
+#   integer, operation = inputs
+#   (1..integer).inject(operation[0])
+# end
+
+# def display_result(inputs, result)
+#   integer, operation = inputs
+#   puts "The #{operation[1]} of the integers between 1 and #{integer} is " +
+#     "#{result}."
+# end
+
+# sum_or_product
 
 
 ### 7.2 EVEN NUMBERS
