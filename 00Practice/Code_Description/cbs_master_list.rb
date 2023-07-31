@@ -1,4 +1,70 @@
+### JULY 31 ### 3
+# output = [1, 2, 3].each do |num|
+#   puts num
+# end
 
+# p output
+
+=begin
+What is output from line 2?
+What is returned?
+Describe the structure between do..end on lines 1 to 3 and how it relates to the Array#each method the precedes it.
+What is output from line 5 and why?
+
+Line 2 will output the current value of `num`. `Array#each` is called on the array `[1, 2, 3]` on line 1, and a block is passed in as an argument. The block will be executed once for each element in `[1, 2, 3]`.
+
+On each iteration, a successive element of the array is passed into the block and assigned to the variable `num`. The value referenced by `num` is then passed in as an argument to the invocation of `Kernel#puts` on line 2. So line 2 will output `1`, then `2`, then `3`, each on separate lines. Line 2 will return `nil` on each iteration, as `#puts` always returns `nil`.
+
+Line 5 will output `[1, 2, 3]`. Local variable `output` is initialized on line 1 and the return value of the call to `Array#each` is assigned to it. The `each` method always returns the caller, in this case the array `[1, 2, 3]`. 
+
+So when the `Kernel#p` method is invoked on line 5, it will output the value referenced by `output`:`[1, 2, 3]`
+=end
+
+### JULY 31 ### 2
+# def short_long_short(string1, string2)
+#   if string1.length > string2.length
+#     string2 + string1 + string2
+#   else
+#     string1 + string2 + string1
+#   end
+# end
+
+# longer_string = short_long_short('abc', 'defgh')
+# p longer_string
+
+=begin
+What is the value assigned to the variable longer_string on line 9 and why?
+Describe an underlying concept demonstrated in this code in one paragraph.
+
+The value assigned to the variable `longer_string` will be the string `"abcdefghabc"`. `longer_string` is initialized on line 9 and the return value of an invocation of the method `short_long_short` is assigned to it. 
+
+Two string objects, `abc` and `defgh`, are passed in to `short_long_short` as arguments. The method, defined on lines 1 through 7, takes the two passed-in strings and assigns them to the variables `string1` and `string2` respectively.
+
+On line 2 the number of characters of each string is compared using the `String#length` method. Since the value referenced by `string1` has 3 characters, and that by `string2` has 5, the conditional on line 2 will evaluate to `false`.
+
+So the `else` branch of the conditional will be executed. That branch concatenates the value of `string1` to that of `string2` and then to that of `string1` again. The result is the string `abcdefghabc`, which is implicitly returned by the method since it is the last evaluated expression. This return value is what is assigned to `longer_string` when it is initialized on line 9.
+
+One concept demonstrated in this code is that variables can be assigned to the value of an expression, and so that expression must first be evaluated to determine what value the variable now references. In this case the expression was a method invocation, and only by determining the return value of that method invocation can we know the value assigned to the variable.
+=end
+
+### JULY 31 ### 1
+# def say_hello
+#   puts 'Hello, World'
+# end
+
+# 5.times { say_hello }
+
+=begin
+What is output when this code is executed and why?
+What is the return value from say_hello and why?
+What is the return value from line 5 and why? 
+
+This code will output the string `"Hello, World` five times on separate lines. When the `Integer#times` method is called on line 5, it will execute the block passed in as an argument a number of times based on the calling integer. Within the block, the `say_hello` method is invoked, and that method, defined on lines 1 through 3, will output the string `"Hello, World"` using the `Kernel#puts` method. So the block passed in to `Integer#times` will be executed 5 times, and on each execution it will invoke `say_hello`, which will output `"Hello, World"`.
+
+The return value of `say_hello` is `nil`. The method implicitly returns the last evaluated expression, which is the invocation of `Kernel#puts` on line 2. `#puts` always returns `nil`.
+
+The return value from line 5 will the the integer `5`. The `Integer#times` method always returns the calling integer.
+=end
 
 ### JULY 28 ### 3
 # s = "string"
