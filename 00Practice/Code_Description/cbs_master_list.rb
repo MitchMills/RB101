@@ -1,9 +1,8 @@
-### JULY 31 ### 3
-# output = [1, 2, 3].each do |num|
-#   puts num
-# end
+output = [1, 2, 3].each do |num|
+  puts num
+end
 
-# p output
+p output
 
 =begin
 What is output from line 2?
@@ -11,6 +10,15 @@ What is returned?
 Describe the structure between do..end on lines 1 to 3 and how it relates to the Array#each method the precedes it.
 What is output from line 5 and why?
 
+Line 2 will output the integers `1`, `2`, and `3` on separate lines. It will return `nil` as `Kernel#puts` always returns `nil`.
+
+The structure between `do..end` on lines 1 to 3 is a block and it is passed in to the `Array#each` method as an argument. It will execute once for every element in the calling array.
+
+On each execution, a successive element of the calling array will be passed in to the block and assigned to the block variable `num`. The value referenced by `num` will then be passed in as an argument to the invocation of `Kernel#puts` on line 2.
+
+Line 5 will output `[1, 2, 3]`. The variable `output` was initialized on line 1 and the return value of the call to `Array#each` was assigned to it. `Array#each` returns the calling array, so `output` references `[1, 2, 3]`, and that is what is passed in as an argument to the invocation of the `Kernel#p` method.
+
+*************************************
 Line 2 will output the current value of `num`. `Array#each` is called on the array `[1, 2, 3]` on line 1, and a block is passed in as an argument. The block will be executed once for each element in `[1, 2, 3]`.
 
 On each iteration, a successive element of the array is passed into the block and assigned to the variable `num`. The value referenced by `num` is then passed in as an argument to the invocation of `Kernel#puts` on line 2. So line 2 will output `1`, then `2`, then `3`, each on separate lines. Line 2 will return `nil` on each iteration, as `#puts` always returns `nil`.
