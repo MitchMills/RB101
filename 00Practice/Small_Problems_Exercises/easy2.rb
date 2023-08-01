@@ -288,31 +288,23 @@ end
 def display_conversions(area, units)
   start_unit, target_units = units
   target_units.each do |target_unit|
-    converted_area = get_converted_area(area, start_unit, target_unit)
+    converter = get_converter(start_unit, target_unit)
+    converted_area = get_converted_area(area, converter)
     puts "(#{format_area(converted_area)} #{target_unit})"
   end
 end
 
-def get_converted_area(area, start_unit, target_unit)
-  converter = get_converter(start_unit, target_unit)
+def get_converted_area(area, converter)
   area * converter
 end
 
-def get_converter(unit)
+def get_converter(start_unit, target_unit)
   CONVERSIONS[start_unit][target_unit]
 end
 
 find_area('square meters', ['square feet'])
 puts
 find_area('square feet', ['square inches', 'square centimeters'])
-
-
-
-
-
-
-
-
 
 ### Initial Solution
 # SQUARE_FEET_PER_SQUARE_METER = 10.7639
