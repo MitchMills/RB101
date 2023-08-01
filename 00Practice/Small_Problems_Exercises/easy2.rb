@@ -1,14 +1,34 @@
+### 10.2 
+# def negative(num)
+#   num > 0 ? -num : num
+# end
+
+# def negative(num)
+#   num.positive? ? -num : num
+# end
+
+# def negative(num)
+#   -num.abs
+# end
+
+# p negative(5) == -5
+# p negative(-3) == -3
+# p negative(0) == 0
+
 ### 9.2 STRING ASSIGNMENT
-name = 'Bob'
-save_name = name
-name = 'Alice'
-puts name, save_name
+# name = 'Bob'
+# save_name = name
+# name = 'Alice'
+# puts name, save_name
 
 # name = 'Bob'
 # save_name = name
 # name.upcase!
 # puts name, save_name
 
+=begin
+Line 4 will output the string `BOB` twice, on separate lines. Local variable `name` was initialized on line 1 and set to reference the String object 'Bob'. Local variable `save_name` was initialized on line 2 and set to reference the same object as `name`. Since both variables reference the same object, when the `String#upcase!` method is called on line 3 and mutates the calling object, both variables reflect that change. They both still reference the same String object, which has been mutated and now has the value `BOB`.
+=end
 
 ### 8.2 SUM OR PRODUCT OF CONSECUTIVE INTEGERS
 # def sum_or_product
@@ -52,10 +72,7 @@ puts name, save_name
 # end
 
 # def get_operator(choice)
-#   case choice
-#   when 's' then [:+, 'sum']
-#   when 'p' then [:*, 'product']
-#   end
+#   choice == 's' ? [:+, 'sum'] : [:*, 'product']
 # end
 
 # def get_result(inputs)
@@ -217,27 +234,27 @@ puts name, save_name
 # tip_calculator
 
 ### 2.2 HOW BIG IS THE ROOM?
-# SQUARE_FEET_PER_SQUARE_METER = 10.7639
-# SQUARE_INCHES_PER_SQUARE_METER = 1550.0031
-# SQUARE_CENTIMETERS_PER_SQUARE_METER = 10000
+SQUARE_FEET_PER_SQUARE_METER = 10.7639
+SQUARE_INCHES_PER_SQUARE_METER = 1550.0031
+SQUARE_CENTIMETERS_PER_SQUARE_METER = 10000
 
-# SQUARE_METERS_PER_SQUARE_FOOT = 0.0929
-# SQUARE_INCHES_PER_SQUARE_FOOT = 144
-# SQUARE_CENTIMETERS_PER_SQUARE_FOOT = 929.0304
+SQUARE_METERS_PER_SQUARE_FOOT = 0.0929
+SQUARE_INCHES_PER_SQUARE_FOOT = 144
+SQUARE_CENTIMETERS_PER_SQUARE_FOOT = 929.0304
 
-# # keys in outer hash are starting unit; keys in inner hashes are target units
-# CONVERSIONS = {
-#   'square meters' => {
-#     'square feet' => SQUARE_FEET_PER_SQUARE_METER,
-#     'square inches' => SQUARE_INCHES_PER_SQUARE_METER,
-#     'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_METER
-#   },
-#   'square feet' => {
-#     'square inches' => SQUARE_INCHES_PER_SQUARE_FOOT,
-#     'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_FOOT,
-#     'square meters' => SQUARE_METERS_PER_SQUARE_FOOT
-#   }
-# }
+# keys in outer hash are starting unit; keys in inner hashes are target units
+CONVERSIONS = {
+  'square meters' => {
+    'square feet' => SQUARE_FEET_PER_SQUARE_METER,
+    'square inches' => SQUARE_INCHES_PER_SQUARE_METER,
+    'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_METER
+  },
+  'square feet' => {
+    'square inches' => SQUARE_INCHES_PER_SQUARE_FOOT,
+    'square centimeters' => SQUARE_CENTIMETERS_PER_SQUARE_FOOT,
+    'square meters' => SQUARE_METERS_PER_SQUARE_FOOT
+  }
+}
 
 # def find_area(start_unit, target_units)
 #   length, width = get_input(start_unit)
@@ -246,45 +263,53 @@ puts name, save_name
 #   display_conversions(area, start_unit, target_units)
 # end
 
-# def get_input(start_unit)
-#   base_unit = start_unit.split[1]
-#   input = ['length', 'width'].map do |dimension|
-#     print "Enter the #{dimension} of the room in #{base_unit}: "
-#     gets.chomp
-#   end
-# end
+def find_area(start_unit, target_units)
+  dimensions = get_input(start_unit)
+  
+  area = calculate_area(length.to_f, width.to_f)
+  display_area(area, start_unit)
+  display_conversions(area, start_unit, target_units)
+end
 
-# def calculate_area(length, width)
-#   length * width
-# end
+def get_input(start_unit)
+  base_unit = start_unit.split[1]
+  input = ['length', 'width'].map do |dimension|
+    print "Enter the #{dimension} of the room in #{base_unit}: "
+    gets.chomp
+  end
+end
 
-# def display_area(area, start_unit)
-#   puts "The area of the room is #{format_area(area)} #{start_unit}."
-# end
+def calculate_area(length, width)
+  length * width
+end
 
-# def format_area(area)
-#   sprintf('%.2f', area).reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
-# end
+def display_area(area, start_unit)
+  puts "The area of the room is #{format_area(area)} #{start_unit}."
+end
 
-# def display_conversions(area, start_unit, target_units)
-#   target_units.each do |target_unit|
-#     converted_area = get_converted_area(area, start_unit, target_unit)
-#     puts "(#{format_area(converted_area)} #{target_unit})"
-#   end
-# end
+def format_area(area)
+  sprintf('%.2f', area).reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
+end
 
-# def get_converted_area(area, start_unit, target_unit)
-#   converter = get_converter(start_unit, target_unit)
-#   area * converter
-# end
+def display_conversions(area, start_unit, target_units)
+  target_units.each do |target_unit|
+    converted_area = get_converted_area(area, start_unit, target_unit)
+    puts "(#{format_area(converted_area)} #{target_unit})"
+  end
+end
 
-# def get_converter(start_unit, target_unit)
-#   CONVERSIONS[start_unit][target_unit]
-# end
+def get_converted_area(area, start_unit, target_unit)
+  converter = get_converter(start_unit, target_unit)
+  area * converter
+end
 
-# find_area('square meters', ['square feet'])
-# puts
-# find_area('square feet', ['square inches', 'square centimeters'])
+def get_converter(start_unit, target_unit)
+  CONVERSIONS[start_unit][target_unit]
+end
+
+find_area('square meters', ['square feet'])
+puts
+find_area('square feet', ['square inches', 'square centimeters'])
 
 ### Initial Solution
 # SQUARE_FEET_PER_SQUARE_METER = 10.7639
