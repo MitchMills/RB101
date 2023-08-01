@@ -256,30 +256,24 @@ CONVERSIONS = {
   }
 }
 
-# def find_area(start_unit, target_units)
-#   length, width = get_input(start_unit)
-#   area = calculate_area(length.to_f, width.to_f)
-#   display_area(area, start_unit)
-#   display_conversions(area, start_unit, target_units)
-# end
-
 def find_area(start_unit, target_units)
   dimensions = get_input(start_unit)
-  
-  area = calculate_area(length.to_f, width.to_f)
+  area = calculate_area(dimensions)
   display_area(area, start_unit)
-  display_conversions(area, start_unit, target_units)
+  units = [start_unit, target_units]
+  display_conversions(area, units)
 end
 
 def get_input(start_unit)
   base_unit = start_unit.split[1]
   input = ['length', 'width'].map do |dimension|
     print "Enter the #{dimension} of the room in #{base_unit}: "
-    gets.chomp
+    gets.chomp.to_f
   end
 end
 
-def calculate_area(length, width)
+def calculate_area(dimensions)
+  length, width = dimensions
   length * width
 end
 
@@ -291,7 +285,8 @@ def format_area(area)
   sprintf('%.2f', area).reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
 end
 
-def display_conversions(area, start_unit, target_units)
+def display_conversions(area, units)
+  start_unit, target_units = units
   target_units.each do |target_unit|
     converted_area = get_converted_area(area, start_unit, target_unit)
     puts "(#{format_area(converted_area)} #{target_unit})"
@@ -303,13 +298,21 @@ def get_converted_area(area, start_unit, target_unit)
   area * converter
 end
 
-def get_converter(start_unit, target_unit)
+def get_converter(unit)
   CONVERSIONS[start_unit][target_unit]
 end
 
 find_area('square meters', ['square feet'])
 puts
 find_area('square feet', ['square inches', 'square centimeters'])
+
+
+
+
+
+
+
+
 
 ### Initial Solution
 # SQUARE_FEET_PER_SQUARE_METER = 10.7639
