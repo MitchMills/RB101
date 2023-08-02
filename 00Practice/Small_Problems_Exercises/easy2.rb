@@ -273,8 +273,7 @@ def get_input(start_unit)
 end
 
 def calculate_area(dimensions)
-  length, width = dimensions
-  length * width
+  dimensions.inject(:*)
 end
 
 def display_area(area, start_unit)
@@ -288,18 +287,10 @@ end
 def display_conversions(area, units)
   start_unit, target_units = units
   target_units.each do |target_unit|
-    converter = get_converter(start_unit, target_unit)
-    converted_area = get_converted_area(area, converter)
+    converter = CONVERSIONS[start_unit][target_unit]
+    converted_area = area * converter
     puts "(#{format_area(converted_area)} #{target_unit})"
   end
-end
-
-def get_converted_area(area, converter)
-  area * converter
-end
-
-def get_converter(start_unit, target_unit)
-  CONVERSIONS[start_unit][target_unit]
 end
 
 find_area('square meters', ['square feet'])
