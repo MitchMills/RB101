@@ -258,10 +258,9 @@ CONVERSIONS = {
 
 def find_area(start_unit, target_units)
   dimensions = get_input(start_unit)
-  area = calculate_area(dimensions)
+  area = dimensions.inject(:*)
   display_area(area, start_unit)
-  units = [start_unit, target_units]
-  display_conversions(area, units)
+  display_conversions(area, start_unit, target_units)
 end
 
 def get_input(start_unit)
@@ -272,10 +271,6 @@ def get_input(start_unit)
   end
 end
 
-def calculate_area(dimensions)
-  dimensions.inject(:*)
-end
-
 def display_area(area, start_unit)
   puts "The area of the room is #{format_area(area)} #{start_unit}."
 end
@@ -284,8 +279,7 @@ def format_area(area)
   sprintf('%.2f', area).reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse
 end
 
-def display_conversions(area, units)
-  start_unit, target_units = units
+def display_conversions(area, start_unit, target_units)
   target_units.each do |target_unit|
     converter = CONVERSIONS[start_unit][target_unit]
     converted_area = area * converter
