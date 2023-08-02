@@ -1,14 +1,17 @@
-### 10 UPPERCASE CHECK
-def uppercase?(string)
-  string == string.upcase
-end
+### 1.2 SEARCHING 101
 
-p uppercase?('t') == false
-p uppercase?('T') == true
-p uppercase?('Four Score') == false
-p uppercase?('FOUR SCORE') == true
-p uppercase?('4SCORE!') == true
-p uppercase?('') == true
+
+### 10 UPPERCASE CHECK
+# def uppercase?(string)
+#   string == string.upcase
+# end
+
+# p uppercase?('t') == false
+# p uppercase?('T') == true
+# p uppercase?('Four Score') == false
+# p uppercase?('FOUR SCORE') == true
+# p uppercase?('4SCORE!') == true
+# p uppercase?('') == true
 
 ### 9 PALINDROMIC NUMBERS
 # def palindromic_number?(num)
