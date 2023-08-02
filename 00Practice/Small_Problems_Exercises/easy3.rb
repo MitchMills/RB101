@@ -1,5 +1,52 @@
 ### 1.2 SEARCHING 101
+def check_membership
+  system 'clear'
+  inputs = get_inputs
+  result = determine_result(inputs)
+  display_result(inputs, result)
+end
 
+def get_inputs
+  ordinals = %w(1st 2nd 3rd 4th 5th last)
+  numbers = ordinals.map do |ordinal|
+    get_input(ordinal)
+  end
+  [numbers, numbers.pop]
+end
+
+def get_input(ordinal)
+  loop do
+    print "==> Enter the #{ordinal} integer: "
+    input = gets.chomp
+    return input.to_i if valid_integer?(input)
+
+    invalid_entry
+  end
+end
+
+def valid_integer?(input)
+  input.to_i.to_s == input
+end
+
+def invalid_entry
+  puts
+  puts "Please enter only integers."
+  puts
+end
+
+def determine_result(inputs)
+  numbers, target = inputs
+  numbers.include?(target)
+end
+
+def display_result(inputs, result)
+  numbers, target = inputs
+  puts
+  print "The number #{target} "
+  puts (result ? "appears in #{numbers}." : "does not appear in #{numbers}.")
+end
+
+check_membership
 
 ### 10 UPPERCASE CHECK
 # def uppercase?(string)
