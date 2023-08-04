@@ -1,14 +1,29 @@
+### 6.2 EXCLUSIVE OR
+def xor?(left, right)
+
+end
+
+p xor?(5.even?, 4.even?) == true
+p xor?(5.odd?, 4.odd?) == true
+p xor?(5.odd?, 4.even?) == false
+p xor?(5.even?, 4.odd?) == false
+
 ### 5.2 SQUARING AN ARGUMENT
-def square(num)
+# def power(num, exponent)
+#   total = 1
+#   exponent.times { total = multiply(num, total) }
+#   total
+# end
 
-end
+# def square(num)
+#   multiply(num, num)
+# end
 
-def multiply(num1, num2)
-  num1 * num2
-end
+# def multiply(num1, num2)
+#   num1 * num2
+# end
 
-square(5) == 25
-square(-8) == 64
+# p power(3, 2)
 
 ### 4.2 
 # def multiply(num1, num2)
