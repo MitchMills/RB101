@@ -1,52 +1,94 @@
+### 3.2 COUNTING THE NUMBER OF CHARACTERS
+
+
+### 2.2 ARITHMETIC INTEGER
+# def operate
+#   system 'clear'
+#   numbers = get_numbers
+#   results = get_results(numbers)
+#   display_results(numbers, results)
+# end
+
+# def get_numbers
+#   ['first', 'second'].map do |ordinal|
+#     print "==> Enter the #{ordinal} number: "
+#     gets.chomp.to_f
+#   end
+# end
+
+# def get_results(numbers)
+#   num1, num2 = numbers
+#   operations = [:+, :-, :*, :/, :%, :**]
+#   results = operations.map do |operation|
+#     next "can't divide by zero." if (num2 == 0 && [:/, :%].include?(operation))
+#     numbers.inject(operation)
+#   end
+#   operations.zip(results).to_h
+# end
+
+# def display_results(numbers, results)
+#   num1, num2 = numbers.map { |num| format_number(num) }
+#   results.each do |operation, result|
+#     result = format_number(result) unless result.class == String
+#     puts "#{num1} #{operation} #{num2} = #{result}"
+#   end
+# end
+
+# def format_number(number)
+#   sprintf('%.2f', number).reverse.scan(/(\d*\.\d{1,3}|\d{1,3})/).join(',').reverse.gsub('.00','')
+# end
+
+# operate
+
 ### 1.2 SEARCHING 101
-def check_membership
-  system 'clear'
-  inputs = get_inputs
-  result = determine_result(inputs)
-  display_result(inputs, result)
-end
+# def check_membership
+#   system 'clear'
+#   inputs = get_inputs
+#   result = determine_result(inputs)
+#   display_result(inputs, result)
+# end
 
-def get_inputs
-  ordinals = %w(1st 2nd 3rd 4th 5th last)
-  numbers = ordinals.map do |ordinal|
-    get_input(ordinal)
-  end
-  [numbers, numbers.pop]
-end
+# def get_inputs
+#   ordinals = %w(1st 2nd 3rd 4th 5th last)
+#   numbers = ordinals.map do |ordinal|
+#     get_input(ordinal)
+#   end
+#   [numbers, numbers.pop]
+# end
 
-def get_input(ordinal)
-  loop do
-    print "==> Enter the #{ordinal} integer: "
-    input = gets.chomp
-    return input.to_i if valid_integer?(input)
+# def get_input(ordinal)
+#   loop do
+#     print "==> Enter the #{ordinal} integer: "
+#     input = gets.chomp
+#     return input.to_i if valid_integer?(input)
 
-    invalid_entry
-  end
-end
+#     invalid_entry
+#   end
+# end
 
-def valid_integer?(input)
-  input.to_i.to_s == input
-end
+# def valid_integer?(input)
+#   input.to_i.to_s == input
+# end
 
-def invalid_entry
-  puts
-  puts "Please enter only integers."
-  puts
-end
+# def invalid_entry
+#   puts
+#   puts "Please enter only integers."
+#   puts
+# end
 
-def determine_result(inputs)
-  numbers, target = inputs
-  numbers.include?(target)
-end
+# def determine_result(inputs)
+#   numbers, target = inputs
+#   numbers.include?(target)
+# end
 
-def display_result(inputs, result)
-  numbers, target = inputs
-  puts
-  print "The number #{target} "
-  puts (result ? "appears in #{numbers}." : "does not appear in #{numbers}.")
-end
+# def display_result(inputs, result)
+#   numbers, target = inputs
+#   puts
+#   print "The number #{target} "
+#   puts (result ? "appears in #{numbers}." : "does not appear in #{numbers}.")
+# end
 
-check_membership
+# check_membership
 
 ### 10 UPPERCASE CHECK
 # def uppercase?(string)
