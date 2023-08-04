@@ -1,12 +1,37 @@
-### 6.2 EXCLUSIVE OR
-def xor?(left, right)
-
+### 7.2 PALINDROMIC STRING I
+def palindrome?(string)
+  
 end
 
-p xor?(5.even?, 4.even?) == true
-p xor?(5.odd?, 4.odd?) == true
-p xor?(5.odd?, 4.even?) == false
-p xor?(5.even?, 4.odd?) == false
+p palindrome?('madam') == true
+p palindrome?('Madam') == false          # (case matters)
+p palindrome?("madam i'm adam") == false # (all characters matter)
+p palindrome?('356653') == true
+
+### 6.2 EXCLUSIVE OR
+# def xor?(left, right)
+#   !!left == !right
+# end
+
+# p xor?(false, true) == true
+# p xor?(nil, 42) == true
+# p xor?('This is truthy', (puts "This is truthy")) == true
+# p xor?([1, 2, 3].include?(4), 5.odd?) == true
+# p xor?(['a', 'b', 'c'], {a: 1, b: 2, c: 3})
+
+=begin
+When comparing two expressions that evaluate to `true` or `false`, there are four possible combinations:
+- `true`, `true`
+- `false`, `true`
+- `true`, `false`
+- `false`, `false`
+
+With the `&&` operator, if the first operand evaluates to `false`, the second operand doesn't need to be evaluated to know the outcome.
+
+With the `||` operator, if the first operand evaluates to `true`, the second operand doesn't need to be evaluated to  know the outcome.
+
+But with an exclusive-or operator, whether the first operand evaluates to `true` or `false`, we still need to evaluate the second operand to know the outcome, so short-circuit evaluation doesn't make sense.
+=end
 
 ### 5.2 SQUARING AN ARGUMENT
 # def power(num, exponent)
