@@ -1,5 +1,44 @@
-### 3.2 COUNTING THE NUMBER OF CHARACTERS
+### 5.2 SQUARING AN ARGUMENT
+def square(num)
 
+end
+
+def multiply(num1, num2)
+  num1 * num2
+end
+
+square(5) == 25
+square(-8) == 64
+
+### 4.2 
+# def multiply(num1, num2)
+#   num1 * num2
+# end
+
+# # p multiply(5, 3)
+# p multiply([1, 2], ', ')
+
+### 3.2 COUNTING THE NUMBER OF CHARACTERS
+# def characters
+#   input = get_input()
+#   count = count_characters(input)
+#   display_result(input, count)
+# end
+
+# def get_input
+#   print '=> Please write word or multiple words: '
+#   gets.chomp
+# end
+
+# def count_characters(input)
+#   input.gsub(' ', '')).size
+# end
+
+# def display_result(input, count)
+#   puts "There are #{count} characters in \"#{input}\"."
+# end
+
+# characters
 
 ### 2.2 ARITHMETIC INTEGER
 # def operate

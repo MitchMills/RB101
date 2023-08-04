@@ -1,5 +1,5 @@
 # PROBLEM
-Write a program that will ask a user for an input of a word or multiple words and give back the number of characters. Spaces should not be counted as a character.
+Using the multiply method from the "Multiplying Two Numbers" problem, write a method that computes the square of its argument (the square is the result of multiplying a number by itself).
 
   Input: 
 
@@ -15,11 +15,8 @@ Write a program that will ask a user for an input of a word or multiple words an
 
 
 # EXAMPLES
-=> Please write word or multiple words: walk
-There are 4 characters in "walk".
-
-=> Please write word or multiple words: walk, don't run
-There are 13 characters in "walk, don't run".
+square(5) == 25
+square(-8) == 64
 
 # DATA STRUCTURES
 
