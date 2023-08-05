@@ -1,12 +1,99 @@
-### 7.2 PALINDROMIC STRING I
-def palindrome?(string)
-  
-end
+### 10.2 UPPERCASE CHECK
+# def uppercase?(string)
+#   lowercase = ('a'..'z').to_a
+#   string.each_char { |char| return false if lowercase.include?(char) }
+#   true
+# end
 
-p palindrome?('madam') == true
-p palindrome?('Madam') == false          # (case matters)
-p palindrome?("madam i'm adam") == false # (all characters matter)
-p palindrome?('356653') == true
+# def uppercase?(string)
+#   string == string.upcase
+# end
+
+# p uppercase?('t') == false
+# p uppercase?('T') == true
+# p uppercase?('Four Score') == false
+# p uppercase?('FOUR SCORE') == true
+# p uppercase?('4SCORE!') == true
+# p uppercase?('') == true
+
+### 9.2 PALINDROMIC STRING III
+# def palindromic_number?(number)
+#   number.to_s == number.to_s.reverse
+# end
+
+# Arithmetic solution without converting to string (DANIEL CHAE)
+# def palindromic_number?(number)
+#   original = number
+#   reverse = 0
+#   while number > 0
+#     reverse *= 10
+#     reverse += (number % 10)
+#     number /= 10
+#   end
+#   reverse == original
+# end
+
+# p palindromic_number?(34543) == true
+# p palindromic_number?(123210) == false
+# p palindromic_number?(22) == true
+# p palindromic_number?(5) == true
+
+### 8.2 PALINDROMIC STRING II
+# def real_palindrome?(input_string)
+#   alphanumerics = ('0'..'9').to_a + ('a'..'z').to_a
+#   check_string = input_string.downcase.chars.select do |char|
+#     alphanumerics.include?(char)
+#   end.join
+#   check_string == check_string.reverse
+# end
+
+# p real_palindrome?('madam') == true
+# p real_palindrome?('Madam') == true           # (case does not matter)
+# p real_palindrome?("Madam, I'm Adam") == true # (only alphanumerics matter)
+# p real_palindrome?('356653') == true
+# p real_palindrome?('356a653') == true
+# p real_palindrome?('123ab321') == false
+
+### 7.2 PALINDROMIC STRING I
+# def palindrome?(object)
+#   object == object.reverse
+# end
+
+# def palindrome?(input)
+#   reverse = input.class.new
+#   (input.size - 1).downto(0) do |idx|
+#     reverse << input[idx]
+#   end
+#   input == reverse
+# end
+
+# def palindromic?(iterable)
+#   i, j = 0, iterable.length - 1
+#   while i <= j && iterable[i] == iterable[j]
+#     i += 1
+#     j -= 1
+#   end
+#   return i > j
+# end
+
+# def palindrome?(iterable)
+#   front, back = 0, iterable.length - 1
+#   while (front <= back) && (iterable[front] == iterable[back])
+#     front += 1
+#     back -= 1
+#   end
+#   return front > back
+# end
+
+# p palindrome?('madam') == true
+# p palindrome?('Madam') == false          # (case matters)
+# p palindrome?("madam i'm adam") == false # (all characters matter)
+# p palindrome?('356653') == true
+
+# p palindrome?([1, 2, 1]) == true
+# p palindrome?([1, 2, 3]) == false          # (case matters)
+# p palindrome?([1, 2]) == false # (all characters matter)
+# p palindrome?([1]) == true
 
 ### 6.2 EXCLUSIVE OR
 # def xor?(left, right)
