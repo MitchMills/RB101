@@ -1,9 +1,10 @@
 # PROBLEM
-Write a method that takes a string argument, and returns true if all of the alphabetic characters inside the string are uppercase, false otherwise. Characters that are not alphabetic should be ignored.
+Write a method that takes two strings as arguments, determines the longest of the two strings, and then returns the result of concatenating the shorter string, the longer string, and the shorter string once again. You may assume that the strings are of different lengths.
 
-  Input: string
+  Input: two strings
+          - they will be different lengths
 
-  Output: boolean
+  Output: string: concatenated shorter, longer, shorter
 
   ## Rules
   ### explicit
@@ -15,18 +16,17 @@ Write a method that takes a string argument, and returns true if all of the alph
 
 
 # EXAMPLES
-uppercase?('t') == false
-uppercase?('T') == true
-uppercase?('Four Score') == false
-uppercase?('FOUR SCORE') == true
-uppercase?('4SCORE!') == true
-uppercase?('') == true
+short_long_short('abc', 'defgh') == "abcdefghabc"
+short_long_short('abcde', 'fgh') == "fghabcdefgh"
+short_long_short('', 'xyz') == "xyz"
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-
+- determine which string is shorter
+- concatenate shorter + longer + shorter
+- return concatenated string
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #

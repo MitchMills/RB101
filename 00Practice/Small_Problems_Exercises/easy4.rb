@@ -1,20 +1,30 @@
+### 1.2 SHORT LONG SHORT
+def short_long_short(string1, string2)
+  short, long = [string1, string2].sort_by(&:size)
+  short + long + short
+end
+
+p short_long_short('abc', 'defgh') == "abcdefghabc"
+p short_long_short('abcde', 'fgh') == "fghabcdefgh"
+p short_long_short('', 'xyz') == "xyz"
+
 ### 10 CONVERT A SIGNED NUMBER TO A STRING!
-INT_STRINGS = ('0'..'9').to_a
-# ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+# INT_STRINGS = ('0'..'9').to_a
+# # ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-def integer_to_string(num)
-  num.digits.reverse.each_with_object("") { |num, str| str << INT_STRINGS[num] }
-end
+# def integer_to_string(num)
+#   num.digits.reverse.each_with_object("") { |num, str| str << INT_STRINGS[num] }
+# end
 
-def signed_integer_to_string(num)
-  return '0' if num == 0
-  result = integer_to_string(num.abs)
-  num.positive? ? result.prepend('+') : result.prepend('-')
-end
+# def signed_integer_to_string(num)
+#   return '0' if num == 0
+#   result = integer_to_string(num.abs)
+#   num.positive? ? result.prepend('+') : result.prepend('-')
+# end
 
-p signed_integer_to_string(4321) == '+4321'
-p signed_integer_to_string(-123) == '-123'
-p signed_integer_to_string(0) == '0'
+# p signed_integer_to_string(4321) == '+4321'
+# p signed_integer_to_string(-123) == '-123'
+# p signed_integer_to_string(0) == '0'
 
 ### 9 CONVERT A NUMBER TO A STRING!
 # INT_STRINGS = ('0'..'9').to_a
