@@ -1,14 +1,16 @@
 # PROBLEM
-Write a method that takes two strings as arguments, determines the longest of the two strings, and then returns the result of concatenating the shorter string, the longer string, and the shorter string once again. You may assume that the strings are of different lengths.
+Write a method that takes a year as input and returns the century. The return value should be a string that begins with the century number, and ends with st, nd, rd, or th as appropriate for that number.
 
-  Input: two strings
-          - they will be different lengths
+New centuries begin in years that end with 01. So, the years 1901-2000 comprise the 20th century.
 
-  Output: string: concatenated shorter, longer, shorter
+  Input: integer: represents year
+
+  Output: string: represents century
 
   ## Rules
   ### explicit
-  
+  - new centuries begin in years that end with 01
+    - 20th century = 1901 - 2000
   ### implicit
 
 
@@ -16,17 +18,36 @@ Write a method that takes two strings as arguments, determines the longest of th
 
 
 # EXAMPLES
-short_long_short('abc', 'defgh') == "abcdefghabc"
-short_long_short('abcde', 'fgh') == "fghabcdefgh"
-short_long_short('', 'xyz') == "xyz"
+century(2000) == '20th'
+century(2001) == '21st'
+century(1965) == '20th'
+century(256) == '3rd'
+century(5) == '1st'
+century(10103) == '102nd'
+century(1052) == '11th'
+century(1127) == '12th'
+century(11201) == '113th'
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- determine which string is shorter
-- concatenate shorter + longer + shorter
-- return concatenated string
+- determine century
+  - get the quotient and remainder of dividing year by 100
+    - if remainder == 0, century is quotient
+    - if remainder > 0, century is (quotient + 1)
+- display century
+  1st
+
+  2nd
+
+  3rd
+  
+  4th
+  5th
+  6th
+
+  21st
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #

@@ -1,12 +1,48 @@
-### 1.2 SHORT LONG SHORT
-def short_long_short(string1, string2)
-  short, long = [string1, string2].sort_by(&:size)
-  short + long + short
+### 2.2 WHAT CENTURY IS THAT?
+def century(year)
+  century = get_century(year)
+  display_century(century)
 end
 
-p short_long_short('abc', 'defgh') == "abcdefghabc"
-p short_long_short('abcde', 'fgh') == "fghabcdefgh"
-p short_long_short('', 'xyz') == "xyz"
+def get_century(year)
+  quotient, remainder = year.divmod(100)
+  century = remainder == 0 ? quotient : quotient + 1
+end
+
+def display_century(century)
+  quotient, remainder = century.divmod(10)
+  suffix = (quotient % 10 == 1) ? 'th' : get_suffix(remainder)
+  century.to_s + suffix
+end
+
+def get_suffix(remainder)
+  case remainder
+  when 1 then 'st'
+  when 2 then 'nd'
+  when 3 then 'rd'
+  else 'th'
+  end
+end
+
+p century(2000) == '20th'
+p century(2001) == '21st'
+p century(1965) == '20th'
+p century(256) == '3rd'
+p century(5) == '1st'
+p century(10103) == '102nd'
+p century(1052) == '11th'
+p century(1127) == '12th'
+p century(11201) == '113th'
+
+### 1.2 SHORT LONG SHORT
+# def short_long_short(string1, string2)
+#   short, long = [string1, string2].sort_by(&:size)
+#   short + long + short
+# end
+
+# p short_long_short('abc', 'defgh') == "abcdefghabc"
+# p short_long_short('abcde', 'fgh') == "fghabcdefgh"
+# p short_long_short('', 'xyz') == "xyz"
 
 ### 10 CONVERT A SIGNED NUMBER TO A STRING!
 # INT_STRINGS = ('0'..'9').to_a
