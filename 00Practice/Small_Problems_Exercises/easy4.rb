@@ -1,15 +1,15 @@
 ### 2.2 WHAT CENTURY IS THAT?
 def century(year)
   century = get_century(year)
-  display_century(century)
+  format_century(century)
 end
 
 def get_century(year)
-  quotient, remainder = year.divmod(100)
-  century = remainder == 0 ? quotient : quotient + 1
+  century, remainder = year.divmod(100)
+  remainder == 0 ? century : century + 1
 end
 
-def display_century(century)
+def format_century(century)
   quotient, remainder = century.divmod(10)
   suffix = (quotient % 10 == 1) ? 'th' : get_suffix(remainder)
   century.to_s + suffix
