@@ -1,28 +1,62 @@
+### 7.2 STRING TO NUMBER
+def string_to_integer(string)
+  
+end
+
+p string_to_integer('4321') == 4321
+p string_to_integer('570') == 570
+
+### 6.2 
+# def running_total(numbers)
+#   total = 0
+#   numbers.map { |number| total += number }
+# end
+
+# def running_total(numbers)
+#   total = 0
+#   numbers.each_with_object([]) { |number, result| result << total += number }
+# end
+
+# def running_total(numbers)
+#   total = 0
+#   numbers.reduce([]) { |result, number| result << total += number }
+# end
+
+# def running_total(numbers)
+#   numbers.each_index.map { |index| numbers[0..index].sum }
+# end
+
+# p running_total([2, 5, 13]) == [2, 7, 20]
+# p running_total([14, 11, 7, 15, 20]) == [14, 25, 32, 47, 67]
+# p running_total([3]) == [3]
+# p running_total([]) == []
+# p running_total([1, 1, 1, 1, 1]) == [1, 2, 3, 4, 5]
+
 ### 5.2 MULTIPLES OF 3 AND 5
-def multisum1(number)
-  (3..number).select { |number| number % 3 == 0 || number % 5 == 0 }.sum
-end
+# def multisum1(number)
+#   (3..number).select { |number| number % 3 == 0 || number % 5 == 0 }.sum
+# end
 
-def multisum1(number)
-  ((3..number).step(3) + (5..number).step(5)).uniq.sum
-end
+# def multisum1(number)
+#   ((3..number).step(3) + (5..number).step(5)).uniq.sum
+# end
 
-def multisum(number)
-  (3..number).reduce do |sum, num|
-    sum + (num % 3 == 0 || num % 5 == 0 ? num : 0)
-  end
-end
+# def multisum(number)
+#   (3..number).reduce do |sum, num|
+#     sum + (num % 3 == 0 || num % 5 == 0 ? num : 0)
+#   end
+# end
 
-def multisum(number)
-  (3..number).reduce do |sum, num|
-    num % 3 == 0 || num % 5 == 0 ? sum + num : sum
-  end
-end
+# def multisum(number)
+#   (3..number).reduce do |sum, num|
+#     num % 3 == 0 || num % 5 == 0 ? sum + num : sum
+#   end
+# end
 
-p multisum(3) == 3
-p multisum(5) == 8
-p multisum(10) == 33
-p multisum(1000) == 234168
+# p multisum(3) == 3
+# p multisum(5) == 8
+# p multisum(10) == 33
+# p multisum(1000) == 234168
 
 ### 4.2 LEAP YEARS II
 # def leap_year?(year)
