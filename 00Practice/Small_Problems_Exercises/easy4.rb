@@ -1,38 +1,61 @@
+### 3.2 LEAP YEARS I
+def leap_year?(year)
+  year % 100 == 0 ? year % 400 == 0 : year % 4 == 0
+end
+
+def leap_year?(year)
+  year % 4 == 0 && year % 100 != 0 || year % 400 == 0
+end
+
+p leap_year?(2016) == true
+p leap_year?(2015) == false
+p leap_year?(2100) == false
+p leap_year?(2400) == true
+p leap_year?(240000) == true
+p leap_year?(240001) == false
+p leap_year?(2000) == true
+p leap_year?(1900) == false
+p leap_year?(1752) == true
+p leap_year?(1700) == false
+p leap_year?(1) == false
+p leap_year?(100) == false
+p leap_year?(400) == true
+
 ### 2.2 WHAT CENTURY IS THAT?
-def century(year)
-  century = get_century(year)
-  format_century(century)
-end
+# def century(year)
+#   century = get_century(year)
+#   format_century(century)
+# end
 
-def get_century(year)
-  century, remainder = year.divmod(100)
-  remainder == 0 ? century : century + 1
-end
+# def get_century(year)
+#   century, remainder = year.divmod(100)
+#   remainder == 0 ? century : century + 1
+# end
 
-def format_century(century)
-  quotient, remainder = century.divmod(10)
-  suffix = (quotient % 10 == 1) ? 'th' : get_suffix(remainder)
-  century.to_s + suffix
-end
+# def format_century(century)
+#   quotient, remainder = century.divmod(10)
+#   suffix = (quotient % 10 == 1) ? 'th' : get_suffix(remainder)
+#   century.to_s + suffix
+# end
 
-def get_suffix(remainder)
-  case remainder
-  when 1 then 'st'
-  when 2 then 'nd'
-  when 3 then 'rd'
-  else 'th'
-  end
-end
+# def get_suffix(remainder)
+#   case remainder
+#   when 1 then 'st'
+#   when 2 then 'nd'
+#   when 3 then 'rd'
+#   else 'th'
+#   end
+# end
 
-p century(2000) == '20th'
-p century(2001) == '21st'
-p century(1965) == '20th'
-p century(256) == '3rd'
-p century(5) == '1st'
-p century(10103) == '102nd'
-p century(1052) == '11th'
-p century(1127) == '12th'
-p century(11201) == '113th'
+# p century(2000) == '20th'
+# p century(2001) == '21st'
+# p century(1965) == '20th'
+# p century(256) == '3rd'
+# p century(5) == '1st'
+# p century(10103) == '102nd'
+# p century(1052) == '11th'
+# p century(1127) == '12th'
+# p century(11201) == '113th'
 
 ### 1.2 SHORT LONG SHORT
 # def short_long_short(string1, string2)

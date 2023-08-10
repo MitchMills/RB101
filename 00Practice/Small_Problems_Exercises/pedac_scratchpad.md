@@ -1,16 +1,17 @@
 # PROBLEM
-Write a method that takes a year as input and returns the century. The return value should be a string that begins with the century number, and ends with st, nd, rd, or th as appropriate for that number.
+In the modern era under the Gregorian Calendar, leap years occur in every year that is evenly divisible by 4, unless the year is also divisible by 100. If the year is evenly divisible by 100, then it is not a leap year unless the year is evenly divisible by 400.
 
-New centuries begin in years that end with 01. So, the years 1901-2000 comprise the 20th century.
+Assume this rule is good for any year greater than year 0. Write a method that takes any year greater than 0 as input, and returns true if the year is a leap year, or false if it is not a leap year.
 
-  Input: integer: represents year
+  Input: positive integer
 
-  Output: string: represents century
+  Output: boolean
 
   ## Rules
   ### explicit
-  - new centuries begin in years that end with 01
-    - 20th century = 1901 - 2000
+  leap year if evenly divisible by 400
+  leap year if evenly divisible by 4 unless evenly divisible by 100
+
   ### implicit
 
 
@@ -18,36 +19,24 @@ New centuries begin in years that end with 01. So, the years 1901-2000 comprise 
 
 
 # EXAMPLES
-century(2000) == '20th'
-century(2001) == '21st'
-century(1965) == '20th'
-century(256) == '3rd'
-century(5) == '1st'
-century(10103) == '102nd'
-century(1052) == '11th'
-century(1127) == '12th'
-century(11201) == '113th'
+leap_year?(2016) == true
+leap_year?(2015) == false
+leap_year?(2100) == false
+leap_year?(2400) == true
+leap_year?(240000) == true
+leap_year?(240001) == false
+leap_year?(2000) == true
+leap_year?(1900) == false
+leap_year?(1752) == true
+leap_year?(1700) == false
+leap_year?(1) == false
+leap_year?(100) == false
+leap_year?(400) == true
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- determine century
-  - get the quotient and remainder of dividing year by 100
-    - if remainder == 0, century is quotient
-    - if remainder > 0, century is (quotient + 1)
-- display century
-  1st
-
-  2nd
-
-  3rd
-  
-  4th
-  5th
-  6th
-
-  21st
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
