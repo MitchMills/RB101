@@ -1,6 +1,22 @@
 ### 5.2 MULTIPLES OF 3 AND 5
-def multisum(number)
+def multisum1(number)
+  (3..number).select { |number| number % 3 == 0 || number % 5 == 0 }.sum
+end
 
+def multisum1(number)
+  ((3..number).step(3) + (5..number).step(5)).uniq.sum
+end
+
+def multisum(number)
+  (3..number).reduce do |sum, num|
+    sum + (num % 3 == 0 || num % 5 == 0 ? num : 0)
+  end
+end
+
+def multisum(number)
+  (3..number).reduce do |sum, num|
+    num % 3 == 0 || num % 5 == 0 ? sum + num : sum
+  end
 end
 
 p multisum(3) == 3
