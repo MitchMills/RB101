@@ -1,11 +1,33 @@
-### 8.2 STRING TO SIGNED NUMBER
-def string_to_signed_integer(string)
+### 9.2 NUMBER TO STRING
+def integer_to_string(integer)
 
 end
 
-p string_to_signed_integer('4321') == 4321
-p string_to_signed_integer('-570') == -570
-p string_to_signed_integer('+100') == 100
+p integer_to_string(4321) == '4321'
+p integer_to_string(0) == '0'
+p integer_to_string(5000) == '5000'
+
+### 8.2 STRING TO SIGNED NUMBER
+# STRINGS_TO_INTEGERS = ('0'..'9').zip(0..9).to_h
+
+# def string_to_signed_integer(string)
+#   integer = string_to_integer(remove_sign(string))
+#   string[0] == '-' ? -integer : integer
+# end
+
+# def string_to_integer(string)
+#   string.each_char.reduce(0) do |result, character|
+#     result = 10 * result + STRINGS_TO_INTEGERS[character]
+#   end
+# end
+
+# def remove_sign(string)
+#   ['+', '-'].include?(string[0]) ? string[1..] : string
+# end
+
+# p string_to_signed_integer('4321') == 4321
+# p string_to_signed_integer('-570') == -570
+# p string_to_signed_integer('+100') == 100
 
 ### 7.2 STRING TO NUMBER
 # NUMBERS = ('0'..'9').zip(0..9).to_h
