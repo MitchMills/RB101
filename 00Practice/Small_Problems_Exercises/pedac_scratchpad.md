@@ -5,9 +5,9 @@ Write a method that takes a positive integer or zero, and converts it to a strin
 
 You may not use any of the standard conversion methods available in Ruby, such as Integer#to_s, String(), Kernel#format, etc. Your method should do this the old-fashioned way and construct the string by analyzing and manipulating the number.
 
-  Input: 
+  Input: integer >= 0
 
-  Output:
+  Output: string
 
   ## Rules
   ### explicit
@@ -27,6 +27,19 @@ integer_to_string(5000) == '5000'
 
 
 # ALGORITHM
+- create hash of integer to string: { 1: '1', etc }
+- divide input number by 10 to get quotient and remainder: 432, 1
+- convert remainder to string via hash
+- add to result string
+- repeat process on quotient until quotient == 0
+
+4321
+432, 1
+43, 2
+4, 3
+0, 4
+
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #

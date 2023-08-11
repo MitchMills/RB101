@@ -1,7 +1,33 @@
 ### 9.2 NUMBER TO STRING
-def integer_to_string(integer)
+STRING_INTEGERS = ('0'..'9').to_a
 
+# def integer_to_string(integer)
+#   result = ''
+#   loop do
+#     integer, remainder = integer.divmod(10)
+#     result.prepend(STRING_INTEGERS[remainder])
+#     break if integer == 0
+#   end
+#   result
+# end
+
+def integer_to_string(integer)
+  integer.digits.reduce('') do |result, digit|
+    result.prepend(STRING_INTEGERS[digit])
+  end
 end
+
+# def integer_to_string(integer)
+#   integer.digits.reverse.map { |digit| STRING_INTEGERS[digit] }.join
+# end
+
+# def integer_to_string(integer)
+#   integer.digits.reverse.join
+# end
+
+# def integer_to_string(integer)
+#   [integer].join
+# end
 
 p integer_to_string(4321) == '4321'
 p integer_to_string(0) == '0'
