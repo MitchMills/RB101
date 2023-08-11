@@ -1,20 +1,57 @@
+### 8.2 STRING TO SIGNED NUMBER
+def string_to_signed_integer(string)
+
+end
+
+p string_to_signed_integer('4321') == 4321
+p string_to_signed_integer('-570') == -570
+p string_to_signed_integer('+100') == 100
+
 ### 7.2 STRING TO NUMBER
-STRINGS_TO_INTEGERS = ('0'..'9').zip(0..9).to_h
+# NUMBERS = ('0'..'9').zip(0..9).to_h
+# LETTERS = ('a'..'f').zip(10..15).to_h
+# HEXADECIMALS = NUMBERS.merge(LETTERS)
 
-def string_to_integer(string)
-  result = 0
-  string.reverse.each_char.with_index do |char, idx|
-    result += (get_integer(char) * 10**idx)
-  end
-  result
-end
+# def hexadecimal_to_integer(string)
+#   string.downcase.reverse.each_char.with_index.reduce(0) do |result, (char, idx)|
+#     result += (HEXADECIMALS[char] * 16**idx)
+#   end
+# end
 
-def get_integer(character)
-  STRINGS_TO_INTEGERS[character]
-end
+# def hexadecimal_to_integer(string)
+#   string.downcase.each_char.reduce(0) do |result, character|
+#     result = 16 * result + HEXADECIMALS[character]
+#   end
+# end
 
-p string_to_integer('4321') == 4321
-p string_to_integer('570') == 570
+# p hexadecimal_to_integer('4D9f') == 19871
+
+###
+
+# STRINGS_TO_INTEGERS = ('0'..'9').zip(0..9).to_h
+
+# def string_to_integer(string)
+#   result = 0
+#   string.reverse.each_char.with_index do |char, idx|
+#     result += (STRINGS_TO_INTEGERS[char] * 10**idx)
+#   end
+#   result
+# end
+
+# def string_to_integer(string)
+#   string.reverse.each_char.with_index.reduce(0) do |result, (char, idx)|
+#     result += (STRINGS_TO_INTEGERS[char] * 10**idx)
+#   end
+# end
+
+# def string_to_integer(string)
+#   string.each_char.reduce(0) do |result, character|
+#     result = 10 * result + STRINGS_TO_INTEGERS[character]
+#   end
+# end
+
+# p string_to_integer('4321') == 4321
+# p string_to_integer('570') == 570
 
 ### 6.2 
 # def running_total(numbers)
