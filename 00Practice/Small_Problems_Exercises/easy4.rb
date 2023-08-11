@@ -1,6 +1,16 @@
 ### 7.2 STRING TO NUMBER
+STRINGS_TO_INTEGERS = ('0'..'9').zip(0..9).to_h
+
 def string_to_integer(string)
-  
+  result = 0
+  string.reverse.each_char.with_index do |char, idx|
+    result += (get_integer(char) * 10**idx)
+  end
+  result
+end
+
+def get_integer(character)
+  STRINGS_TO_INTEGERS[character]
 end
 
 p string_to_integer('4321') == 4321

@@ -7,9 +7,9 @@ For now, do not worry about leading + or - signs, nor should you worry about inv
 
 You may not use any of the standard conversion methods available in Ruby to convert a string to a number, such as String#to_i, Integer(), etc. Your method should do this the old-fashioned way and calculate the result by analyzing the characters in the string.
 
-  Input: 
+  Input: string: all numeric characters
 
-  Output:
+  Output: integer
 
   ## Rules
   ### explicit
@@ -28,6 +28,14 @@ string_to_integer('570') == 570
 
 
 # ALGORITHM
+- set total to 0
+- reverse the string
+- iterate over each character in the string
+- convert into a digit
+- multiply digit times 10**idx
+- add to total
+- return total
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
