@@ -1,5 +1,17 @@
-### 9.2 NUMBER TO STRING
+### 10.2 SIGNED NUMBER TO STRING
 STRING_INTEGERS = ('0'..'9').to_a
+
+def signed_integer_to_string(integer)
+  string = integer_to_string(integer.abs)
+  return string if integer == 0
+  integer > 0 ? "+#{string}" : "-#{string}"
+end
+
+def integer_to_string(integer)
+  integer.digits.reduce('') do |result, digit|
+    result.prepend(STRING_INTEGERS[digit])
+  end
+end
 
 # def integer_to_string(integer)
 #   result = ''
@@ -11,11 +23,28 @@ STRING_INTEGERS = ('0'..'9').to_a
 #   result
 # end
 
-def integer_to_string(integer)
-  integer.digits.reduce('') do |result, digit|
-    result.prepend(STRING_INTEGERS[digit])
-  end
-end
+p signed_integer_to_string(4321) == '+4321'
+p signed_integer_to_string(-123) == '-123'
+p signed_integer_to_string(0) == '0'
+
+### 9.2 NUMBER TO STRING
+# STRING_INTEGERS = ('0'..'9').to_a
+
+# def integer_to_string(integer)
+#   result = ''
+#   loop do
+#     integer, remainder = integer.divmod(10)
+#     result.prepend(STRING_INTEGERS[remainder])
+#     break if integer == 0
+#   end
+#   result
+# end
+
+# def integer_to_string(integer)
+#   integer.digits.reduce('') do |result, digit|
+#     result.prepend(STRING_INTEGERS[digit])
+#   end
+# end
 
 # def integer_to_string(integer)
 #   integer.digits.reverse.map { |digit| STRING_INTEGERS[digit] }.join
@@ -29,9 +58,9 @@ end
 #   [integer].join
 # end
 
-p integer_to_string(4321) == '4321'
-p integer_to_string(0) == '0'
-p integer_to_string(5000) == '5000'
+# p integer_to_string(4321) == '4321'
+# p integer_to_string(0) == '0'
+# p integer_to_string(5000) == '5000'
 
 ### 8.2 STRING TO SIGNED NUMBER
 # STRINGS_TO_INTEGERS = ('0'..'9').zip(0..9).to_h
