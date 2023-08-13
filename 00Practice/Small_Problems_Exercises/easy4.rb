@@ -1,17 +1,17 @@
 ### 10.2 SIGNED NUMBER TO STRING
-STRING_INTEGERS = ('0'..'9').to_a
+# STRING_INTEGERS = ('0'..'9').to_a
 
-def signed_integer_to_string(integer)
-  string = integer_to_string(integer.abs)
-  return string if integer == 0
-  integer > 0 ? "+#{string}" : "-#{string}"
-end
+# def signed_integer_to_string(integer)
+#   string = integer_to_string(integer.abs)
+#   return string if integer == 0
+#   integer > 0 ? "+#{string}" : "-#{string}"
+# end
 
-def integer_to_string(integer)
-  integer.digits.reduce('') do |result, digit|
-    result.prepend(STRING_INTEGERS[digit])
-  end
-end
+# def integer_to_string(integer)
+#   integer.digits.reduce('') do |result, digit|
+#     result.prepend(STRING_INTEGERS[digit])
+#   end
+# end
 
 # def integer_to_string(integer)
 #   result = ''

@@ -1,24 +1,42 @@
+### 1.2 
+def ascii_value(string)
+  string.chars.reduce(0) { |result, char| result + char.ord }
+end
+
+def ascii_value(string)
+  string.chars.map(&:ord).sum
+end
+
+def ascii_value(string)
+  string.sum
+end
+
+p ascii_value('Four score') == 984
+p ascii_value('Launch School') == 1251
+p ascii_value('a') == 97
+p ascii_value('') == 0
+
 ### 11 LIST OF DIGITS
 # def digit_list(int)
 #   int.digits.reverse
 # end
 
-def digit_list(int)
-  current_num = int
-  result = []
-  loop do
-    current_num, digit = current_num.divmod(10)
-    result.prepend(digit)
-    break if current_num == 0
-  end
-  result
-end
+# def digit_list(int)
+#   current_num = int
+#   result = []
+#   loop do
+#     current_num, digit = current_num.divmod(10)
+#     result.prepend(digit)
+#     break if current_num == 0
+#   end
+#   result
+# end
 
 
-p digit_list(12345) == [1, 2, 3, 4, 5]     # => true
-p digit_list(7) == [7]                     # => true
-p digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
-p digit_list(444) == [4, 4, 4]             # => true
+# p digit_list(12345) == [1, 2, 3, 4, 5]     # => true
+# p digit_list(7) == [7]                     # => true
+# p digit_list(375290) == [3, 7, 5, 2, 9, 0] # => true
+# p digit_list(444) == [4, 4, 4]             # => true
 
 ### 10 SPIN ME AROUND IN CIRCLES
 # def spin_me(str)

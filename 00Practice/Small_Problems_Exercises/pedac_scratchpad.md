@@ -1,13 +1,9 @@
 # PROBLEM
-In the previous exercise, you developed a method that converts non-negative numbers to strings. In this exercise, you're going to extend that method by adding the ability to represent negative numbers as well.
+Write a method that determines and returns the ASCII string value of a string that is passed in as an argument. The ASCII string value is the sum of the ASCII values of every character in the string. (You may use String#ord to determine the ASCII value of a character.)
 
-Write a method that takes an integer, and converts it to a string representation.
+  Input: string, can be empty
 
-You may not use any of the standard conversion methods available in Ruby, such as Integer#to_s, String(), Kernel#format, etc. You may, however, use integer_to_string from the previous exercise.
-
-  Input: integer
-
-  Output: string, including the appropriate sign
+  Output: integer (sum of ascii values of all characters)
 
   ## Rules
   ### explicit
@@ -19,17 +15,19 @@ You may not use any of the standard conversion methods available in Ruby, such a
 
 
 # EXAMPLES
-signed_integer_to_string(4321) == '+4321'
-signed_integer_to_string(-123) == '-123'
-signed_integer_to_string(0) == '0'
+ascii_value('Four score') == 984
+ascii_value('Launch School') == 1251
+ascii_value('a') == 97
+ascii_value('') == 0
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- convert integer to string
-- if > 0, prepend '+'
-- elsif < 0, prepend '-'
+- iterate over each character in the string
+- determine its ascii value
+- add that value to a running total
+- return that total once entire string has been iterated over
 
 
 
