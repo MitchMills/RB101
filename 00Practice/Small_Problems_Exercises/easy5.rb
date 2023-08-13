@@ -1,20 +1,33 @@
-### 1.2 
-def ascii_value(string)
-  string.chars.reduce(0) { |result, char| result + char.ord }
+### 2.2 AFTER MIDNIGHT I
+def time_of_day(minutes)
+
 end
 
-def ascii_value(string)
-  string.chars.map(&:ord).sum
-end
+p time_of_day(0) == "00:00"
+p time_of_day(-3) == "23:57"
+p time_of_day(35) == "00:35"
+p time_of_day(-1437) == "00:03"
+p time_of_day(3000) == "02:00"
+p time_of_day(800) == "13:20"
+p time_of_day(-4231) == "01:29"
 
-def ascii_value(string)
-  string.sum
-end
+### 1.2 ASCII STRING VALUE
+# def ascii_value(string)
+#   string.chars.reduce(0) { |result, char| result + char.ord }
+# end
 
-p ascii_value('Four score') == 984
-p ascii_value('Launch School') == 1251
-p ascii_value('a') == 97
-p ascii_value('') == 0
+# def ascii_value(string)
+#   string.chars.map(&:ord).sum
+# end
+
+# def ascii_value(string)
+#   string.sum
+# end
+
+# p ascii_value('Four score') == 984
+# p ascii_value('Launch School') == 1251
+# p ascii_value('a') == 97
+# p ascii_value('') == 0
 
 ### 11 LIST OF DIGITS
 # def digit_list(int)
