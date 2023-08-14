@@ -1,28 +1,49 @@
+### 4.2 LETTER SWAP
+def swap(string)
+
+end
+
+p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
+p swap('Abcde') == 'ebcdA'
+p swap('a') == 'a'
+
 ### 3.2 AFTER MIDNIGHT II
-MINUTES_PER_HOUR = 60
-HOURS_PER_DAY = 24
-MINUTES_PER_DAY = MINUTES_PER_HOUR * HOURS_PER_DAY # 1440
+# require 'time'
+# MINUTES_PER_HOUR = 60
+# HOURS_PER_DAY = 24
+# MINUTES_PER_DAY = MINUTES_PER_HOUR * HOURS_PER_DAY # 1440
 
-def after_midnight(time)
-  hours = time[0, 2] == '24' ? 0 : time[0, 2].to_i
-  minutes = time[-2, 2].to_i
-  (hours * MINUTES_PER_HOUR) + minutes
-end
+# def after_midnight(time)
+#   time = Time.parse(time)
+#   (time.hour * MINUTES_PER_HOUR) + time.min
+# end
 
-def before_midnight(time)
-  delta = after_midnight(time)
-  delta == 0 ? 0 : MINUTES_PER_DAY - delta
-end
+# def before_midnight(time)
+#   delta = after_midnight(time)
+#   (MINUTES_PER_DAY - delta) % MINUTES_PER_DAY
+# end
 
-p after_midnight('00:00') == 0
-p before_midnight('00:00') == 0
-p after_midnight('12:34') == 754
-p before_midnight('12:34') == 686
-p after_midnight('24:00') == 0
-p before_midnight('24:00') == 0
+###
+
+# def after_midnight(time)
+#   hours, minutes = [0, -2].map { |index| time[index, 2].to_i }
+#   normalized_hours = hours % HOURS_PER_DAY
+#   (normalized_hours * MINUTES_PER_HOUR) + minutes
+# end
+
+# def before_midnight(time)
+#   delta = after_midnight(time)
+#   (MINUTES_PER_DAY - delta) % MINUTES_PER_DAY
+# end
+
+# p after_midnight('00:00') == 0
+# p before_midnight('00:00') == 0
+# p after_midnight('12:34') == 754
+# p before_midnight('12:34') == 686
+# p after_midnight('24:00') == 0
+# p before_midnight('24:00') == 0
 
 ### 2.2 AFTER MIDNIGHT I
-# require 'time'
 # MIDNIGHT = Time.new(2023, 1, 1) # 1/1/23 is the first Sunday in 2023
 # SECONDS_PER_MINUTE = 60
 

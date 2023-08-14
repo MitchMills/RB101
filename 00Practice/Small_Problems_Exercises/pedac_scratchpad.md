@@ -1,13 +1,11 @@
 # PROBLEM
-As seen in the previous exercise, the time of day can be represented as the number of minutes before or after midnight. If the number of minutes is positive, the time is after midnight. If the number of minutes is negative, the time is before midnight.
+Given a string of words separated by spaces, write a method that takes this string of words and returns a string in which the first and last letters of every word are swapped.
 
-Write two methods that each take a time of day in 24 hour format, and return the number of minutes before and after midnight, respectively. Both methods should return a value in the range 0..1439.
+You may assume that every word contains at least one letter, and that the string will always contain at least one word. You may also assume that each string contains nothing but words and spaces.
 
-You may not use ruby's Date and Time methods.
+  Input: 
 
-  Input: string: represents time in 24 hour format
-
-  Output: integer: represents number of minutes before or after midnight
+  Output:
 
   ## Rules
   ### explicit
@@ -19,27 +17,14 @@ You may not use ruby's Date and Time methods.
 
 
 # EXAMPLES
-after_midnight('00:00') == 0
-before_midnight('00:00') == 0
-after_midnight('12:34') == 754
-before_midnight('12:34') == 686
-after_midnight('24:00') == 0
-before_midnight('24:00') == 0
+swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
+swap('Abcde') == 'ebcdA'
+swap('a') == 'a'
 
 # DATA STRUCTURES
 
 
 # ALGORITHM
-- get hours
-  - extract first two characters of string input
-  - convert them into an integer
-  - multiply by 60 to get minutes
-- get minutes
-  - extract last two characters of string input
-  - convert them into an integer
-- get total minutes
-  - add hours(* 60) + minutes
-- return total minutes
   
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
