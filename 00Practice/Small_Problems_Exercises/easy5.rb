@@ -1,15 +1,91 @@
-### 2.2 AFTER MIDNIGHT I
-def time_of_day(minutes)
+### 3.2 AFTER MIDNIGHT II
+def after_midnight(time)
 
 end
 
-p time_of_day(0) == "00:00"
-p time_of_day(-3) == "23:57"
-p time_of_day(35) == "00:35"
-p time_of_day(-1437) == "00:03"
-p time_of_day(3000) == "02:00"
-p time_of_day(800) == "13:20"
-p time_of_day(-4231) == "01:29"
+def before_midnight(time)
+
+end
+
+p after_midnight('00:00') == 0
+p before_midnight('00:00') == 0
+p after_midnight('12:34') == 754
+p before_midnight('12:34') == 686
+p after_midnight('24:00') == 0
+p before_midnight('24:00') == 0
+
+### 2.2 AFTER MIDNIGHT I
+# require 'time'
+# MIDNIGHT = Time.new(2023, 1, 1) # 1/1/23 is the first Sunday in 2023
+# SECONDS_PER_MINUTE = 60
+
+# def time_of_day(minutes)
+#   time = get_time(minutes)
+#   format_time(time)
+# end
+
+# def get_time(minutes)
+#   seconds = minutes * SECONDS_PER_MINUTE
+#   MIDNIGHT + seconds
+# end
+
+# def format_time(time)
+#   time.strftime('%A %R')
+# end
+
+# p time_of_day(0) == "Sunday 00:00"
+# p time_of_day(-3) == "Saturday 23:57"
+# p time_of_day(35) == "Sunday 00:35"
+# p time_of_day(-1437) == "Saturday 00:03"
+# p time_of_day(3000) == "Tuesday 02:00"
+# p time_of_day(800) == "Sunday 13:20"
+# p time_of_day(-4231) == "Thursday 01:29"
+
+###
+# require 'time'
+
+# MIDNIGHT = Time.parse("00:00") # midnight of current date
+# SECONDS_PER_MINUTE = 60
+
+# def time_of_day(minutes)
+#   time = get_time(minutes)
+#   format_time(time)
+# end
+
+# def get_time(minutes)
+#   seconds = minutes * SECONDS_PER_MINUTE
+#   MIDNIGHT + seconds
+# end
+
+# def format_time(time)
+#   time.strftime('%R')
+# end
+
+###
+# MINUTES_PER_DAY = 1440
+# MINUTES_PER_HOUR = 60
+
+# def time_of_day(minutes)
+#   hours_and_minutes = get_hours_and_minutes(minutes)
+#   format_time(hours_and_minutes)
+# end
+
+# def get_hours_and_minutes(minutes)
+#   relevant_minutes = minutes % MINUTES_PER_DAY
+#   relevant_minutes.divmod(MINUTES_PER_HOUR)
+# end
+
+# def format_time(hours_and_minutes)
+#   hours_and_minutes.map { |unit| sprintf('%02d', unit)}.join(':')
+# end
+
+# p time_of_day(0) == "00:00"
+# p time_of_day(-3) == "23:57"
+# p time_of_day(35) == "00:35"
+# p time_of_day(-1437) == "00:03"
+# p time_of_day(3000) == "02:00"
+# p time_of_day(800) == "13:20"
+# p time_of_day(-4231) == "01:29"
 
 ### 1.2 ASCII STRING VALUE
 # def ascii_value(string)
