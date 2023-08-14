@@ -1,10 +1,17 @@
 ### 3.2 AFTER MIDNIGHT II
-def after_midnight(time)
+MINUTES_PER_HOUR = 60
+HOURS_PER_DAY = 24
+MINUTES_PER_DAY = MINUTES_PER_HOUR * HOURS_PER_DAY # 1440
 
+def after_midnight(time)
+  hours = time[0, 2] == '24' ? 0 : time[0, 2].to_i
+  minutes = time[-2, 2].to_i
+  (hours * MINUTES_PER_HOUR) + minutes
 end
 
 def before_midnight(time)
-
+  delta = after_midnight(time)
+  delta == 0 ? 0 : MINUTES_PER_DAY - delta
 end
 
 p after_midnight('00:00') == 0

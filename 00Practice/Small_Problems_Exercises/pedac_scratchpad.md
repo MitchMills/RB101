@@ -5,9 +5,9 @@ Write two methods that each take a time of day in 24 hour format, and return the
 
 You may not use ruby's Date and Time methods.
 
-  Input: 
+  Input: string: represents time in 24 hour format
 
-  Output:
+  Output: integer: represents number of minutes before or after midnight
 
   ## Rules
   ### explicit
@@ -30,6 +30,17 @@ before_midnight('24:00') == 0
 
 
 # ALGORITHM
+- get hours
+  - extract first two characters of string input
+  - convert them into an integer
+  - multiply by 60 to get minutes
+- get minutes
+  - extract last two characters of string input
+  - convert them into an integer
+- get total minutes
+  - add hours(* 60) + minutes
+- return total minutes
+  
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
