@@ -3,15 +3,19 @@ Given a string of words separated by spaces, write a method that takes this stri
 
 You may assume that every word contains at least one letter, and that the string will always contain at least one word. You may also assume that each string contains nothing but words and spaces.
 
-  Input: 
+  Input: string: words separated by spaces
 
-  Output:
+  Output: string: first and last letters of each word swapped
 
   ## Rules
   ### explicit
-  
-  ### implicit
+  - every word contains at least one letter
+  - every input string conatins at least one word
+  - input strings only contain words and spaces, nothing else
 
+  ### implicit
+  - one letter strings return "themselves"
+  - capitalization is not changed
 
   ## Questions
 
@@ -25,7 +29,10 @@ swap('a') == 'a'
 
 
 # ALGORITHM
-  
+  - split input string into an array of individual words
+  - iterate over the array
+    - for each element, switch the first and last letters
+  - join the array back into a string
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
