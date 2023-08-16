@@ -1,7 +1,7 @@
 ### 4.2 LETTER SWAP
-# def swap(string)
-#   string.split.each { |word| word[0], word[-1] = word[-1], word[0] }.join(' ')
-# end
+def swap(string)
+  string.split.each { |word| word[0], word[-1] = word[-1], word[0] }.join(' ')
+end
 
 p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
 p swap('Abcde') == 'ebcdA'
@@ -15,8 +15,23 @@ end
 swap_first_last_characters(word[0], word[-1])
 =begin
 The reason the example in Further Exploration doesn't work is because it utilizes reassignment. The values referenced by `word[0]` and `word[-1]` are passed in to the method as arguments. The local variables `a` and `b` are initialized and assigned those respective values. Then `a` and `b` are reassigned within the method to point to different objects. `word[0]` and `word[-1]` still reference the original objects.
+=end
 
-By contrast, the original method uses indexed assignment (the `[]=` method), which
+def swap_first_last_characters(word)
+  word[0], word[-1] = word[-1], word[0]
+  word
+end
+
+def swap(words)
+  result = words.split.map do |word|
+    swap_first_last_characters(word)
+  end
+  result.join(' ')
+end
+
+=begin
+By contrast, the original method uses indexed assignment (the `[]=` method), which mutates the calling object. Each string object passed in to `swap_first_last_characters` as an argument is assigned to the variable `word`, and then that object is mutated via the `[]=` method.
+
 =end
 
 ### 3.2 AFTER MIDNIGHT II
