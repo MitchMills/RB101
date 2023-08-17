@@ -1,38 +1,51 @@
-### 4.2 LETTER SWAP
-def swap(string)
-  string.split.each { |word| word[0], word[-1] = word[-1], word[0] }.join(' ')
+### 5.2 CLEAN UP THE WORDS
+def cleanup(string)
+
 end
 
-p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
-p swap('Abcde') == 'ebcdA'
-p swap('a') == 'a'
+p cleanup("---what's my +*& line?") == ' what s my line '
+
+### 4.2 LETTER SWAP
+# def swap(string)
+#   string.split.each { |word| word[0], word[-1] = word[-1], word[0] }.join(' ')
+# end
+
+# p swap('Oh what a wonderful day it is') == 'hO thaw a londerfuw yad ti si'
+# p swap('Abcde') == 'ebcdA'
+# p swap('a') == 'a'
 
 ####
-def swap_first_last_characters(a, b)
-  a, b = b, a
-end
-
-swap_first_last_characters(word[0], word[-1])
 =begin
-The reason the example in Further Exploration doesn't work is because it utilizes reassignment. The values referenced by `word[0]` and `word[-1]` are passed in to the method as arguments. The local variables `a` and `b` are initialized and assigned those respective values. Then `a` and `b` are reassigned within the method to point to different objects. `word[0]` and `word[-1]` still reference the original objects.
+The reason the example in Further Exploration doesn't work is because it utilizes reassignment. The values referenced by `word[0]` and `word[-1]` are passed in to the method as arguments. The local variables `a` and `b` are initialized and assigned those respective values. Then `a` and `b` are reassigned within the method to point to different objects. `word[0]` and `word[-1]` still reference the original objects and their values remain unchanged.
 =end
+# def swap_first_last_characters(a, b)
+#   a, b = b, a
+# end
 
-def swap_first_last_characters(word)
-  word[0], word[-1] = word[-1], word[0]
-  word
-end
-
-def swap(words)
-  result = words.split.map do |word|
-    swap_first_last_characters(word)
-  end
-  result.join(' ')
-end
+# swap_first_last_characters(word[0], word[-1])
 
 =begin
-By contrast, the original method uses indexed assignment (the `[]=` method), which mutates the calling object. Each string object passed in to `swap_first_last_characters` as an argument is assigned to the variable `word`, and then that object is mutated via the `[]=` method.
-
+By contrast, the original method uses indexed assignment (the `[]=` method), which mutates the calling object. Each String object passed in to `swap_first_last_characters` as an argument is assigned to the variable `word`, and then that object is mutated via calls to the `[]=` method.
 =end
+# def swap_first_last_characters(word)
+#   word[0], word[-1] = word[-1], word[0]
+#   word
+# end
+
+# def swap(words)
+#   result = words.split.map do |word|
+#     swap_first_last_characters(word)
+#   end
+#   result.join(' ')
+# end
+=begin
+For this reason you could also use `#each` instead of `#map`. The `#each` method returns its calling array, while `#map` returns a new array. Whenever we're transforming array elements `#map` seems like a natural choice. But in this instance, because the objects in the calling array are mutated, that array contains references to the same objects as the new array that `#map` would return.
+=end
+# def swap(words)
+#   words.split.each do |word|
+#     swap_first_last_characters(word)
+#   end.join(' ')
+# end
 
 ### 3.2 AFTER MIDNIGHT II
 # require 'time'
