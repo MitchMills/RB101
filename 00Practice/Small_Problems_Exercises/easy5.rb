@@ -1,9 +1,35 @@
-### 5.2 CLEAN UP THE WORDS
-def cleanup(string)
+### 6.2 LETTER COUNTER I
+def word_sizes(string)
 
 end
 
-p cleanup("---what's my +*& line?") == ' what s my line '
+p word_sizes('Four score and seven.') == { 3 => 1, 4 => 1, 5 => 1, 6 => 1 }
+p word_sizes('Hey diddle diddle, the cat and the fiddle!') == { 3 => 5, 6 => 1, 7 => 2 }
+p word_sizes("What's up doc?") == { 6 => 1, 2 => 1, 4 => 1 }
+p word_sizes('') == {}
+
+### 5.2 CLEAN UP THE WORDS
+# def cleanup(string)
+#   string.chars.map do |character|
+#     ('a'..'z').include?(character) ? character : ' '
+#   end.join.squeeze(' ')
+# end
+
+# def cleanup(string)
+#   string.each_char.map do |character|
+#     ('a'..'z').include?(character) ? character : ' '
+#   end.join.squeeze(' ')
+# end
+
+# def cleanup(text)
+#   text.gsub(/[^a-z]/, ' ').squeeze(' ')
+# end
+
+# string = ("---what's my +*& line?")
+# p string.object_id
+# p new_string = cleanup(string)
+# p string.object_id
+# p new_string.object_id
 
 ### 4.2 LETTER SWAP
 # def swap(string)
